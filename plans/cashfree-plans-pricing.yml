@@ -1,0 +1,54 @@
+name: Cashfree Payments Plans and Pricing
+description: Pricing tiers and transaction fee structure for Cashfree Payments payment gateway and API products.
+url: https://www.cashfree.com/payment-gateway-charges/
+plans:
+  - name: Standard
+    description: Standard pricing for all businesses with per-transaction rates and no setup fee.
+    url: https://www.cashfree.com/payment-gateway-charges/
+    currency: INR
+    setupFee: 0
+    annualFee: 0
+    pricing:
+      - method: UPI
+        rate: "1.95%"
+        notes: All UPI variants including UPI AutoPay
+      - method: Domestic Credit Cards
+        rate: "1.95%"
+      - method: Domestic Debit Cards
+        rate: "1.95%"
+      - method: Net Banking
+        rate: "1.95%"
+      - method: Wallets
+        rate: "1.95%"
+      - method: Credit Card EMI
+        rate: "1.90% + 0.25%"
+      - method: Debit Card EMI (HDFC)
+        rate: "1.50%"
+      - method: Cardless EMI
+        rate: "1.90%"
+      - method: Pay Later
+        rate: "2.20%"
+      - method: International Visa/Mastercard
+        rate: "2.99%"
+      - method: American Express
+        rate: "2.95%"
+      - method: Virtual Bank Account
+        rate: "₹20 flat fee per transaction"
+  - name: Promotional (New Merchants)
+    description: Limited period offer for new merchants signing up between September 18 2025 and April 30 2026 — promotional rates valid for 12 months from signup.
+    url: https://www.cashfree.com/payment-gateway-charges/
+    currency: INR
+    setupFee: 0
+    annualFee: 0
+    pricing:
+      - method: Domestic transactions (all methods)
+        rate: "1.60%"
+        notes: Covers UPI, cards, net banking, wallets
+      - method: International Visa/Mastercard
+        rate: "2.69%"
+  - name: Enterprise
+    description: Custom pricing for high-volume businesses based on monthly payment volume, average transaction size, industry category, and growth potential.
+    url: https://www.cashfree.com/payment-gateway-charges/
+    contact: https://www.cashfree.com/contact-us/
+    pricing: []
+    notes: Contact sales for customised rates

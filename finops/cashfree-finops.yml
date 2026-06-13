@@ -1,0 +1,31 @@
+name: Cashfree Payments FinOps
+description: Financial operations guidance for managing costs, forecasting spend, and optimising API usage with Cashfree Payments.
+url: https://www.cashfree.com/payment-gateway-charges/
+costModel:
+  type: per-transaction
+  description: Cashfree charges a percentage-based transaction discount rate (TDR) deducted from each successful payment before settlement. There are no monthly base fees for the standard tier.
+keyDrivers:
+  - driver: Transaction Volume
+    description: Total number and value of successful transactions processed per month. Higher volumes may qualify for custom enterprise pricing.
+  - driver: Payment Method Mix
+    description: Rate varies by method — domestic UPI/cards/net banking at 1.95%, international cards at 2.69–2.99%, specialist instruments (Pay Later, EMI) at 1.50–2.20%.
+  - driver: International vs Domestic Split
+    description: International card acceptance carries a meaningfully higher TDR (2.69–2.99%) versus domestic instruments (1.60–1.95%). Minimising unnecessary international routing reduces cost.
+  - driver: Virtual Bank Accounts
+    description: Virtual account transactions incur a flat ₹20 fee rather than a percentage — may be cost-effective for large-value transactions.
+optimisationTips:
+  - tip: Negotiate enterprise pricing once monthly payment volume justifies custom rates.
+  - tip: Route lower-value transactions through UPI or standard domestic card rails to benefit from the lowest TDR.
+  - tip: Monitor promotional offer eligibility — new merchants (Sept 2025 – Apr 2026) receive 1.60% for 12 months, reducing cost substantially in the first year.
+  - tip: Use the sandbox environment freely for development and testing; sandbox calls do not incur transaction fees.
+  - tip: Set up rate-limit monitoring using X-RateLimit-Remaining headers to avoid 429 errors that may require costly retry logic.
+settlement:
+  description: Cashfree deducts TDR before settling funds to the merchant's bank account. Instant Settlement is available as a premium feature.
+  instantSettlement: https://www.cashfree.com/
+references:
+  - name: Payment Gateway Charges
+    url: https://www.cashfree.com/payment-gateway-charges/
+  - name: Cashfree Pricing Plans
+    url: https://www.cashfree.com/payment-gateway-charges/
+  - name: Contact Sales for Enterprise Pricing
+    url: https://www.cashfree.com/contact-us/

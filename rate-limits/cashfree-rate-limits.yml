@@ -1,0 +1,25 @@
+name: Cashfree Payments API Rate Limits
+description: Rate limiting policy for Cashfree Payments REST APIs. Each endpoint may have its own rate limit window; limits are communicated via response headers.
+url: https://www.cashfree.com/docs/api-reference/rate-limits
+headers:
+  - name: X-RateLimit-Limit
+    description: The maximum number of requests allowed in the current rate-limit window.
+  - name: X-RateLimit-Remaining
+    description: The number of requests remaining in the current window.
+  - name: X-RateLimit-Reset
+    description: Time in seconds until the rate-limit window resets.
+errorResponse:
+  httpStatus: 429
+  message: Too Many Requests
+  retryAfter: Indicated in response headers
+policies:
+  - name: Per-Endpoint Limits
+    description: Each API endpoint may carry its own rate limit rather than a single global cap. Consult the per-product rate limits pages for specific values.
+    references:
+      - name: Payment API Rate Limits
+        url: https://www.cashfree.com/docs/api-reference/rate-limits
+      - name: SecureID API Rate Limits
+        url: https://www.cashfree.com/docs/api-reference/rate-limits
+  - name: Sandbox Environment
+    description: The sandbox environment supports testing without affecting production quotas. Credentials determine whether requests hit sandbox or production.
+notes: Cashfree does not publish a single universal requests-per-minute figure; specific limits are endpoint-dependent and available in each product's rate-limits documentation page.
