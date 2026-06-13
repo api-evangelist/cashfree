@@ -1,0 +1,4082 @@
+{
+  "api": "Cashfree Payment Gateway APIs",
+  "version": "2025-01-01",
+  "vocabulary": [
+    {
+      "term": "Orders",
+      "description": "Collection of APIs to handle orders.",
+      "source": "tag"
+    },
+    {
+      "term": "Payments",
+      "description": "Collection of APIs to handle payments.",
+      "source": "tag"
+    },
+    {
+      "term": "Refunds",
+      "description": "Collection of APIs to handle refunds.",
+      "source": "tag"
+    },
+    {
+      "term": "Settlements",
+      "description": "Collection of APIs to handle settlements.",
+      "source": "tag"
+    },
+    {
+      "term": "Payment Links",
+      "description": "Collection of APIs to handle payment links.",
+      "source": "tag"
+    },
+    {
+      "term": "Token Vault",
+      "description": "Collection of APIs to use Cashfree's token Vault. This helps you save cards and tokenize them in a PCI-compliant manner. We support the creation of network tokens which can be used across acquiring banks.",
+      "source": "tag"
+    },
+    {
+      "term": "softPOS",
+      "description": "Collection of APIs to manage the softPOS agent and order",
+      "source": "tag"
+    },
+    {
+      "term": "Offers",
+      "description": "Collection of APIs to handle offers",
+      "source": "tag"
+    },
+    {
+      "term": "Eligibility",
+      "description": "Collection of APIs to check eligible entities - payment methods, offers, affordability",
+      "source": "tag"
+    },
+    {
+      "term": "Settlement Reconciliation",
+      "description": "Collection of APIs to handle settlements",
+      "source": "tag"
+    },
+    {
+      "term": "PG Reconciliation",
+      "description": "Collection of APIs to handle reconciliation",
+      "source": "tag"
+    },
+    {
+      "term": "Customers",
+      "description": "Collection of APIs to handle customers.",
+      "source": "tag"
+    },
+    {
+      "term": "Easy-Split",
+      "description": "Collection of APIs to handle Easy-Split.",
+      "source": "tag"
+    },
+    {
+      "term": "Simulation",
+      "description": "Collection of APIs to handle simulation.",
+      "source": "tag"
+    },
+    {
+      "term": "Disputes",
+      "description": "Collection of APIs to handle disputes.",
+      "source": "tag"
+    },
+    {
+      "term": "Utilities",
+      "description": "Collection of APIs for utility requirements.",
+      "source": "tag"
+    },
+    {
+      "term": "VendorRecon200Response",
+      "description": "Fetch Vendor Recon details success response.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "cursor",
+      "description": "",
+      "source": "property",
+      "schema": "VendorRecon200Response"
+    },
+    {
+      "term": "data",
+      "description": "",
+      "source": "property",
+      "schema": "VendorRecon200Response"
+    },
+    {
+      "term": "limit",
+      "description": "",
+      "source": "property",
+      "schema": "VendorRecon200Response"
+    },
+    {
+      "term": "VendorReconRequest",
+      "description": "Vendor Recon Request body.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "pagination",
+      "description": "The merchant can set pagination limits based on their use case. The minimum limit is 10. Pagination will fetch a set of records, and the next set of records can be generated using the cursor provided in response to the first request for all reconciliation APIs.",
+      "source": "property",
+      "schema": "VendorReconRequest"
+    },
+    {
+      "term": "filters",
+      "description": "Specify the filters for the desired use case.",
+      "source": "property",
+      "schema": "VendorReconRequest"
+    },
+    {
+      "term": "UploadTerminalDocsEntity",
+      "description": "Upload the terminal documents.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "cf_terminal_id",
+      "description": "",
+      "source": "property",
+      "schema": "UploadTerminalDocsEntity"
+    },
+    {
+      "term": "doc_type",
+      "description": "",
+      "source": "property",
+      "schema": "UploadTerminalDocsEntity"
+    },
+    {
+      "term": "doc_value",
+      "description": "",
+      "source": "property",
+      "schema": "UploadTerminalDocsEntity"
+    },
+    {
+      "term": "status",
+      "description": "",
+      "source": "property",
+      "schema": "UploadTerminalDocsEntity"
+    },
+    {
+      "term": "AllOffers",
+      "description": "All offers applicable",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "ApiError",
+      "description": "Error at cashfree's server",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "message",
+      "description": "",
+      "source": "property",
+      "schema": "ApiError"
+    },
+    {
+      "term": "code",
+      "description": "",
+      "source": "property",
+      "schema": "ApiError"
+    },
+    {
+      "term": "help",
+      "description": "",
+      "source": "property",
+      "schema": "ApiError"
+    },
+    {
+      "term": "type",
+      "description": "api_error",
+      "source": "property",
+      "schema": "ApiError"
+    },
+    {
+      "term": "ApiError404",
+      "description": "Error when resource requested is not found",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "ApiError409",
+      "description": "duplicate request",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "ApiError502",
+      "description": "Error when there is error at partner bank",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "App",
+      "description": "App payment method",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "channel",
+      "description": "Specify the channel through which the payment must be processed.",
+      "source": "property",
+      "schema": "App"
+    },
+    {
+      "term": "provider",
+      "description": "Specify the provider through which the payment must be processed.",
+      "source": "property",
+      "schema": "App"
+    },
+    {
+      "term": "phone",
+      "description": "Customer phone number associated with a wallet for payment.",
+      "source": "property",
+      "schema": "App"
+    },
+    {
+      "term": "AppPaymentMethod",
+      "description": "App payment method",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "app",
+      "description": "",
+      "source": "property",
+      "schema": "AppPaymentMethod"
+    },
+    {
+      "term": "AuthenticationError",
+      "description": "Error if api keys are wrong",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "AuthorizationInPaymentsEntity",
+      "description": "If preauth enabled for account you will get this body",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "action",
+      "description": "One of CAPTURE or VOID",
+      "source": "property",
+      "schema": "AuthorizationInPaymentsEntity"
+    },
+    {
+      "term": "captured_amount",
+      "description": "The captured amount for this authorization request",
+      "source": "property",
+      "schema": "AuthorizationInPaymentsEntity"
+    },
+    {
+      "term": "start_time",
+      "description": "Start time of this authorization hold (only for UPI)",
+      "source": "property",
+      "schema": "AuthorizationInPaymentsEntity"
+    },
+    {
+      "term": "end_time",
+      "description": "End time of this authorization hold (only for UPI)",
+      "source": "property",
+      "schema": "AuthorizationInPaymentsEntity"
+    },
+    {
+      "term": "approve_by",
+      "description": "Approve by time as passed in the authorization request (only for UPI)",
+      "source": "property",
+      "schema": "AuthorizationInPaymentsEntity"
+    },
+    {
+      "term": "action_reference",
+      "description": "CAPTURE or VOID reference number based on action ",
+      "source": "property",
+      "schema": "AuthorizationInPaymentsEntity"
+    },
+    {
+      "term": "action_time",
+      "description": "Time of action (CAPTURE or VOID)",
+      "source": "property",
+      "schema": "AuthorizationInPaymentsEntity"
+    },
+    {
+      "term": "AuthorizeOrderRequest",
+      "description": "Request to capture or void transaction",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "amount",
+      "description": "The amount if you are running a 'CAPTURE'",
+      "source": "property",
+      "schema": "AuthorizeOrderRequest"
+    },
+    {
+      "term": "BadRequestError",
+      "description": "Invalid request received from client",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "Card",
+      "description": "Card Payment method",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "card_number",
+      "description": "Customer card number for plain card transactions. Token pan number for tokenized card transactions.",
+      "source": "property",
+      "schema": "Card"
+    },
+    {
+      "term": "card_holder_name",
+      "description": "Customer name mentioned on the card.",
+      "source": "property",
+      "schema": "Card"
+    },
+    {
+      "term": "card_expiry_mm",
+      "description": "Card expiry month for plain card transactions. Token expiry month for tokenized card transactions.",
+      "source": "property",
+      "schema": "Card"
+    },
+    {
+      "term": "card_expiry_yy",
+      "description": "Card expiry year for plain card transactions. Token expiry year for tokenized card transactions.",
+      "source": "property",
+      "schema": "Card"
+    },
+    {
+      "term": "card_cvv",
+      "description": "CVV mentioned on the card.",
+      "source": "property",
+      "schema": "Card"
+    },
+    {
+      "term": "instrument_id",
+      "description": "instrument id of saved card. Required only to make payment using saved instrument.",
+      "source": "property",
+      "schema": "Card"
+    },
+    {
+      "term": "cryptogram",
+      "description": "cryptogram received from card network. Required only for tokenized card transactions.",
+      "source": "property",
+      "schema": "Card"
+    },
+    {
+      "term": "token_requestor_id",
+      "description": "TRID issued by card networks. Required only for tokenized card transactions.",
+      "source": "property",
+      "schema": "Card"
+    },
+    {
+      "term": "token_reference_id",
+      "description": "Token Reference Id provided by Diners for Guest Checkout Token.  Required only for Diners cards.",
+      "source": "property",
+      "schema": "Card"
+    },
+    {
+      "term": "token_type",
+      "description": "",
+      "source": "property",
+      "schema": "Card"
+    },
+    {
+      "term": "card_display",
+      "description": "last 4 digits of original card number. Required only for tokenized card transactions.",
+      "source": "property",
+      "schema": "Card"
+    },
+    {
+      "term": "card_alias",
+      "description": "Card alias as returned by Cashfree Vault API.",
+      "source": "property",
+      "schema": "Card"
+    },
+    {
+      "term": "card_bank_name",
+      "description": "One of [\"Kotak\", \"ICICI\", \"RBL\", \"BOB\", \"Standard Chartered\"]. Card bank name, required for EMI payments. This is the bank user has selected for EMI",
+      "source": "property",
+      "schema": "Card"
+    },
+    {
+      "term": "address_line_one",
+      "description": "First line of the address.",
+      "source": "property",
+      "schema": "Card"
+    },
+    {
+      "term": "address_line_two",
+      "description": "Second line of the address.",
+      "source": "property",
+      "schema": "Card"
+    },
+    {
+      "term": "city",
+      "description": "City Name.",
+      "source": "property",
+      "schema": "Card"
+    },
+    {
+      "term": "zip_code",
+      "description": "Pin Code/Zip Code.",
+      "source": "property",
+      "schema": "Card"
+    },
+    {
+      "term": "country",
+      "description": "Country Name.",
+      "source": "property",
+      "schema": "Card"
+    },
+    {
+      "term": "country_code",
+      "description": "Country Code. Should be in ISO 2 format (ie. US for United States)",
+      "source": "property",
+      "schema": "Card"
+    },
+    {
+      "term": "state",
+      "description": "State Name.",
+      "source": "property",
+      "schema": "Card"
+    },
+    {
+      "term": "state_code",
+      "description": "State Code. Should be in ISO 2 format (ie. FL for Florida)",
+      "source": "property",
+      "schema": "Card"
+    },
+    {
+      "term": "emi_tenure",
+      "description": "EMI tenure selected by the user",
+      "source": "property",
+      "schema": "Card"
+    },
+    {
+      "term": "CardArray",
+      "description": "short code for credit card, debit card, prepaid card",
+      "source": "schema",
+      "type": "string"
+    },
+    {
+      "term": "CardEMI",
+      "description": "Payment method for card emi",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "CardEMIPaymentMethod",
+      "description": "Complete card emi payment method",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "emi",
+      "description": "",
+      "source": "property",
+      "schema": "CardEMIPaymentMethod"
+    },
+    {
+      "term": "CardPaymentMethod",
+      "description": "The card payment object is used to make payment using either plain card number, saved card instrument id or using cryptogram",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "card",
+      "description": "",
+      "source": "property",
+      "schema": "CardPaymentMethod"
+    },
+    {
+      "term": "CardlessEMI",
+      "description": "Request body for cardless emi payment method",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "CardlessEMIEntity",
+      "description": "cardless EMI object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "payment_method",
+      "description": "",
+      "source": "property",
+      "schema": "CardlessEMIEntity"
+    },
+    {
+      "term": "emi_plans",
+      "description": "",
+      "source": "property",
+      "schema": "CardlessEMIEntity"
+    },
+    {
+      "term": "CardlessEMIPaymentMethod",
+      "description": "cardless EMI payment method object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "cardless_emi",
+      "description": "",
+      "source": "property",
+      "schema": "CardlessEMIPaymentMethod"
+    },
+    {
+      "term": "CardlessEMIQueries",
+      "description": "cardless EMI query object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "order_id",
+      "description": "OrderId of the order. Either of `order_id` or `amount` is mandatory.",
+      "source": "property",
+      "schema": "CardlessEMIQueries"
+    },
+    {
+      "term": "customer_details",
+      "description": "",
+      "source": "property",
+      "schema": "CardlessEMIQueries"
+    },
+    {
+      "term": "CashbackDetails",
+      "description": "Cashback detail boject",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "cashback_type",
+      "description": "Type of discount",
+      "source": "property",
+      "schema": "CashbackDetails"
+    },
+    {
+      "term": "cashback_value",
+      "description": "Value of Discount.",
+      "source": "property",
+      "schema": "CashbackDetails"
+    },
+    {
+      "term": "max_cashback_amount",
+      "description": "Maximum Value of Cashback allowed.",
+      "source": "property",
+      "schema": "CashbackDetails"
+    },
+    {
+      "term": "CreateCustomerRequest",
+      "description": "Request body to create a customer at cashfree",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "customer_phone",
+      "description": "Customer Phone Number",
+      "source": "property",
+      "schema": "CreateCustomerRequest"
+    },
+    {
+      "term": "customer_email",
+      "description": "Customer Email",
+      "source": "property",
+      "schema": "CreateCustomerRequest"
+    },
+    {
+      "term": "customer_name",
+      "description": "Customer Name",
+      "source": "property",
+      "schema": "CreateCustomerRequest"
+    },
+    {
+      "term": "SimulateRequest",
+      "description": "simulate payment request object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "entity",
+      "description": "Entity type should be PAYMENTS or SUBS_PAYMENTS only.",
+      "source": "property",
+      "schema": "SimulateRequest"
+    },
+    {
+      "term": "entity_id",
+      "description": "If the entity type is PAYMENTS, the entity_id will be the transactionId. If the entity type is SUBS_PAYMENTS, the entity_id will be the merchantTxnId",
+      "source": "property",
+      "schema": "SimulateRequest"
+    },
+    {
+      "term": "entity_simulation",
+      "description": "",
+      "source": "property",
+      "schema": "SimulateRequest"
+    },
+    {
+      "term": "CreateLinkRequest",
+      "description": "Request paramenters for link creation",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "link_id",
+      "description": "Unique Identifier (provided by merchant) for the Link. Alphanumeric and only - and _ allowed (50 character limit). Use this for other link-related APIs.",
+      "source": "property",
+      "schema": "CreateLinkRequest"
+    },
+    {
+      "term": "link_amount",
+      "description": "Amount to be collected using this link. Provide upto two decimals for paise.",
+      "source": "property",
+      "schema": "CreateLinkRequest"
+    },
+    {
+      "term": "link_currency",
+      "description": "Currency for the payment link. Default is INR. Contact care@cashfree.com to enable new currencies.",
+      "source": "property",
+      "schema": "CreateLinkRequest"
+    },
+    {
+      "term": "link_purpose",
+      "description": "A brief description for which payment must be collected. This is shown to the customer.",
+      "source": "property",
+      "schema": "CreateLinkRequest"
+    },
+    {
+      "term": "link_partial_payments",
+      "description": "If \"true\", customer can make partial payments for the link.",
+      "source": "property",
+      "schema": "CreateLinkRequest"
+    },
+    {
+      "term": "link_minimum_partial_amount",
+      "description": "Minimum amount in first installment that needs to be paid by the customer if partial payments are enabled. This should be less than the link_amount.",
+      "source": "property",
+      "schema": "CreateLinkRequest"
+    },
+    {
+      "term": "link_expiry_time",
+      "description": "Time after which the link expires. Customers will not be able to make the payment beyond the time specified here. You can provide them in a valid ISO 8601 time format. Default is 30 days.",
+      "source": "property",
+      "schema": "CreateLinkRequest"
+    },
+    {
+      "term": "link_notify",
+      "description": "",
+      "source": "property",
+      "schema": "CreateLinkRequest"
+    },
+    {
+      "term": "link_auto_reminders",
+      "description": "If \"true\", reminders will be sent to customers for collecting payments.",
+      "source": "property",
+      "schema": "CreateLinkRequest"
+    },
+    {
+      "term": "link_notes",
+      "description": "",
+      "source": "property",
+      "schema": "CreateLinkRequest"
+    },
+    {
+      "term": "link_meta",
+      "description": "",
+      "source": "property",
+      "schema": "CreateLinkRequest"
+    },
+    {
+      "term": "order_splits",
+      "description": "If you have Easy split enabled in your Cashfree account then you can use this option to split the order amount.",
+      "source": "property",
+      "schema": "CreateLinkRequest"
+    },
+    {
+      "term": "CreateOfferRequest",
+      "description": "create offer backend request object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "offer_meta",
+      "description": "",
+      "source": "property",
+      "schema": "CreateOfferRequest"
+    },
+    {
+      "term": "offer_tnc",
+      "description": "",
+      "source": "property",
+      "schema": "CreateOfferRequest"
+    },
+    {
+      "term": "offer_details",
+      "description": "",
+      "source": "property",
+      "schema": "CreateOfferRequest"
+    },
+    {
+      "term": "offer_validations",
+      "description": "",
+      "source": "property",
+      "schema": "CreateOfferRequest"
+    },
+    {
+      "term": "CreateOrderRequest",
+      "description": "Request body to create an order at cashfree",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "order_amount",
+      "description": "Bill amount for the order. Provide upto two decimals. 10.15 means Rs 10 and 15 paisa",
+      "source": "property",
+      "schema": "CreateOrderRequest"
+    },
+    {
+      "term": "order_currency",
+      "description": "Currency for the order. INR if left empty. Contact care@cashfree.com to enable new currencies.",
+      "source": "property",
+      "schema": "CreateOrderRequest"
+    },
+    {
+      "term": "cart_details",
+      "description": "",
+      "source": "property",
+      "schema": "CreateOrderRequest"
+    },
+    {
+      "term": "terminal",
+      "description": "",
+      "source": "property",
+      "schema": "CreateOrderRequest"
+    },
+    {
+      "term": "order_meta",
+      "description": "",
+      "source": "property",
+      "schema": "CreateOrderRequest"
+    },
+    {
+      "term": "order_expiry_time",
+      "description": "Time after which the order expires. Customers will not be able to make the payment beyond the time specified here. We store timestamps in IST, but you can provide them in a valid ISO 8601 time format. Example 2021-07-02T10:20:12+05:30 for IST, 2021-07-02T10:20:12Z for UTC",
+      "source": "property",
+      "schema": "CreateOrderRequest"
+    },
+    {
+      "term": "order_note",
+      "description": "Order note for reference.",
+      "source": "property",
+      "schema": "CreateOrderRequest"
+    },
+    {
+      "term": "order_tags",
+      "description": "",
+      "source": "property",
+      "schema": "CreateOrderRequest"
+    },
+    {
+      "term": "products",
+      "description": "Use this to set configurations for the products like One Click Checkout, Verify and Pay, if they are enabled for your account",
+      "source": "property",
+      "schema": "CreateOrderRequest"
+    },
+    {
+      "term": "UpdateOrderExtendedRequest",
+      "description": "Request Body to Update extended data related to order",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "shipment_details",
+      "description": "Shipment details, such as the tracking company, tracking number, and tracking URLs, associated with the shipping of an order. Either `shipment_details` or `order_delivery_status` is required.",
+      "source": "property",
+      "schema": "UpdateOrderExtendedRequest"
+    },
+    {
+      "term": "order_delivery_status",
+      "description": "",
+      "source": "property",
+      "schema": "UpdateOrderExtendedRequest"
+    },
+    {
+      "term": "CreateTerminalRequest",
+      "description": "Request body to create a terminal",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "terminal_id",
+      "description": "merchant\u2019s internal terminal id",
+      "source": "property",
+      "schema": "CreateTerminalRequest"
+    },
+    {
+      "term": "terminal_phone_no",
+      "description": "phone number assigned to the terminal",
+      "source": "property",
+      "schema": "CreateTerminalRequest"
+    },
+    {
+      "term": "terminal_name",
+      "description": "terminal name to be assigned by merchants",
+      "source": "property",
+      "schema": "CreateTerminalRequest"
+    },
+    {
+      "term": "terminal_address",
+      "description": "address of the terminal. required for STOREFRONT",
+      "source": "property",
+      "schema": "CreateTerminalRequest"
+    },
+    {
+      "term": "terminal_email",
+      "description": "terminal email ID of the AGENT/STOREFRONT assigned by merchants.",
+      "source": "property",
+      "schema": "CreateTerminalRequest"
+    },
+    {
+      "term": "terminal_note",
+      "description": "additional note for terminal",
+      "source": "property",
+      "schema": "CreateTerminalRequest"
+    },
+    {
+      "term": "terminal_type",
+      "description": "mention the terminal type. possible values - AGENT, STOREFRONT.",
+      "source": "property",
+      "schema": "CreateTerminalRequest"
+    },
+    {
+      "term": "terminal_meta",
+      "description": "terminal metadata. required field for storefront.",
+      "source": "property",
+      "schema": "CreateTerminalRequest"
+    },
+    {
+      "term": "CreateTerminalTransactionRequest",
+      "description": "Request body to create a terminal transaction",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "cf_order_id",
+      "description": "cashfree order ID that was returned while creating an order.",
+      "source": "property",
+      "schema": "CreateTerminalTransactionRequest"
+    },
+    {
+      "term": "add_invoice",
+      "description": "make it true to have request be sent to create a Dynamic GST QR Code.",
+      "source": "property",
+      "schema": "CreateTerminalTransactionRequest"
+    },
+    {
+      "term": "OnboardSoundboxVpaRequest",
+      "description": "Request body to onboard soundbox vpa",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "vpa",
+      "description": "Terminal Vpa ,that need to onboard on soundbox",
+      "source": "property",
+      "schema": "OnboardSoundboxVpaRequest"
+    },
+    {
+      "term": "device_serial_no",
+      "description": "Device Serial No of soundbox",
+      "source": "property",
+      "schema": "OnboardSoundboxVpaRequest"
+    },
+    {
+      "term": "merchant_name",
+      "description": "Merchant Name that need to onboard on soundbox",
+      "source": "property",
+      "schema": "OnboardSoundboxVpaRequest"
+    },
+    {
+      "term": "language",
+      "description": "language of soundbox,currently English, Hindi, Tamil",
+      "source": "property",
+      "schema": "OnboardSoundboxVpaRequest"
+    },
+    {
+      "term": "UpdateSoundboxVpaRequest",
+      "description": "Request body to update soundbox vpa",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "DemapSoundboxVpaRequest",
+      "description": "Request body to demap soundbox vpa",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "CryptogramEntity",
+      "description": "Crytogram Card object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "CartDetails",
+      "description": "The cart details that are necessary like shipping address, billing address and more.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "customer_note",
+      "description": "",
+      "source": "property",
+      "schema": "CartDetails"
+    },
+    {
+      "term": "shipping_charge",
+      "description": "",
+      "source": "property",
+      "schema": "CartDetails"
+    },
+    {
+      "term": "cart_name",
+      "description": "Name of the cart.",
+      "source": "property",
+      "schema": "CartDetails"
+    },
+    {
+      "term": "customer_shipping_address",
+      "description": "",
+      "source": "property",
+      "schema": "CartDetails"
+    },
+    {
+      "term": "customer_billing_address",
+      "description": "",
+      "source": "property",
+      "schema": "CartDetails"
+    },
+    {
+      "term": "cart_items",
+      "description": "",
+      "source": "property",
+      "schema": "CartDetails"
+    },
+    {
+      "term": "CartAddress",
+      "description": "Address given for cart details.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "full_name",
+      "description": "",
+      "source": "property",
+      "schema": "CartAddress"
+    },
+    {
+      "term": "pincode",
+      "description": "",
+      "source": "property",
+      "schema": "CartAddress"
+    },
+    {
+      "term": "address_1",
+      "description": "",
+      "source": "property",
+      "schema": "CartAddress"
+    },
+    {
+      "term": "address_2",
+      "description": "",
+      "source": "property",
+      "schema": "CartAddress"
+    },
+    {
+      "term": "CartItem",
+      "description": "Each item in the cart.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "item_id",
+      "description": "Unique identifier of the item",
+      "source": "property",
+      "schema": "CartItem"
+    },
+    {
+      "term": "item_name",
+      "description": "Name of the item",
+      "source": "property",
+      "schema": "CartItem"
+    },
+    {
+      "term": "item_description",
+      "description": "Description of the item",
+      "source": "property",
+      "schema": "CartItem"
+    },
+    {
+      "term": "item_tags",
+      "description": "Tags attached to that item",
+      "source": "property",
+      "schema": "CartItem"
+    },
+    {
+      "term": "item_details_url",
+      "description": "Item details url",
+      "source": "property",
+      "schema": "CartItem"
+    },
+    {
+      "term": "item_image_url",
+      "description": "Item image url",
+      "source": "property",
+      "schema": "CartItem"
+    },
+    {
+      "term": "item_original_unit_price",
+      "description": "Original price",
+      "source": "property",
+      "schema": "CartItem"
+    },
+    {
+      "term": "item_discounted_unit_price",
+      "description": "Discounted Price",
+      "source": "property",
+      "schema": "CartItem"
+    },
+    {
+      "term": "item_currency",
+      "description": "Currency of the item.",
+      "source": "property",
+      "schema": "CartItem"
+    },
+    {
+      "term": "item_quantity",
+      "description": "Quantity if that item",
+      "source": "property",
+      "schema": "CartItem"
+    },
+    {
+      "term": "CustomerDetails",
+      "description": "The customer details that are necessary. Note that you can pass dummy details if your use case does not require the customer details.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "customer_id",
+      "description": "A unique identifier for the customer. Use alphanumeric values only.",
+      "source": "property",
+      "schema": "CustomerDetails"
+    },
+    {
+      "term": "customer_bank_account_number",
+      "description": "Customer bank account. Required if you want to do a bank account check (TPV)",
+      "source": "property",
+      "schema": "CustomerDetails"
+    },
+    {
+      "term": "customer_bank_ifsc",
+      "description": "Customer bank IFSC. Required if you want to do a bank account check (TPV)",
+      "source": "property",
+      "schema": "CustomerDetails"
+    },
+    {
+      "term": "customer_bank_code",
+      "description": "Customer bank code. Required for net banking payments, if you want to do a bank account check (TPV)",
+      "source": "property",
+      "schema": "CustomerDetails"
+    },
+    {
+      "term": "customer_uid",
+      "description": "Customer identifier at Cashfree. You will get this when you create/get customer",
+      "source": "property",
+      "schema": "CustomerDetails"
+    },
+    {
+      "term": "CustomerDetailsResponse",
+      "description": "The customer details that are necessary. Note that you can pass dummy details if your use case does not require the customer details.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "ShipmentDetails",
+      "description": "Shipment details associated with shipping of order like tracking company, tracking number,tracking urls etc.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "tracking_company",
+      "description": "Tracking company name associated with order.",
+      "source": "property",
+      "schema": "ShipmentDetails"
+    },
+    {
+      "term": "tracking_urls",
+      "description": "Tracking Urls associated with order.",
+      "source": "property",
+      "schema": "ShipmentDetails"
+    },
+    {
+      "term": "tracking_numbers",
+      "description": "Tracking Numbers associated wih order.",
+      "source": "property",
+      "schema": "ShipmentDetails"
+    },
+    {
+      "term": "TerminalData",
+      "description": "Terminal Data in the create order response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "agent_mobile_number",
+      "description": "",
+      "source": "property",
+      "schema": "TerminalData"
+    },
+    {
+      "term": "merchant_terminal_id",
+      "description": "",
+      "source": "property",
+      "schema": "TerminalData"
+    },
+    {
+      "term": "OrderDeliveryStatus",
+      "description": "Order delivery Status associated with order.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "reason",
+      "description": "Reason of provided order delivery status. This is optional field.",
+      "source": "property",
+      "schema": "OrderDeliveryStatus"
+    },
+    {
+      "term": "CustomerDetailsCardlessEMI",
+      "description": "Details of the customer for whom eligibility is being checked.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "CustomerEntity",
+      "description": "The complete customer entity",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "DiscountDetails",
+      "description": "detils of the discount object of offer",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "discount_type",
+      "description": "Type of discount",
+      "source": "property",
+      "schema": "DiscountDetails"
+    },
+    {
+      "term": "discount_value",
+      "description": "Value of Discount.",
+      "source": "property",
+      "schema": "DiscountDetails"
+    },
+    {
+      "term": "max_discount_amount",
+      "description": "Maximum Value of Discount allowed.",
+      "source": "property",
+      "schema": "DiscountDetails"
+    },
+    {
+      "term": "EMIPlansArray",
+      "description": "Single EMI object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "tenure",
+      "description": "",
+      "source": "property",
+      "schema": "EMIPlansArray"
+    },
+    {
+      "term": "interest_rate",
+      "description": "",
+      "source": "property",
+      "schema": "EMIPlansArray"
+    },
+    {
+      "term": "currency",
+      "description": "",
+      "source": "property",
+      "schema": "EMIPlansArray"
+    },
+    {
+      "term": "total_interest",
+      "description": "",
+      "source": "property",
+      "schema": "EMIPlansArray"
+    },
+    {
+      "term": "total_amount",
+      "description": "",
+      "source": "property",
+      "schema": "EMIPlansArray"
+    },
+    {
+      "term": "EligibilityCardlessEMIEntity",
+      "description": "Carless EMI eligible entity",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "eligibility",
+      "description": "",
+      "source": "property",
+      "schema": "EligibilityCardlessEMIEntity"
+    },
+    {
+      "term": "entity_type",
+      "description": "",
+      "source": "property",
+      "schema": "EligibilityCardlessEMIEntity"
+    },
+    {
+      "term": "entity_value",
+      "description": "",
+      "source": "property",
+      "schema": "EligibilityCardlessEMIEntity"
+    },
+    {
+      "term": "entity_details",
+      "description": "",
+      "source": "property",
+      "schema": "EligibilityCardlessEMIEntity"
+    },
+    {
+      "term": "EligibilityFetchCardlessEMIRequest",
+      "description": "eligibilty request for cardless",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "queries",
+      "description": "",
+      "source": "property",
+      "schema": "EligibilityFetchCardlessEMIRequest"
+    },
+    {
+      "term": "EligibilityFetchOffersRequest",
+      "description": "Eligiblty API request",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "EligibilityFetchPaylaterRequest",
+      "description": "Request to get eligible paylater payment methods",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "EligibilityFetchPaymentMethodsRequest",
+      "description": "eligibilty request to find eligible payment method",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "EligibilityOfferEntity",
+      "description": "Eligible offer object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "EligibilityPaylaterEntity",
+      "description": "Eligible paylater payment method",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "EligibilityPaymentMethodsEntity",
+      "description": "Eligible payment methods details",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "InternationalPaymentEntity",
+      "description": "International payment details",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "international",
+      "description": "",
+      "source": "property",
+      "schema": "InternationalPaymentEntity"
+    },
+    {
+      "term": "ErrorDetailsInPaymentsEntity",
+      "description": "The error details are present only for failed payments",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "error_code",
+      "description": "",
+      "source": "property",
+      "schema": "ErrorDetailsInPaymentsEntity"
+    },
+    {
+      "term": "error_description",
+      "description": "",
+      "source": "property",
+      "schema": "ErrorDetailsInPaymentsEntity"
+    },
+    {
+      "term": "error_reason",
+      "description": "",
+      "source": "property",
+      "schema": "ErrorDetailsInPaymentsEntity"
+    },
+    {
+      "term": "error_source",
+      "description": "",
+      "source": "property",
+      "schema": "ErrorDetailsInPaymentsEntity"
+    },
+    {
+      "term": "error_code_raw",
+      "description": "",
+      "source": "property",
+      "schema": "ErrorDetailsInPaymentsEntity"
+    },
+    {
+      "term": "error_description_raw",
+      "description": "",
+      "source": "property",
+      "schema": "ErrorDetailsInPaymentsEntity"
+    },
+    {
+      "term": "error_subcode_raw",
+      "description": "",
+      "source": "property",
+      "schema": "ErrorDetailsInPaymentsEntity"
+    },
+    {
+      "term": "FetchReconRequest",
+      "description": "Recon object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "FetchSettlementsRequest",
+      "description": "Request to fetch settlement",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "FetchTerminalQRCodesEntity",
+      "description": "Fetch Static QR Codes using terminal ID or phone number",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "bank",
+      "description": "Name of the bank that is linked to the Static QR.",
+      "source": "property",
+      "schema": "FetchTerminalQRCodesEntity"
+    },
+    {
+      "term": "qrCode",
+      "description": "Base-64 Encoded QR Code URL",
+      "source": "property",
+      "schema": "FetchTerminalQRCodesEntity"
+    },
+    {
+      "term": "qrCodeUrl",
+      "description": "URL of the qr Code.",
+      "source": "property",
+      "schema": "FetchTerminalQRCodesEntity"
+    },
+    {
+      "term": "IdempotencyError",
+      "description": "Error when idempotency fails. Different request body with the same idempotent key",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "InstrumentEntity",
+      "description": "Saved card instrument object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "afa_reference",
+      "description": "cf_payment_id of the successful transaction done while saving instrument",
+      "source": "property",
+      "schema": "InstrumentEntity"
+    },
+    {
+      "term": "instrument_type",
+      "description": "Type of the saved instrument",
+      "source": "property",
+      "schema": "InstrumentEntity"
+    },
+    {
+      "term": "instrument_uid",
+      "description": "Unique id for the saved instrument",
+      "source": "property",
+      "schema": "InstrumentEntity"
+    },
+    {
+      "term": "instrument_display",
+      "description": "masked card number displayed to the customer",
+      "source": "property",
+      "schema": "InstrumentEntity"
+    },
+    {
+      "term": "instrument_status",
+      "description": "Status of the saved instrument.",
+      "source": "property",
+      "schema": "InstrumentEntity"
+    },
+    {
+      "term": "created_at",
+      "description": "Timestamp at which instrument was saved.",
+      "source": "property",
+      "schema": "InstrumentEntity"
+    },
+    {
+      "term": "instrument_meta",
+      "description": "",
+      "source": "property",
+      "schema": "InstrumentEntity"
+    },
+    {
+      "term": "InstrumentWebhook",
+      "description": "Instrument webhook object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PaymentWebhook",
+      "description": "payment webhook object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "event_time",
+      "description": "",
+      "source": "property",
+      "schema": "PaymentWebhook"
+    },
+    {
+      "term": "RefundWebhook",
+      "description": "refund webhook object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "EntitySimulationRequest",
+      "description": "Entity Simulation it contains payment_status and payment_error_code",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "payment_status",
+      "description": "Payment Status",
+      "source": "property",
+      "schema": "EntitySimulationRequest"
+    },
+    {
+      "term": "payment_error_code",
+      "description": "Payment Error Code",
+      "source": "property",
+      "schema": "EntitySimulationRequest"
+    },
+    {
+      "term": "EntitySimulationResponse",
+      "description": "Entity Simulation it contains payment_status and payment_error_code",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "LinkCustomerDetailsEntity",
+      "description": "Payment link customer entity",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "LinkEntity",
+      "description": "Payment link success creation response object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "cf_link_id",
+      "description": "",
+      "source": "property",
+      "schema": "LinkEntity"
+    },
+    {
+      "term": "link_status",
+      "description": "",
+      "source": "property",
+      "schema": "LinkEntity"
+    },
+    {
+      "term": "link_amount_paid",
+      "description": "",
+      "source": "property",
+      "schema": "LinkEntity"
+    },
+    {
+      "term": "link_created_at",
+      "description": "",
+      "source": "property",
+      "schema": "LinkEntity"
+    },
+    {
+      "term": "link_url",
+      "description": "",
+      "source": "property",
+      "schema": "LinkEntity"
+    },
+    {
+      "term": "link_qrcode",
+      "description": "Base64 encoded string for payment link. You can scan with camera to open a link in the browser to complete the payment.",
+      "source": "property",
+      "schema": "LinkEntity"
+    },
+    {
+      "term": "LinkMetaResponseEntity",
+      "description": "Payment link meta information object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "notify_url",
+      "description": "Notification URL for server-server communication. It should be an https URL.",
+      "source": "property",
+      "schema": "LinkMetaResponseEntity"
+    },
+    {
+      "term": "upi_intent",
+      "description": "If \"true\", link will directly open UPI Intent flow on mobile, and normal link flow elsewhere",
+      "source": "property",
+      "schema": "LinkMetaResponseEntity"
+    },
+    {
+      "term": "return_url",
+      "description": "The URL to which user will be redirected to after the payment is done on the link. Maximum length: 250.",
+      "source": "property",
+      "schema": "LinkMetaResponseEntity"
+    },
+    {
+      "term": "payment_methods",
+      "description": "Allowed payment modes for this link. Pass comma-separated values among following options - \"cc\", \"dc\", \"ccc\", \"ppc\", \"nb\", \"upi\", \"paypal\", \"app\". Leave it blank to show all available payment methods",
+      "source": "property",
+      "schema": "LinkMetaResponseEntity"
+    },
+    {
+      "term": "OfferDetailsResponse",
+      "description": "Offer details response and type",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "cashback_details",
+      "description": "",
+      "source": "property",
+      "schema": "OfferDetailsResponse"
+    },
+    {
+      "term": "discount_details",
+      "description": "",
+      "source": "property",
+      "schema": "OfferDetailsResponse"
+    },
+    {
+      "term": "offer_type",
+      "description": "Offer Type for the Offer.",
+      "source": "property",
+      "schema": "OfferDetailsResponse"
+    },
+    {
+      "term": "LinkNotesEntity",
+      "description": "Key-value pair that can be used to store additional information about the entity. Maximum 5 key-value pairs",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "LinkNotifyEntity",
+      "description": "Payment link Notify Object for SMS and Email",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "send_sms",
+      "description": "If \"true\", Cashfree will send sms on customer_phone",
+      "source": "property",
+      "schema": "LinkNotifyEntity"
+    },
+    {
+      "term": "send_email",
+      "description": "If \"true\", Cashfree will send email on customer_email",
+      "source": "property",
+      "schema": "LinkNotifyEntity"
+    },
+    {
+      "term": "MethodsType",
+      "description": "Methods Type Object",
+      "source": "schema",
+      "type": "string"
+    },
+    {
+      "term": "NetBankingPaymentMethod",
+      "description": "Payment method for netbanking object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "netbanking",
+      "description": "",
+      "source": "property",
+      "schema": "NetBankingPaymentMethod"
+    },
+    {
+      "term": "Netbanking",
+      "description": "Netbanking payment method request body",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "netbanking_bank_code",
+      "description": "Bank code",
+      "source": "property",
+      "schema": "Netbanking"
+    },
+    {
+      "term": "netbanking_bank_name",
+      "description": "String code for bank",
+      "source": "property",
+      "schema": "Netbanking"
+    },
+    {
+      "term": "OfferAll",
+      "description": "returns all offers",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "all",
+      "description": "",
+      "source": "property",
+      "schema": "OfferAll"
+    },
+    {
+      "term": "OfferCard",
+      "description": "Offers related to cards",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "OfferDetails",
+      "description": "Offer details and type",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "OfferEMI",
+      "description": "EMI offer object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "OfferEntity",
+      "description": "Offer entity object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "offer_id",
+      "description": "",
+      "source": "property",
+      "schema": "OfferEntity"
+    },
+    {
+      "term": "offer_status",
+      "description": "",
+      "source": "property",
+      "schema": "OfferEntity"
+    },
+    {
+      "term": "payable_amount",
+      "description": "",
+      "source": "property",
+      "schema": "OfferEntity"
+    },
+    {
+      "term": "OfferValidationsResponse",
+      "description": "Offer validation object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "max_allowed",
+      "description": "Maximum Amount for Offer to be Applicable",
+      "source": "property",
+      "schema": "OfferValidationsResponse"
+    },
+    {
+      "term": "min_amount",
+      "description": "Minimum Amount for Offer to be Applicable",
+      "source": "property",
+      "schema": "OfferValidationsResponse"
+    },
+    {
+      "term": "OfferTncResponse",
+      "description": "Offer terms and condition object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "offer_tnc_type",
+      "description": "TnC Type for the Offer. It can be either `text` or `link`",
+      "source": "property",
+      "schema": "OfferTncResponse"
+    },
+    {
+      "term": "offer_tnc_value",
+      "description": "TnC for the Offer.",
+      "source": "property",
+      "schema": "OfferTncResponse"
+    },
+    {
+      "term": "OfferMetaResponse",
+      "description": "Offer meta response details object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "offer_code",
+      "description": "Unique identifier for the Offer.",
+      "source": "property",
+      "schema": "OfferMetaResponse"
+    },
+    {
+      "term": "offer_description",
+      "description": "Description for the Offer.",
+      "source": "property",
+      "schema": "OfferMetaResponse"
+    },
+    {
+      "term": "offer_end_time",
+      "description": "Expiry Time for the Offer",
+      "source": "property",
+      "schema": "OfferMetaResponse"
+    },
+    {
+      "term": "offer_start_time",
+      "description": "Start Time for the Offer",
+      "source": "property",
+      "schema": "OfferMetaResponse"
+    },
+    {
+      "term": "offer_title",
+      "description": "Title for the Offer.",
+      "source": "property",
+      "schema": "OfferMetaResponse"
+    },
+    {
+      "term": "OfferFilters",
+      "description": "Filter for offers",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "OfferMeta",
+      "description": "Offer meta details object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "OfferNB",
+      "description": "Offer object ofr NetBanking",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "OfferPaylater",
+      "description": "Offer object for paylater",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "paylater",
+      "description": "",
+      "source": "property",
+      "schema": "OfferPaylater"
+    },
+    {
+      "term": "OfferQueries",
+      "description": "Offer Query Object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "OfferTnc",
+      "description": "Offer terms and condition object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "OfferType",
+      "description": "Offer Type Object",
+      "source": "schema",
+      "type": "string"
+    },
+    {
+      "term": "OfferUPI",
+      "description": "Offer object for UPI",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "upi",
+      "description": "",
+      "source": "property",
+      "schema": "OfferUPI"
+    },
+    {
+      "term": "OfferValidations",
+      "description": "Offer validation object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "OfferWallet",
+      "description": "Offer object for wallet payment method",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "OrderAuthenticateEntity",
+      "description": "This is the response shared when merchant inovkes the OTP submit or resend API",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "cf_payment_id",
+      "description": "The Payment ID for which this request was sent",
+      "source": "property",
+      "schema": "OrderAuthenticateEntity"
+    },
+    {
+      "term": "authenticate_status",
+      "description": "Status of the is action. Will be either failed or successful. If the action is successful, you should still call the authorization status to verify the final payment status.",
+      "source": "property",
+      "schema": "OrderAuthenticateEntity"
+    },
+    {
+      "term": "payment_message",
+      "description": "Human readable message which describes the status in more detail",
+      "source": "property",
+      "schema": "OrderAuthenticateEntity"
+    },
+    {
+      "term": "OrderAuthenticatePaymentRequest",
+      "description": "OTP to be submitted for headless/native OTP",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "otp",
+      "description": "OTP to be submitted",
+      "source": "property",
+      "schema": "OrderAuthenticatePaymentRequest"
+    },
+    {
+      "term": "OrderCreateRefundRequest",
+      "description": "create refund request object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "refund_amount",
+      "description": "Amount to be refunded. Should be lesser than or equal to the transaction amount. (Decimals allowed)",
+      "source": "property",
+      "schema": "OrderCreateRefundRequest"
+    },
+    {
+      "term": "refund_id",
+      "description": "An unique ID to associate the refund with. Provie alphanumeric values",
+      "source": "property",
+      "schema": "OrderCreateRefundRequest"
+    },
+    {
+      "term": "refund_note",
+      "description": "A refund note for your reference.",
+      "source": "property",
+      "schema": "OrderCreateRefundRequest"
+    },
+    {
+      "term": "refund_speed",
+      "description": "Speed at which the refund is processed. It's an optional field with default being STANDARD",
+      "source": "property",
+      "schema": "OrderCreateRefundRequest"
+    },
+    {
+      "term": "refund_splits",
+      "description": "",
+      "source": "property",
+      "schema": "OrderCreateRefundRequest"
+    },
+    {
+      "term": "OrderEntity",
+      "description": "The complete order entity",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "order_status",
+      "description": "Possible values are \n- `ACTIVE`: Order does not have a sucessful transaction yet\n- `PAID`: Order is PAID with one successful transaction\n- `EXPIRED`: Order was not PAID and not it has expired. No transaction can be initiated for an EXPIRED order.\n`TERMINATED`: Order terminated\n`TERMINATION_REQUESTED`: Order termination requested",
+      "source": "property",
+      "schema": "OrderEntity"
+    },
+    {
+      "term": "payment_session_id",
+      "description": "",
+      "source": "property",
+      "schema": "OrderEntity"
+    },
+    {
+      "term": "terminal_data",
+      "description": "",
+      "source": "property",
+      "schema": "OrderEntity"
+    },
+    {
+      "term": "OrderExtendedDataEntity",
+      "description": "The complete order extended data entity",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "charges",
+      "description": "",
+      "source": "property",
+      "schema": "OrderExtendedDataEntity"
+    },
+    {
+      "term": "shipping_address",
+      "description": "",
+      "source": "property",
+      "schema": "OrderExtendedDataEntity"
+    },
+    {
+      "term": "billing_address",
+      "description": "",
+      "source": "property",
+      "schema": "OrderExtendedDataEntity"
+    },
+    {
+      "term": "cart",
+      "description": "",
+      "source": "property",
+      "schema": "OrderExtendedDataEntity"
+    },
+    {
+      "term": "offer",
+      "description": "",
+      "source": "property",
+      "schema": "OrderExtendedDataEntity"
+    },
+    {
+      "term": "OfferExtendedDetails",
+      "description": "Details of the offer which got applied to the paid order.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "ExtendedCartDetails",
+      "description": "The cart details that are necessary like shipping address, billing address and more.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "name",
+      "description": "Name of the cart.",
+      "source": "property",
+      "schema": "ExtendedCartDetails"
+    },
+    {
+      "term": "items",
+      "description": "",
+      "source": "property",
+      "schema": "ExtendedCartDetails"
+    },
+    {
+      "term": "AddressDetails",
+      "description": "Address associated with the customer.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "pin_code",
+      "description": "Pin Code/Zip Code.",
+      "source": "property",
+      "schema": "AddressDetails"
+    },
+    {
+      "term": "email",
+      "description": "Cutomer Email Address.",
+      "source": "property",
+      "schema": "AddressDetails"
+    },
+    {
+      "term": "ChargesEntity",
+      "description": "Charges accociated with the order",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "shipping_charges",
+      "description": "Shipping charge of the order",
+      "source": "property",
+      "schema": "ChargesEntity"
+    },
+    {
+      "term": "cod_handling_charges",
+      "description": "COD handling fee for order",
+      "source": "property",
+      "schema": "ChargesEntity"
+    },
+    {
+      "term": "ExtendedCustomerDetails",
+      "description": "Recent Customer details associated with the order.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "UpdateOrderExtendedDataEntity",
+      "description": "The complete update order extended data entity",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "CartDetailsEntity",
+      "description": "Cart Details in the Order Entity Response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "cart_id",
+      "description": "ID of the cart that was created",
+      "source": "property",
+      "schema": "CartDetailsEntity"
+    },
+    {
+      "term": "OrderMeta",
+      "description": "Optional meta details to control how the customer pays and how payment journey completes",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "payment_methods_filters",
+      "description": "Allowed payment modes for this order. Along with multiple filters for cards can be added to this key. And this filtering will be honoured during transaction creation.",
+      "source": "property",
+      "schema": "OrderMeta"
+    },
+    {
+      "term": "OrderPayData",
+      "description": "the data object pay api",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "url",
+      "description": "",
+      "source": "property",
+      "schema": "OrderPayData"
+    },
+    {
+      "term": "payload",
+      "description": "",
+      "source": "property",
+      "schema": "OrderPayData"
+    },
+    {
+      "term": "content_type",
+      "description": "",
+      "source": "property",
+      "schema": "OrderPayData"
+    },
+    {
+      "term": "method",
+      "description": "",
+      "source": "property",
+      "schema": "OrderPayData"
+    },
+    {
+      "term": "redirect_to_bank",
+      "description": "",
+      "source": "property",
+      "schema": "OrderPayData"
+    },
+    {
+      "term": "OrderTags",
+      "description": "Custom Tags in thr form of {\"key\":\"value\"} which can be passed for an order. A maximum of 10 tags can be added",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "ProductDetailsEntity",
+      "description": "Configurations for this feature",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "enabled",
+      "description": "Whether the feature has been enabled for this order",
+      "source": "property",
+      "schema": "ProductDetailsEntity"
+    },
+    {
+      "term": "conditions",
+      "description": "Configured condtions for the feature",
+      "source": "property",
+      "schema": "ProductDetailsEntity"
+    },
+    {
+      "term": "ProductConditionsEntity",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "key",
+      "description": "key of the condition",
+      "source": "property",
+      "schema": "ProductConditionsEntity"
+    },
+    {
+      "term": "values",
+      "description": "Values set for the condition",
+      "source": "property",
+      "schema": "ProductConditionsEntity"
+    },
+    {
+      "term": "ProductDetails",
+      "description": "Specify the required configurations for this feature",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "ProductConditions",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PayOrderEntity",
+      "description": "Order Pay response once you create a transaction for that order",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "payment_amount",
+      "description": "total amount payable",
+      "source": "property",
+      "schema": "PayOrderEntity"
+    },
+    {
+      "term": "PayOrderRequest",
+      "description": "Complete object for the pay api that uses payment method objects",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "save_instrument",
+      "description": "",
+      "source": "property",
+      "schema": "PayOrderRequest"
+    },
+    {
+      "term": "payment_surcharge",
+      "description": "",
+      "source": "property",
+      "schema": "PayOrderRequest"
+    },
+    {
+      "term": "Paylater",
+      "description": "Paylater payment method",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "Banktransfer",
+      "description": "Banktransfer payment method",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PaylaterEntity",
+      "description": "Paylater Entity",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PaylaterPaymentMethod",
+      "description": "paylater payment method",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "BanktransferPaymentMethod",
+      "description": "banktransfer payment method",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "banktransfer",
+      "description": "",
+      "source": "property",
+      "schema": "BanktransferPaymentMethod"
+    },
+    {
+      "term": "PaymentGatewayDetails",
+      "description": "payment gateway details present in the webhook response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "gateway_name",
+      "description": "",
+      "source": "property",
+      "schema": "PaymentGatewayDetails"
+    },
+    {
+      "term": "gateway_order_id",
+      "description": "",
+      "source": "property",
+      "schema": "PaymentGatewayDetails"
+    },
+    {
+      "term": "gateway_payment_id",
+      "description": "",
+      "source": "property",
+      "schema": "PaymentGatewayDetails"
+    },
+    {
+      "term": "gateway_order_reference_id",
+      "description": "",
+      "source": "property",
+      "schema": "PaymentGatewayDetails"
+    },
+    {
+      "term": "gateway_status_code",
+      "description": "",
+      "source": "property",
+      "schema": "PaymentGatewayDetails"
+    },
+    {
+      "term": "gateway_settlement",
+      "description": "",
+      "source": "property",
+      "schema": "PaymentGatewayDetails"
+    },
+    {
+      "term": "gateway_reference_name",
+      "description": "",
+      "source": "property",
+      "schema": "PaymentGatewayDetails"
+    },
+    {
+      "term": "PaymentEntity",
+      "description": "payment entity full object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "error_details",
+      "description": "",
+      "source": "property",
+      "schema": "PaymentEntity"
+    },
+    {
+      "term": "is_captured",
+      "description": "",
+      "source": "property",
+      "schema": "PaymentEntity"
+    },
+    {
+      "term": "payment_group",
+      "description": "Type of payment group. One of ['prepaid_card', 'upi_ppi_offline', 'cash', 'upi_credit_card', 'paypal', 'net_banking', 'cardless_emi', 'credit_card', 'bank_transfer', 'pay_later', 'debit_card_emi', 'debit_card', 'wallet', 'upi_ppi', 'upi', 'credit_card_emi']",
+      "source": "property",
+      "schema": "PaymentEntity"
+    },
+    {
+      "term": "payment_currency",
+      "description": "",
+      "source": "property",
+      "schema": "PaymentEntity"
+    },
+    {
+      "term": "payment_time",
+      "description": "This is the time when the payment was initiated",
+      "source": "property",
+      "schema": "PaymentEntity"
+    },
+    {
+      "term": "payment_completion_time",
+      "description": "This is the time when the payment reaches its terminal state",
+      "source": "property",
+      "schema": "PaymentEntity"
+    },
+    {
+      "term": "bank_reference",
+      "description": "",
+      "source": "property",
+      "schema": "PaymentEntity"
+    },
+    {
+      "term": "auth_id",
+      "description": "",
+      "source": "property",
+      "schema": "PaymentEntity"
+    },
+    {
+      "term": "authorization",
+      "description": "",
+      "source": "property",
+      "schema": "PaymentEntity"
+    },
+    {
+      "term": "international_payment",
+      "description": "",
+      "source": "property",
+      "schema": "PaymentEntity"
+    },
+    {
+      "term": "payment_gateway_details",
+      "description": "",
+      "source": "property",
+      "schema": "PaymentEntity"
+    },
+    {
+      "term": "TerminalPaymentEntity",
+      "description": "terminal payment entity full object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PaymentLinkCustomerDetails",
+      "description": "The customer details that are necessary. Note that you can pass dummy details if your use case does not require the customer details.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PaymentLinkOrderEntity",
+      "description": "The complete order entity",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PaymentMethodAppInPaymentsEntity",
+      "description": "payment method app object in payment entity",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PaymentMethodBankTransferInPaymentsEntity",
+      "description": "payment method bank transfer object in payment entity",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PaymentMethodCardEMIInPaymentsEntity",
+      "description": "payment method card emi object in payment entity",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PaymentMethodCardInPaymentsEntity",
+      "description": "payment method card object in payment entity",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PaymentMethodCardlessEMIInPaymentsEntity",
+      "description": "payment method carless object in payment entity",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PaymentMethodNetBankingInPaymentsEntity",
+      "description": "netbanking payment method object for pay",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PaymentMethodPaylaterInPaymentsEntity",
+      "description": "paylater payment method object for pay api",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PaymentMethodUPIInPaymentsEntity",
+      "description": "UPI payment method for pay api",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PaymentMethodsFilters",
+      "description": "Filter for Payment Methods",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PaymentMethodsQueries",
+      "description": "Payment Method Query Object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PaymentModeDetails",
+      "description": "payment mode eligiblity object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "nick",
+      "description": "",
+      "source": "property",
+      "schema": "PaymentModeDetails"
+    },
+    {
+      "term": "display",
+      "description": "",
+      "source": "property",
+      "schema": "PaymentModeDetails"
+    },
+    {
+      "term": "RateLimitError",
+      "description": "Error when rate limit is breached for your api",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "ReconEntity",
+      "description": "Settlement detailed recon response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "RefundEntity",
+      "description": "The refund entity",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "cf_refund_id",
+      "description": "Cashfree Payments ID for a refund",
+      "source": "property",
+      "schema": "RefundEntity"
+    },
+    {
+      "term": "refund_currency",
+      "description": "Currency of the refund amount",
+      "source": "property",
+      "schema": "RefundEntity"
+    },
+    {
+      "term": "refund_status",
+      "description": "This can be one of [\"SUCCESS\", \"PENDING\", \"CANCELLED\", \"ONHOLD\", \"FAILED\"]",
+      "source": "property",
+      "schema": "RefundEntity"
+    },
+    {
+      "term": "refund_arn",
+      "description": "The bank reference number for refund",
+      "source": "property",
+      "schema": "RefundEntity"
+    },
+    {
+      "term": "refund_charge",
+      "description": "Charges in INR for processing refund",
+      "source": "property",
+      "schema": "RefundEntity"
+    },
+    {
+      "term": "status_description",
+      "description": "Description of refund status",
+      "source": "property",
+      "schema": "RefundEntity"
+    },
+    {
+      "term": "metadata",
+      "description": "Key-value pair that can be used to store additional information about the entity. Maximum 5 key-value pairs",
+      "source": "property",
+      "schema": "RefundEntity"
+    },
+    {
+      "term": "refund_type",
+      "description": "This can be one of [\"PAYMENT_AUTO_REFUND\", \"MERCHANT_INITIATED\", \"UNRECONCILED_AUTO_REFUND\"]",
+      "source": "property",
+      "schema": "RefundEntity"
+    },
+    {
+      "term": "refund_mode",
+      "description": "Method or speed of processing refund",
+      "source": "property",
+      "schema": "RefundEntity"
+    },
+    {
+      "term": "processed_at",
+      "description": "Time when refund was processed successfully",
+      "source": "property",
+      "schema": "RefundEntity"
+    },
+    {
+      "term": "forex_conversion_handling_charge",
+      "description": "Cashfree forex conversion charges for refund processing",
+      "source": "property",
+      "schema": "RefundEntity"
+    },
+    {
+      "term": "forex_conversion_handling_tax",
+      "description": "Cashfree forex conversion tax for refund processing",
+      "source": "property",
+      "schema": "RefundEntity"
+    },
+    {
+      "term": "forex_conversion_rate",
+      "description": "Cashfree forex conversion rate for refund processing",
+      "source": "property",
+      "schema": "RefundEntity"
+    },
+    {
+      "term": "charges_currency",
+      "description": "Cashfree refund charges currency for a refund",
+      "source": "property",
+      "schema": "RefundEntity"
+    },
+    {
+      "term": "RefundSpeed",
+      "description": "How fast refund has to be proecessed",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "requested",
+      "description": "Requested speed of refund.",
+      "source": "property",
+      "schema": "RefundSpeed"
+    },
+    {
+      "term": "accepted",
+      "description": "Accepted speed of refund.",
+      "source": "property",
+      "schema": "RefundSpeed"
+    },
+    {
+      "term": "processed",
+      "description": "Processed speed of refund.",
+      "source": "property",
+      "schema": "RefundSpeed"
+    },
+    {
+      "term": "SavedInstrumentMeta",
+      "description": "Card instrument meta information",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "card_network",
+      "description": "card scheme/network of the saved card. Example visa, mastercard",
+      "source": "property",
+      "schema": "SavedInstrumentMeta"
+    },
+    {
+      "term": "card_country",
+      "description": "Issuing country of saved card",
+      "source": "property",
+      "schema": "SavedInstrumentMeta"
+    },
+    {
+      "term": "card_type",
+      "description": "Type of saved card",
+      "source": "property",
+      "schema": "SavedInstrumentMeta"
+    },
+    {
+      "term": "card_token_details",
+      "description": "",
+      "source": "property",
+      "schema": "SavedInstrumentMeta"
+    },
+    {
+      "term": "SchemeArray",
+      "description": "array of card schemes like visa, master etc",
+      "source": "schema",
+      "type": "string"
+    },
+    {
+      "term": "EmptyObject",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "SettlementEntity",
+      "description": "Settlement entity object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "cf_settlement_id",
+      "description": "",
+      "source": "property",
+      "schema": "SettlementEntity"
+    },
+    {
+      "term": "settlement_currency",
+      "description": "",
+      "source": "property",
+      "schema": "SettlementEntity"
+    },
+    {
+      "term": "service_charge",
+      "description": "",
+      "source": "property",
+      "schema": "SettlementEntity"
+    },
+    {
+      "term": "service_tax",
+      "description": "",
+      "source": "property",
+      "schema": "SettlementEntity"
+    },
+    {
+      "term": "settlement_amount",
+      "description": "",
+      "source": "property",
+      "schema": "SettlementEntity"
+    },
+    {
+      "term": "settlement_id",
+      "description": "",
+      "source": "property",
+      "schema": "SettlementEntity"
+    },
+    {
+      "term": "transfer_id",
+      "description": "",
+      "source": "property",
+      "schema": "SettlementEntity"
+    },
+    {
+      "term": "transfer_time",
+      "description": "",
+      "source": "property",
+      "schema": "SettlementEntity"
+    },
+    {
+      "term": "transfer_utr",
+      "description": "",
+      "source": "property",
+      "schema": "SettlementEntity"
+    },
+    {
+      "term": "VendorBalance",
+      "description": "Vendor Balance entity object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "merchant_id",
+      "description": "",
+      "source": "property",
+      "schema": "VendorBalance"
+    },
+    {
+      "term": "vendor_id",
+      "description": "",
+      "source": "property",
+      "schema": "VendorBalance"
+    },
+    {
+      "term": "merchant_unsettled",
+      "description": "",
+      "source": "property",
+      "schema": "VendorBalance"
+    },
+    {
+      "term": "vendor_unsettled",
+      "description": "",
+      "source": "property",
+      "schema": "VendorBalance"
+    },
+    {
+      "term": "VendorBalanceTransferCharges",
+      "description": "Vendor Balance Transfer Charges entity object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "service_charges",
+      "description": "",
+      "source": "property",
+      "schema": "VendorBalanceTransferCharges"
+    },
+    {
+      "term": "billed_to",
+      "description": "",
+      "source": "property",
+      "schema": "VendorBalanceTransferCharges"
+    },
+    {
+      "term": "is_postpaid",
+      "description": "",
+      "source": "property",
+      "schema": "VendorBalanceTransferCharges"
+    },
+    {
+      "term": "DisputesEntity",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "dispute_id",
+      "description": "",
+      "source": "property",
+      "schema": "DisputesEntity"
+    },
+    {
+      "term": "dispute_type",
+      "description": "",
+      "source": "property",
+      "schema": "DisputesEntity"
+    },
+    {
+      "term": "reason_code",
+      "description": "",
+      "source": "property",
+      "schema": "DisputesEntity"
+    },
+    {
+      "term": "reason_description",
+      "description": "",
+      "source": "property",
+      "schema": "DisputesEntity"
+    },
+    {
+      "term": "dispute_amount",
+      "description": "Dispute amount may differ from transaction amount for partial cases.",
+      "source": "property",
+      "schema": "DisputesEntity"
+    },
+    {
+      "term": "dispute_amount_currency",
+      "description": "Dispute amount currency for a dispute",
+      "source": "property",
+      "schema": "DisputesEntity"
+    },
+    {
+      "term": "respond_by",
+      "description": "This is the time by which evidence should be submitted to contest the dispute.",
+      "source": "property",
+      "schema": "DisputesEntity"
+    },
+    {
+      "term": "updated_at",
+      "description": "This is the time when the dispute case was updated.",
+      "source": "property",
+      "schema": "DisputesEntity"
+    },
+    {
+      "term": "resolved_at",
+      "description": "This is the time when the dispute case was closed.",
+      "source": "property",
+      "schema": "DisputesEntity"
+    },
+    {
+      "term": "dispute_status",
+      "description": "",
+      "source": "property",
+      "schema": "DisputesEntity"
+    },
+    {
+      "term": "cf_dispute_remarks",
+      "description": "",
+      "source": "property",
+      "schema": "DisputesEntity"
+    },
+    {
+      "term": "preferred_evidence",
+      "description": "",
+      "source": "property",
+      "schema": "DisputesEntity"
+    },
+    {
+      "term": "dispute_evidence",
+      "description": "",
+      "source": "property",
+      "schema": "DisputesEntity"
+    },
+    {
+      "term": "order_details",
+      "description": "",
+      "source": "property",
+      "schema": "DisputesEntity"
+    },
+    {
+      "term": "DisputesEntityMerchantAccepted",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "OrderDetailsInDisputesEntity",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "CustomerDetailsInDisputesEntity",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PreferredEvidence",
+      "description": "",
+      "source": "schema",
+      "type": "array"
+    },
+    {
+      "term": "DisputeEvidence",
+      "description": "",
+      "source": "schema",
+      "type": "array"
+    },
+    {
+      "term": "Evidence",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "document_id",
+      "description": "",
+      "source": "property",
+      "schema": "Evidence"
+    },
+    {
+      "term": "document_name",
+      "description": "",
+      "source": "property",
+      "schema": "Evidence"
+    },
+    {
+      "term": "document_type",
+      "description": "",
+      "source": "property",
+      "schema": "Evidence"
+    },
+    {
+      "term": "EvidencesToContestDispute",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "document_description",
+      "description": "",
+      "source": "property",
+      "schema": "EvidencesToContestDispute"
+    },
+    {
+      "term": "VendorEntity",
+      "description": "Vendor entity object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "added_on",
+      "description": "",
+      "source": "property",
+      "schema": "VendorEntity"
+    },
+    {
+      "term": "updated_on",
+      "description": "",
+      "source": "property",
+      "schema": "VendorEntity"
+    },
+    {
+      "term": "schedule_option",
+      "description": "",
+      "source": "property",
+      "schema": "VendorEntity"
+    },
+    {
+      "term": "vendor_type",
+      "description": "",
+      "source": "property",
+      "schema": "VendorEntity"
+    },
+    {
+      "term": "account_type",
+      "description": "",
+      "source": "property",
+      "schema": "VendorEntity"
+    },
+    {
+      "term": "business_type",
+      "description": "",
+      "source": "property",
+      "schema": "VendorEntity"
+    },
+    {
+      "term": "remarks",
+      "description": "",
+      "source": "property",
+      "schema": "VendorEntity"
+    },
+    {
+      "term": "related_docs",
+      "description": "",
+      "source": "property",
+      "schema": "VendorEntity"
+    },
+    {
+      "term": "VendorDocumentsResponse",
+      "description": "Get Vendor Documents",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "documents",
+      "description": "",
+      "source": "property",
+      "schema": "VendorDocumentsResponse"
+    },
+    {
+      "term": "VendorDocumentDownloadResponse",
+      "description": "Download Vendor Document",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "download_url",
+      "description": "",
+      "source": "property",
+      "schema": "VendorDocumentDownloadResponse"
+    },
+    {
+      "term": "UploadVendorDocumentsResponse",
+      "description": "Upload Vendor Document",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "StaticSplitResponse",
+      "description": "Static Split Response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "active",
+      "description": "",
+      "source": "property",
+      "schema": "StaticSplitResponse"
+    },
+    {
+      "term": "terminal_reference_id",
+      "description": "",
+      "source": "property",
+      "schema": "StaticSplitResponse"
+    },
+    {
+      "term": "product_type",
+      "description": "",
+      "source": "property",
+      "schema": "StaticSplitResponse"
+    },
+    {
+      "term": "scheme",
+      "description": "",
+      "source": "property",
+      "schema": "StaticSplitResponse"
+    },
+    {
+      "term": "ESOrderReconResponse",
+      "description": "ES Order Recon Response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "SplitOrderReconSuccessResponse",
+      "description": "Split Order Reconciliation Request Body",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "settlement",
+      "description": "Details of the settlement information.",
+      "source": "property",
+      "schema": "SplitOrderReconSuccessResponse"
+    },
+    {
+      "term": "refunds",
+      "description": "List of refunds associated with the order, if any.",
+      "source": "property",
+      "schema": "SplitOrderReconSuccessResponse"
+    },
+    {
+      "term": "vendors",
+      "description": "List of vendor settlements associated with the split settlement.",
+      "source": "property",
+      "schema": "SplitOrderReconSuccessResponse"
+    },
+    {
+      "term": "SimulationResponse",
+      "description": "Simulation response object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "simulation_id",
+      "description": "",
+      "source": "property",
+      "schema": "SimulationResponse"
+    },
+    {
+      "term": "SplitAfterPaymentResponse",
+      "description": "Split After Payment Response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "AdjustVendorBalanceResponse",
+      "description": "Adjust Vendor Balance Response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "transfer_details",
+      "description": "",
+      "source": "property",
+      "schema": "AdjustVendorBalanceResponse"
+    },
+    {
+      "term": "balances",
+      "description": "",
+      "source": "property",
+      "schema": "AdjustVendorBalanceResponse"
+    },
+    {
+      "term": "VendorAdjustmentSuccessResponse",
+      "description": "Vendor Adjustment Success Response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "CreateVendorResponse",
+      "description": "Create Vendor Response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "kyc_details",
+      "description": "",
+      "source": "property",
+      "schema": "CreateVendorResponse"
+    },
+    {
+      "term": "dashboard_access",
+      "description": "",
+      "source": "property",
+      "schema": "CreateVendorResponse"
+    },
+    {
+      "term": "bank_details",
+      "description": "",
+      "source": "property",
+      "schema": "CreateVendorResponse"
+    },
+    {
+      "term": "UpdateVendorResponse",
+      "description": "Update Vendor Response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "CreateVendorRequest",
+      "description": "Create Vendor Request",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "verify_account",
+      "description": "Specify if the vendor bank account details should be verified. Possible values: true or false",
+      "source": "property",
+      "schema": "CreateVendorRequest"
+    },
+    {
+      "term": "StaticSplitRequest",
+      "description": "Static Split Request",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "ESOrderReconRequest",
+      "description": "ES Order Recon Request",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "SplitAfterPaymentRequest",
+      "description": "Split After Payment Request",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "split",
+      "description": "Specify the vendors order split details.",
+      "source": "property",
+      "schema": "SplitAfterPaymentRequest"
+    },
+    {
+      "term": "disable_split",
+      "description": "Specify if you want to end the split or continue creating further splits in future.",
+      "source": "property",
+      "schema": "SplitAfterPaymentRequest"
+    },
+    {
+      "term": "AdjustVendorBalanceRequest",
+      "description": "Adjust Vendor Balance Request",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "transfer_from",
+      "description": "Mention to whom you want to transfer the on demand balance. Possible values - MERCHANT, VENDOR.",
+      "source": "property",
+      "schema": "AdjustVendorBalanceRequest"
+    },
+    {
+      "term": "transfer_type",
+      "description": "Mention the type of transfer. Possible values: ON_DEMAND.",
+      "source": "property",
+      "schema": "AdjustVendorBalanceRequest"
+    },
+    {
+      "term": "transfer_amount",
+      "description": "Mention the on demand transfer amount.",
+      "source": "property",
+      "schema": "AdjustVendorBalanceRequest"
+    },
+    {
+      "term": "remark",
+      "description": "Mention remarks if any for the on demand transfer.",
+      "source": "property",
+      "schema": "AdjustVendorBalanceRequest"
+    },
+    {
+      "term": "tags",
+      "description": "Provide additional data fields using tags.",
+      "source": "property",
+      "schema": "AdjustVendorBalanceRequest"
+    },
+    {
+      "term": "VendorAdjustmentRequest",
+      "description": "Vendor Adjustment Request Body",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "adjustment_id",
+      "description": "The unique identifier for the adjustment transaction.",
+      "source": "property",
+      "schema": "VendorAdjustmentRequest"
+    },
+    {
+      "term": "UpdateVendorRequest",
+      "description": "Update Vendor Request",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "CreateOrderSettlementRequestBody",
+      "description": "Create Order Settlement Object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "meta_data",
+      "description": "",
+      "source": "property",
+      "schema": "CreateOrderSettlementRequestBody"
+    },
+    {
+      "term": "SettlementFetchReconRequest",
+      "description": "Recon Request Object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "SettlementReconEntity",
+      "description": "Recon object for settlement",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "SettlementWebhook",
+      "description": "Settlement webhook object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "TerminalDetails",
+      "description": "Use this if you are creating an order for cashfree's softPOS",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "last_updated_on",
+      "description": "last instant when this terminal was updated",
+      "source": "property",
+      "schema": "TerminalDetails"
+    },
+    {
+      "term": "terminal_status",
+      "description": "status of terminal active/inactive",
+      "source": "property",
+      "schema": "TerminalDetails"
+    },
+    {
+      "term": "TerminalEntity",
+      "description": "Create terminal response object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "teminal_id",
+      "description": "",
+      "source": "property",
+      "schema": "TerminalEntity"
+    },
+    {
+      "term": "TerminalTransactionEntity",
+      "description": "Create terminal response object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "payment_url",
+      "description": "",
+      "source": "property",
+      "schema": "TerminalTransactionEntity"
+    },
+    {
+      "term": "qrcode",
+      "description": "",
+      "source": "property",
+      "schema": "TerminalTransactionEntity"
+    },
+    {
+      "term": "timeout",
+      "description": "",
+      "source": "property",
+      "schema": "TerminalTransactionEntity"
+    },
+    {
+      "term": "SoundboxVpaEntity",
+      "description": "soundbox response object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "TerminateOrderRequest",
+      "description": "Request to terminate an active order at Cashfree",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "UPIAuthorizeDetails",
+      "description": "object when you are using preauth in UPI in order pay",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "UPIPaymentMethod",
+      "description": "Complete payment method for UPI collect",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "UpdateTerminalEntity",
+      "description": "Update terminal response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "UpdateTerminalRequest",
+      "description": "Request body to update terminal details.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "UpdateTerminalStatusRequest",
+      "description": "Request body to update terminal status.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "Upi",
+      "description": "UPI collect payment method object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "upi_id",
+      "description": "Customer UPI VPA to process payment. \n### Important\nThis is a required parameter for channel = `collect`\n",
+      "source": "property",
+      "schema": "Upi"
+    },
+    {
+      "term": "upi_redirect_url",
+      "description": "use this if you want cashfree to show a loader. Sample response below. It is only supported for collect\n`action:collect` will be returned with `data.url` having the link for redirection\n",
+      "source": "property",
+      "schema": "Upi"
+    },
+    {
+      "term": "upi_expiry_minutes",
+      "description": "The UPI request will be valid for this expiry minutes. This parameter is only applicable for a UPI collect payment. The default value is 5 minutes. You should keep the minimum as 5 minutes, and maximum as 15 minutes",
+      "source": "property",
+      "schema": "Upi"
+    },
+    {
+      "term": "authorize_only",
+      "description": "For one time mandate on UPI, set this as authorize_only = true.",
+      "source": "property",
+      "schema": "Upi"
+    },
+    {
+      "term": "UploadTerminalDocs",
+      "description": "Request body to upload terminal documents.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "file",
+      "description": "Select the document that should be uploaded or provide the path of that file. You cannot upload a file that is more than 2MB in size.",
+      "source": "property",
+      "schema": "UploadTerminalDocs"
+    },
+    {
+      "term": "VendorSplit",
+      "description": "Use to split order when cashfree's Easy Split is enabled for your account.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "percentage",
+      "description": "Percentage of order amount which shall get added to vendor account",
+      "source": "property",
+      "schema": "VendorSplit"
+    },
+    {
+      "term": "BankDetails",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "account_number",
+      "description": "",
+      "source": "property",
+      "schema": "BankDetails"
+    },
+    {
+      "term": "account_holder",
+      "description": "",
+      "source": "property",
+      "schema": "BankDetails"
+    },
+    {
+      "term": "ifsc",
+      "description": "",
+      "source": "property",
+      "schema": "BankDetails"
+    },
+    {
+      "term": "TransferDetails",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "BalanceDetails",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "ChargesDetails",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "UpiDetails",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "KycDetails",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "uidai",
+      "description": "",
+      "source": "property",
+      "schema": "KycDetails"
+    },
+    {
+      "term": "gst",
+      "description": "",
+      "source": "property",
+      "schema": "KycDetails"
+    },
+    {
+      "term": "cin",
+      "description": "",
+      "source": "property",
+      "schema": "KycDetails"
+    },
+    {
+      "term": "pan",
+      "description": "",
+      "source": "property",
+      "schema": "KycDetails"
+    },
+    {
+      "term": "passport_number",
+      "description": "",
+      "source": "property",
+      "schema": "KycDetails"
+    },
+    {
+      "term": "driving_license",
+      "description": "",
+      "source": "property",
+      "schema": "KycDetails"
+    },
+    {
+      "term": "voter_id",
+      "description": "",
+      "source": "property",
+      "schema": "KycDetails"
+    },
+    {
+      "term": "ScheduleOption",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "settlement_schedule_message",
+      "description": "",
+      "source": "property",
+      "schema": "ScheduleOption"
+    },
+    {
+      "term": "schedule_id",
+      "description": "",
+      "source": "property",
+      "schema": "ScheduleOption"
+    },
+    {
+      "term": "merchant_default",
+      "description": "",
+      "source": "property",
+      "schema": "ScheduleOption"
+    },
+    {
+      "term": "SubscriptionPaymentSplitItem",
+      "description": "Subscription Payment Split Item",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "AuthorizationDetails",
+      "description": "Details of the authorization done for the subscription. Returned in Get subscription and auth payments.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "authorization_amount",
+      "description": "Authorization amount for the auth payment.",
+      "source": "property",
+      "schema": "AuthorizationDetails"
+    },
+    {
+      "term": "authorization_amount_refund",
+      "description": "Indicates whether the authorization amount should be refunded to the customer automatically. Merchants can use this field to specify if the authorized funds should be returned to the customer after authorization of the subscription.",
+      "source": "property",
+      "schema": "AuthorizationDetails"
+    },
+    {
+      "term": "authorization_reference",
+      "description": "Authorization reference. UMN for UPI, UMRN for EMandate/Physical Mandate and Enrollment ID for cards.",
+      "source": "property",
+      "schema": "AuthorizationDetails"
+    },
+    {
+      "term": "authorization_time",
+      "description": "Authorization time.",
+      "source": "property",
+      "schema": "AuthorizationDetails"
+    },
+    {
+      "term": "authorization_status",
+      "description": "Status of the authorization.",
+      "source": "property",
+      "schema": "AuthorizationDetails"
+    },
+    {
+      "term": "payment_id",
+      "description": "A unique ID passed by merchant for identifying the transaction.",
+      "source": "property",
+      "schema": "AuthorizationDetails"
+    },
+    {
+      "term": "SubscriptionCustomerDetails",
+      "description": "Subscription customer details.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "customer_bank_account_holder_name",
+      "description": "Bank holder name of the customer.",
+      "source": "property",
+      "schema": "SubscriptionCustomerDetails"
+    },
+    {
+      "term": "customer_bank_account_type",
+      "description": "Bank account type of the customer.",
+      "source": "property",
+      "schema": "SubscriptionCustomerDetails"
+    },
+    {
+      "term": "PlanEntity",
+      "description": "The response returned for Get, Create and Manage Plan APIs",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "plan_currency",
+      "description": "Currency for the plan.",
+      "source": "property",
+      "schema": "PlanEntity"
+    },
+    {
+      "term": "plan_id",
+      "description": "Plan ID provided by merchant.",
+      "source": "property",
+      "schema": "PlanEntity"
+    },
+    {
+      "term": "plan_interval_type",
+      "description": "Interval type for the plan.",
+      "source": "property",
+      "schema": "PlanEntity"
+    },
+    {
+      "term": "plan_intervals",
+      "description": "Number of intervals for the plan.",
+      "source": "property",
+      "schema": "PlanEntity"
+    },
+    {
+      "term": "plan_max_amount",
+      "description": "Maximum amount for the plan.",
+      "source": "property",
+      "schema": "PlanEntity"
+    },
+    {
+      "term": "plan_max_cycles",
+      "description": "Maximum number of payment cycles for the plan.",
+      "source": "property",
+      "schema": "PlanEntity"
+    },
+    {
+      "term": "plan_name",
+      "description": "Name of the plan.",
+      "source": "property",
+      "schema": "PlanEntity"
+    },
+    {
+      "term": "plan_note",
+      "description": "Note for the plan.",
+      "source": "property",
+      "schema": "PlanEntity"
+    },
+    {
+      "term": "plan_recurring_amount",
+      "description": "Recurring amount for the plan.",
+      "source": "property",
+      "schema": "PlanEntity"
+    },
+    {
+      "term": "plan_status",
+      "description": "Status of the plan.",
+      "source": "property",
+      "schema": "PlanEntity"
+    },
+    {
+      "term": "plan_type",
+      "description": "Type of the plan.",
+      "source": "property",
+      "schema": "PlanEntity"
+    },
+    {
+      "term": "SubscriptionEntity",
+      "description": "The response returned for Get, Create or Manage Subscription APIs.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "authorisation_details",
+      "description": "",
+      "source": "property",
+      "schema": "SubscriptionEntity"
+    },
+    {
+      "term": "cf_subscription_id",
+      "description": "Cashfree subscription reference number",
+      "source": "property",
+      "schema": "SubscriptionEntity"
+    },
+    {
+      "term": "plan_details",
+      "description": "",
+      "source": "property",
+      "schema": "SubscriptionEntity"
+    },
+    {
+      "term": "subscription_expiry_time",
+      "description": "Time at which the subscription will expire.",
+      "source": "property",
+      "schema": "SubscriptionEntity"
+    },
+    {
+      "term": "subscription_first_charge_time",
+      "description": "Time at which the first charge will be made for the subscription. Applicable only for PERIODIC plans.",
+      "source": "property",
+      "schema": "SubscriptionEntity"
+    },
+    {
+      "term": "subscription_id",
+      "description": "A unique ID passed by merchant for identifying the subscription.",
+      "source": "property",
+      "schema": "SubscriptionEntity"
+    },
+    {
+      "term": "subscription_meta",
+      "description": "Subscription metadata.",
+      "source": "property",
+      "schema": "SubscriptionEntity"
+    },
+    {
+      "term": "subscription_note",
+      "description": "Note for the subscription.",
+      "source": "property",
+      "schema": "SubscriptionEntity"
+    },
+    {
+      "term": "subscription_session_id",
+      "description": "Subscription Session Id.",
+      "source": "property",
+      "schema": "SubscriptionEntity"
+    },
+    {
+      "term": "subscription_payment_splits",
+      "description": "Payment splits for the subscription.",
+      "source": "property",
+      "schema": "SubscriptionEntity"
+    },
+    {
+      "term": "subscription_status",
+      "description": "Status of the subscription.",
+      "source": "property",
+      "schema": "SubscriptionEntity"
+    },
+    {
+      "term": "subscription_tags",
+      "description": "Tags for the subscription.",
+      "source": "property",
+      "schema": "SubscriptionEntity"
+    },
+    {
+      "term": "SubscriptionPaymentEntity",
+      "description": "The response returned in Get, Create or Manage Subscription Payment APIs.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "authorization_details",
+      "description": "",
+      "source": "property",
+      "schema": "SubscriptionPaymentEntity"
+    },
+    {
+      "term": "cf_txn_id",
+      "description": "Cashfree subscription payment transaction ID",
+      "source": "property",
+      "schema": "SubscriptionPaymentEntity"
+    },
+    {
+      "term": "failure_details",
+      "description": "",
+      "source": "property",
+      "schema": "SubscriptionPaymentEntity"
+    },
+    {
+      "term": "payment_initiated_date",
+      "description": "The date on which the payment was initiated.",
+      "source": "property",
+      "schema": "SubscriptionPaymentEntity"
+    },
+    {
+      "term": "payment_remarks",
+      "description": "Payment remarks.",
+      "source": "property",
+      "schema": "SubscriptionPaymentEntity"
+    },
+    {
+      "term": "payment_schedule_date",
+      "description": "The date on which the payment is scheduled to be processed.",
+      "source": "property",
+      "schema": "SubscriptionPaymentEntity"
+    },
+    {
+      "term": "payment_type",
+      "description": "Payment type. Can be AUTH or CHARGE.",
+      "source": "property",
+      "schema": "SubscriptionPaymentEntity"
+    },
+    {
+      "term": "retry_attempts",
+      "description": "Retry attempts.",
+      "source": "property",
+      "schema": "SubscriptionPaymentEntity"
+    },
+    {
+      "term": "CreateSubscriptionPaymentResponse",
+      "description": "The response returned is Create Subscription Auth or Charge APIs.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "SubscriptionPaymentRefundEntity",
+      "description": "Get/Create Subscription Payment Refund Response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "CreateSubscriptionRefundRequest",
+      "description": "Request body to create a subscription refund.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "CreatePlanRequest",
+      "description": "Request body to create a plan.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "ManageSubscriptionRequest",
+      "description": "Request body to manage a subscription.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "action_details",
+      "description": "Details of the action to be performed.",
+      "source": "property",
+      "schema": "ManageSubscriptionRequest"
+    },
+    {
+      "term": "CreateSubscriptionRequest",
+      "description": "Request body to create a new subscription.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "ManageSubscriptionPaymentRequest",
+      "description": "Request body to manage a subscription payment.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "CreateSubscriptionPaymentRequest",
+      "description": "The request to be passed for the create subscription payment API.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "CreateSubscriptonPaymentRequestUpi",
+      "description": "payment method upi.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "CreateSubscriptionPaymentRequestCard",
+      "description": "payment method card.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "CreateSubscriptionPaymentRequestEnach",
+      "description": "payment method enach.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "account_bank_code",
+      "description": "Account bank code (required without AccountIFSC)",
+      "source": "property",
+      "schema": "CreateSubscriptionPaymentRequestEnach"
+    },
+    {
+      "term": "account_holder_name",
+      "description": "Account holder name",
+      "source": "property",
+      "schema": "CreateSubscriptionPaymentRequestEnach"
+    },
+    {
+      "term": "account_ifsc",
+      "description": "Account IFSC",
+      "source": "property",
+      "schema": "CreateSubscriptionPaymentRequestEnach"
+    },
+    {
+      "term": "auth_mode",
+      "description": "Authentication mode. can be debit_card, aadhaar, or net_banking",
+      "source": "property",
+      "schema": "CreateSubscriptionPaymentRequestEnach"
+    },
+    {
+      "term": "CreateSubscriptionPaymentRequestPnach",
+      "description": "payment method pnach.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "mandate_creation_date",
+      "description": "Mandate creation date",
+      "source": "property",
+      "schema": "CreateSubscriptionPaymentRequestPnach"
+    },
+    {
+      "term": "mandate_start_date",
+      "description": "Mandate start date",
+      "source": "property",
+      "schema": "CreateSubscriptionPaymentRequestPnach"
+    },
+    {
+      "term": "UploadPnachImageRequest",
+      "description": "Request Body to upload Physical Nach Image.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "UploadPnachImageResponse",
+      "description": "Response of pnach image upload API.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "SubscriptionEligibilityRequest",
+      "description": "Request body to fetch subscription eligibile payment method details.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "SubscriptionBankDetails",
+      "description": "Bank details object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "bank_id",
+      "description": "ID of the bank.",
+      "source": "property",
+      "schema": "SubscriptionBankDetails"
+    },
+    {
+      "term": "bank_name",
+      "description": "Name of the bank.",
+      "source": "property",
+      "schema": "SubscriptionBankDetails"
+    },
+    {
+      "term": "account_auth_modes",
+      "description": "List of account authentication modes supported by the bank. (e.g. DEBIT_CARD, NET_BANKING, AADHAAR)",
+      "source": "property",
+      "schema": "SubscriptionBankDetails"
+    },
+    {
+      "term": "EligibilityMethodItem",
+      "description": "Eligibile payment method object",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "SubscriptionEligibilityResponse",
+      "description": "Subscrition eligibility API response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PARRequest",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PGEligibilityFetchPaymentMethods",
+      "description": "Use this API to get eligible Payment Methods",
+      "source": "operation"
+    },
+    {
+      "term": "PGCreateLink",
+      "description": "Use this API to create a new payment link. The created payment link url will be available in the API response parameter link_url. Please pass non required fields only if user passed that are critical like phone",
+      "source": "operation"
+    },
+    {
+      "term": "PGFetchLink",
+      "description": "Use this API to view all details and status of a payment link.",
+      "source": "operation"
+    },
+    {
+      "term": "PGCancelLink",
+      "description": "Use this API to cancel a payment link. No further payments can be done against a cancelled link. Only a link in ACTIVE status can be cancelled.",
+      "source": "operation"
+    },
+    {
+      "term": "PGLinkFetchOrders",
+      "description": "Use this API to view all order details for a payment link.",
+      "source": "operation"
+    },
+    {
+      "term": "PGCreateOrder",
+      "description": "### Order\nAn order is an entity which has a amount and currency associated with it. It is something for which you want to collect payment for.\nUse this API to create orders with Cashfree from your backend to get a `payment_sessions_id`. \nYou can use the `payment_sessions_id` to create a transaction for the order.\n",
+      "source": "operation"
+    },
+    {
+      "term": "PGFetchOrder",
+      "description": "Use this API to fetch the order that was created at Cashfree's using the `order_id`. \n## When to use this API\n- To check the status of your order\n- Once the order is PAID\n- Once your customer returns to `return_url`\n",
+      "source": "operation"
+    },
+    {
+      "term": "PGTerminateOrder",
+      "description": "Use this API to terminate the order that was created at Cashfree's using the `order_id`.",
+      "source": "operation"
+    },
+    {
+      "term": "PGFetchOrderExtendedData",
+      "description": "Use this API to fetch the order related data like address,cart,offers,customer details etc using the Cashfree's `order_id`.\n## When to use this API\n- To get the extended data associated with order.\n- Once the order is PAID\n- Once your customer returns to `return_url`\n",
+      "source": "operation"
+    },
+    {
+      "term": "PGOrderFetchPayments",
+      "description": "Use this API to view all payment details for an order.",
+      "source": "operation"
+    },
+    {
+      "term": "PGOrderFetchPayment",
+      "description": "Use this API to view payment details of an order for a Payment ID.",
+      "source": "operation"
+    },
+    {
+      "term": "PGOrderFetchRefunds",
+      "description": "Use this API to fetch all refunds processed against an order.",
+      "source": "operation"
+    },
+    {
+      "term": "PGOrderCreateRefund",
+      "description": "Use this API to initiate refunds.",
+      "source": "operation"
+    },
+    {
+      "term": "PGOrderFetchRefund",
+      "description": "Use this API to fetch a specific refund processed on your Cashfree Account.",
+      "source": "operation"
+    },
+    {
+      "term": "PGFetchSettlements",
+      "description": "Use this API to get all settlement details by specifying the settlement ID, settlement UTR or date range.",
+      "source": "operation"
+    },
+    {
+      "term": "PGOrderFetchSettlement",
+      "description": "Use this API to view all the settlements of a particular order.",
+      "source": "operation"
+    },
+    {
+      "term": "PGFetchOrderDisputes",
+      "description": "Use this API to get all Dispute details by specifying the Order ID.",
+      "source": "operation"
+    },
+    {
+      "term": "PGFetchPaymentDisputes",
+      "description": "Use this API to get all Dispute details by specifying the Payment ID.",
+      "source": "operation"
+    },
+    {
+      "term": "PGFetchDisputeByID",
+      "description": "Use this API to get Dispute details by specifying the Dispute ID.",
+      "source": "operation"
+    },
+    {
+      "term": "PGAcceptDisputeByID",
+      "description": "Use this API to get accept the Dispute by specifying the Dispute ID.",
+      "source": "operation"
+    },
+    {
+      "term": "PGUploadDisputesDocuments",
+      "description": "Use this API to Submit the Evidences to contest the Dispute by specifying the Dispute ID.",
+      "source": "operation"
+    },
+    {
+      "term": "PGSimulatePayment",
+      "description": "Use this API to simulate payment. To use this API you should first create an order using the Create Order API. Also, you need to create a payment with the same order.",
+      "source": "operation"
+    },
+    {
+      "term": "PGFetchSimulation",
+      "description": "Use this API to fetch simulated payment details.",
+      "source": "operation"
+    },
+    {
+      "term": "PGESOrderRecon",
+      "description": "Use this API to get all the split details, settled and unsettled transactions details of each vendor who were part of a particular order by providing order Id or start date and end date.",
+      "source": "operation"
+    }
+  ]
+}

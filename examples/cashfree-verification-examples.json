@@ -1,0 +1,51 @@
+{
+  "api": "Cashfree Verification API's.",
+  "version": "2023-12-18",
+  "examples": [
+    {
+      "operationId": "VrsNameMatchVerification",
+      "summary": "Verify Name Match",
+      "method": "POST",
+      "path": "/name-match",
+      "tags": [
+        "Name Match"
+      ]
+    },
+    {
+      "operationId": "VrsGetKYCLinkStatus",
+      "summary": "Get KYC Link Status",
+      "method": "GET",
+      "path": "/form",
+      "tags": [
+        "Get KYC Link Status"
+      ]
+    },
+    {
+      "operationId": "VrsGenerateKYCLink",
+      "summary": "Generate KYC Link",
+      "method": "POST",
+      "path": "/form",
+      "tags": [
+        "Generate KYC Link"
+      ]
+    },
+    {
+      "operationId": "VrsGenerateStaticKYCLink",
+      "summary": "Generate Static KYC Link",
+      "method": "POST",
+      "path": "/form/static-link",
+      "tags": [
+        "Generate Static KYC Link"
+      ]
+    },
+    {
+      "operationId": "VrsDeactivateStaticKYCLink",
+      "summary": "Deactivate Static KYC Link",
+      "method": "DELETE",
+      "path": "/form/static-link",
+      "tags": [
+        "Deactivate Static KYC Link"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "cashfree": "https://www.cashfree.com/docs#"
+  },
+  "@type": "Organization",
+  "@id": "https://www.cashfree.com/",
+  "name": "Cashfree Payments",
+  "description": "Indian payment gateway and banking platform providing REST APIs for payment links, subscriptions, payouts, refunds, QR codes, and banking payouts.",
+  "url": "https://www.cashfree.com/",
+  "sameAs": [
+    "https://github.com/cashfree",
+    "https://in.linkedin.com/company/cashfree",
+    "https://x.com/gocashfree"
+  ],
+  "foundingLocation": {
+    "@type": "Country",
+    "name": "India"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Cashfree Payments API Products",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "name": "Payment Gateway API",
+        "url": "https://www.cashfree.com/docs/api-reference/overview"
+      },
+      {
+        "@type": "Offer",
+        "name": "Payouts API",
+        "url": "https://www.cashfree.com/docs"
+      },
+      {
+        "@type": "Offer",
+        "name": "Subscriptions API",
+        "url": "https://www.cashfree.com/docs"
+      },
+      {
+        "@type": "Offer",
+        "name": "Secure ID Verification API",
+        "url": "https://www.cashfree.com/docs"
+      },
+      {
+        "@type": "Offer",
+        "name": "Platforms API",
+        "url": "https://www.cashfree.com/docs"
+      }
+    ]
+  }
+}

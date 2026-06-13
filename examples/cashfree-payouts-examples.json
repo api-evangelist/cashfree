@@ -1,0 +1,97 @@
+{
+  "api": "Cashfree Payout APIs",
+  "version": "2024-01-01",
+  "examples": [
+    {
+      "operationId": "PayoutFetchTransfer",
+      "summary": "Get Transfer Status V2",
+      "method": "GET",
+      "path": "/transfers",
+      "tags": [
+        "Transfers v2"
+      ]
+    },
+    {
+      "operationId": "PayoutInitiateTransfer",
+      "summary": "Standard Transfer V2",
+      "method": "POST",
+      "path": "/transfers",
+      "tags": [
+        "Transfers v2"
+      ]
+    },
+    {
+      "operationId": "PayoutFetchBatchTransfer",
+      "summary": "Get Batch Transfer Status V2",
+      "method": "GET",
+      "path": "/transfers/batch",
+      "tags": [
+        "Transfers v2"
+      ]
+    },
+    {
+      "operationId": "PayoutInitiateBatchTransfer",
+      "summary": "Batch Transfer V2",
+      "method": "POST",
+      "path": "/transfers/batch",
+      "tags": [
+        "Transfers v2"
+      ]
+    },
+    {
+      "operationId": "PayoutFetchBeneficiary",
+      "summary": "Get Beneficiary V2",
+      "method": "GET",
+      "path": "/beneficiary",
+      "tags": [
+        "Beneficiary v2"
+      ]
+    },
+    {
+      "operationId": "PayoutCreateBeneficiary",
+      "summary": "Create Beneficiary V2",
+      "method": "POST",
+      "path": "/beneficiary",
+      "tags": [
+        "Beneficiary v2"
+      ]
+    },
+    {
+      "operationId": "PayoutDeleteBeneficiary",
+      "summary": "Remove Beneficiary V2",
+      "method": "DELETE",
+      "path": "/beneficiary",
+      "tags": [
+        "Beneficiary v2"
+      ]
+    },
+    {
+      "operationId": "authorize-2",
+      "summary": "Authorize",
+      "method": "POST",
+      "path": "/v1/authorize",
+      "tags": []
+    },
+    {
+      "operationId": "create-cashgram1",
+      "summary": "Create Cashgram",
+      "method": "POST",
+      "path": "/v1/createCashgram",
+      "tags": []
+    },
+    {
+      "operationId": "deactivate-cashgram1",
+      "summary": "Deactivate Cashgram",
+      "method": "POST",
+      "path": "/v1/deactivateCashgram",
+      "tags": []
+    },
+    {
+      "operationId": "get-cashgram-status1",
+      "summary": "Get Cashgram Status",
+      "method": "GET",
+      "path": "/v1/getCashgramStatus",
+      "tags": []
+    }
+  ]
+}

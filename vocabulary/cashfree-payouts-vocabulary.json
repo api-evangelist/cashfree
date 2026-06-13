@@ -1,0 +1,408 @@
+{
+  "api": "Cashfree Payout APIs",
+  "version": "2024-01-01",
+  "vocabulary": [
+    {
+      "term": "V2 Apis",
+      "description": "Collection of APIs to transfer funds to beneficiaries and manage beneficiaries.",
+      "source": "tag"
+    },
+    {
+      "term": "ErrorV2",
+      "description": "Error Response for non-2XX cases",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "type",
+      "description": "Type of the error received",
+      "source": "property",
+      "schema": "ErrorV2"
+    },
+    {
+      "term": "code",
+      "description": "Code of the error received",
+      "source": "property",
+      "schema": "ErrorV2"
+    },
+    {
+      "term": "message",
+      "description": "Detailed message explaining the response",
+      "source": "property",
+      "schema": "ErrorV2"
+    },
+    {
+      "term": "Beneficiary",
+      "description": "Contains the information of the created beneficiary",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "beneficiary_id",
+      "description": "It displays the unique Id you created to identify the beneficiary.",
+      "source": "property",
+      "schema": "Beneficiary"
+    },
+    {
+      "term": "beneficiary_name",
+      "description": "It displays the name of the beneficiary.",
+      "source": "property",
+      "schema": "Beneficiary"
+    },
+    {
+      "term": "beneficiary_instrument_details",
+      "description": "It displays the payment instrument details of the beneficiary.",
+      "source": "property",
+      "schema": "Beneficiary"
+    },
+    {
+      "term": "beneficiary_contact_details",
+      "description": "It displays the contact details of the beneficiary.",
+      "source": "property",
+      "schema": "Beneficiary"
+    },
+    {
+      "term": "beneficiary_status",
+      "description": "It displays the current status of the beneficiary. Possible values are as follows\n- `VERIFIED`: Beneficiary is verified and is available for payouts\n- `INVALID`: Beneficiary is invalid\n- `INITIATED`: Beneficiary verification initiated\n- `CANCELLED`: Beneficiary verification cancelled\n- `FAILED`: Failed to verify beneficiary\n- `DELETED`: Beneficiary is deleted",
+      "source": "property",
+      "schema": "Beneficiary"
+    },
+    {
+      "term": "added_on",
+      "description": "It displays the time of the addition of the beneficiary in UTC.",
+      "source": "property",
+      "schema": "Beneficiary"
+    },
+    {
+      "term": "CreateBeneficiaryRequest",
+      "description": "Find the request parameters to create a beneficiary",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "CreateTransferRequest",
+      "description": "Standard Transfer V2",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "transfer_id",
+      "description": "It is the unique ID you create to identify the transfer. You can use a maximum of 40 characters to create a transfer_id.  Alphanumeric and underscore ( _ ) are allowed.",
+      "source": "property",
+      "schema": "CreateTransferRequest"
+    },
+    {
+      "term": "transfer_amount",
+      "description": "It is the transfer amount. Decimal values are allowed. The minimum value should be equal to or greater than 1.00. (>= 1.00)",
+      "source": "property",
+      "schema": "CreateTransferRequest"
+    },
+    {
+      "term": "transfer_currency",
+      "description": "It is the currency of the transfer amount. The default value is INR.",
+      "source": "property",
+      "schema": "CreateTransferRequest"
+    },
+    {
+      "term": "transfer_mode",
+      "description": "It is the mode of transfer. Allowed values are banktransfer, imps, neft, rtgs, upi, paytm, amazonpay, card. The default transfer_mode is banktransfer.",
+      "source": "property",
+      "schema": "CreateTransferRequest"
+    },
+    {
+      "term": "beneficiary_details",
+      "description": "It should contain the details of the beneficiary who receives the transfer amount.",
+      "source": "property",
+      "schema": "CreateTransferRequest"
+    },
+    {
+      "term": "transfer_remarks",
+      "description": "It can contain any additional remarks for the transfer. Alphanumeric and whitespaces are allowed. The maximum character limit is 70.",
+      "source": "property",
+      "schema": "CreateTransferRequest"
+    },
+    {
+      "term": "fundsource_id",
+      "description": "It is the ID of the fund source from which the transfer amount will be debited.",
+      "source": "property",
+      "schema": "CreateTransferRequest"
+    },
+    {
+      "term": "CreateBatchTransferRequest",
+      "description": "Batch Transfer V2",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "batch_transfer_id",
+      "description": "It is the unique ID you create to identify the batch transfer request. The maximum character limit is 60. Alphanumeric and underscore ( _ ) characters are allowed.",
+      "source": "property",
+      "schema": "CreateBatchTransferRequest"
+    },
+    {
+      "term": "transfers",
+      "description": "",
+      "source": "property",
+      "schema": "CreateBatchTransferRequest"
+    },
+    {
+      "term": "CreateTransferResponse",
+      "description": "Standard Transfer V2 Response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "cf_transfer_id",
+      "description": "It displays the unique ID created by Cashfree Payments. You receive this ID in the response after initiating the standard transfer request.",
+      "source": "property",
+      "schema": "CreateTransferResponse"
+    },
+    {
+      "term": "status",
+      "description": "It displays the status of the transfer.",
+      "source": "property",
+      "schema": "CreateTransferResponse"
+    },
+    {
+      "term": "transfer_service_charge",
+      "description": "It displays the service charge applicable for the successful transfer request.",
+      "source": "property",
+      "schema": "CreateTransferResponse"
+    },
+    {
+      "term": "transfer_service_tax",
+      "description": "It displays the service tax applicable for the successful transfer request.",
+      "source": "property",
+      "schema": "CreateTransferResponse"
+    },
+    {
+      "term": "transfer_utr",
+      "description": "It displays the unique number that is generated to recognise any fund transfer that is created by the bank that facilitates the transfer.",
+      "source": "property",
+      "schema": "CreateTransferResponse"
+    },
+    {
+      "term": "updated_on",
+      "description": "It displays the updated time for the transfer.",
+      "source": "property",
+      "schema": "CreateTransferResponse"
+    },
+    {
+      "term": "CreateBatchTransferResponse",
+      "description": "Batch Transfer V2 Response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "cf_batch_transfer_id",
+      "description": "It displays the unique ID created by Cashfree Payments. You receive this ID in the response after initiating the batch transfer request.",
+      "source": "property",
+      "schema": "CreateBatchTransferResponse"
+    },
+    {
+      "term": "FetchBatchTransferResponse",
+      "description": "Batch Transfer Status V2 Response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "inline_response_401",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "subCode",
+      "description": "",
+      "source": "property",
+      "schema": "inline_response_401"
+    },
+    {
+      "term": "inline_response_200_10",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "v1_createCashgram_body",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "cashgramId",
+      "description": "Unique Id of the Cashgram. Alphanumeric, underscore (_), and hyphen (-) allowed (35 character limit)",
+      "source": "property",
+      "schema": "v1_createCashgram_body"
+    },
+    {
+      "term": "amount",
+      "description": "Amount to be transferred, >= 1.00",
+      "source": "property",
+      "schema": "v1_createCashgram_body"
+    },
+    {
+      "term": "name",
+      "description": "Name of the contact",
+      "source": "property",
+      "schema": "v1_createCashgram_body"
+    },
+    {
+      "term": "email",
+      "description": "Email of the contact",
+      "source": "property",
+      "schema": "v1_createCashgram_body"
+    },
+    {
+      "term": "phone",
+      "description": "Phone number of the contact",
+      "source": "property",
+      "schema": "v1_createCashgram_body"
+    },
+    {
+      "term": "linkExpiry",
+      "description": "Date to expire the cashgram link, Date format YYYY/MM/DD, maximum 30 days from the date of creation.",
+      "source": "property",
+      "schema": "v1_createCashgram_body"
+    },
+    {
+      "term": "remarks",
+      "description": "Specify remarks, if any.",
+      "source": "property",
+      "schema": "v1_createCashgram_body"
+    },
+    {
+      "term": "notifyCustomer",
+      "description": "If value is 1, a link is sent to customers phone and email.",
+      "source": "property",
+      "schema": "v1_createCashgram_body"
+    },
+    {
+      "term": "inline_response_200_8",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "data",
+      "description": "",
+      "source": "property",
+      "schema": "inline_response_200_8"
+    },
+    {
+      "term": "inline_response_409_1",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "v1_deactivateCashgram_body",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "inline_response_200_9",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "inline_response_404_4",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "inline_response_200_11",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "inline_response_200_8_data",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "referenceId",
+      "description": "",
+      "source": "property",
+      "schema": "inline_response_200_8_data"
+    },
+    {
+      "term": "cashgramLink",
+      "description": "",
+      "source": "property",
+      "schema": "inline_response_200_8_data"
+    },
+    {
+      "term": "inline_response_200_11_data",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "cashgramStatus",
+      "description": "",
+      "source": "property",
+      "schema": "inline_response_200_11_data"
+    },
+    {
+      "term": "PayoutFetchTransfer",
+      "description": "Use this API to get the status of the initiated transfer. You can use either the transfer_id or cf_transfer_id to fetch the details.",
+      "source": "operation"
+    },
+    {
+      "term": "PayoutInitiateTransfer",
+      "description": "Use this API to initiate an amount transfer at Cashfree Payments. It is an async request by default.",
+      "source": "operation"
+    },
+    {
+      "term": "PayoutFetchBatchTransfer",
+      "description": "Use this API to get the status of the initiated batch transfer. You can use either the batch_transfer_id or cf_batch_transfer_id to fetch the details.",
+      "source": "operation"
+    },
+    {
+      "term": "PayoutInitiateBatchTransfer",
+      "description": "Use this API to initiate a batch transfer request at Cashfree Payments. You can transfer money to multiple beneficiaries. The batch transfer limit is 5,000 in the production environment and 1,000 by default in the test environment.",
+      "source": "operation"
+    },
+    {
+      "term": "PayoutFetchBeneficiary",
+      "description": "Use this API to get the details of a particular beneficiary from your account. You can pass either beneficiary_id or the combination of bank_account_number and bank_ifsc to fetch the details.",
+      "source": "operation"
+    },
+    {
+      "term": "PayoutCreateBeneficiary",
+      "description": "Use this API to add a beneficiary to your Cashfree Payments account by providing the bank account number, IFSC, and other required details. Ensure the successful creation of the benficiary in your account before initiating a transfer.",
+      "source": "operation"
+    },
+    {
+      "term": "PayoutDeleteBeneficiary",
+      "description": "Use this API to remove an existing beneficiary from the list of added beneficiaries.",
+      "source": "operation"
+    },
+    {
+      "term": "authorize-2",
+      "description": "Use this API to authenticate with the Cashfree system and obtain the authorization bearer token. All other API calls must have this token as Authorization header in the format 'Bearer &lt;token&gt;' (without quotes) for them to get processed. The generated token is valid for 6 minutes.",
+      "source": "operation"
+    },
+    {
+      "term": "create-cashgram1",
+      "description": "Use this API to create a Cashgram.",
+      "source": "operation"
+    },
+    {
+      "term": "deactivate-cashgram1",
+      "description": "Deactivate Cashgram",
+      "source": "operation"
+    },
+    {
+      "term": "get-cashgram-status1",
+      "description": "Use this API to get the status of the Cashgram created.",
+      "source": "operation"
+    }
+  ]
+}

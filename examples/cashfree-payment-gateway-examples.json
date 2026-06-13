@@ -1,0 +1,248 @@
+{
+  "api": "Cashfree Payment Gateway APIs",
+  "version": "2025-01-01",
+  "examples": [
+    {
+      "operationId": "PGEligibilityFetchPaymentMethods",
+      "summary": "Get eligible Payment Methods",
+      "method": "POST",
+      "path": "/eligibility/payment_methods",
+      "tags": [
+        "Eligibility"
+      ],
+      "response_example": {
+        "status": "200",
+        "example": [
+          {
+            "eligibility": true,
+            "entity_type": "payment_methods",
+            "entity_value": "netbanking",
+            "entity_details": {
+              "payment_method_details": [
+                {
+                  "nick": "motak_kahindra_bank",
+                  "display": "Motak Kahindra Bank",
+                  "eligibility": true,
+                  "code": 3032
+                },
+                {
+                  "nick": "bank_of_india",
+                  "display": "Bank Of India",
+                  "eligibility": true,
+                  "code": 3031
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "operationId": "PGCreateLink",
+      "summary": "Create Payment Link",
+      "method": "POST",
+      "path": "/links",
+      "tags": [
+        "Payment Links"
+      ]
+    },
+    {
+      "operationId": "PGFetchLink",
+      "summary": "Fetch Payment Link Details",
+      "method": "GET",
+      "path": "/links/{link_id}",
+      "tags": [
+        "Payment Links"
+      ]
+    },
+    {
+      "operationId": "PGCancelLink",
+      "summary": "Cancel Payment Link",
+      "method": "POST",
+      "path": "/links/{link_id}/cancel",
+      "tags": [
+        "Payment Links"
+      ]
+    },
+    {
+      "operationId": "PGLinkFetchOrders",
+      "summary": "Get Orders for a Payment Link",
+      "method": "GET",
+      "path": "/links/{link_id}/orders",
+      "tags": [
+        "Payment Links"
+      ]
+    },
+    {
+      "operationId": "PGCreateOrder",
+      "summary": "Create Order",
+      "method": "POST",
+      "path": "/orders",
+      "tags": [
+        "Orders"
+      ]
+    },
+    {
+      "operationId": "PGFetchOrder",
+      "summary": "Get Order",
+      "method": "GET",
+      "path": "/orders/{order_id}",
+      "tags": [
+        "Orders"
+      ]
+    },
+    {
+      "operationId": "PGTerminateOrder",
+      "summary": "Terminate Order",
+      "method": "PATCH",
+      "path": "/orders/{order_id}",
+      "tags": [
+        "Orders"
+      ]
+    },
+    {
+      "operationId": "PGFetchOrderExtendedData",
+      "summary": "Get Order Extended",
+      "method": "GET",
+      "path": "/orders/{order_id}/extended",
+      "tags": [
+        "Orders"
+      ]
+    },
+    {
+      "operationId": "PGOrderFetchPayments",
+      "summary": "Get Payments for an Order",
+      "method": "GET",
+      "path": "/orders/{order_id}/payments",
+      "tags": [
+        "Payments"
+      ]
+    },
+    {
+      "operationId": "PGOrderFetchPayment",
+      "summary": "Get Payment by ID",
+      "method": "GET",
+      "path": "/orders/{order_id}/payments/{cf_payment_id}",
+      "tags": [
+        "Payments"
+      ]
+    },
+    {
+      "operationId": "PGOrderFetchRefunds",
+      "summary": "Get All Refunds for an Order",
+      "method": "GET",
+      "path": "/orders/{order_id}/refunds",
+      "tags": [
+        "Refunds"
+      ]
+    },
+    {
+      "operationId": "PGOrderCreateRefund",
+      "summary": "Create Refund",
+      "method": "POST",
+      "path": "/orders/{order_id}/refunds",
+      "tags": [
+        "Refunds"
+      ]
+    },
+    {
+      "operationId": "PGOrderFetchRefund",
+      "summary": "Get Refund",
+      "method": "GET",
+      "path": "/orders/{order_id}/refunds/{refund_id}",
+      "tags": [
+        "Refunds"
+      ]
+    },
+    {
+      "operationId": "PGFetchSettlements",
+      "summary": "Get All Settlements",
+      "method": "POST",
+      "path": "/settlements",
+      "tags": [
+        "Settlement Reconciliation"
+      ]
+    },
+    {
+      "operationId": "PGOrderFetchSettlement",
+      "summary": "Get Settlements by Order ID",
+      "method": "GET",
+      "path": "/orders/{order_id}/settlements",
+      "tags": [
+        "Settlements"
+      ]
+    },
+    {
+      "operationId": "PGFetchOrderDisputes",
+      "summary": "Get Disputes by Order Id",
+      "method": "GET",
+      "path": "/orders/{order_id}/disputes",
+      "tags": [
+        "Disputes"
+      ]
+    },
+    {
+      "operationId": "PGFetchPaymentDisputes",
+      "summary": "Get Disputes by Payment ID",
+      "method": "GET",
+      "path": "/payments/{cf_payment_id}/disputes",
+      "tags": [
+        "Disputes"
+      ]
+    },
+    {
+      "operationId": "PGFetchDisputeByID",
+      "summary": "Get Disputes by Dispute ID",
+      "method": "GET",
+      "path": "/disputes/{dispute_id}",
+      "tags": [
+        "Disputes"
+      ]
+    },
+    {
+      "operationId": "PGAcceptDisputeByID",
+      "summary": "Accept Dispute by Dispute ID",
+      "method": "PUT",
+      "path": "/disputes/{dispute_id}/accept",
+      "tags": [
+        "Disputes"
+      ]
+    },
+    {
+      "operationId": "PGUploadDisputesDocuments",
+      "summary": "Submit Evidence to contest the Dispute by Dispute ID",
+      "method": "POST",
+      "path": "/disputes/{dispute_id}/documents",
+      "tags": [
+        "Disputes"
+      ]
+    },
+    {
+      "operationId": "PGSimulatePayment",
+      "summary": "Simulate Payment",
+      "method": "POST",
+      "path": "/simulate",
+      "tags": [
+        "Simulation"
+      ]
+    },
+    {
+      "operationId": "PGFetchSimulation",
+      "summary": "Fetch Simulation",
+      "method": "GET",
+      "path": "/simulate/{simulation_id}",
+      "tags": [
+        "Simulation"
+      ]
+    },
+    {
+      "operationId": "PGESOrderRecon",
+      "summary": "Get Split and Settlement Details by OrderID v2.0",
+      "method": "POST",
+      "path": "/split/order/vendor/recon",
+      "tags": [
+        "Easy-Split"
+      ]
+    }
+  ]
+}

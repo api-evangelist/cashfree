@@ -1,0 +1,87 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "cashfree": "https://www.cashfree.com/docs#",
+    "api": "https://api.cashfree.com/",
+    "ErrorV2": "cashfree:ErrorV2",
+    "Beneficiary": "cashfree:Beneficiary",
+    "CreateBeneficiaryRequest": "cashfree:CreateBeneficiaryRequest",
+    "CreateTransferRequest": "cashfree:CreateTransferRequest",
+    "CreateBatchTransferRequest": "cashfree:CreateBatchTransferRequest",
+    "CreateTransferResponse": "cashfree:CreateTransferResponse",
+    "CreateBatchTransferResponse": "cashfree:CreateBatchTransferResponse",
+    "FetchBatchTransferResponse": "cashfree:FetchBatchTransferResponse",
+    "inline_response_401": "cashfree:inline_response_401",
+    "inline_response_200_10": "cashfree:inline_response_200_10",
+    "v1_createCashgram_body": "cashfree:v1_createCashgram_body",
+    "inline_response_200_8": "cashfree:inline_response_200_8",
+    "inline_response_409_1": "cashfree:inline_response_409_1",
+    "v1_deactivateCashgram_body": "cashfree:v1_deactivateCashgram_body",
+    "inline_response_200_9": "cashfree:inline_response_200_9",
+    "inline_response_404_4": "cashfree:inline_response_404_4",
+    "inline_response_200_11": "cashfree:inline_response_200_11",
+    "inline_response_200_8_data": "cashfree:inline_response_200_8_data",
+    "inline_response_200_11_data": "cashfree:inline_response_200_11_data"
+  },
+  "@type": "WebAPI",
+  "@id": "https://www.cashfree.com/docs/payouts",
+  "name": "Cashfree Payout APIs",
+  "description": "Cashfree's Payout APIs provide developers with a streamlined pathway to integrate advanced payout capabilities into their applications, platforms and websites.",
+  "version": "2024-01-01",
+  "provider": {
+    "@type": "Organization",
+    "name": "Cashfree Payments",
+    "url": "https://www.cashfree.com/",
+    "sameAs": [
+      "https://github.com/cashfree",
+      "https://in.linkedin.com/company/cashfree",
+      "https://x.com/gocashfree"
+    ]
+  },
+  "documentation": {
+    "@type": "TechArticle",
+    "url": "https://www.cashfree.com/docs/api-reference/overview"
+  },
+  "endpointURL": "https://sandbox.cashfree.com/payout",
+  "license": {
+    "@type": "CreativeWork",
+    "url": "https://www.cashfree.com/docs"
+  },
+  "availableChannel": [
+    {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://sandbox.cashfree.com/payout/transfers",
+      "name": "/transfers"
+    },
+    {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://sandbox.cashfree.com/payout/transfers/batch",
+      "name": "/transfers/batch"
+    },
+    {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://sandbox.cashfree.com/payout/beneficiary",
+      "name": "/beneficiary"
+    },
+    {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://sandbox.cashfree.com/payout/v1/authorize",
+      "name": "/v1/authorize"
+    },
+    {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://sandbox.cashfree.com/payout/v1/createCashgram",
+      "name": "/v1/createCashgram"
+    },
+    {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://sandbox.cashfree.com/payout/v1/deactivateCashgram",
+      "name": "/v1/deactivateCashgram"
+    },
+    {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://sandbox.cashfree.com/payout/v1/getCashgramStatus",
+      "name": "/v1/getCashgramStatus"
+    }
+  ]
+}

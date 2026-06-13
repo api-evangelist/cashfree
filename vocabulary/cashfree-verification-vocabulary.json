@@ -1,0 +1,3104 @@
+{
+  "api": "Cashfree Verification API's.",
+  "version": "2023-12-18",
+  "vocabulary": [
+    {
+      "term": "Aadhaar",
+      "description": "Operations related to Aadhaar verification.",
+      "source": "tag"
+    },
+    {
+      "term": "BAV V2",
+      "description": "Operations related to Bank account verification v2.",
+      "source": "tag"
+    },
+    {
+      "term": "PAN",
+      "description": "Operations related to PAN verification.",
+      "source": "tag"
+    },
+    {
+      "term": "Digilocker",
+      "description": "Operations related to Digilocker verification.",
+      "source": "tag"
+    },
+    {
+      "term": "E-sign",
+      "description": "Operations related to E-sign verification.",
+      "source": "tag"
+    },
+    {
+      "term": "Reverse Penny Drop",
+      "description": "Operations related to Reverse Penny Drop verification.",
+      "source": "tag"
+    },
+    {
+      "term": "IP",
+      "description": "Operation related to IP verification.",
+      "source": "tag"
+    },
+    {
+      "term": "UPI",
+      "description": "Operations related to UPI verification.",
+      "source": "tag"
+    },
+    {
+      "term": "Passport",
+      "description": "Operation related to Passport verification.",
+      "source": "tag"
+    },
+    {
+      "term": "CIN",
+      "description": "Operation related to CIN verification.",
+      "source": "tag"
+    },
+    {
+      "term": "Name Match",
+      "description": "Operation related to Name Match verification.",
+      "source": "tag"
+    },
+    {
+      "term": "PAN to GSTIN",
+      "description": "Operation related to PAN to GSTIN.",
+      "source": "tag"
+    },
+    {
+      "term": "Face Match",
+      "description": "Operation related to Face Match verification.",
+      "source": "tag"
+    },
+    {
+      "term": "Voter ID",
+      "description": "Operation related to Voter ID verification.",
+      "source": "tag"
+    },
+    {
+      "term": "Reverse Geocoding",
+      "description": "Operation related to Reverse Geocoding.",
+      "source": "tag"
+    },
+    {
+      "term": "Liveliness",
+      "description": "Operation related to Liveliness.",
+      "source": "tag"
+    },
+    {
+      "term": "Vehicle RC",
+      "description": "Operation related to Vehicle RC verification.",
+      "source": "tag"
+    },
+    {
+      "term": "Driving License",
+      "description": "Operation related to Driving License verification.",
+      "source": "tag"
+    },
+    {
+      "term": "GSTIN",
+      "description": "Operation related to GSTIN verification.",
+      "source": "tag"
+    },
+    {
+      "term": "Account Aggregator",
+      "description": "Operations related to Account aggregator.",
+      "source": "tag"
+    },
+    {
+      "term": "OTPLess",
+      "description": "Operations related to OTPLess Verification.",
+      "source": "tag"
+    },
+    {
+      "term": "Secure-Share",
+      "description": "Operations related to secure-share.",
+      "source": "tag"
+    },
+    {
+      "term": "BharatOCR",
+      "description": "Operations related to BharatOCR.",
+      "source": "tag"
+    },
+    {
+      "term": "BharatOCRRequestSchema",
+      "description": "Request parameters for BharatOCR.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "verification_id",
+      "description": "It is the unique ID you create to identify the verification request. The maximum character limit is 50. Only alphaumeric, period (.), hyphen (-), and underscore ( _ ) are allowed.",
+      "source": "property",
+      "schema": "BharatOCRRequestSchema"
+    },
+    {
+      "term": "document_type",
+      "description": "Tag depicts the document type of the file being shared in the request. Allowed values are PAN, AADHAAR, DRIVING_LICENCE, VOTER_ID, PASSPORT, VEHICLE_RC, CANCELLED_CHEQUE, and INVOICE.",
+      "source": "property",
+      "schema": "BharatOCRRequestSchema"
+    },
+    {
+      "term": "file",
+      "description": "Image of the document. Allowed file types: JPEG, JPG, or PNG. The maximum file size is 5 MB. Conditionally required when image_url is missing.",
+      "source": "property",
+      "schema": "BharatOCRRequestSchema"
+    },
+    {
+      "term": "file_url",
+      "description": "Public URL of the image. Allowed only https URL. Allowed file types: JPEG, JPG, or PNG. The maximum file size is 5 MB. Conditionally required when the image is missing.",
+      "source": "property",
+      "schema": "BharatOCRRequestSchema"
+    },
+    {
+      "term": "do_verification",
+      "description": "Indicates whether PAN verification should be performed. When set to `true`, the API validates the individual's PAN details, including the unique identifier, name, date of birth, and other relevant information. This verification assists in customer onboarding, KYC compliance, and fraud prevention. Defaults to `false`.",
+      "source": "property",
+      "schema": "BharatOCRRequestSchema"
+    },
+    {
+      "term": "BharatOCRResponseSchema",
+      "description": "Success response for retrieving the list of information associated with the mobile number.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "reference_id",
+      "description": "It displays the unique ID created by Cashfree Payments for reference purposes.",
+      "source": "property",
+      "schema": "BharatOCRResponseSchema"
+    },
+    {
+      "term": "document_fields",
+      "description": "Structure with all the relevant fields in the input image.",
+      "source": "property",
+      "schema": "BharatOCRResponseSchema"
+    },
+    {
+      "term": "quality_checks",
+      "description": "Contains all the quality checks the product performs on the given input image.",
+      "source": "property",
+      "schema": "BharatOCRResponseSchema"
+    },
+    {
+      "term": "fraud_checks",
+      "description": "It displays the personal information of the mobile number holder.",
+      "source": "property",
+      "schema": "BharatOCRResponseSchema"
+    },
+    {
+      "term": "verification_details",
+      "description": "It displays the personal information of the mobile number holder.",
+      "source": "property",
+      "schema": "BharatOCRResponseSchema"
+    },
+    {
+      "term": "Scope",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "scope",
+      "description": "This describes the scope for which the user has provided consent.",
+      "source": "property",
+      "schema": "Scope"
+    },
+    {
+      "term": "records",
+      "description": "",
+      "source": "property",
+      "schema": "Scope"
+    },
+    {
+      "term": "GenerateKYCLinkRequestSchema",
+      "description": "Request Body Schema for Generate KYC Link",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "name",
+      "description": "It is the name of the individual.",
+      "source": "property",
+      "schema": "GenerateKYCLinkRequestSchema"
+    },
+    {
+      "term": "phone",
+      "description": "It is the phone number of the individual.",
+      "source": "property",
+      "schema": "GenerateKYCLinkRequestSchema"
+    },
+    {
+      "term": "email",
+      "description": "It is the email address of the individual.",
+      "source": "property",
+      "schema": "GenerateKYCLinkRequestSchema"
+    },
+    {
+      "term": "template_name",
+      "description": "It is the name of the template you created using the merchant dashboard. You can also use the default template found there to generate the verification form. The default template is Aadhaar_verification. Using merchant dashboard, customized KYC Link templates can be created.",
+      "source": "property",
+      "schema": "GenerateKYCLinkRequestSchema"
+    },
+    {
+      "term": "link_expiry",
+      "description": "It is the expiry date of the link. Its value can be max 30 days from the current date.",
+      "source": "property",
+      "schema": "GenerateKYCLinkRequestSchema"
+    },
+    {
+      "term": "notification_types",
+      "description": "It is the type(s) of notification used for sending the link.",
+      "source": "property",
+      "schema": "GenerateKYCLinkRequestSchema"
+    },
+    {
+      "term": "GenerateFormLinkResponseSchema",
+      "description": "Find the success response of Generate KYC Link",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "form_link",
+      "description": "It displays the URL of the KYC Link.",
+      "source": "property",
+      "schema": "GenerateFormLinkResponseSchema"
+    },
+    {
+      "term": "form_status",
+      "description": "It displays the status of the form.",
+      "source": "property",
+      "schema": "GenerateFormLinkResponseSchema"
+    },
+    {
+      "term": "StaticKYCLinkRequestSchema",
+      "description": "Request Body Schema for Generate Static KYC Link",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "GenerateFormLinkQRCodeResponseSchema",
+      "description": "Find the success response of Generate Static KYC Link",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "static_link",
+      "description": "It displays the URL of the static KYC Link.",
+      "source": "property",
+      "schema": "GenerateFormLinkQRCodeResponseSchema"
+    },
+    {
+      "term": "qr_code",
+      "description": "It displays the generated QR code link to the static KYC Link. request.",
+      "source": "property",
+      "schema": "GenerateFormLinkQRCodeResponseSchema"
+    },
+    {
+      "term": "status",
+      "description": "It displays the status of the static link.\nPossible values are:\n- `ACTIVE`",
+      "source": "property",
+      "schema": "GenerateFormLinkQRCodeResponseSchema"
+    },
+    {
+      "term": "DeactivateStaticKYCLinkResponseSchema",
+      "description": "Find the success response of Deactivate Static KYC Link",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "message",
+      "description": "It displays whether template name is deactivated.",
+      "source": "property",
+      "schema": "DeactivateStaticKYCLinkResponseSchema"
+    },
+    {
+      "term": "getFormStatusResponseSchema",
+      "description": "Find the success response for Get Form Status",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "aadhaarFormStatusResponseSchema",
+      "description": "It displays the status of aadhaar verification",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "type",
+      "description": "It displays the verification type.",
+      "source": "property",
+      "schema": "aadhaarFormStatusResponseSchema"
+    },
+    {
+      "term": "aadhaarFormDetailResponseSchema",
+      "description": "Offline Aadhaar Verification Details",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "care-of",
+      "description": "",
+      "source": "property",
+      "schema": "aadhaarFormDetailResponseSchema"
+    },
+    {
+      "term": "address",
+      "description": "",
+      "source": "property",
+      "schema": "aadhaarFormDetailResponseSchema"
+    },
+    {
+      "term": "dob",
+      "description": "",
+      "source": "property",
+      "schema": "aadhaarFormDetailResponseSchema"
+    },
+    {
+      "term": "gender",
+      "description": "",
+      "source": "property",
+      "schema": "aadhaarFormDetailResponseSchema"
+    },
+    {
+      "term": "photo_link",
+      "description": "",
+      "source": "property",
+      "schema": "aadhaarFormDetailResponseSchema"
+    },
+    {
+      "term": "mobile_hash",
+      "description": "",
+      "source": "property",
+      "schema": "aadhaarFormDetailResponseSchema"
+    },
+    {
+      "term": "split_address",
+      "description": "",
+      "source": "property",
+      "schema": "aadhaarFormDetailResponseSchema"
+    },
+    {
+      "term": "panFormStatusResponseSchema",
+      "description": "PAN Verification Product Status",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "panFormDetailResponseSchema",
+      "description": "PAN Verification Details Response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "pan",
+      "description": "",
+      "source": "property",
+      "schema": "panFormDetailResponseSchema"
+    },
+    {
+      "term": "name_provided",
+      "description": "",
+      "source": "property",
+      "schema": "panFormDetailResponseSchema"
+    },
+    {
+      "term": "registered_name",
+      "description": "",
+      "source": "property",
+      "schema": "panFormDetailResponseSchema"
+    },
+    {
+      "term": "valid",
+      "description": "",
+      "source": "property",
+      "schema": "panFormDetailResponseSchema"
+    },
+    {
+      "term": "name_match_score",
+      "description": "",
+      "source": "property",
+      "schema": "panFormDetailResponseSchema"
+    },
+    {
+      "term": "name_match_result",
+      "description": "",
+      "source": "property",
+      "schema": "panFormDetailResponseSchema"
+    },
+    {
+      "term": "aadhaar_seeding_status",
+      "description": "",
+      "source": "property",
+      "schema": "panFormDetailResponseSchema"
+    },
+    {
+      "term": "last_updated_at",
+      "description": "",
+      "source": "property",
+      "schema": "panFormDetailResponseSchema"
+    },
+    {
+      "term": "name_pan_card",
+      "description": "",
+      "source": "property",
+      "schema": "panFormDetailResponseSchema"
+    },
+    {
+      "term": "pan_status",
+      "description": "",
+      "source": "property",
+      "schema": "panFormDetailResponseSchema"
+    },
+    {
+      "term": "aadhaar_seeding_status_desc",
+      "description": "",
+      "source": "property",
+      "schema": "panFormDetailResponseSchema"
+    },
+    {
+      "term": "bavFormStatusResponseSchema",
+      "description": "Bank Details Validation Product Status",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "bavFormDetailSchema",
+      "description": "Bank Details Validation Details",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "subCode",
+      "description": "",
+      "source": "property",
+      "schema": "bavFormDetailSchema"
+    },
+    {
+      "term": "accountStatus",
+      "description": "",
+      "source": "property",
+      "schema": "bavFormDetailSchema"
+    },
+    {
+      "term": "accountStatusCode",
+      "description": "",
+      "source": "property",
+      "schema": "bavFormDetailSchema"
+    },
+    {
+      "term": "data",
+      "description": "",
+      "source": "property",
+      "schema": "bavFormDetailSchema"
+    },
+    {
+      "term": "bavDataSchema",
+      "description": "Bank Details Response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "nameAtBank",
+      "description": "",
+      "source": "property",
+      "schema": "bavDataSchema"
+    },
+    {
+      "term": "bankName",
+      "description": "",
+      "source": "property",
+      "schema": "bavDataSchema"
+    },
+    {
+      "term": "branch",
+      "description": "",
+      "source": "property",
+      "schema": "bavDataSchema"
+    },
+    {
+      "term": "city",
+      "description": "",
+      "source": "property",
+      "schema": "bavDataSchema"
+    },
+    {
+      "term": "utr",
+      "description": "",
+      "source": "property",
+      "schema": "bavDataSchema"
+    },
+    {
+      "term": "micr",
+      "description": "",
+      "source": "property",
+      "schema": "bavDataSchema"
+    },
+    {
+      "term": "nameMatchScore",
+      "description": "",
+      "source": "property",
+      "schema": "bavDataSchema"
+    },
+    {
+      "term": "nameMatchResult",
+      "description": "",
+      "source": "property",
+      "schema": "bavDataSchema"
+    },
+    {
+      "term": "upiFormStatusResponseSchema",
+      "description": "Upi Verification Product Status",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "upiFormDetailResponseSchema",
+      "description": "UPI Verification Details Response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "accountExists",
+      "description": "",
+      "source": "property",
+      "schema": "upiFormDetailResponseSchema"
+    },
+    {
+      "term": "split_address_schema",
+      "description": "Split address for Split addresss in Offline Aadhaar verify OTP Response.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "country",
+      "description": "",
+      "source": "property",
+      "schema": "split_address_schema"
+    },
+    {
+      "term": "dist",
+      "description": "",
+      "source": "property",
+      "schema": "split_address_schema"
+    },
+    {
+      "term": "house",
+      "description": "",
+      "source": "property",
+      "schema": "split_address_schema"
+    },
+    {
+      "term": "landmark",
+      "description": "",
+      "source": "property",
+      "schema": "split_address_schema"
+    },
+    {
+      "term": "pincode",
+      "description": "",
+      "source": "property",
+      "schema": "split_address_schema"
+    },
+    {
+      "term": "po",
+      "description": "",
+      "source": "property",
+      "schema": "split_address_schema"
+    },
+    {
+      "term": "state",
+      "description": "",
+      "source": "property",
+      "schema": "split_address_schema"
+    },
+    {
+      "term": "street",
+      "description": "",
+      "source": "property",
+      "schema": "split_address_schema"
+    },
+    {
+      "term": "subdist",
+      "description": "",
+      "source": "property",
+      "schema": "split_address_schema"
+    },
+    {
+      "term": "vtc",
+      "description": "",
+      "source": "property",
+      "schema": "split_address_schema"
+    },
+    {
+      "term": "smsString",
+      "description": "SMS string",
+      "source": "schema",
+      "type": "string"
+    },
+    {
+      "term": "emailString",
+      "description": "Email string",
+      "source": "schema",
+      "type": "string"
+    },
+    {
+      "term": "whatsappString",
+      "description": "Whatsapp string",
+      "source": "schema",
+      "type": "string"
+    },
+    {
+      "term": "Mobile_Record",
+      "description": "It displays the mobile number linked to the user.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "confidence_score",
+      "description": "Indicates the system's certainty about the accuracy of the mobile number details extracted or matched.",
+      "source": "property",
+      "schema": "Mobile_Record"
+    },
+    {
+      "term": "metadata",
+      "description": "",
+      "source": "property",
+      "schema": "Mobile_Record"
+    },
+    {
+      "term": "Email_Record",
+      "description": "It displays the email address associated with the user.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "Address_Record",
+      "description": "It displays the complete address details of the user.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "Gender_Record",
+      "description": "It displays the user's gender.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "DOB_Record",
+      "description": "It displays the user's date of birth.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "Aadhaar_Record",
+      "description": "It displays the details linked to the user's Aadhaar card.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "SplitAddressRecord",
+      "description": "A detailed breakdown of the address information.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PAN_Record",
+      "description": "It displays information of the user's PAN (Permanent Account Number) card.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "BAV_Record",
+      "description": "It displays the user's bank account information.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "Name_Record",
+      "description": "It displays the user's full name.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "Occupation_Record",
+      "description": "It displays the user's occupation information.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "Income_Record",
+      "description": "It displays the user's income range.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "UVDataAvailabilityRequestSchema",
+      "description": "Request for data availability of the user.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "user",
+      "description": "It displays the list of user identifiers.",
+      "source": "property",
+      "schema": "UVDataAvailabilityRequestSchema"
+    },
+    {
+      "term": "UVDataAvailabilityResponseSchema",
+      "description": "Response for user data availability.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "available_scopes",
+      "description": "It displays the list of available scopes.\nPossible values are:\n`AADHAAR` `PAN` `DOB` `EMAIL` `GENDER` `MOBILE` `NAME` `OCCUPATION` `ADDRESS`",
+      "source": "property",
+      "schema": "UVDataAvailabilityResponseSchema"
+    },
+    {
+      "term": "AadhaarMaskingResponseSchema",
+      "description": "Success response for Aadhaar Masking API",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "image_link",
+      "description": "It displays the URL of the image.",
+      "source": "property",
+      "schema": "AadhaarMaskingResponseSchema"
+    },
+    {
+      "term": "AadhaarOcrRequestSchema",
+      "description": "Request body schema for Aadhaar Verification via OCR.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "back_image",
+      "description": "It is the scanned image of the back of the aadhaar card. Allowed file type - JPEG/JPG/PNG. The max file size of both the files is 10MB.",
+      "source": "property",
+      "schema": "AadhaarOcrRequestSchema"
+    },
+    {
+      "term": "front_image",
+      "description": "It is the scanned image of the front of the aadhaar card. Allowed file type - JPEG/JPG/PNG. The max file size of both the files is 10MB.",
+      "source": "property",
+      "schema": "AadhaarOcrRequestSchema"
+    },
+    {
+      "term": "AadhaarOcrResponseSchema",
+      "description": "Success response for Aadhaar Verification via OCR",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "yob",
+      "description": "It displays the year of birth of the aadhaar card holder.",
+      "source": "property",
+      "schema": "AadhaarOcrResponseSchema"
+    },
+    {
+      "term": "father",
+      "description": "It displays the father's name of the aadhaar card holder.",
+      "source": "property",
+      "schema": "AadhaarOcrResponseSchema"
+    },
+    {
+      "term": "uid",
+      "description": "It displays the UID information as present in the aadhaar card.",
+      "source": "property",
+      "schema": "AadhaarOcrResponseSchema"
+    },
+    {
+      "term": "AddressDetails",
+      "description": "It contains the address information of the individual.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "complete_address",
+      "description": "It displays the complete address information of the individual.",
+      "source": "property",
+      "schema": "AddressDetails"
+    },
+    {
+      "term": "AddressDetailsMobile360",
+      "description": "It contains the address information of the individual.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "AdvanceEmploymentRequestSchema",
+      "description": "Find the request parameters to retrieve employment infomration",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "uan",
+      "description": "It is the unique number assigned to every employee contributing to the Employees' Provident Fund (EPF). **(conditonal mandatory)**",
+      "source": "property",
+      "schema": "AdvanceEmploymentRequestSchema"
+    },
+    {
+      "term": "employee_name",
+      "description": "It is the name of the employee. **(conditonal mandatory)**",
+      "source": "property",
+      "schema": "AdvanceEmploymentRequestSchema"
+    },
+    {
+      "term": "employer_name",
+      "description": "It is the name of the employer. **(conditonal mandatory)**",
+      "source": "property",
+      "schema": "AdvanceEmploymentRequestSchema"
+    },
+    {
+      "term": "AdvanceEmploymentResponse",
+      "description": "Success response for Get Employment Details",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "input",
+      "description": "It contains the information entered in the API request.",
+      "source": "property",
+      "schema": "AdvanceEmploymentResponse"
+    },
+    {
+      "term": "uan_details",
+      "description": "It contains the list of UAN details.",
+      "source": "property",
+      "schema": "AdvanceEmploymentResponse"
+    },
+    {
+      "term": "recent_employment_details",
+      "description": "It contains the recent employment details of the individual.",
+      "source": "property",
+      "schema": "AdvanceEmploymentResponse"
+    },
+    {
+      "term": "BAVAsyncV2ResponseSchema",
+      "description": "Find the response parameter for Bank Account Verification Async V2",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "user_id",
+      "description": "It displays the user ID created by Cashfree Payments for reference purposes.",
+      "source": "property",
+      "schema": "BAVAsyncV2ResponseSchema"
+    },
+    {
+      "term": "account_status",
+      "description": "It displays the status of the bank account.\nPossible values are:\n- `RECEIVED`\n\n[Click here to view the detailed descriptions of each value](https://www.cashfree.com/docs/api-reference/vrs/v2/bav-v2/bav-response-description#account-status-description).",
+      "source": "property",
+      "schema": "BAVAsyncV2ResponseSchema"
+    },
+    {
+      "term": "account_status_code",
+      "description": "It displays the status code of the bank account.\nPossible values are:\n- `VALIDATION_IN_PROGRESS`\n\n[Click here to view the detailed descriptions of each value](https://www.cashfree.com/docs/api-reference/vrs/v2/bav-v2/bav-response-description#account-status-code-description).",
+      "source": "property",
+      "schema": "BAVAsyncV2ResponseSchema"
+    },
+    {
+      "term": "BulkBAVV2ResponseSchema",
+      "description": "Find the response parameters for Bulk Bank Account Verification V2",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "bulk_reference_id",
+      "description": "It displays the unique ID created by Cashfree Payments for reference purposes.\nformat: `int64`",
+      "source": "property",
+      "schema": "BulkBAVV2ResponseSchema"
+    },
+    {
+      "term": "bulk_verification_id",
+      "description": "It displays the unique ID you created to identify the Bulk Bank Account Verification API request.",
+      "source": "property",
+      "schema": "BulkBAVV2ResponseSchema"
+    },
+    {
+      "term": "BAVV2ValidationSuccessfulSchema",
+      "description": "Find the description for each response parameter",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "name_at_bank",
+      "description": "It displays the name of the account holder as per the bank records.",
+      "source": "property",
+      "schema": "BAVV2ValidationSuccessfulSchema"
+    },
+    {
+      "term": "bank_name",
+      "description": "It displays the name of the bank.",
+      "source": "property",
+      "schema": "BAVV2ValidationSuccessfulSchema"
+    },
+    {
+      "term": "BAVV2GETValidationSuccessfulSchema",
+      "description": "Find the description for each response parameter",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "BulkBAVV2ValidationSuccessfulSchema",
+      "description": "Find the description for each response parameter",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "entries",
+      "description": "It displays the verified bank account information",
+      "source": "property",
+      "schema": "BulkBAVV2ValidationSuccessfulSchema"
+    },
+    {
+      "term": "BadgeDetails",
+      "description": "It contains information regarding any badges or emblems affixed to the vehicle. These badges could indicate various things such as the vehicle's model, trim level, special editions, or manufacturer-specific badges.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "badge_issue_date",
+      "description": "It displays the date of the badge issued.",
+      "source": "property",
+      "schema": "BadgeDetails"
+    },
+    {
+      "term": "badge_no",
+      "description": "It displays the number of the badge issued.",
+      "source": "property",
+      "schema": "BadgeDetails"
+    },
+    {
+      "term": "class_of_vehicle",
+      "description": "It displays the class of the vehicle.",
+      "source": "property",
+      "schema": "BadgeDetails"
+    },
+    {
+      "term": "BankAccountVerificationAsyncRequestSchema",
+      "description": "Request Body for Async Bank account verification",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "bank_account",
+      "description": "It is the bank account number for verification. It can be an alphanumeric value between 6 and 40 characters.",
+      "source": "property",
+      "schema": "BankAccountVerificationAsyncRequestSchema"
+    },
+    {
+      "term": "ifsc",
+      "description": "It is the IFSC information of the bank where the bank account is registered. It should be ann alphanumeric value of 11 characters. The first 4 characters should be alphabets, the 5th character should be a 0, and the remaining 6 characters should be numeric digits.",
+      "source": "property",
+      "schema": "BankAccountVerificationAsyncRequestSchema"
+    },
+    {
+      "term": "BankAccountVerificationBulkRequestSchema",
+      "description": "Request Body for Bulk Bank account verification",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "BankAccountVerificationSyncRequestSchema",
+      "description": "Request body for BAV V2 Sync",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "BulkPanRequestSchema",
+      "description": "Find the request parameters to verify a large number of PAN information",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "CinRequestSchema",
+      "description": "Find the request parameters to retrieve CIN information",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "cin",
+      "description": "It is the unique alphanumeric identifier assigned to companies registered under the Ministry of Corporate Affairs, India.",
+      "source": "property",
+      "schema": "CinRequestSchema"
+    },
+    {
+      "term": "CinResponseSchema",
+      "description": "Success response for retrieving CIN information",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "company_name",
+      "description": "It displays the name of the company registered under the Ministry of Corporate Affaris.",
+      "source": "property",
+      "schema": "CinResponseSchema"
+    },
+    {
+      "term": "registration_number",
+      "description": "It displays the registration number of the company.",
+      "source": "property",
+      "schema": "CinResponseSchema"
+    },
+    {
+      "term": "incorporation_date",
+      "description": "It displays the date of incorporation of the company.",
+      "source": "property",
+      "schema": "CinResponseSchema"
+    },
+    {
+      "term": "cin_status",
+      "description": "It displays the granular level status of the CIN information.",
+      "source": "property",
+      "schema": "CinResponseSchema"
+    },
+    {
+      "term": "incorporation_country",
+      "description": "It displays the name of the country where the company is located.",
+      "source": "property",
+      "schema": "CinResponseSchema"
+    },
+    {
+      "term": "director_details",
+      "description": "",
+      "source": "property",
+      "schema": "CinResponseSchema"
+    },
+    {
+      "term": "CreateRequestRequestSchema",
+      "description": "Find the request parameters to create a reverse penny order request",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "CreateRequestResponseSchema",
+      "description": "Success response for creating a reverse penny order request",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "ref_id",
+      "description": "It displays the unique ID created by Cashfree Payments for reference purposes.\nformat: `int64`",
+      "source": "property",
+      "schema": "CreateRequestResponseSchema"
+    },
+    {
+      "term": "valid_upto",
+      "description": "It displays the time validity of the intent links in the create RPD request. By default, its value is 10 minutes from the time of link generation.",
+      "source": "property",
+      "schema": "CreateRequestResponseSchema"
+    },
+    {
+      "term": "upi_link",
+      "description": "It displays the generated UPI link for the reverse penny drop request.",
+      "source": "property",
+      "schema": "CreateRequestResponseSchema"
+    },
+    {
+      "term": "paytm",
+      "description": "It displays the generated Paytm link for the reverse drop request.",
+      "source": "property",
+      "schema": "CreateRequestResponseSchema"
+    },
+    {
+      "term": "bhim",
+      "description": "It displays the generated BHIM link for the reverse penny drop request.",
+      "source": "property",
+      "schema": "CreateRequestResponseSchema"
+    },
+    {
+      "term": "gpay",
+      "description": "It displays the generated Gpay link for the reverse penny drop request.",
+      "source": "property",
+      "schema": "CreateRequestResponseSchema"
+    },
+    {
+      "term": "phonepe",
+      "description": "It displays the generated Phonepe link for the reverse penny drop request.",
+      "source": "property",
+      "schema": "CreateRequestResponseSchema"
+    },
+    {
+      "term": "DigiLockerVerifyAccountRequestSchema",
+      "description": "Find the request parameters to verify a Digilocker account.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "mobile_number",
+      "description": "It is the mobile number of a user. Either an Aadhaar number or mobile is required to verify whether a Digilocker account exists. **(conditonal mandatory)**",
+      "source": "property",
+      "schema": "DigiLockerVerifyAccountRequestSchema"
+    },
+    {
+      "term": "aadhaar_number",
+      "description": "It is the unique 12-digit identification number issued by the Unique Identification Authority of India (UIDAI). Either an Aadhaar number or mobile is required to verify whether a Digilocker account exists. **(conditonal mandatory)**",
+      "source": "property",
+      "schema": "DigiLockerVerifyAccountRequestSchema"
+    },
+    {
+      "term": "DigiLockerVerificationCreateUrlRequestSchema",
+      "description": "Find the request parameters to create a DigiLocker URL for the document verification.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "document_requested",
+      "description": "It is the list of customer documents required for verification.",
+      "source": "property",
+      "schema": "DigiLockerVerificationCreateUrlRequestSchema"
+    },
+    {
+      "term": "redirect_url",
+      "description": "It is the URL you need to provide to redirect the user after completing the DigiLocker journey. It will contain the verification_id, which can be used to check the status of the verification.",
+      "source": "property",
+      "schema": "DigiLockerVerificationCreateUrlRequestSchema"
+    },
+    {
+      "term": "DigiLockerVerifyAccountResponseSchema",
+      "description": "Response of verify DigiLocker account API.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "digilocker_id",
+      "description": "It is a unique 36-character DigiLocker ID of the user account.",
+      "source": "property",
+      "schema": "DigiLockerVerifyAccountResponseSchema"
+    },
+    {
+      "term": "DigiLockerVerificationCreateUrlResponseSchema",
+      "description": "Success response for creating a DigiLocker URL for document verification.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "url",
+      "description": "It displays the URL received to retrieve and verify aadhaar information from DigiLocker.",
+      "source": "property",
+      "schema": "DigiLockerVerificationCreateUrlResponseSchema"
+    },
+    {
+      "term": "DigiLockerVerificationGetAadhaarDocumentResponseSchema",
+      "description": "Success response for Get Aadhaar DigiLocker Document API",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "care_of",
+      "description": "It displays the name of the parent or guardian.",
+      "source": "property",
+      "schema": "DigiLockerVerificationGetAadhaarDocumentResponseSchema"
+    },
+    {
+      "term": "xml_file",
+      "description": "It is the link which points to the zip file containing the XML file and has 48 hrs expiry",
+      "source": "property",
+      "schema": "DigiLockerVerificationGetAadhaarDocumentResponseSchema"
+    },
+    {
+      "term": "DigiLockerVerificationGetPanDocumentResponseSchema",
+      "description": "Success response for Get Pan DigiLocker Document API",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "DigiLockerVerificationGetDLDocumentResponseSchema",
+      "description": "Success response for Get Driving License Digilocker Document API",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "dl_number",
+      "description": "It is the driving licence number of the individual.",
+      "source": "property",
+      "schema": "DigiLockerVerificationGetDLDocumentResponseSchema"
+    },
+    {
+      "term": "issued_at",
+      "description": "It displays the place where a driving license is issued.",
+      "source": "property",
+      "schema": "DigiLockerVerificationGetDLDocumentResponseSchema"
+    },
+    {
+      "term": "issue_date",
+      "description": "It displays the issue date of driving license.",
+      "source": "property",
+      "schema": "DigiLockerVerificationGetDLDocumentResponseSchema"
+    },
+    {
+      "term": "categories",
+      "description": "",
+      "source": "property",
+      "schema": "DigiLockerVerificationGetDLDocumentResponseSchema"
+    },
+    {
+      "term": "expiry_date",
+      "description": "It displays the date until which the driving license is valid.",
+      "source": "property",
+      "schema": "DigiLockerVerificationGetDLDocumentResponseSchema"
+    },
+    {
+      "term": "present_address",
+      "description": "It displays the current address of the owner of the vehicle.",
+      "source": "property",
+      "schema": "DigiLockerVerificationGetDLDocumentResponseSchema"
+    },
+    {
+      "term": "permanent_address",
+      "description": "It displays the permanent address of the owner of the vehicle.",
+      "source": "property",
+      "schema": "DigiLockerVerificationGetDLDocumentResponseSchema"
+    },
+    {
+      "term": "DigiLockerVerificationGetStatusResponseSchema",
+      "description": "Success response of Get DigiLocker Verification Status",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "user_details",
+      "description": "It displays the details of the individual(user).",
+      "source": "property",
+      "schema": "DigiLockerVerificationGetStatusResponseSchema"
+    },
+    {
+      "term": "document_consent",
+      "description": "It displays the consent of the individual(user) for document verification.",
+      "source": "property",
+      "schema": "DigiLockerVerificationGetStatusResponseSchema"
+    },
+    {
+      "term": "DrivingLicenceDetails",
+      "description": "It contains the details of the driving licence.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "date_of_issue",
+      "description": "",
+      "source": "property",
+      "schema": "DrivingLicenceDetails"
+    },
+    {
+      "term": "date_of_last_transaction",
+      "description": "",
+      "source": "property",
+      "schema": "DrivingLicenceDetails"
+    },
+    {
+      "term": "last_transacted_at",
+      "description": "",
+      "source": "property",
+      "schema": "DrivingLicenceDetails"
+    },
+    {
+      "term": "father_or_husband_name",
+      "description": "",
+      "source": "property",
+      "schema": "DrivingLicenceDetails"
+    },
+    {
+      "term": "address_list",
+      "description": "",
+      "source": "property",
+      "schema": "DrivingLicenceDetails"
+    },
+    {
+      "term": "photo",
+      "description": "",
+      "source": "property",
+      "schema": "DrivingLicenceDetails"
+    },
+    {
+      "term": "cov_details",
+      "description": "",
+      "source": "property",
+      "schema": "DrivingLicenceDetails"
+    },
+    {
+      "term": "DrivingLicenseRequestSchema",
+      "description": "Find the request parameters to retrieve driving licence information",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "DrivingLicenseResponseSchema",
+      "description": "Success response for retrieving driving licence information",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "badge_details",
+      "description": "It contains the...",
+      "source": "property",
+      "schema": "DrivingLicenseResponseSchema"
+    },
+    {
+      "term": "dl_validity",
+      "description": "It contains the different information regarding the validity of the licence.",
+      "source": "property",
+      "schema": "DrivingLicenseResponseSchema"
+    },
+    {
+      "term": "details_of_driving_licence",
+      "description": "",
+      "source": "property",
+      "schema": "DrivingLicenseResponseSchema"
+    },
+    {
+      "term": "ESignVerificationCreateSignatureRequestSchema",
+      "description": "Find the request parameters to add the details of the document and signer(s)",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "document_id",
+      "description": "It is the unique ID received in the Upload Document for E-Sign API response.",
+      "source": "property",
+      "schema": "ESignVerificationCreateSignatureRequestSchema"
+    },
+    {
+      "term": "notification_modes",
+      "description": "It is how you want to notify the signee about the e-sign details.",
+      "source": "property",
+      "schema": "ESignVerificationCreateSignatureRequestSchema"
+    },
+    {
+      "term": "auth_type",
+      "description": "It is the type of authentication to be used for signature.",
+      "source": "property",
+      "schema": "ESignVerificationCreateSignatureRequestSchema"
+    },
+    {
+      "term": "expiry_in_days",
+      "description": "It is the expiry of the signing link for each signer in days. The maximum allowed time is 15 days.",
+      "source": "property",
+      "schema": "ESignVerificationCreateSignatureRequestSchema"
+    },
+    {
+      "term": "signers",
+      "description": "It should contain the details of the signer(s).",
+      "source": "property",
+      "schema": "ESignVerificationCreateSignatureRequestSchema"
+    },
+    {
+      "term": "ESignVerificationCreateSignatureResponseSchema",
+      "description": "Success response for Create E-Sign RequestR",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "signing_link",
+      "description": "It displays the link to proceed with the e-signature of the document for the first signer.",
+      "source": "property",
+      "schema": "ESignVerificationCreateSignatureResponseSchema"
+    },
+    {
+      "term": "ESignVerificationGetStatusResponseSchema",
+      "description": "Success response for Get E-Sign Status",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "signed_doc_url",
+      "description": "It displays the link of the signed document.",
+      "source": "property",
+      "schema": "ESignVerificationGetStatusResponseSchema"
+    },
+    {
+      "term": "ESignVerificationUploadDocumentRequestSchema",
+      "description": "Find the request parameters to upload the document that requires an e-signature.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "document",
+      "description": "Upload the document that requires an e-sign. Allowed file type - PDF. Max file size allowed - 10MB.",
+      "source": "property",
+      "schema": "ESignVerificationUploadDocumentRequestSchema"
+    },
+    {
+      "term": "ESignVerificationUploadDocumentResponseSchema",
+      "description": "Success response for Upload Document For E-Sign",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "EmailDetailsMobile360",
+      "description": "It contains all the email information of the individual.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "sequence",
+      "description": "It displays sequence of the list.",
+      "source": "property",
+      "schema": "EmailDetailsMobile360"
+    },
+    {
+      "term": "ErrorResponseSchema",
+      "description": "Response in case of error.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "code",
+      "description": "",
+      "source": "property",
+      "schema": "ErrorResponseSchema"
+    },
+    {
+      "term": "error",
+      "description": "",
+      "source": "property",
+      "schema": "ErrorResponseSchema"
+    },
+    {
+      "term": "FaceMatchRequestSchema",
+      "description": "Find the request parameters to verify facial features in two images.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "first_image",
+      "description": "It is the scanned copy of the image 1. Allowed file type - JPEG/JPG/PNG. Maximum file size allowed for both the files is 5 MB.",
+      "source": "property",
+      "schema": "FaceMatchRequestSchema"
+    },
+    {
+      "term": "second_image",
+      "description": "It is the scanned copy of the image 2. Allowed file types are JPEG/JPG/PNG. Maximum file size allowed for both the files is 5 MB.",
+      "source": "property",
+      "schema": "FaceMatchRequestSchema"
+    },
+    {
+      "term": "threshold",
+      "description": "It is the value to distinguish and match the facial features of the two images. The range is between 0 and 1. The default value is set as 0.75. We conclude that the images match when the analysis is or greater than the value set for threshold.",
+      "source": "property",
+      "schema": "FaceMatchRequestSchema"
+    },
+    {
+      "term": "FaceMatchResponseSchema",
+      "description": "Success response for Face Match API",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "face_match_result",
+      "description": "It displays the result of the face match verification request.\nPossible values are:\n- `YES`: The face match is positive i.e. the given 2 photos match.\n- `NO`: The face match is negative i.e. the given 2 photos don't match.",
+      "source": "property",
+      "schema": "FaceMatchResponseSchema"
+    },
+    {
+      "term": "face_match_score",
+      "description": "It displays the score of the face match verification request.\nRange: `0 < x < 1`",
+      "source": "property",
+      "schema": "FaceMatchResponseSchema"
+    },
+    {
+      "term": "GetPanBulkResponseSchema",
+      "description": "Response for Verify Bulk PAN API",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "count",
+      "description": "",
+      "source": "property",
+      "schema": "GetPanBulkResponseSchema"
+    },
+    {
+      "term": "GetStatusRpdResponseSchema",
+      "description": "Reverse penny drop verification successful",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "upi",
+      "description": "It displays the UPI VPA information of the individual.",
+      "source": "property",
+      "schema": "GetStatusRpdResponseSchema"
+    },
+    {
+      "term": "added_on",
+      "description": "It displays the date and time of when the request was added.",
+      "source": "property",
+      "schema": "GetStatusRpdResponseSchema"
+    },
+    {
+      "term": "processed_on",
+      "description": "It displays the date and time of when the request was processed.",
+      "source": "property",
+      "schema": "GetStatusRpdResponseSchema"
+    },
+    {
+      "term": "penny_collected_on",
+      "description": "It displays the date and time of when the 1 rupee was collected.",
+      "source": "property",
+      "schema": "GetStatusRpdResponseSchema"
+    },
+    {
+      "term": "reversal_status",
+      "description": "It displays the status of the rupee reversal.\nPossible values are:\n- `TRANSFER_INITIATED`: Reversal is initiated.\n- `TRANSFER_SUCCESS`: The reversal process is successful.\n- `PENDING`: The reversal is pending and not initiated yet.\n- `FAILED`: The reversal is failed.",
+      "source": "property",
+      "schema": "GetStatusRpdResponseSchema"
+    },
+    {
+      "term": "account_type",
+      "description": "It displays the type of account.",
+      "source": "property",
+      "schema": "GetStatusRpdResponseSchema"
+    },
+    {
+      "term": "GetVerifyPanResponseSchema",
+      "description": "Success response for Verify PAN Sync API",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "father_name",
+      "description": "It displays the father's name of the PAN card holder.",
+      "source": "property",
+      "schema": "GetVerifyPanResponseSchema"
+    },
+    {
+      "term": "GstinRequestSchema",
+      "description": "Find the request parameters to verify GSTIN information",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "business_name",
+      "description": "It is the name of the business to which the GSTIN is issued. The maximum character limit is 200.",
+      "source": "property",
+      "schema": "GstinRequestSchema"
+    },
+    {
+      "term": "GstinResponseSchema",
+      "description": "Response for Verify GSTIN, which includes the GSTIN details, business information, and address details.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "legal_name_of_business",
+      "description": "Legal name of the business registered under the GST system.",
+      "source": "property",
+      "schema": "GstinResponseSchema"
+    },
+    {
+      "term": "trade_name_of_business",
+      "description": "Trade name of the business registered under the GST system.",
+      "source": "property",
+      "schema": "GstinResponseSchema"
+    },
+    {
+      "term": "center_jurisdiction",
+      "description": "Center jurisdiction under which the business falls.",
+      "source": "property",
+      "schema": "GstinResponseSchema"
+    },
+    {
+      "term": "state_jurisdiction",
+      "description": "State jurisdiction under which the business falls.",
+      "source": "property",
+      "schema": "GstinResponseSchema"
+    },
+    {
+      "term": "date_of_registration",
+      "description": "Date of GST registration for the business.",
+      "source": "property",
+      "schema": "GstinResponseSchema"
+    },
+    {
+      "term": "constitution_of_business",
+      "description": "Constitution type of the business, such as Private Limited, Proprietorship, etc.",
+      "source": "property",
+      "schema": "GstinResponseSchema"
+    },
+    {
+      "term": "taxpayer_type",
+      "description": "Taxpayer type, indicating whether the business is a Regular taxpayer, Composition taxpayer, etc.",
+      "source": "property",
+      "schema": "GstinResponseSchema"
+    },
+    {
+      "term": "gst_in_status",
+      "description": "Current status of the GSTIN.",
+      "source": "property",
+      "schema": "GstinResponseSchema"
+    },
+    {
+      "term": "last_update_date",
+      "description": "Date when the GST details were last updated.",
+      "source": "property",
+      "schema": "GstinResponseSchema"
+    },
+    {
+      "term": "nature_of_business_activities",
+      "description": "List of activities performed by the business, such as Retail Business, Supplier of Services, etc.",
+      "source": "property",
+      "schema": "GstinResponseSchema"
+    },
+    {
+      "term": "principal_place_address",
+      "description": "Complete principal place address of the business.",
+      "source": "property",
+      "schema": "GstinResponseSchema"
+    },
+    {
+      "term": "principal_place_split_address",
+      "description": "Split components of the principal place address.",
+      "source": "property",
+      "schema": "GstinResponseSchema"
+    },
+    {
+      "term": "additional_address_array",
+      "description": "List of additional addresses associated with the business.",
+      "source": "property",
+      "schema": "GstinResponseSchema"
+    },
+    {
+      "term": "IdentityDetailsMobile360",
+      "description": "It displays all the identity number linked for individual",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "number",
+      "description": "It displays the identity number of the individual.",
+      "source": "property",
+      "schema": "IdentityDetailsMobile360"
+    },
+    {
+      "term": "IpVerificationRequestSchema",
+      "description": "Find the request parameters to verify IP address",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "ip_address",
+      "description": "It is the IP address that you need to verify which is assigned to a device connected to a computer network.",
+      "source": "property",
+      "schema": "IpVerificationRequestSchema"
+    },
+    {
+      "term": "IpVerificationResponseSchema",
+      "description": "Verify IP success response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "proxy_type",
+      "description": "It displays the category or classification of a proxy server based on its functionality and how it handles network requests.",
+      "source": "property",
+      "schema": "IpVerificationResponseSchema"
+    },
+    {
+      "term": "country_code",
+      "description": "It displays the country code associated with the geographical location of the device or network to which the IP address is assigned.",
+      "source": "property",
+      "schema": "IpVerificationResponseSchema"
+    },
+    {
+      "term": "country_name",
+      "description": "It displays the name of the country associated with the geographical location of the device or network to which the IP address is assigned.",
+      "source": "property",
+      "schema": "IpVerificationResponseSchema"
+    },
+    {
+      "term": "region_name",
+      "description": "It displays the name of the region associated with the geographical location of the device or network to which the IP address is assigned.",
+      "source": "property",
+      "schema": "IpVerificationResponseSchema"
+    },
+    {
+      "term": "city_name",
+      "description": "It displays the name of the city associated with the geographical location of the device or network to which the IP address is assigned.",
+      "source": "property",
+      "schema": "IpVerificationResponseSchema"
+    },
+    {
+      "term": "city_risk_score",
+      "description": "It displays the risk score associated with a particular city based on factors such as cybersecurity threats, crime rates, or other relevant data.",
+      "source": "property",
+      "schema": "IpVerificationResponseSchema"
+    },
+    {
+      "term": "proxy_type_risk_score",
+      "description": "It displays the risk score associated with a particular city based on factors such as cybersecurity threats, crime rates, or other relevant data.",
+      "source": "property",
+      "schema": "IpVerificationResponseSchema"
+    },
+    {
+      "term": "LivelinessRequestSchema",
+      "description": "Find the request parameters to check the liveliness in an image",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "image",
+      "description": "Upload the image of the individual to verify the liveliness of the image.",
+      "source": "property",
+      "schema": "LivelinessRequestSchema"
+    },
+    {
+      "term": "strict_check",
+      "description": "It is the boolean value to set the strictness check of the image. Default value for strict_check is false.",
+      "source": "property",
+      "schema": "LivelinessRequestSchema"
+    },
+    {
+      "term": "Liveliness200ResponseSchema",
+      "description": "Success response for Liveliness Check API",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "liveliness",
+      "description": "It displays the result of the liveliness check.",
+      "source": "property",
+      "schema": "Liveliness200ResponseSchema"
+    },
+    {
+      "term": "score",
+      "description": "It displays the score of the liveliness check. \nRange: `0 < x < 1`",
+      "source": "property",
+      "schema": "Liveliness200ResponseSchema"
+    },
+    {
+      "term": "Mobile360RequestSchema",
+      "description": "Find the request parameters for Mobile 360",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "consent_desc",
+      "description": "It is the description that explains fetching the data.",
+      "source": "property",
+      "schema": "Mobile360RequestSchema"
+    },
+    {
+      "term": "Mobile360SendOtpRequestSchema",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "user_consent",
+      "description": "",
+      "source": "property",
+      "schema": "Mobile360SendOtpRequestSchema"
+    },
+    {
+      "term": "Mobile360ConsentSchema",
+      "description": "Consent details for Mobile360 Send OTP",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "obtained",
+      "description": "Indicates whether the user has given consent.",
+      "source": "property",
+      "schema": "Mobile360ConsentSchema"
+    },
+    {
+      "term": "timestamp",
+      "description": "Timestamp when the consent was provided. The value must be in UTC and must be within 5 minutes before or after the current time.",
+      "source": "property",
+      "schema": "Mobile360ConsentSchema"
+    },
+    {
+      "term": "purpose",
+      "description": "The description of the consent. The length must be between 20 and 100 characters. Allowed characters are alphanumeric, period (.), hyphen (-), slash (/), ampersand (&), and underscore (_).",
+      "source": "property",
+      "schema": "Mobile360ConsentSchema"
+    },
+    {
+      "term": "network_details",
+      "description": "",
+      "source": "property",
+      "schema": "Mobile360ConsentSchema"
+    },
+    {
+      "term": "device_details",
+      "description": "",
+      "source": "property",
+      "schema": "Mobile360ConsentSchema"
+    },
+    {
+      "term": "Mobile360VerifyOtpRequestSchema",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "otp",
+      "description": "The OTP sent to the mobile number provided in the [Send OTP](https://www.cashfree.com/docs/api-reference/vrs/v2/mobile-360-otp-flow/mobile-360-send-otp-request) request.",
+      "source": "property",
+      "schema": "Mobile360VerifyOtpRequestSchema"
+    },
+    {
+      "term": "Mobile360ResponseSchema",
+      "description": "Success response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "vpa",
+      "description": "It displays the UPI VPA associated with the entered mobile number. If no primary UPI VPA is associated, this field will be null.",
+      "source": "property",
+      "schema": "Mobile360ResponseSchema"
+    },
+    {
+      "term": "ifsc_details",
+      "description": "It displays the details corresponding to IFSC.",
+      "source": "property",
+      "schema": "Mobile360ResponseSchema"
+    },
+    {
+      "term": "Mobile360VerifyOtpResponseSchema",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "personal_details",
+      "description": "Personal information of the individual.",
+      "source": "property",
+      "schema": "Mobile360VerifyOtpResponseSchema"
+    },
+    {
+      "term": "phone_numbers",
+      "description": "",
+      "source": "property",
+      "schema": "Mobile360VerifyOtpResponseSchema"
+    },
+    {
+      "term": "emails",
+      "description": "",
+      "source": "property",
+      "schema": "Mobile360VerifyOtpResponseSchema"
+    },
+    {
+      "term": "passport_details",
+      "description": "",
+      "source": "property",
+      "schema": "Mobile360VerifyOtpResponseSchema"
+    },
+    {
+      "term": "bank_account_details",
+      "description": "",
+      "source": "property",
+      "schema": "Mobile360VerifyOtpResponseSchema"
+    },
+    {
+      "term": "aadhaar_details",
+      "description": "",
+      "source": "property",
+      "schema": "Mobile360VerifyOtpResponseSchema"
+    },
+    {
+      "term": "ration_card_details",
+      "description": "",
+      "source": "property",
+      "schema": "Mobile360VerifyOtpResponseSchema"
+    },
+    {
+      "term": "driving_license_details",
+      "description": "",
+      "source": "property",
+      "schema": "Mobile360VerifyOtpResponseSchema"
+    },
+    {
+      "term": "voter_details",
+      "description": "",
+      "source": "property",
+      "schema": "Mobile360VerifyOtpResponseSchema"
+    },
+    {
+      "term": "pan_details",
+      "description": "",
+      "source": "property",
+      "schema": "Mobile360VerifyOtpResponseSchema"
+    },
+    {
+      "term": "addresses",
+      "description": "",
+      "source": "property",
+      "schema": "Mobile360VerifyOtpResponseSchema"
+    },
+    {
+      "term": "employment_details",
+      "description": "Employment details of the individual.",
+      "source": "property",
+      "schema": "Mobile360VerifyOtpResponseSchema"
+    },
+    {
+      "term": "Mobile360SendOtpResponseSchema",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "NameMatchRequestSchema",
+      "description": "Find the request parameters for the Name Match API",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "name_1",
+      "description": "It is the name you want to verify.",
+      "source": "property",
+      "schema": "NameMatchRequestSchema"
+    },
+    {
+      "term": "name_2",
+      "description": "It is the name you want to verify with name_1.",
+      "source": "property",
+      "schema": "NameMatchRequestSchema"
+    },
+    {
+      "term": "NameMatchResponseSchema",
+      "description": "Success response for Name Match API",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "reason",
+      "description": "It justifies the match score for the API request.",
+      "source": "property",
+      "schema": "NameMatchResponseSchema"
+    },
+    {
+      "term": "OfflineAadhaarSendOtpRequestSchema",
+      "description": "Find the request parameters to generate an OTP for aadhaar verification",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "OfflineAadhaarSendOtpResponseSchema",
+      "description": "Success response for Generate OTP to Verify Aadhaar API",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "OfflineAadhaarVerifyOtpRequestSchema",
+      "description": "Find the request parameters to submit the OTP for aadhaar verification",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "OfflineAadhaarVerifyOtpResponseSchema",
+      "description": "Success response for Submit OTP for Aadhaar Verification",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "year_of_birth",
+      "description": "It displays the year of birth of the aadhaar card holder.",
+      "source": "property",
+      "schema": "OfflineAadhaarVerifyOtpResponseSchema"
+    },
+    {
+      "term": "share_code",
+      "description": "It is the passcode with which we can unzip the xml file",
+      "source": "property",
+      "schema": "OfflineAadhaarVerifyOtpResponseSchema"
+    },
+    {
+      "term": "PanAdvanceRequestSchema",
+      "description": "Find the request parameters to verify PAN information",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PanAdvanceResponseSchema",
+      "description": "Success response for PAN Advance",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "first_name",
+      "description": "It displays the first name as present in the PAN information.",
+      "source": "property",
+      "schema": "PanAdvanceResponseSchema"
+    },
+    {
+      "term": "last_name",
+      "description": "It displays the last name as present in the PAN information.",
+      "source": "property",
+      "schema": "PanAdvanceResponseSchema"
+    },
+    {
+      "term": "date_of_birth",
+      "description": "It displays the date of birth of the individual.",
+      "source": "property",
+      "schema": "PanAdvanceResponseSchema"
+    },
+    {
+      "term": "masked_aadhaar_number",
+      "description": "It displays the masked aadhaar number of the individual.",
+      "source": "property",
+      "schema": "PanAdvanceResponseSchema"
+    },
+    {
+      "term": "aadhaar_linked",
+      "description": "It displays the aadhaar and PAN link status.",
+      "source": "property",
+      "schema": "PanAdvanceResponseSchema"
+    },
+    {
+      "term": "PanLiteRequestSchema",
+      "description": "Find the request parameters for PAN Lite",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PanLiteResponseSchema",
+      "description": "Success response for verifying PAN information",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "name_match",
+      "description": "It displays the result of name match verification.\nThe possible values are:\n\n - `Y` : The name entered matches with the name present on the PAN.\n\n - `N` : The name entered does matches with the name present on the PAN.",
+      "source": "property",
+      "schema": "PanLiteResponseSchema"
+    },
+    {
+      "term": "dob_match",
+      "description": "It displays the result of the date of birth verification. \nThe possible values are:\n\n - `Y` : The date of birth of the individual matches with the date of birth present on PAN.\n\n - `N` : The date of birth of the individual does not matches with the date of birth present on PAN.",
+      "source": "property",
+      "schema": "PanLiteResponseSchema"
+    },
+    {
+      "term": "PanOcrRequestSchema",
+      "description": "Find the request parameters to verify PAN via OCR",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PanOcrResponseSchema",
+      "description": "PAN Verification via OCR success response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "organization_name",
+      "description": "It displays the name of the organisation the individual runs.",
+      "source": "property",
+      "schema": "PanOcrResponseSchema"
+    },
+    {
+      "term": "pan_type",
+      "description": "It displays the type of PAN issued to the individual.",
+      "source": "property",
+      "schema": "PanOcrResponseSchema"
+    },
+    {
+      "term": "date_of_incorporation",
+      "description": "It displays the incorporation date of the individual's organisation.",
+      "source": "property",
+      "schema": "PanOcrResponseSchema"
+    },
+    {
+      "term": "age",
+      "description": "It displays the age of the individual.",
+      "source": "property",
+      "schema": "PanOcrResponseSchema"
+    },
+    {
+      "term": "PanRequestSchema",
+      "description": "Find the request parameters to verify PAN",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PanToGstinRequestSchema",
+      "description": "Find the request parameters to fetch the list of GSTIN associated with PAN",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PanToGstinResponseSchema",
+      "description": "Success response for Fetch GSTIN with PAN",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "gstin_list",
+      "description": "It displays the list of GSTIN associated with the entered PAN.",
+      "source": "property",
+      "schema": "PanToGstinResponseSchema"
+    },
+    {
+      "term": "PassportVerificationRequestSchema",
+      "description": "Find the request parameters to verify passport information",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "file_number",
+      "description": "It is the unique alphanumeric code that identifies an individual's passport application.",
+      "source": "property",
+      "schema": "PassportVerificationRequestSchema"
+    },
+    {
+      "term": "PassportVerificationResponseSchema",
+      "description": "Success response for Verify Passport",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "application_type",
+      "description": "It displays the type of passport application.",
+      "source": "property",
+      "schema": "PassportVerificationResponseSchema"
+    },
+    {
+      "term": "application_received_date",
+      "description": "It displays when the passport application was received.",
+      "source": "property",
+      "schema": "PassportVerificationResponseSchema"
+    },
+    {
+      "term": "PhoneDetailsMobile360",
+      "description": "It displays all the list of phone number details linked for individual",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "PostPanBulkResponseSchema",
+      "description": "Success response for verifying a large number of PAN information",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "ReverseGeocodingRequestSchema",
+      "description": "Find the request parameters to convert geographic cooridnates into readable location",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "latitude",
+      "description": "It is the angular distance expressed in degrees of arc north or south of the equator to specify the location.",
+      "source": "property",
+      "schema": "ReverseGeocodingRequestSchema"
+    },
+    {
+      "term": "longitude",
+      "description": "It is the angular distance expressed in degrees of arc east or west of the equator to specify the location.",
+      "source": "property",
+      "schema": "ReverseGeocodingRequestSchema"
+    },
+    {
+      "term": "ReverseGeocodingResponseSchema",
+      "description": "Reverse Geocoding success response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "statecode",
+      "description": "It displays the state's code of the entered coordinates.",
+      "source": "property",
+      "schema": "ReverseGeocodingResponseSchema"
+    },
+    {
+      "term": "countrycode",
+      "description": "It displays the country's code of the entered coordinates.",
+      "source": "property",
+      "schema": "ReverseGeocodingResponseSchema"
+    },
+    {
+      "term": "SplitAddress",
+      "description": "It containts the address information in individual components.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "district",
+      "description": "",
+      "source": "property",
+      "schema": "SplitAddress"
+    },
+    {
+      "term": "address_line",
+      "description": "",
+      "source": "property",
+      "schema": "SplitAddress"
+    },
+    {
+      "term": "SplitAddressSchema",
+      "description": "It contains the address information of the individual as present in the voter ID card.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "UPIv2RequestSchema",
+      "description": "Request Body Schema for UPI V2.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "UPIv2ResponseSchema",
+      "description": "UPI V2 Response Body Schema",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "InitiateOauthResponseSchema",
+      "description": "Initiate Oauth Response Body Schema",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "expiry",
+      "description": "The expiration date and time of the session, in UTC format. Format `YYYY-MM-DDTHH:mm:ssZ`",
+      "source": "property",
+      "schema": "InitiateOauthResponseSchema"
+    },
+    {
+      "term": "session_id",
+      "description": "A unique identifier for the session associated with the request.",
+      "source": "property",
+      "schema": "InitiateOauthResponseSchema"
+    },
+    {
+      "term": "AccessTokenGenerationResponseSchema",
+      "description": "AccessnToken Generation Response Body Schema",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "access_token",
+      "description": "It displays the the access token value. Use this access token to get the user details in fetch user details API.",
+      "source": "property",
+      "schema": "AccessTokenGenerationResponseSchema"
+    },
+    {
+      "term": "FetchDetailsResponseSchema",
+      "description": "Fetch Details Response Body Schema",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "scopes",
+      "description": "A list of scopes associated with the verification, each representing a specific type of user data that can be accessed.",
+      "source": "property",
+      "schema": "FetchDetailsResponseSchema"
+    },
+    {
+      "term": "IFSCv2RequestSchema",
+      "description": "Find the request parameters for IFSC Verification V2",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "InitiateOauthRequestSchema",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "AccessTokenGenerationRequestSchema",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "auth_code",
+      "description": "This is the authcode for generating the access token. The SDK sends the callback using the redirect URL provided in the [Merchant Dashboard](https://merchant.cashfree.com/verificationsuite/secure-share) while creating the app. The authcode will be included in the callback sent to the redirect URL.",
+      "source": "property",
+      "schema": "AccessTokenGenerationRequestSchema"
+    },
+    {
+      "term": "IFSCv2ResponseSchema",
+      "description": "IFSC Verification V2 success response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "bank",
+      "description": "It displays the name of the bank.",
+      "source": "property",
+      "schema": "IFSCv2ResponseSchema"
+    },
+    {
+      "term": "neft",
+      "description": "It displays the status of NEFT.",
+      "source": "property",
+      "schema": "IFSCv2ResponseSchema"
+    },
+    {
+      "term": "imps",
+      "description": "It displays the status of IMPS.",
+      "source": "property",
+      "schema": "IFSCv2ResponseSchema"
+    },
+    {
+      "term": "rtgs",
+      "description": "It displays the status of RTGS.",
+      "source": "property",
+      "schema": "IFSCv2ResponseSchema"
+    },
+    {
+      "term": "ft",
+      "description": "It displays the status of fund transfer.",
+      "source": "property",
+      "schema": "IFSCv2ResponseSchema"
+    },
+    {
+      "term": "card",
+      "description": "It displays the status of card.",
+      "source": "property",
+      "schema": "IFSCv2ResponseSchema"
+    },
+    {
+      "term": "nbin",
+      "description": "It displays the National Bank Identification Number (NBIN) information.",
+      "source": "property",
+      "schema": "IFSCv2ResponseSchema"
+    },
+    {
+      "term": "ifsc_subcode",
+      "description": "It displays the subcode of the IFSC information.",
+      "source": "property",
+      "schema": "IFSCv2ResponseSchema"
+    },
+    {
+      "term": "category",
+      "description": "It displays the category of the bank.",
+      "source": "property",
+      "schema": "IFSCv2ResponseSchema"
+    },
+    {
+      "term": "swift_code",
+      "description": "It displays the code that identifies banks and financial institutions worldwide. The code helps pinpoint the specific bank.",
+      "source": "property",
+      "schema": "IFSCv2ResponseSchema"
+    },
+    {
+      "term": "UpiAdvanceRequestSchema",
+      "description": "Find the request parameters to verify UPI VPA information",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "UpiAdvanceResponseSchema",
+      "description": "UPI 360 success response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "UpiMobileRequestSchema",
+      "description": "Find the request parameters to fetch the list of UPI VPA",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "additional_vpas",
+      "description": "It is a boolean flag to fetch additional_vpas associated with the phone number in the response.",
+      "source": "property",
+      "schema": "UpiMobileRequestSchema"
+    },
+    {
+      "term": "UpiMobileResponseSchema",
+      "description": "Success response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "ValidityDetails",
+      "description": "It contains the validity details.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "to",
+      "description": "",
+      "source": "property",
+      "schema": "ValidityDetails"
+    },
+    {
+      "term": "from",
+      "description": "",
+      "source": "property",
+      "schema": "ValidityDetails"
+    },
+    {
+      "term": "VehicleRcRequestSchema",
+      "description": "Find the request parameters to verify vehicle RC information",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "vehicle_number",
+      "description": "It is the registration number of the vehicle",
+      "source": "property",
+      "schema": "VehicleRcRequestSchema"
+    },
+    {
+      "term": "VehicleRcResponseSchema",
+      "description": "Verify Vehicle RC success response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "reg_no",
+      "description": "It displays the registration number of the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "class",
+      "description": "It displays the category or type of the vehicle as recognised by the relevant transportation authorities.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "chassis",
+      "description": "It displays the chassis information of the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "engine",
+      "description": "It displays the engine number of the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "vehicle_manufacturer_name",
+      "description": "It displays the manufacturer of the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "model",
+      "description": "It displays the model number of the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "vehicle_color",
+      "description": "It displays the colour of the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "norms_type",
+      "description": "It displays the norms set by the Central Pollution Control Board (CPCB)",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "body_type",
+      "description": "It displays the body type of the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "owner_count",
+      "description": "It displays the number of owners of the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "owner",
+      "description": "It displays the name of the current owner of the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "owner_father_name",
+      "description": "It displays the father's name of the current owner of the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "rc_status",
+      "description": "It displays the status of the RC.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "status_as_on",
+      "description": "It displays the particular date of the status of the RC.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "reg_authority",
+      "description": "It displays the name of the registration authority.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "reg_date",
+      "description": "It displays the date of registration of the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "vehicle_manufacturing_month_year",
+      "description": "It displays the month and year of the manufacturing of the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "rc_expiry_date",
+      "description": "It displays the date until which the registration of the vehicle is valid.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "vehicle_tax_upto",
+      "description": "It displays the date until which the tax paid by the owner for the vehicle is valid.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "vehicle_insurance_company_name",
+      "description": "It displays the name of the insurance company associated with the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "vehicle_insurance_upto",
+      "description": "It displays the date until which the insurance paid by the owner for the vehicle is valid.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "vehicle_insurance_policy_number",
+      "description": "It displays the insurance policy number of the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "rc_financer",
+      "description": "It displays the name of the financial institution or lender that provided financing for the purchase of a vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "split_present_address",
+      "description": "",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "split_permanent_address",
+      "description": "",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "vehicle_cubic_capacity",
+      "description": "It displays the cubic capacity of the vehicle's engine.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "gross_vehicle_weight",
+      "description": "It displays the gross weight of the vehicle in kilograms.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "unladen_weight",
+      "description": "It displays the weight of the vehicle without carrying any load in kiolgrams.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "vehicle_category",
+      "description": "It displays the category of the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "rc_standard_cap",
+      "description": "",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "vehicle_cylinders_no",
+      "description": "It displays the number of cylinders present in the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "vehicle_seat_capacity",
+      "description": "It displays the number of seats in the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "vehicle_sleeper_capacity",
+      "description": "It displays the number of beds available in the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "vehicle_standing_capacity",
+      "description": "It displays the number of people that can stand in the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "wheelbase",
+      "description": "It displays distance between the front and rear axles of a vehicle in mm.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "pucc_number",
+      "description": "It displays the Pollution Under Control Certificate (PUCC) number associated with vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "pucc_upto",
+      "description": "It displays till when the PUCC number is valid.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "blacklist_status",
+      "description": "It displays whether the vehicle is blacklisted.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "blacklist_details",
+      "description": "It displays the reasons for blacklisting the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "challan_details",
+      "description": "It displays traffic tickets or citations issued by traffic police or authorities for various traffic violations.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "permit_issue_date",
+      "description": "It displays when the relevant authorities granted permission or authorisation for a specific type of permit associated with the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "permit_number",
+      "description": "It displays the permit number of the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "permit_type",
+      "description": "It displays the type of permit issued to the vehicle.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "permit_valid_from",
+      "description": "It displays the beginning date of the issuance of permit.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "permit_valid_upto",
+      "description": "It displays the end date of the permit.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "non_use_status",
+      "description": "It displays whether the vehicle owner or registrant declared that the vehicle is not in use for a certain period.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "non_use_from",
+      "description": "It displays the beginning date of the non use period.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "non_use_to",
+      "description": "It displays the end date of the non use period.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "national_permit_number",
+      "description": "It displays the permit issued to the vehicle to go outside the home state carrying goods.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "national_permit_upto",
+      "description": "It displays the end date of the permit issued to the vechicle to go outside the home state carrying goods.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "national_permit_issued_by",
+      "description": "It displays the national permit issuer's name.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "is_commercial",
+      "description": "It displays whether the vehicle is for commercial purpose.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "noc_details",
+      "description": "It displays the details of the no objection certificate.",
+      "source": "property",
+      "schema": "VehicleRcResponseSchema"
+    },
+    {
+      "term": "VoterIdRequestSchema",
+      "description": "Find the request body parameters to verify the voter ID information.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "epic_number",
+      "description": "It is the unique identification number assigned to each voter ID",
+      "source": "property",
+      "schema": "VoterIdRequestSchema"
+    },
+    {
+      "term": "RequestFiRequestSchema",
+      "description": "Find the request body parameters to request FI for AA.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "fi_verification_id",
+      "description": "It is the unique ID you create to identify the financial information request. The maximum character limit is 50. Only alphaumeric, period (.), hyphen (-), and underscore ( _ ) are allowed.",
+      "source": "property",
+      "schema": "RequestFiRequestSchema"
+    },
+    {
+      "term": "consent_verification_id",
+      "description": "It is the unique ID you created in the Request Consent API to identify the consent request.",
+      "source": "property",
+      "schema": "RequestFiRequestSchema"
+    },
+    {
+      "term": "fi_from",
+      "description": "It is the beginning date and time of the financial information you require.",
+      "source": "property",
+      "schema": "RequestFiRequestSchema"
+    },
+    {
+      "term": "fi_to",
+      "description": "It is the ending date and time of the financial information you require.",
+      "source": "property",
+      "schema": "RequestFiRequestSchema"
+    },
+    {
+      "term": "ConsentRequestSchema",
+      "description": "Find the request body parameters to request consent for AA.",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "customer_identifiers",
+      "description": "It should contain the information related to the individual.",
+      "source": "property",
+      "schema": "ConsentRequestSchema"
+    },
+    {
+      "term": "consent_expiry",
+      "description": "It is the expiry date and time of the consent request.",
+      "source": "property",
+      "schema": "ConsentRequestSchema"
+    },
+    {
+      "term": "consent_mode",
+      "description": "It is the type of configuration for handling the financial information of the individual.\nPossible values are\n  - `VIEW`: It indicates that the information is for viewing purpose.\n  - `STORE`: It indicates that the information is for storing purpose.\n  - `QUERY`: It indicates that the information is for querying purposes, including performing searches, filtering results, or making data-driven decisions.\n  - `STREAM`: It indicates that the information is for streaming purposes.",
+      "source": "property",
+      "schema": "ConsentRequestSchema"
+    },
+    {
+      "term": "consent_type",
+      "description": "It displays the type of information you require from the individual.\n\n  Possible values are\n    - `PROFILE`: It contains the basic information of the individual.\n    - `SUMMARY`: It contains the summary of the financial information of the individual.\n    - `TRANSACTIONS`: It contains the transactional information of the individual.",
+      "source": "property",
+      "schema": "ConsentRequestSchema"
+    },
+    {
+      "term": "fi_types",
+      "description": "It displays the type of financial information you require from the individual.\n\n  Possible values are\n    - `DEPOSIT`",
+      "source": "property",
+      "schema": "ConsentRequestSchema"
+    },
+    {
+      "term": "consent_start",
+      "description": "It is the start date and time of the consent validity for the individual's financial information.",
+      "source": "property",
+      "schema": "ConsentRequestSchema"
+    },
+    {
+      "term": "data_life_expiry",
+      "description": "It displays the expiry date of the information fetched.",
+      "source": "property",
+      "schema": "ConsentRequestSchema"
+    },
+    {
+      "term": "filter",
+      "description": "It contains the filter options to sort the finanical information of the individual.",
+      "source": "property",
+      "schema": "ConsentRequestSchema"
+    },
+    {
+      "term": "FIData",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "fip_id",
+      "description": "It displays the unique ID to identify the financial provider.",
+      "source": "property",
+      "schema": "FIData"
+    },
+    {
+      "term": "accounts",
+      "description": "It displays the bank account information of the individual.",
+      "source": "property",
+      "schema": "FIData"
+    },
+    {
+      "term": "FiAccount",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "link_ref_number",
+      "description": "It displays the unique identifier associated to specific transactions.",
+      "source": "property",
+      "schema": "FiAccount"
+    },
+    {
+      "term": "masked_acc_number",
+      "description": "It displays the masked bank account number of the individual.",
+      "source": "property",
+      "schema": "FiAccount"
+    },
+    {
+      "term": "FiAccountData",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "profile",
+      "description": "",
+      "source": "property",
+      "schema": "FiAccountData"
+    },
+    {
+      "term": "summary",
+      "description": "It contains the summary of the financial information of the individual.",
+      "source": "property",
+      "schema": "FiAccountData"
+    },
+    {
+      "term": "transactions",
+      "description": "It contains the transactional information of the individual.",
+      "source": "property",
+      "schema": "FiAccountData"
+    },
+    {
+      "term": "FiResponseSchema",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "fi_ref_id",
+      "description": "It displays the unique ID created by Cashfree Payments for reference purpose.",
+      "source": "property",
+      "schema": "FiResponseSchema"
+    },
+    {
+      "term": "fi_data",
+      "description": "",
+      "source": "property",
+      "schema": "FiResponseSchema"
+    },
+    {
+      "term": "ConsentResponseSchema",
+      "description": "",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "consent_ref_id",
+      "description": "It displays the unique ID created by Cashfree Payments for reference purpose.",
+      "source": "property",
+      "schema": "ConsentResponseSchema"
+    },
+    {
+      "term": "consent_redirect_url",
+      "description": "It displays the URL that redirects the individual to the consent request page.",
+      "source": "property",
+      "schema": "ConsentResponseSchema"
+    },
+    {
+      "term": "VoterIdResponseSchema",
+      "description": "Verify Voter ID success response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "name_in_regional_lang",
+      "description": "It displays the name of the individual in the individual\u00e2\u20ac\u2122s regional language as present in the voter ID card.",
+      "source": "property",
+      "schema": "VoterIdResponseSchema"
+    },
+    {
+      "term": "relation_type",
+      "description": "It displays the type of the relationship with the parent/guardian as present in the voter ID card.",
+      "source": "property",
+      "schema": "VoterIdResponseSchema"
+    },
+    {
+      "term": "relation_name",
+      "description": "It displays the name of the parent/guardian as present in the voter ID card.",
+      "source": "property",
+      "schema": "VoterIdResponseSchema"
+    },
+    {
+      "term": "relation_name_in_regional_lang",
+      "description": "It displays the name of the parent/guardian in the individual\u00e2\u20ac\u2122s regional language as present in the voter ID card.",
+      "source": "property",
+      "schema": "VoterIdResponseSchema"
+    },
+    {
+      "term": "assembly_constituency_number",
+      "description": "It displays the number associated with the assembly constituency as present in the voter ID card.",
+      "source": "property",
+      "schema": "VoterIdResponseSchema"
+    },
+    {
+      "term": "assembly_constituency",
+      "description": "It displays the name of the assembly constituency as present in the voter ID card.",
+      "source": "property",
+      "schema": "VoterIdResponseSchema"
+    },
+    {
+      "term": "parliamentary_constituency_number",
+      "description": "It displays the number associated with the parliamentary constituency as present in the voter ID card.",
+      "source": "property",
+      "schema": "VoterIdResponseSchema"
+    },
+    {
+      "term": "parliamentary_constituency",
+      "description": "It displays the name of the parliamentary constituency as present in the voter ID card.",
+      "source": "property",
+      "schema": "VoterIdResponseSchema"
+    },
+    {
+      "term": "part_number",
+      "description": "It displays the part number in the electoral roll.",
+      "source": "property",
+      "schema": "VoterIdResponseSchema"
+    },
+    {
+      "term": "part_name",
+      "description": "It displays the part name in the electoral roll.",
+      "source": "property",
+      "schema": "VoterIdResponseSchema"
+    },
+    {
+      "term": "serial_number",
+      "description": "It displays the serial number as present in the voter ID card.",
+      "source": "property",
+      "schema": "VoterIdResponseSchema"
+    },
+    {
+      "term": "polling_station",
+      "description": "It displays the place where the individual cast votes during elections.",
+      "source": "property",
+      "schema": "VoterIdResponseSchema"
+    },
+    {
+      "term": "VpaFromPhone500Schema",
+      "description": "Internal error response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "aadhaarmaskingrequestschema",
+      "description": "Find the request parameters to mask aadhaar information",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "duplicate_verification_id",
+      "description": "400 response for duplicate verification_id",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "invalid_ip_address",
+      "description": "400 response for invalid IP address",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "invaliddoctypeschema",
+      "description": "Invalid document type response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "v2ErrorResponse404SchemaIpVerification",
+      "description": "IP not found error response",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "x-client-id_missing",
+      "description": "400 response schema for missing x-client-id",
+      "source": "schema",
+      "type": "object"
+    },
+    {
+      "term": "VrsNameMatchVerification",
+      "description": "Use this API to verify names that have enormous variations. Provide us the names you want to verify, and we will tell you whether they match and provide the reason. View the [test data](https://www.cashfree.com/docs/api-reference/vrs/data-to-test-integration#name-match) and use the information to trigger the validations. The test data are usable only in the test environments such as sandbox.",
+      "source": "operation"
+    },
+    {
+      "term": "VrsGetKYCLinkStatus",
+      "description": "Use this API to get the status of the verification form. You need to input either the verification_id or reference_id to get the KYC Link status.",
+      "source": "operation"
+    },
+    {
+      "term": "VrsGenerateKYCLink",
+      "description": "Use this API to generate a verification form to verify the KYC information of your users digitally.",
+      "source": "operation"
+    },
+    {
+      "term": "VrsGenerateStaticKYCLink",
+      "description": "Use this API to generate a static KYC link to verify the KYC information of your users digitally.",
+      "source": "operation"
+    },
+    {
+      "term": "VrsDeactivateStaticKYCLink",
+      "description": "Use this API to deactivate a static KYC Link.",
+      "source": "operation"
+    }
+  ]
+}

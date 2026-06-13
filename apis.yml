@@ -37,6 +37,8 @@ apis:
         url: https://www.cashfree.com/docs/api-reference/overview
       - type: Authentication
         url: https://www.cashfree.com/docs
+      - type: OpenAPI
+        url: openapi/openapi-payment-gateway.json
     contact:
       - FN: Cashfree Payments Developer Support
         url: https://www.cashfree.com/support/
@@ -54,6 +56,8 @@ apis:
     properties:
       - type: Documentation
         url: https://www.cashfree.com/docs
+      - type: OpenAPI
+        url: openapi/openapi-payouts.json
     contact:
       - FN: Cashfree Payments Developer Support
         url: https://www.cashfree.com/support/
@@ -89,6 +93,8 @@ apis:
     properties:
       - type: Documentation
         url: https://www.cashfree.com/docs
+      - type: OpenAPI
+        url: openapi/openapi-verification.json
     contact:
       - FN: Cashfree Payments Developer Support
         url: https://www.cashfree.com/support/
@@ -138,6 +144,16 @@ common:
     url: rate-limits/cashfree-rate-limits.yml
   - type: FinOps
     url: finops/cashfree-finops.yml
+  - type: Vocabulary
+    url: vocabulary/cashfree-vocabulary.json
+  - type: JSONSchema
+    url: json-schema/cashfree-payment-gateway-schemas.json
+  - type: JSONSchema
+    url: json-schema/cashfree-payouts-schemas.json
+  - type: JSONSchema
+    url: json-schema/cashfree-verification-schemas.json
+  - type: JSONLD
+    url: json-ld/cashfree-provider.jsonld
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

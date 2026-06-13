@@ -1,0 +1,838 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Cashfree Cashfree Payout APIs Schemas",
+  "description": "JSON Schema definitions extracted from Cashfree Payout APIs 2024-01-01",
+  "definitions": {
+    "ErrorV2": {
+      "title": "Error",
+      "description": "Error Response for non-2XX cases",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of the error received"
+        },
+        "code": {
+          "type": "string",
+          "description": "Code of the error received"
+        },
+        "message": {
+          "type": "string",
+          "description": "Detailed message explaining the response"
+        }
+      }
+    },
+    "Beneficiary": {
+      "title": "Create Beneficiary success response",
+      "description": "Contains the information of the created beneficiary",
+      "type": "object",
+      "properties": {
+        "beneficiary_id": {
+          "example": "JOHN18011343",
+          "type": "string",
+          "description": "It displays the unique Id you created to identify the beneficiary."
+        },
+        "beneficiary_name": {
+          "example": "John Doe",
+          "type": "string",
+          "description": "It displays the name of the beneficiary."
+        },
+        "beneficiary_instrument_details": {
+          "type": "object",
+          "description": "It displays the payment instrument details of the beneficiary.",
+          "properties": {
+            "bank_account_number": {
+              "example": "00111122233",
+              "type": "string",
+              "description": "It displays the bank account of the beneficiary."
+            },
+            "bank_ifsc": {
+              "example": "HDFC0000001",
+              "type": "string",
+              "description": "It displays the IFSC information of the beneficiary's bank account."
+            },
+            "vpa": {
+              "example": "test@upi",
+              "type": "string",
+              "description": "It displays the UPI VPA information of the beneficiary."
+            }
+          }
+        },
+        "beneficiary_contact_details": {
+          "type": "object",
+          "description": "It displays the contact details of the beneficiary.",
+          "properties": {
+            "beneficiary_email": {
+              "example": "johndoe1@cashfree.com",
+              "type": "string",
+              "description": "It displays the email address of the beneficiary."
+            },
+            "beneficiary_phone": {
+              "example": "9876543210",
+              "type": "string",
+              "description": "It displays the phone number of the beneficiary without the country code."
+            },
+            "beneficiary_country_code": {
+              "example": "+91",
+              "type": "string",
+              "description": "It displays the country code of the beneficiary's phone number."
+            },
+            "beneficiary_address": {
+              "example": "177A Bleecker Street",
+              "type": "string",
+              "description": "It displays the address of the beneficiary."
+            },
+            "beneficiary_city": {
+              "example": "New York City",
+              "type": "string",
+              "description": "It displays the name of the city as present in the beneficiary's address."
+            },
+            "beneficiary_state": {
+              "example": "New York",
+              "type": "string",
+              "description": "It displays the name of the state as present in the beneficiary's address."
+            },
+            "beneficiary_postal_code": {
+              "example": "560001",
+              "type": "string",
+              "description": "It displays the PIN code as present in the beneficiary's address."
+            }
+          }
+        },
+        "beneficiary_status": {
+          "example": "VERIFIED",
+          "type": "string",
+          "enum": [
+            "VERIFIED",
+            "INVALID",
+            "INITIATED",
+            "CANCELLED",
+            "FAILED",
+            "DELETED"
+          ],
+          "description": "It displays the current status of the beneficiary. Possible values are as follows\n- `VERIFIED`: Beneficiary is verified and is available for payouts\n- `INVALID`: Beneficiary is invalid\n- `INITIATED`: Beneficiary verification initiated\n- `CANCELLED`: Beneficiary verification cancelled\n- `FAILED`: Failed to verify beneficiary\n- `DELETED`: Beneficiary is deleted"
+        },
+        "added_on": {
+          "example": "2023-11-22T12:38:22Z",
+          "type": "string",
+          "description": "It displays the time of the addition of the beneficiary in UTC."
+        }
+      }
+    },
+    "CreateBeneficiaryRequest": {
+      "title": "Create Beneficiary request body",
+      "description": "Find the request parameters to create a beneficiary",
+      "type": "object",
+      "required": [
+        "beneficiary_id",
+        "beneficiary_name"
+      ],
+      "properties": {
+        "beneficiary_id": {
+          "example": "JOHN18011343",
+          "type": "string",
+          "maxLength": 50,
+          "description": "It is the unique ID you create to identify the beneficiary. Alphanumeric, underscore ( _ ), pipe ( | ), and dot ( . ) are allowed."
+        },
+        "beneficiary_name": {
+          "example": "John Doe",
+          "type": "string",
+          "description": "It is the name of the beneficiary. The maximum character limit is 100. Only alphabets and whitespaces are allowed.",
+          "maxLength": 100
+        },
+        "beneficiary_instrument_details": {
+          "type": "object",
+          "description": "Beneficiary instrument details",
+          "properties": {
+            "bank_account_number": {
+              "example": "00111122233",
+              "type": "string",
+              "maxLength": 25,
+              "minLength": 4,
+              "description": "It is the beneficiary bank account number. The value should be between 9 and 18 characters. Alphanumeric characters are allowed. You need to input bank_ifsc if bank_account_number is passed."
+            },
+            "bank_ifsc": {
+              "example": "HDFC0000001",
+              "type": "string",
+              "description": "It is the IFSC information of the beneficiary's bank account in the standard IFSC format. The value should be 11 characters. (The first 4 characters should be alphabets, the 5th character should be a 0, and the remaining 6 characters should be numerals.). You need to input bank_account_number if bank_ifsc is passed."
+            },
+            "vpa": {
+              "example": "test@upi",
+              "type": "string",
+              "description": "It is the UPI VPA information of the beneficiary. Only valid UPI VPA information is accepted. It can be an Alphanumeric value with only period (.), hyphen (-), underscore ( _ ), and at the rate of (@). Hyphen (-) is accepted only before at the rate of (@)."
+            }
+          }
+        },
+        "beneficiary_contact_details": {
+          "type": "object",
+          "description": "It should contain the contact details of the beneficiary.",
+          "properties": {
+            "beneficiary_email": {
+              "example": "johndoe_1@cashfree.com",
+              "type": "string",
+              "maxLength": 200,
+              "description": "It is the email address of the beneficiary. The maximum character limit is 200. It should contain dot (.) and at the rate of (@)."
+            },
+            "beneficiary_phone": {
+              "example": "9876543210",
+              "type": "string",
+              "description": "It is the phone number of the beneficiary. Only reigstered Indian phone numbers are allowed. The value should be between 8 and 12 characters after stripping +91."
+            },
+            "beneficiary_country_code": {
+              "example": "+91",
+              "type": "string",
+              "description": "It is the country code (+91) of the beneficiary's phone number"
+            },
+            "beneficiary_address": {
+              "example": "177A Bleecker Street",
+              "type": "string",
+              "description": "It is the address information of the beneficiary."
+            },
+            "beneficiary_city": {
+              "example": "New York City",
+              "type": "string",
+              "description": "It is the name of the city as present in the beneficiary's address."
+            },
+            "beneficiary_state": {
+              "example": "New York",
+              "type": "string",
+              "description": "It is the name of the state as present in the beneficiary's address."
+            },
+            "beneficiary_postal_code": {
+              "example": "560001",
+              "type": "string",
+              "description": "It is the PIN code information as present in the beneficiary's address. The maximum character limit is 6. Only numbers are allowed."
+            }
+          }
+        }
+      }
+    },
+    "CreateTransferRequest": {
+      "title": "Standard Transfer V2",
+      "description": "Standard Transfer V2",
+      "type": "object",
+      "properties": {
+        "transfer_id": {
+          "type": "string",
+          "description": "It is the unique ID you create to identify the transfer. You can use a maximum of 40 characters to create a transfer_id.  Alphanumeric and underscore ( _ ) are allowed.",
+          "maxLength": 40
+        },
+        "transfer_amount": {
+          "type": "number",
+          "format": "double",
+          "description": "It is the transfer amount. Decimal values are allowed. The minimum value should be equal to or greater than 1.00. (>= 1.00)"
+        },
+        "transfer_currency": {
+          "type": "string",
+          "description": "It is the currency of the transfer amount. The default value is INR."
+        },
+        "transfer_mode": {
+          "type": "string",
+          "description": "It is the mode of transfer. Allowed values are banktransfer, imps, neft, rtgs, upi, paytm, amazonpay, card. The default transfer_mode is banktransfer.",
+          "enum": [
+            "banktransfer",
+            "imps",
+            "neft",
+            "rtgs",
+            "upi",
+            "paytm",
+            "amazonpay",
+            "card",
+            "cardupi"
+          ],
+          "maxLength": 20
+        },
+        "beneficiary_details": {
+          "type": "object",
+          "description": "It should contain the details of the beneficiary who receives the transfer amount.",
+          "properties": {
+            "beneficiary_id": {
+              "type": "string",
+              "description": "It is the unique ID you created to identify the beneficiary. Alphanumeric characters are allowed."
+            },
+            "beneficiary_name": {
+              "type": "string",
+              "description": "It is the name of the beneficiary. The maximum character limit is 100.  Only alphabets and whitespaces are allowed. It is required if beneficiary_id is not present."
+            },
+            "beneficiary_instrument_details": {
+              "type": "object",
+              "description": "It should contain the details of where the beneficiary will receive the money. You input these details if you haven't added the beneficiary in the Payouts dashboard.",
+              "properties": {
+                "bank_account_number": {
+                  "type": "string",
+                  "description": "It is the beneficiary bank account number. The value should be between 9 and 18 characters. Alphanumeric characters are allowed. This value is required if beneficiary_id is not present and if the transfer_mode is banktransfer, imps, neft,rtgs mode."
+                },
+                "bank_ifsc": {
+                  "type": "string",
+                  "description": "It is the IFSC information of the beneficiary's bank account in the standard IFSC format. The value should be 11 characters. (The first 4 characters should be alphabets, the 5th character should be a 0, and the remaining 6 characters should be numerals.)"
+                },
+                "vpa": {
+                  "type": "string",
+                  "description": "It is the UPI VPA information of the beneficiary. Only valid UPI VPA information is accepted. It can be an Alphanumeric value with only period (.), hyphen (-), underscore ( _ ), and at the rate of (@). Hyphen (-) is accepted only before at the rate of (@). This value is required if the transfer_mode is upi."
+                },
+                "card_details": {
+                  "type": "object",
+                  "description": "It should contain the card details of the beneficiary.",
+                  "properties": {
+                    "card_token": {
+                      "type": "string",
+                      "description": "It is the tokenised card number or card token for this transfer."
+                    },
+                    "card_network_type": {
+                      "type": "string",
+                      "description": "It is the network type of the card - VISA/MASTERCARD.",
+                      "enum": [
+                        "VISA",
+                        "MASTERCARD"
+                      ]
+                    },
+                    "card_cryptogram": {
+                      "type": "string",
+                      "description": "It is the formatted chip/cryptogram data relating to the token cryptogram. The maximum character limit is 600. It is optional for MASTERCARD and not required for VISA."
+                    },
+                    "card_token_expiry": {
+                      "type": "string",
+                      "description": "It is applicable only for MASTERCARD. The format for the valid token expiry date should be YYYY-MM. It cannot be null. Provide a valid tokenExpiry if collected from the customers. If unavailable, populate a static value with a forward year and month in the correct format (YYYY-MM). The maximum character limit is 10."
+                    },
+                    "card_type": {
+                      "type": "string",
+                      "description": "It is the type of the card. DEBIT and CREDIT are the only values allowed. The default value is CREDIT if the parameter does not exist or not specified."
+                    },
+                    "card_token_PAN_sequence_number": {
+                      "type": "string",
+                      "description": "A maximum of 3 alphanumeric characters are allowed. It is an optional parameter for MASTERCARD."
+                    }
+                  }
+                }
+              }
+            },
+            "beneficiary_contact_details": {
+              "type": "object",
+              "description": "It should contain the contact details of the beneficiary.",
+              "properties": {
+                "beneficiary_email": {
+                  "type": "string",
+                  "description": "It is the email address of the beneficiary. The maximum character limit is 200. It should contain dot (.) and at the rate of (@)."
+                },
+                "beneficiary_phone": {
+                  "type": "string",
+                  "description": "It is the phone number of the beneficiary. Only registered Indian phone numbers are allowed. The value should be between 8 and 12 characters after stripping +91."
+                },
+                "beneficiary_country_code": {
+                  "type": "string",
+                  "description": "It is the country code (+91) of the beneficiary's phone number."
+                },
+                "beneficiary_address": {
+                  "type": "string",
+                  "description": "It should contain the address of the beneficiary. The maximum character limit is 150. Alphanumeric characters and whitespaces are allowed."
+                },
+                "beneficiary_city": {
+                  "type": "string",
+                  "description": "It is the name of the city as present in the beneficiary address. The maximum character limit is 50. Alphanumeric characters and whitespaces are allowed."
+                },
+                "beneficiary_state": {
+                  "type": "string",
+                  "description": "It is the name of the state as present in the beneficiary address. The maximum character limit is 50. Alphanumeric characters and whitespaces are allowed."
+                },
+                "beneficiary_postal_code": {
+                  "type": "string",
+                  "description": "It is the PIN code as present in the address. It should be a 6 character numeric value."
+                }
+              }
+            }
+          }
+        },
+        "transfer_remarks": {
+          "type": "string",
+          "description": "It can contain any additional remarks for the transfer. Alphanumeric and whitespaces are allowed. The maximum character limit is 70.",
+          "maxLength": 70
+        },
+        "fundsource_id": {
+          "type": "string",
+          "description": "It is the ID of the fund source from which the transfer amount will be debited."
+        }
+      },
+      "required": [
+        "transfer_amount",
+        "transfer_id",
+        "beneficiary_details"
+      ]
+    },
+    "CreateBatchTransferRequest": {
+      "title": "Batch Transfer V2",
+      "description": "Batch Transfer V2",
+      "type": "object",
+      "properties": {
+        "batch_transfer_id": {
+          "type": "string",
+          "description": "It is the unique ID you create to identify the batch transfer request. The maximum character limit is 60. Alphanumeric and underscore ( _ ) characters are allowed.",
+          "maxLength": 60
+        },
+        "transfers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "transfer_id": {
+                "type": "string",
+                "description": "It is the unique ID you create to identify the transfer. You can use a maximum of 40 characters to create a transfer_id.  Alphanumeric and underscore ( _ ) are allowed.",
+                "maxLength": 40
+              },
+              "transfer_amount": {
+                "type": "number",
+                "format": "double",
+                "description": "It is the transfer amount. Decimal values are allowed. The minimum value should be equal to or greater than 1.00. (>= 1.00)"
+              },
+              "transfer_currency": {
+                "type": "string",
+                "description": "It is the currency of the transfer amount. The default value is INR."
+              },
+              "transfer_mode": {
+                "type": "string",
+                "description": "It is the mode of transfer. Allowed values are banktransfer, imps, neft, rtgs, upi, paytm, amazonpay, card. The default transfer_mode is banktransfer.",
+                "enum": [
+                  "banktransfer",
+                  "imps",
+                  "neft",
+                  "rtgs",
+                  "upi",
+                  "paytm",
+                  "amazonpay",
+                  "card",
+                  "cardupi"
+                ],
+                "maxLength": 20
+              },
+              "beneficiary_details": {
+                "type": "object",
+                "description": "It should contain the details of the beneficiary who receives the transfer amount.",
+                "properties": {
+                  "beneficiary_id": {
+                    "type": "string",
+                    "description": "It is the unique ID you created to identify the beneficiary. Alphanumeric characters are allowed."
+                  },
+                  "beneficiary_name": {
+                    "type": "string",
+                    "description": "It is the name of the beneficiary. The maximum character limit is 100."
+                  },
+                  "beneficiary_instrument_details": {
+                    "type": "object",
+                    "description": "It should contain the details of where the beneficiary will receive the money. You input these details if you haven't added the beneficiary in the Payouts dashboard.",
+                    "properties": {
+                      "bank_account_number": {
+                        "type": "string",
+                        "description": "It is the beneficiary bank account number. The value should be between 9 and 18 characters. Alphanumeric characters are allowed. This value is required if beneficiary_id is not present and if the transfer_mode is banktransfer, imps, neft, rtgs mode."
+                      },
+                      "bank_ifsc": {
+                        "type": "string",
+                        "description": "It is the IFSC information of the beneficiary's bank account in the standard IFSC format. The value should be 11 characters. (The first 4 characters should be alphabets, the 5th character should be a 0, and the remaining 6 characters should be numerals.)"
+                      },
+                      "vpa": {
+                        "type": "string",
+                        "description": "It is the UPI VPA information of the beneficiary. Only valid UPI VPA information is accepted. It can be an Alphanumeric value with only period (.), hyphen (-), underscore ( _ ), and at the rate of (@). Hyphen (-) is accepted only before at the rate of (@). This value is required if the transfer_mode is upi."
+                      }
+                    }
+                  },
+                  "beneficiary_contact_details": {
+                    "type": "object",
+                    "description": "It should contain the contact details of the beneficiary.",
+                    "properties": {
+                      "beneficiary_email": {
+                        "type": "string",
+                        "description": "It is the email address of the beneficiary. The maximum character limit is 200. It should contain dot (.) and at the rate of (@)."
+                      },
+                      "beneficiary_phone": {
+                        "type": "string",
+                        "description": "It is the phone number of the beneficiary. Only registered Indian phone numbers are allowed. The value should be between 8 and 12 characters after stripping +91."
+                      },
+                      "beneficiary_country_code": {
+                        "type": "string",
+                        "description": "It is the country code (+91) of the beneficiary's phone number."
+                      },
+                      "beneficiary_address": {
+                        "type": "string",
+                        "description": "It should contain the address of the beneficiary. The maximum character limit is 150. Alphanumeric characters and whitespaces are allowed."
+                      },
+                      "beneficiary_city": {
+                        "type": "string",
+                        "description": "It is the name of the city as present in the beneficiary address. The maximum character limit is 50. Alphanumeric characters and whitespaces are allowed."
+                      },
+                      "beneficiary_state": {
+                        "type": "string",
+                        "description": "It is the name of the state as present in the beneficiary address. The maximum character limit is 50. Alphanumeric characters and whitespaces are allowed."
+                      },
+                      "beneficiary_postal_code": {
+                        "type": "string",
+                        "description": "It is the PIN code as present in the address. It should be a 6 character numeric value."
+                      }
+                    }
+                  }
+                }
+              },
+              "transfer_remarks": {
+                "type": "string",
+                "description": "It can contain any additional remarks for the transfer. Alphanumeric and whitespaces are allowed. The maximum character limit is 70.",
+                "maxLength": 70
+              },
+              "fundsource_id": {
+                "type": "string",
+                "description": "It is the ID of the fund source from where you want to debit the transfer amount."
+              }
+            },
+            "required": [
+              "transfer_amount",
+              "transfer_id"
+            ]
+          }
+        }
+      },
+      "required": [
+        "batch_transfer_id"
+      ]
+    },
+    "CreateTransferResponse": {
+      "title": "Standard Transfer V2 Response",
+      "description": "Standard Transfer V2 Response",
+      "type": "object",
+      "properties": {
+        "transfer_id": {
+          "description": "It displays the unique ID you created to identify the transfer.",
+          "type": "string"
+        },
+        "cf_transfer_id": {
+          "description": "It displays the unique ID created by Cashfree Payments. You receive this ID in the response after initiating the standard transfer request.",
+          "type": "string"
+        },
+        "status": {
+          "description": "It displays the status of the transfer.",
+          "type": "string"
+        },
+        "beneficiary_details": {
+          "type": "object",
+          "description": "It displays the details of the beneficiary.",
+          "properties": {
+            "beneficiary_id": {
+              "description": "It displays the unique ID to identify the beneficiary to whom you initiated the transfer request.",
+              "type": "string"
+            },
+            "beneficiary_instrument_details": {
+              "type": "object",
+              "description": "It displays the details of where the beneficiary will receive the money.",
+              "properties": {
+                "bank_account_number": {
+                  "type": "string",
+                  "description": "It displays the bank account number of the beneficiary."
+                },
+                "ifsc": {
+                  "type": "string",
+                  "description": "It displays the IFSC information of the beneficiary's bank account."
+                },
+                "vpa": {
+                  "type": "string",
+                  "description": "It displays the UPI VPA information of the beneficiary."
+                }
+              }
+            }
+          }
+        },
+        "transfer_amount": {
+          "description": "It displays the transfer amount initiated in the request.",
+          "type": "number",
+          "format": "double"
+        },
+        "transfer_service_charge": {
+          "description": "It displays the service charge applicable for the successful transfer request.",
+          "type": "number",
+          "format": "double"
+        },
+        "transfer_service_tax": {
+          "description": "It displays the service tax applicable for the successful transfer request.",
+          "type": "number",
+          "format": "double"
+        },
+        "transfer_mode": {
+          "description": "It displays the mode of the transfer.",
+          "type": "string"
+        },
+        "transfer_utr": {
+          "description": "It displays the unique number that is generated to recognise any fund transfer that is created by the bank that facilitates the transfer.",
+          "type": "string"
+        },
+        "fundsource_id": {
+          "description": "It displays the ID of the fund source from where the money was debited for this transfer request.",
+          "type": "string"
+        },
+        "added_on": {
+          "description": "It displays the time of when the transfer request was added to the system.",
+          "type": "string"
+        },
+        "updated_on": {
+          "description": "It displays the updated time for the transfer.",
+          "type": "string"
+        }
+      }
+    },
+    "CreateBatchTransferResponse": {
+      "title": "Batch Transfer V2 Response",
+      "description": "Batch Transfer V2 Response",
+      "type": "object",
+      "properties": {
+        "batch_transfer_id": {
+          "type": "string",
+          "description": "It displays the unique ID you created to identify the batch transfer request."
+        },
+        "cf_batch_transfer_id": {
+          "type": "string",
+          "description": "It displays the unique ID created by Cashfree Payments. You receive this ID in the response after initiating the batch transfer request."
+        },
+        "status": {
+          "type": "string",
+          "description": "It displays the status of the API request."
+        }
+      }
+    },
+    "FetchBatchTransferResponse": {
+      "title": "Batch Transfer Status V2 Response",
+      "description": "Batch Transfer Status V2 Response",
+      "type": "object",
+      "properties": {
+        "batch_transfer_id": {
+          "description": "It displays the unique ID you created to identify the batch transfer.",
+          "type": "string"
+        },
+        "cf_batch_transfer_id": {
+          "description": "It displays the unique ID created by Cashfree Payments. You receive this ID in the response after initiating the batch transfer request.",
+          "type": "string"
+        },
+        "status": {
+          "description": "It displays the status of the batch transfer.",
+          "type": "string"
+        },
+        "transfers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/CreateTransferResponse"
+          }
+        }
+      }
+    },
+    "inline_response_401": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "ERROR"
+        },
+        "subCode": {
+          "type": "string",
+          "example": "401"
+        },
+        "message": {
+          "type": "string",
+          "example": "Invalid clientId and clientSecret combination"
+        }
+      }
+    },
+    "inline_response_200_10": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "SUCCESS"
+        },
+        "subCode": {
+          "type": "string",
+          "example": "200"
+        },
+        "message": {
+          "type": "string",
+          "example": "Token is valid"
+        }
+      }
+    },
+    "v1_createCashgram_body": {
+      "required": [
+        "amount",
+        "cashgramId",
+        "linkExpiry",
+        "name",
+        "phone"
+      ],
+      "type": "object",
+      "properties": {
+        "cashgramId": {
+          "type": "string",
+          "description": "Unique Id of the Cashgram. Alphanumeric, underscore (_), and hyphen (-) allowed (35 character limit)"
+        },
+        "amount": {
+          "type": "number",
+          "description": "Amount to be transferred, >= 1.00",
+          "format": "float"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the contact"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email of the contact"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number of the contact"
+        },
+        "linkExpiry": {
+          "type": "string",
+          "description": "Date to expire the cashgram link, Date format YYYY/MM/DD, maximum 30 days from the date of creation."
+        },
+        "remarks": {
+          "type": "string",
+          "description": "Specify remarks, if any."
+        },
+        "notifyCustomer": {
+          "type": "integer",
+          "description": "If value is 1, a link is sent to customers phone and email."
+        }
+      }
+    },
+    "inline_response_200_8": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "SUCCESS"
+        },
+        "subCode": {
+          "type": "string",
+          "example": "200"
+        },
+        "message": {
+          "type": "string",
+          "example": "Cashgram Created"
+        },
+        "data": {
+          "$ref": "#/components/schemas/inline_response_200_8_data"
+        }
+      }
+    },
+    "inline_response_409_1": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "ERROR"
+        },
+        "subCode": {
+          "type": "string",
+          "example": "409"
+        },
+        "message": {
+          "type": "string",
+          "example": "Cashgram with id JOHaN10 already exists"
+        }
+      }
+    },
+    "v1_deactivateCashgram_body": {
+      "required": [
+        "cashgramId"
+      ],
+      "type": "object",
+      "properties": {
+        "cashgramId": {
+          "type": "string",
+          "description": "ID of the Cashgram to be deactivated. Alphanumeric and underscore (_) allowed (35 character limit)"
+        }
+      }
+    },
+    "inline_response_200_9": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "SUCCESS"
+        },
+        "subCode": {
+          "type": "string",
+          "example": "200"
+        },
+        "message": {
+          "type": "string",
+          "example": "Cashgram with id - JOHaN10 successfully deactivated!"
+        }
+      }
+    },
+    "inline_response_404_4": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "ERROR"
+        },
+        "subCode": {
+          "type": "string",
+          "example": "404"
+        },
+        "message": {
+          "type": "string",
+          "example": "Cashgram with id JOHaN10 does not exists"
+        }
+      }
+    },
+    "inline_response_200_11": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "SUCCESS"
+        },
+        "subCode": {
+          "type": "string",
+          "example": "200"
+        },
+        "message": {
+          "type": "string",
+          "example": "Cashgram details retrieved"
+        },
+        "data": {
+          "$ref": "#/components/schemas/inline_response_200_11_data"
+        }
+      }
+    },
+    "inline_response_200_8_data": {
+      "type": "object",
+      "properties": {
+        "referenceId": {
+          "type": "integer",
+          "example": 123456,
+          "default": 0
+        },
+        "cashgramLink": {
+          "type": "string",
+          "example": "http://csgr.am/abcdefg"
+        }
+      }
+    },
+    "inline_response_200_11_data": {
+      "type": "object",
+      "properties": {
+        "cashgramStatus": {
+          "type": "string",
+          "example": "ACTIVE"
+        },
+        "referenceId": {
+          "type": "integer",
+          "example": 123456,
+          "default": 0
+        },
+        "cashgramId": {
+          "type": "string",
+          "example": "JOHaN10"
+        },
+        "cashgramLink": {
+          "type": "string",
+          "example": "http://csgr.am/abcdefg"
+        }
+      }
+    }
+  }
+}
