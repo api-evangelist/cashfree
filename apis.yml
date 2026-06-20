@@ -1,7 +1,7 @@
 aid: cashfree
 name: Cashfree Payments
 description: Cashfree Payments is an Indian payment gateway and banking platform providing REST APIs for payment links, subscriptions, payouts, refunds, QR codes, and banking payouts across UPI, credit and debit cards, net banking, and international payment methods. It serves over one million businesses with RBI authorisation as a Payment Aggregator and Prepaid Payment Instrument provider.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/cashfree/refs/heads/main/apis.yml
 created: "2026-06-13"
 modified: "2026-06-13"
@@ -21,7 +21,7 @@ apis:
   - aid: cashfree:payments
     name: Cashfree Payment Gateway API
     description: REST API for creating and managing payment orders, processing transactions across UPI, cards, net banking, wallets, and international payment methods, and handling refunds, settlements, and disputes.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.cashfree.com/docs/api-reference/overview
     baseURL: https://api.cashfree.com
     tags:
@@ -45,7 +45,7 @@ apis:
   - aid: cashfree:payouts
     name: Cashfree Payouts API
     description: REST API for automating fund transfers to beneficiaries — vendors, employees, refund recipients, loan disbursements, and insurance claims. Supports batch payouts, beneficiary management, and connected banking.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.cashfree.com/docs
     baseURL: https://payout-api.cashfree.com
     tags:
@@ -64,7 +64,7 @@ apis:
   - aid: cashfree:subscriptions
     name: Cashfree Subscriptions API
     description: API for creating and managing recurring payment mandates using UPI AutoPay and eNACH, including subscription plans, customer mandates, and automated billing cycles.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.cashfree.com/docs
     baseURL: https://api.cashfree.com
     tags:
@@ -81,7 +81,7 @@ apis:
   - aid: cashfree:secure-id
     name: Cashfree Secure ID (Verification) API
     description: Identity verification and KYC API supporting PAN, Aadhaar, bank account, GST, passport, driving licence verification, face match, and video KYC for onboarding and compliance workflows.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.cashfree.com/docs
     baseURL: https://api.cashfree.com
     tags:
@@ -101,7 +101,7 @@ apis:
   - aid: cashfree:platforms
     name: Cashfree Platforms API
     description: API for marketplace and SaaS platform operators to onboard sub-merchants, split payments, manage settlements to multiple vendors, and operate escrow arrangements.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.cashfree.com/docs
     baseURL: https://api.cashfree.com
     tags:
