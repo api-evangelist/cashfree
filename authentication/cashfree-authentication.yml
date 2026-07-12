@@ -1,0 +1,57 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/openapi-payment-gateway.json, openapi/openapi-payouts.json, openapi/openapi-verification.json
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: XClientID
+  type: apiKey
+  in: header
+  parameter: x-client-id
+  description: Client app ID. You can find your app id in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+  sources:
+  - openapi/openapi-payment-gateway.json
+  - openapi/openapi-payouts.json
+  - openapi/openapi-verification.json
+- name: XClientSecret
+  type: apiKey
+  in: header
+  parameter: x-client-secret
+  description: Client secret key. You can find your secret in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+  sources:
+  - openapi/openapi-payment-gateway.json
+  - openapi/openapi-payouts.json
+  - openapi/openapi-verification.json
+- name: XClientSignatureHeader
+  type: apiKey
+  in: header
+  parameter: x-client-signature
+  description: Use this if you do not want to pass the secret key and instead want to use the
+    signature.
+  sources:
+  - openapi/openapi-payment-gateway.json
+- name: XPartnerAPIKey
+  type: apiKey
+  in: header
+  parameter: x-partner-apikey
+  description: If you are partner and you are making an api call on behalf of a merchant
+  sources:
+  - openapi/openapi-payment-gateway.json
+- name: XPartnerMerchantID
+  type: apiKey
+  in: header
+  parameter: x-partner-merchantid
+  description: If you are partner use this to specify the merchant id if you don't have the
+    merchant client app id
+  sources:
+  - openapi/openapi-payment-gateway.json
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  sources:
+  - openapi/openapi-verification.json

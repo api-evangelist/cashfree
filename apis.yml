@@ -116,6 +116,10 @@ apis:
       - FN: Cashfree Payments Developer Support
         url: https://www.cashfree.com/support/
 common:
+  - type: DomainSecurity
+    url: security/cashfree-domain-security.yml
+  - type: Authentication
+    url: authentication/cashfree-authentication.yml
   - type: Website
     url: https://www.cashfree.com/
   - type: Documentation
