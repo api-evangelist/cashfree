@@ -116,6 +116,8 @@ apis:
       - FN: Cashfree Payments Developer Support
         url: https://www.cashfree.com/support/
 common:
+  - type: AgenticAccess
+    url: agentic-access/cashfree-agentic-access.yml
   - type: DomainSecurity
     url: security/cashfree-domain-security.yml
   - type: Authentication
