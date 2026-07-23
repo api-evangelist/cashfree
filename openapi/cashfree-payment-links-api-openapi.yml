@@ -1,0 +1,1339 @@
+openapi: 3.0.0
+info:
+  version: '2025-01-01'
+  title: Cashfree Payment Gateway APIs Authorize Payment Links API
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    email: developers@cashfree.com
+    name: API Support
+    url: https://discord.com/invite/QdZkNSxXsB
+  description: Cashfree's Payment Gateway APIs provide developers with a streamlined pathway to integrate advanced payment processing capabilities into their applications, platforms and websites.
+servers:
+- url: https://sandbox.cashfree.com/pg
+  description: Sandbox server
+- url: https://api.cashfree.com/pg
+  description: Production server
+tags:
+- name: Payment Links
+  description: Collection of APIs to handle payment links.
+paths:
+  /links:
+    post:
+      summary: Create Payment Link
+      x-mcp:
+        enabled: true
+        config:
+          elicitation:
+            $ref: '#/components/x-elicitationConfig/createPaymentLink'
+      description: Use this API to create a new payment link. The created payment link url will be available in the API response parameter link_url. Please pass non required fields only if user passed that are critical like phone
+      tags:
+      - Payment Links
+      operationId: PGCreateLink
+      deprecated: false
+      security:
+      - XClientID: []
+        XClientSecret: []
+      - XClientID: []
+        XPartnerAPIKey: []
+      - XClientID: []
+        XClientSignatureHeader: []
+      - XPartnerMerchantID: []
+        XPartnerAPIKey: []
+      parameters:
+      - $ref: '#/components/parameters/apiVersionHeader'
+      - $ref: '#/components/parameters/xRequestIDHeader'
+      - $ref: '#/components/parameters/xIdempotencyKeyHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/CreateLinkRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkEntity'
+          headers:
+            x-api-version:
+              $ref: '#/components/headers/x-api-version'
+            x-ratelimit-limit:
+              $ref: '#/components/headers/x-ratelimit-limit'
+            x-ratelimit-remaining:
+              $ref: '#/components/headers/x-ratelimit-remaining'
+            x-ratelimit-retry:
+              $ref: '#/components/headers/x-ratelimit-retry'
+            x-ratelimit-type:
+              $ref: '#/components/headers/x-ratelimit-type'
+            x-request-id:
+              $ref: '#/components/headers/x-request-id'
+            x-idempotency-key:
+              $ref: '#/components/headers/x-idempotency-key'
+            x-idempotency-replayed:
+              $ref: '#/components/headers/x-idempotency-replayed'
+        '400':
+          $ref: '#/components/responses/Response400'
+        '401':
+          $ref: '#/components/responses/Response401'
+        '404':
+          $ref: '#/components/responses/Response404'
+        '409':
+          $ref: '#/components/responses/Response409'
+        '422':
+          $ref: '#/components/responses/Response422'
+        '429':
+          $ref: '#/components/responses/Response429'
+        '500':
+          $ref: '#/components/responses/Response500'
+  /links/{link_id}:
+    get:
+      summary: Fetch Payment Link Details
+      x-mcp:
+        enabled: true
+      description: Use this API to view all details and status of a payment link.
+      tags:
+      - Payment Links
+      operationId: PGFetchLink
+      deprecated: false
+      security:
+      - XClientID: []
+        XClientSecret: []
+      - XClientID: []
+        XPartnerAPIKey: []
+      - XClientID: []
+        XClientSignatureHeader: []
+      - XPartnerMerchantID: []
+        XPartnerAPIKey: []
+      parameters:
+      - $ref: '#/components/parameters/apiVersionHeader'
+      - $ref: '#/components/parameters/xRequestIDHeader'
+      - $ref: '#/components/parameters/linkIDParam'
+      - $ref: '#/components/parameters/xIdempotencyKeyHeader'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkEntity'
+          headers:
+            x-api-version:
+              $ref: '#/components/headers/x-api-version'
+            x-ratelimit-limit:
+              $ref: '#/components/headers/x-ratelimit-limit'
+            x-ratelimit-remaining:
+              $ref: '#/components/headers/x-ratelimit-remaining'
+            x-ratelimit-retry:
+              $ref: '#/components/headers/x-ratelimit-retry'
+            x-ratelimit-type:
+              $ref: '#/components/headers/x-ratelimit-type'
+            x-request-id:
+              $ref: '#/components/headers/x-request-id'
+            x-idempotency-key:
+              $ref: '#/components/headers/x-idempotency-key'
+            x-idempotency-replayed:
+              $ref: '#/components/headers/x-idempotency-replayed'
+        '400':
+          $ref: '#/components/responses/Response400'
+        '401':
+          $ref: '#/components/responses/Response401'
+        '404':
+          $ref: '#/components/responses/Response404'
+        '409':
+          $ref: '#/components/responses/Response409'
+        '422':
+          $ref: '#/components/responses/Response422'
+        '429':
+          $ref: '#/components/responses/Response429'
+        '500':
+          $ref: '#/components/responses/Response500'
+        '502':
+          $ref: '#/components/responses/Response502'
+  /links/{link_id}/cancel:
+    post:
+      summary: Cancel Payment Link
+      x-mcp:
+        enabled: true
+      description: Use this API to cancel a payment link. No further payments can be done against a cancelled link. Only a link in ACTIVE status can be cancelled.
+      tags:
+      - Payment Links
+      operationId: PGCancelLink
+      deprecated: false
+      security:
+      - XClientID: []
+        XClientSecret: []
+      - XClientID: []
+        XPartnerAPIKey: []
+      - XClientID: []
+        XClientSignatureHeader: []
+      - XPartnerMerchantID: []
+        XPartnerAPIKey: []
+      parameters:
+      - $ref: '#/components/parameters/apiVersionHeader'
+      - $ref: '#/components/parameters/xRequestIDHeader'
+      - $ref: '#/components/parameters/xIdempotencyKeyHeader'
+      - $ref: '#/components/parameters/linkIDParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkEntity'
+          headers:
+            x-api-version:
+              $ref: '#/components/headers/x-api-version'
+            x-ratelimit-limit:
+              $ref: '#/components/headers/x-ratelimit-limit'
+            x-ratelimit-remaining:
+              $ref: '#/components/headers/x-ratelimit-remaining'
+            x-ratelimit-retry:
+              $ref: '#/components/headers/x-ratelimit-retry'
+            x-ratelimit-type:
+              $ref: '#/components/headers/x-ratelimit-type'
+            x-request-id:
+              $ref: '#/components/headers/x-request-id'
+            x-idempotency-key:
+              $ref: '#/components/headers/x-idempotency-key'
+            x-idempotency-replayed:
+              $ref: '#/components/headers/x-idempotency-replayed'
+        '400':
+          $ref: '#/components/responses/Response400'
+        '401':
+          $ref: '#/components/responses/Response401'
+        '404':
+          $ref: '#/components/responses/Response404'
+        '409':
+          $ref: '#/components/responses/Response409'
+        '422':
+          $ref: '#/components/responses/Response422'
+        '429':
+          $ref: '#/components/responses/Response429'
+        '500':
+          $ref: '#/components/responses/Response500'
+  /links/{link_id}/orders:
+    get:
+      summary: Get Orders for a Payment Link
+      x-mcp:
+        enabled: true
+      description: Use this API to view all order details for a payment link.
+      tags:
+      - Payment Links
+      operationId: PGLinkFetchOrders
+      deprecated: false
+      security:
+      - XClientID: []
+        XClientSecret: []
+      - XClientID: []
+        XPartnerAPIKey: []
+      - XClientID: []
+        XClientSignatureHeader: []
+      - XPartnerMerchantID: []
+        XPartnerAPIKey: []
+      parameters:
+      - $ref: '#/components/parameters/apiVersionHeader'
+      - $ref: '#/components/parameters/xRequestIDHeader'
+      - $ref: '#/components/parameters/linkIDParam'
+      - $ref: '#/components/parameters/xIdempotencyKeyHeader'
+      - $ref: '#/components/parameters/statusQueryParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PaymentLinkOrderEntity'
+              examples:
+                order_entity_list_example:
+                  $ref: '#/components/examples/order_entity_list_example'
+          headers:
+            x-api-version:
+              $ref: '#/components/headers/x-api-version'
+            x-ratelimit-limit:
+              $ref: '#/components/headers/x-ratelimit-limit'
+            x-ratelimit-remaining:
+              $ref: '#/components/headers/x-ratelimit-remaining'
+            x-ratelimit-retry:
+              $ref: '#/components/headers/x-ratelimit-retry'
+            x-ratelimit-type:
+              $ref: '#/components/headers/x-ratelimit-type'
+            x-request-id:
+              $ref: '#/components/headers/x-request-id'
+            x-idempotency-key:
+              $ref: '#/components/headers/x-idempotency-key'
+            x-idempotency-replayed:
+              $ref: '#/components/headers/x-idempotency-replayed'
+        '400':
+          $ref: '#/components/responses/Response400'
+        '401':
+          $ref: '#/components/responses/Response401'
+        '404':
+          $ref: '#/components/responses/Response404'
+        '409':
+          $ref: '#/components/responses/Response409'
+        '422':
+          $ref: '#/components/responses/Response422'
+        '429':
+          $ref: '#/components/responses/Response429'
+        '500':
+          $ref: '#/components/responses/Response500'
+components:
+  schemas:
+    OrderMeta:
+      title: OrderMeta
+      description: Optional meta details to control how the customer pays and how payment journey completes
+      type: object
+      properties:
+        return_url:
+          type: string
+          example: https://www.cashfree.com/devstudio/thankyou
+          description: 'The URL to which user will be redirected to after the payment on bank OTP page. Maximum length: 250. We suggest to keep context of order_id in your return_url so that you can identify the order when customer lands on your page. Example of return_url format could be https://www.cashfree.com/devstudio/thankyou'
+        notify_url:
+          type: string
+          example: https://example.com/cf_notify
+          description: 'Notification URL for server-server communication. Useful when user''s connection drops while re-directing. NotifyUrl should be an https URL. Maximum length: 250.'
+        payment_methods:
+          example: cc,dc,upi
+          description: Allowed payment modes for this order. Pass comma-separated values among following options - "cc", "dc", "ccc", "ppc","nb","upi","paypal","app","paylater","cardlessemi","dcemi","ccemi","banktransfer". Leave it blank to show all available payment methods
+        payment_methods_filters:
+          description: Allowed payment modes for this order. Along with multiple filters for cards can be added to this key. And this filtering will be honoured during transaction creation.
+          type: object
+          properties:
+            methods:
+              description: Allowed payment modes for this order. credit_card, debit_card, netbanking, paylater, etc are the values that can be passed to this parameter.
+              type: object
+              properties:
+                action:
+                  type: string
+                  description: It accepts value of "ALLOW" and allows only those modes present in it's neighbouring parameter "values"
+                values:
+                  type: array
+                  items:
+                    type: string
+                  description: The accepted entries for this paramter are "debit_card, credit_card, prepaid_card, upi, wallet, netbanking, banktransfer, paylater, paypal, debit_card_emi, credit_card_emi, upi_credit_card, upi_ppi, cardless_emi, account_based_payment, corporate_credit_card, sbc_debit_card, sbc_emandate, sbc_upi, sbc_credit_card"
+            filters:
+              description: This object takes details of all the filtering that has to be done for this order. Filters on card bins, card schemes, card issuing bank and card suffixes
+              type: object
+              properties:
+                card_bins:
+                  description: Allowed card bins for the order
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                      description: It accepts value of "ALLOW" and allows only those bins present in it's neighbouring parameter "values"
+                    values:
+                      type: array
+                      items:
+                        type: string
+                      description: List of card bins to be allowed for the order
+                card_schemes:
+                  description: Allowed card schemes for the order
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                      description: It accepts value of "ALLOW" and allows only those schemes present in it's neighbouring parameter "values"
+                    values:
+                      type: array
+                      items:
+                        type: string
+                      description: List of card schemes to be allowed for the order
+                card_suffix:
+                  description: Allowed card suffixes for the order
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                      description: It accepts value of "ALLOW" and allows only those suffixes present in it's neighbouring parameter "values"
+                    values:
+                      type: array
+                      items:
+                        type: string
+                      description: List of card suffixes to be allowed for the order
+                card_issuing_bank:
+                  description: Allowed card issuing bank for the order
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                      description: It accepts value of "ALLOW" and allows only those issuing bank present in it's neighbouring parameter "values"
+                    values:
+                      type: array
+                      description: List of card issuing bank to be allowed for the order
+                      items:
+                        type: string
+    BadRequestError:
+      title: BadRequestError
+      description: Invalid request received from client
+      example:
+        message: bad URL, please check API documentation
+        code: request_failed
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+    RateLimitError:
+      title: RateLimitError
+      description: Error when rate limit is breached for your api
+      example:
+        message: Too many requests from IP. Check headers
+        code: request_failed
+        type: rate_limit_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - rate_limit_error
+          description: rate_limit_error
+    AuthenticationError:
+      title: AuthenticationError
+      description: Error if api keys are wrong
+      example:
+        message: authentication Failed
+        code: request_failed
+        type: authentication_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          description: authentication_error
+    LinkMetaResponseEntity:
+      title: link_meta
+      description: Payment link meta information object
+      type: object
+      example:
+        notify_url: https://ee08e626ecd88c61c85f5c69c0418cb5.m.pipedream.net
+        upi_intent: 'false'
+        return_url: https://www.cashfree.com/devstudio/thankyou
+      properties:
+        notify_url:
+          type: string
+          description: Notification URL for server-server communication. It should be an https URL.
+        upi_intent:
+          type: string
+          description: If "true", link will directly open UPI Intent flow on mobile, and normal link flow elsewhere
+        return_url:
+          type: string
+          description: 'The URL to which user will be redirected to after the payment is done on the link. Maximum length: 250.'
+        payment_methods:
+          type: string
+          description: Allowed payment modes for this link. Pass comma-separated values among following options - "cc", "dc", "ccc", "ppc", "nb", "upi", "paypal", "app". Leave it blank to show all available payment methods
+    CreateLinkRequest:
+      title: CreateLinkRequest
+      description: Request paramenters for link creation
+      example:
+        customer_details:
+          customer_email: john@cashfree.com
+          customer_name: John Doe
+          customer_phone: '9999999999'
+        link_amount: 100
+        link_auto_reminders: true
+        link_currency: INR
+        link_expiry_time: '2021-10-14T15:04:05+05:30'
+        link_id: my_link_id
+        link_meta:
+          notify_url: https://ee08e626ecd88c61c85f5c69c0418cb5.m.pipedream.net
+          return_url: https://www.cashfree.com/devstudio/thankyou
+          upi_intent: false
+        link_minimum_partial_amount: 20
+        link_notes:
+          key_1: value_1
+          key_2: value_2
+        link_notify:
+          send_email: true
+          send_sms: false
+        link_partial_payments: true
+        link_purpose: Payment for PlayStation 11
+        order_splits:
+        - vendor_id: Jane
+          amount: 1.45
+          tags:
+            address: Hyderabad
+        - vendor_id: Barbie
+          amount: 3.45
+          tags:
+            address: Bengaluru, India
+      type: object
+      properties:
+        link_id:
+          type: string
+          description: Unique Identifier (provided by merchant) for the Link. Alphanumeric and only - and _ allowed (50 character limit). Use this for other link-related APIs.
+          maxLength: 50
+        link_amount:
+          type: number
+          format: double
+          description: Amount to be collected using this link. Provide upto two decimals for paise.
+        link_currency:
+          type: string
+          description: Currency for the payment link. Default is INR. Contact care@cashfree.com to enable new currencies.
+          minimum: 1
+        link_purpose:
+          type: string
+          description: A brief description for which payment must be collected. This is shown to the customer.
+          maxLength: 500
+        customer_details:
+          $ref: '#/components/schemas/LinkCustomerDetailsEntity'
+        link_partial_payments:
+          type: boolean
+          description: If "true", customer can make partial payments for the link.
+        link_minimum_partial_amount:
+          type: number
+          format: double
+          description: Minimum amount in first installment that needs to be paid by the customer if partial payments are enabled. This should be less than the link_amount.
+        link_expiry_time:
+          type: string
+          description: Time after which the link expires. Customers will not be able to make the payment beyond the time specified here. You can provide them in a valid ISO 8601 time format. Default is 30 days.
+        link_notify:
+          $ref: '#/components/schemas/LinkNotifyEntity'
+        link_auto_reminders:
+          type: boolean
+          description: If "true", reminders will be sent to customers for collecting payments.
+        link_notes:
+          $ref: '#/components/schemas/LinkNotesEntity'
+        link_meta:
+          $ref: '#/components/schemas/LinkMetaResponseEntity'
+        order_splits:
+          type: array
+          description: If you have Easy split enabled in your Cashfree account then you can use this option to split the order amount.
+          items:
+            $ref: '#/components/schemas/VendorSplit'
+          example:
+          - amount: 10
+            vendor: john
+      required:
+      - link_currency
+      - link_id
+      - link_amount
+      - customer_details
+      - link_purpose
+    LinkCustomerDetailsEntity:
+      title: customer_details
+      description: Payment link customer entity
+      type: object
+      example:
+        customer_name: John Doe
+        customer_phone: '9999999999'
+        customer_email: john@cashfree.com
+        customer_bank_account_number: 11111111111
+        customer_bank_ifsc: SBIN0001882
+        customer_bank_code: 7001
+      properties:
+        customer_phone:
+          type: string
+          description: Customer phone number
+        customer_email:
+          type: string
+          description: Customer email address
+        customer_name:
+          type: string
+          description: Customer name
+        customer_bank_account_number:
+          type: string
+          description: Customer Bank Account Number
+        customer_bank_ifsc:
+          type: string
+          description: Customer Bank Ifsc
+        customer_bank_code:
+          type: integer
+          enum:
+          - 3003
+          - 3005
+          - 3006
+          - 3010
+          - 3012
+          - 3016
+          - 3019
+          - 3020
+          - 3021
+          - 3022
+          - 3023
+          - 3024
+          - 3026
+          - 3027
+          - 3028
+          - 3029
+          - 3030
+          - 3031
+          - 3032
+          - 3033
+          - 3038
+          - 3039
+          - 3040
+          - 3042
+          - 3044
+          - 3054
+          - 3055
+          - 3058
+          - 3086
+          - 3087
+          - 3088
+          - 3089
+          - 3090
+          - 3091
+          - 3092
+          - 3098
+          - 3115
+          - 3117
+          - 7001
+          description: Customer Bank Code
+      required:
+      - customer_phone
+    ApiError:
+      title: ApiError
+      description: Error at cashfree's server
+      example:
+        message: internal Server Error
+        code: internal_error
+        type: api_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - api_error
+          description: api_error
+    IdempotencyError:
+      title: IdempotencyError
+      description: Error when idempotency fails. Different request body with the same idempotent key
+      example:
+        message: something is not found
+        code: request_invalid
+        type: idempotency_error
+      type: object
+      properties:
+        message:
+          type: string
+        help:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - idempotency_error
+          description: idempotency_error
+    LinkEntity:
+      title: LinkEntity
+      description: Payment link success creation response object
+      type: object
+      example:
+        cf_link_id: '1996567'
+        link_id: my_link_id
+        link_status: ACTIVE
+        link_currency: INR
+        link_amount: 100
+        link_amount_paid: 0
+        link_partial_payments: true
+        link_minimum_partial_amount: 20
+        link_purpose: Payment for PlayStation 11
+        link_created_at: '2021-09-30T17:05:01+05:30'
+        customer_details:
+          customer_name: John Doe
+          customer_phone: '9999999999'
+          customer_email: john@example.com
+        link_meta:
+          notify_url: https://ee08e626ecd88c61c85f5c69c0418cb5.m.pipedream.net
+          upi_intent: false
+          return_url: https://www.cashfree.com/devstudio/thankyou
+        link_url: https://payments-test.cashfree.com/links/o1tf1nvcvjhg
+        link_expiry_time: '2021-10-14T15:04:05+05:30'
+        link_notes:
+          key_1: value_1
+          key_2: value_2
+        link_auto_reminders: true
+        link_qrcode: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUAAAAFAAQMAAAD3XjfpAAAABlBMVEX///8AAABVwtN+AAAC9ElEQVR4nOyaPY7jMAyFn6HCpY7go/hmkXIzH0VHUOlC8Fvw0c4kM4PFFltJJjDAQPnSEPx5JIPbbrvttv9rC82mPW7gvnDasT5ZkSZyS/ZR6xLMANaJFQLJuj5J5mkHHgaMDpJlNfeROzAZFE4/PgKZOwZfoWTggchsDrvBd7DNZeW/+LEHUDmzY7Wn1aNHORO335JrNPBVcVPYl+2Y6/pssSS9/F6aOwDdLq9smLkBsUCl9aeNB6riymMzNwujI9QlW11hw/Lmx47AJVNBY16Zi71Ydy1JFTXU4UEGlvWYSfsGgbghXOn2HkGdgcCymdJS9GCu66HXmVtqsQwOvoSo/tnswbovLZ6mFpnHBpccTLHaPGMq5QBWKznZOpN9PbUeQcCdUV1mmFfkHmqcI4nBweZt2Ifc031SbEifrbgnMClndg8aWknJ1l5cpLlgHRp0OaZ5xiY4qRQPI5Our3mmO7Cs3L37mhp1SaYBNtRP9wwJnsll84zWYTmwJO5qOCV1CdpoT9pQkkykWWuResdccY22A4NIZIGmF2i4qesRXLBbcpWvNtwTuDCc7SWf0tTay6LVZ3ovpKOClkYHbHrZsU575LOddfiBD2XfFdhMhJozgo31NsXBFem35BoSlPjY9LkJdswkWywJEmmfWdgPeMqt64akQtr0Gj8XgKOCvubxjehmfszXaD992wH0AyL5BGZ9xqIHkU+eihRX9xkX9C2fSzKVFJtXouSITitvS8AhwSzBLm2mM6RmGoDaJfMtHvsC1YavzbD344pXxR0eNG1m8jx5yVHFNT9GBU/uEnSzDMnNSq8KLaATG0L9OiyOCfoFUn5sM7fj2gy/ztLoEtS12f6yqshc8Qj13AKFd202KHheIF2bQWseFkxKrrp8/6VLV+Au8cFNqYJYkrXZZ4s/f98zJEiPFd3gU9PPdij1/rEO6whUzsxnmug24gez6DkzOPiquAg+ztEX57rK1+WX0twBeNttt932d/sTAAD//zUdVfZhwUvzAAAAAElFTkSuQmCC
+        link_notify:
+          send_sms: false
+          send_email: true
+        order_splits:
+        - vendor_id: Jane
+          percentage: 10
+          tags:
+            address: Hyderabad
+        - vendor_id: Barbie
+          percentage: 50
+          tags:
+            address: Bengaluru, India
+      properties:
+        cf_link_id:
+          type: string
+        link_id:
+          type: string
+        link_status:
+          type: string
+        link_currency:
+          type: string
+        link_amount:
+          type: number
+        link_amount_paid:
+          type: number
+        link_partial_payments:
+          type: boolean
+        link_minimum_partial_amount:
+          type: number
+        link_purpose:
+          type: string
+        link_created_at:
+          type: string
+        customer_details:
+          $ref: '#/components/schemas/LinkCustomerDetailsEntity'
+        link_meta:
+          $ref: '#/components/schemas/LinkMetaResponseEntity'
+        link_url:
+          type: string
+        link_expiry_time:
+          type: string
+        link_notes:
+          $ref: '#/components/schemas/LinkNotesEntity'
+        link_auto_reminders:
+          type: boolean
+        link_notify:
+          $ref: '#/components/schemas/LinkNotifyEntity'
+        link_qrcode:
+          type: string
+          description: Base64 encoded string for payment link. You can scan with camera to open a link in the browser to complete the payment.
+        order_splits:
+          type: array
+          items:
+            $ref: '#/components/schemas/VendorSplit'
+    ApiError404:
+      title: ApiError404
+      description: Error when resource requested is not found
+      example:
+        message: something is not found
+        code: somethind_not_found
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+          description: invalid_request_error
+    PaymentLinkOrderEntity:
+      title: PaymentLinkOrderEntity
+      type: object
+      description: The complete order entity
+      example:
+        $ref: '#/components/examples/order_entity_list_example/value/0'
+      properties:
+        cf_order_id:
+          type: string
+          description: unique id generated by cashfree for your order
+        link_id:
+          type: string
+          description: link id of the order
+        order_id:
+          type: string
+          description: order_id sent during the api request
+        entity:
+          type: string
+          description: Type of the entity.
+        order_currency:
+          type: string
+          description: Currency of the order. Example INR
+        order_amount:
+          type: number
+        order_status:
+          type: string
+          description: "Possible values are \n- `ACTIVE`: Order does not have a sucessful transaction yet\n- `PAID`: Order is PAID with one successful transaction\n- `EXPIRED`: Order was not PAID and not it has expired. No transaction can be initiated for an EXPIRED order.\n"
+        payment_session_id:
+          type: string
+        order_expiry_time:
+          type: string
+          format: date-time
+        order_note:
+          type: string
+          description: Additional note for order
+        created_at:
+          type: string
+          format: date-time
+          description: When the order was created at cashfree's server
+          example: '2022-08-16T14:45:38+05:30'
+        order_splits:
+          type: array
+          items:
+            $ref: '#/components/schemas/VendorSplit'
+        customer_details:
+          $ref: '#/components/schemas/PaymentLinkCustomerDetails'
+        order_meta:
+          $ref: '#/components/schemas/OrderMeta'
+        order_tags:
+          $ref: '#/components/schemas/OrderTags'
+    OrderTags:
+      type: object
+      maxProperties: 15
+      description: Custom Tags in thr form of {"key":"value"} which can be passed for an order. A maximum of 10 tags can be added
+      additionalProperties:
+        type: string
+        minLength: 1
+        maxLength: 255
+      example:
+        product: Laptop
+        shipping_address: 123 Main St
+    LinkNotifyEntity:
+      title: link_notify
+      type: object
+      description: Payment link Notify Object for SMS and Email
+      example:
+        send_sms: false
+        send_email: true
+      properties:
+        send_sms:
+          type: boolean
+          description: If "true", Cashfree will send sms on customer_phone
+        send_email:
+          type: boolean
+          description: If "true", Cashfree will send email on customer_email
+    ApiError502:
+      title: ApiError502
+      description: Error when there is error at partner bank
+      example:
+        message: something is not found
+        code: bank_processing_failure
+        type: api_error
+      type: object
+      properties:
+        message:
+          type: string
+        help:
+          type: string
+        code:
+          type: string
+          description: '`bank_processing_failure` will be returned here to denote failure at bank.
+
+            '
+        type:
+          type: string
+          enum:
+          - api_error
+          description: api_error
+    PaymentLinkCustomerDetails:
+      title: PaymentLinkCustomerDetails
+      description: The customer details that are necessary. Note that you can pass dummy details if your use case does not require the customer details.
+      example:
+        customer_id: 7112AAA812234
+        customer_email: john@cashfree.com
+        customer_phone: '9908734801'
+        customer_name: John Doe
+        customer_bank_account_number: '1518121112'
+        customer_bank_ifsc: XITI0000001
+        customer_bank_code: 3333
+      type: object
+      properties:
+        customer_id:
+          type: string
+          description: A unique identifier for the customer. Use alphanumeric values only.
+          minLength: 3
+          maxLength: 50
+        customer_email:
+          type: string
+          description: Customer email address.
+          minLength: 3
+          maxLength: 100
+        customer_phone:
+          type: string
+          description: Customer phone number.
+          minLength: 10
+          maxLength: 10
+        customer_name:
+          type: string
+          description: Name of the customer.
+          minLength: 3
+          maxLength: 100
+        customer_bank_account_number:
+          type: string
+          description: Customer bank account. Required if you want to do a bank account check (TPV)
+          minLength: 3
+          maxLength: 20
+        customer_bank_ifsc:
+          type: string
+          description: Customer bank IFSC. Required if you want to do a bank account check (TPV)
+        customer_bank_code:
+          type: number
+          description: Customer bank code. Required for net banking payments, if you want to do a bank account check (TPV)
+      required:
+      - customer_phone
+    LinkNotesEntity:
+      title: link_notes
+      type: object
+      description: Key-value pair that can be used to store additional information about the entity. Maximum 5 key-value pairs
+      example:
+        key_1: value_1
+        key_2: value_2
+      additionalProperties:
+        type: string
+    VendorSplit:
+      title: VendorSplit
+      description: Use to split order when cashfree's Easy Split is enabled for your account.
+      type: object
+      example:
+        vendor_id: Vendor01
+        amount: 100.12
+        description: order amount should be more than equal to 100.12
+      properties:
+        vendor_id:
+          type: string
+          description: Vendor id created in Cashfree system
+        amount:
+          type: number
+          description: Amount which will be associated with this vendor
+        percentage:
+          type: number
+          description: Percentage of order amount which shall get added to vendor account
+        tags:
+          type: object
+          maxProperties: 15
+          description: Custom Tags in thr form of {"key":"value"} which can be passed for an order. A maximum of 10 tags can be added
+          additionalProperties:
+            type: object
+      required:
+      - vendor_id
+    ApiError409:
+      title: ApiError409
+      description: duplicate request
+      example:
+        message: order with same id is already present
+        code: order_already_exists
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        help:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+          description: invalid_request_error
+  responses:
+    Response502:
+      description: Bank related Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError502'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response400:
+      description: Bad request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response429:
+      description: Rate Limit Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response401:
+      description: Authentication Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AuthenticationError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response404:
+      description: Resource Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError404'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response500:
+      description: API related Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response409:
+      description: Resource already present
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError409'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response422:
+      description: Idempotency error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IdempotencyError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+  requestBodies:
+    CreateLinkRequest:
+      description: Request Body to Create Payment Links
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateLinkRequest'
+  headers:
+    x-ratelimit-limit:
+      schema:
+        type: integer
+      example: 200
+      description: Ratelimit set for your account for this API per minute
+    x-idempotency-key:
+      schema:
+        type: string
+      example: some-idem-id
+      description: An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.
+    x-ratelimit-retry:
+      schema:
+        type: integer
+      example: 4
+      description: 'Contains number of seconds to wait if rate limit is breached
+
+        - Is 0 if withing the limit
+
+        - Is between 1 and 59 if breached
+
+        '
+    x-ratelimit-type:
+      schema:
+        type: string
+        enum:
+        - app_id
+        - ip
+      example: ip
+      description: 'either ip or app_id
+
+        - `ip` if making a call from the browser. True for api where you don''t need `x-client-id` and `x-client-secret`
+
+        - `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`
+
+        '
+    x-ratelimit-remaining:
+      schema:
+        type: integer
+      example: 2
+      description: Rate limit remaning for your account for this API in the next minute. Uses sliding window
+    x-api-version:
+      schema:
+        type: string
+        format: YYYY-MM-DD
+        enum:
+        - '2022-09-01'
+      description: This header has the version of the API. The current version is `2022-09-01`.
+    x-idempotency-replayed:
+      schema:
+        type: string
+        format: boolean
+      example: 'true'
+      description: 'In conjunction with `x-idempotency-key` this means
+
+        - `true` if the response was replayed
+
+        - `false` if the response has not been replayed'
+    x-request-id:
+      schema:
+        type: string
+      example: some-req-id
+      description: Request id for your api call. Is blank or null if no `x-request-id` is sent during the request
+  parameters:
+    statusQueryParam:
+      name: status
+      in: query
+      required: false
+      description: 'Mention What is status of orders you want to fetch, default is PAID. Possible value: ALL, PAID'
+      schema:
+        type: string
+      example: ALL
+    xRequestIDHeader:
+      in: header
+      name: x-request-id
+      description: Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.
+      required: false
+      schema:
+        type: string
+      example: 4dfb9780-46fe-11ee-be56-0242ac120002
+    xIdempotencyKeyHeader:
+      in: header
+      name: x-idempotency-key
+      required: false
+      description: 'An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.
+
+        '
+      schema:
+        type: string
+        format: UUID
+      example: 47bf8872-46fe-11ee-be56-0242ac120002
+    linkIDParam:
+      name: link_id
+      in: path
+      required: true
+      description: The payment link ID for which you want to view the details.
+      schema:
+        type: string
+      example: your-link-id
+    apiVersionHeader:
+      in: header
+      name: x-api-version
+      description: API version to be used. Format is in YYYY-MM-DD
+      schema:
+        type: string
+        description: API version to be used
+        default: '2025-01-01'
+      example: '2025-01-01'
+      x-ignore: true
+  examples:
+    order_entity_list_example:
+      description: OrderEntityListExample
+      summary: OrderEntityListExample
+      value:
+      - cf_order_id: '2149460581'
+        created_at: '2023-08-11T18:02:46+05:30'
+        customer_details:
+          customer_id: '409128494'
+          customer_name: Johmn Doe
+          customer_email: pmlpayme@ntsas.com
+          customer_phone: '9876543210'
+          customer_uid: 54deabb4-ba45-4a60-9e6a-9c016fe7ab10
+        entity: order
+        order_amount: 22
+        payment_session_id: session_a1VXIPJo8kh7IBigVXX8LgTMupQW_cu25FS8KwLwQLOmiHqbBxq5UhEilrhbDSKKHA6UAuOj9506aaHNlFAHEqYrHSEl9AVtYQN9LIIc4vkH
+        order_currency: INR
+        order_expiry_time: '2023-09-09T18:02:46+05:30'
+        order_id: order_3242Tq4Edj9CC5RDcMeobmJOWOBJij
+        order_meta:
+          return_url: https://www.cashfree.com/devstudio/thankyou
+          payment_methods: cc
+          notify_url: https://example.com/cf_notify
+        order_note: some order note LIST
+        order_splits: []
+        order_status: ACTIVE
+        order_tags:
+          name: John
+          age: '19'
+        terminal_data: null
+        cart_details:
+          cart_id: '1'
+  x-elicitationConfig:
+    createPaymentLink:
+      enabled: true
+      fields:
+        link_amount:
+          required: true
+          message: Please provide the amount to be collected through this payment link
+          schema:
+            type: number
+            title: Link Amount
+            description: Amount to be collected using this link (minimum 1 INR)
+            minimum: 1
+          mapping:
+            target: body.link_amount
+            transform: number
+        customer_phone:
+          required: true
+          message: Please provide the customer's phone number
+          schema:
+            type: string
+            title: Customer Phone
+            description: Phone number of the customer in international format without '+' sign
+            pattern: ^[1-9][0-9]{7,14}$
+          mapping:
+            target: body.customer_details.customer_phone
+            transform: string
+  securitySchemes:
+    XClientID:
+      type: apiKey
+      in: header
+      name: x-client-id
+      description: Client app ID. You can find your app id in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+    XClientSecret:
+      type: apiKey
+      in: header
+      name: x-client-secret
+      description: Client secret key. You can find your secret in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+    XClientSignatureHeader:
+      type: apiKey
+      in: header
+      name: x-client-signature
+      description: Use this if you do not want to pass the secret key and instead want to use the signature.
+    XPartnerAPIKey:
+      type: apiKey
+      in: header
+      name: x-partner-apikey
+      description: If you are partner and you are making an api call on behalf of a merchant
+    XPartnerMerchantID:
+      type: apiKey
+      in: header
+      name: x-partner-merchantid
+      description: If you are partner use this to specify the merchant id if you don't have the merchant client app id
+externalDocs:
+  url: https://api.cashfree.com/pg
+  description: This url will have the information of all the APIs.
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true
+  samples-languages:
+  - shell

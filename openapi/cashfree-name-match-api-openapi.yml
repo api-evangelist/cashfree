@@ -1,0 +1,433 @@
+openapi: 3.0.0
+info:
+  version: '2025-01-01'
+  title: Cashfree Payment Gateway APIs Authorize Name Match API
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    email: developers@cashfree.com
+    name: API Support
+    url: https://discord.com/invite/QdZkNSxXsB
+  description: Cashfree's Payment Gateway APIs provide developers with a streamlined pathway to integrate advanced payment processing capabilities into their applications, platforms and websites.
+servers:
+- url: https://sandbox.cashfree.com/pg
+  description: Sandbox server
+- url: https://api.cashfree.com/pg
+  description: Production server
+tags:
+- name: Name Match
+  description: Operation related to Name Match verification.
+paths:
+  /name-match:
+    post:
+      operationId: VrsNameMatchVerification
+      security:
+      - XClientID: []
+        XClientSecret: []
+      tags:
+      - Name Match
+      summary: Verify Name Match
+      x-mcp:
+        enabled: true
+        config:
+          elicitation:
+            $ref: '#/components/x-elicitationConfig/VrsNameMatchVerification'
+      description: Use this API to verify names that have enormous variations. Provide us the names you want to verify, and we will tell you whether they match and provide the reason. View the [test data](https://www.cashfree.com/docs/api-reference/vrs/data-to-test-integration#name-match) and use the information to trigger the validations. The test data are usable only in the test environments such as sandbox.
+      parameters:
+      - $ref: '#/components/parameters/x_cf_signature'
+      requestBody:
+        $ref: '#/components/requestBodies/NameMatchRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/NameMatchResponse'
+        '400':
+          $ref: '#/components/responses/Response400NameMatch'
+        '401':
+          $ref: '#/components/responses/Response401'
+        '403':
+          $ref: '#/components/responses/Response403'
+        '409':
+          $ref: '#/components/responses/Response409DuplicateId'
+        '422':
+          $ref: '#/components/responses/Response422'
+        '429':
+          $ref: '#/components/responses/Response429'
+        '500':
+          $ref: '#/components/responses/Response500V2'
+        '502':
+          $ref: '#/components/responses/Response502V2'
+components:
+  responses:
+    Response400NameMatch:
+      description: Validation errors for Name Match API
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Verification ID Missing:
+              $ref: '#/components/examples/VerificationIdMissing'
+            Verification ID With Special Chars:
+              $ref: '#/components/examples/VerificationIdWithSpecialCharacter'
+            Name 1 Missing:
+              $ref: '#/components/examples/Name1Missing'
+            Name 2 Missing:
+              $ref: '#/components/examples/Name2Missing'
+            Name 1 Empty:
+              $ref: '#/components/examples/Name1Empty'
+            Name 2 Empty:
+              $ref: '#/components/examples/Name2Empty'
+            Client ID/Client Secret in Missing:
+              $ref: '#/components/examples/XClientIdMissing'
+            Using-Test-Credentials-in-Prod:
+              $ref: '#/components/examples/UsingTestCredentialsInProd'
+    Response403:
+      description: Authentication error (IP not whitelisted)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            IP not whitelisted:
+              value:
+                type: authentication_error
+                code: ip_validation_failed
+                message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
+    Response429:
+      description: Rate limit exceed error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Rate limit error per operation:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_operation
+                message: Too many requests for this operation, rate limit reached
+            Rate limit error per IP:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_ip
+                message: Too many requests from the IP, rate limit reached
+    Response500V2:
+      description: Internal error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Internal Server Error:
+              value:
+                type: internal_error
+                code: verification_failed
+                message: something went wrong
+    Response401:
+      description: Invalid client ID and client secret combination
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Invalid client ID and client secret combination:
+              value:
+                type: authentication_error
+                code: authentication_failed
+                message: Invalid clientId and clientSecret combination
+    Response422:
+      description: Validation error because of insufficient balance to process this request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Insufficient balance:
+              value:
+                type: validation_error
+                code: insufficient_balance
+                message: Insufficient balance to process this request
+    Response409DuplicateId:
+      description: Conflict error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Conflict Error:
+              value:
+                type: validation_error
+                code: verification_id_already_exists
+                message: verification id already exists
+    Response502V2:
+      description: Gateway error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Bad Gateway:
+              value:
+                type: internal_error
+                code: verification_failed
+                message: verification attempt failed
+    NameMatchResponse:
+      description: Success response for verifing name variations
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NameMatchResponseSchema'
+          examples:
+            Direct Match:
+              value:
+                verification_id: ABC00123
+                reference_id: 12345
+                name_1: JOHN DOE
+                name_2: JOHN DOE
+                status: SUCCESS
+                score: 1
+                reason: The given names are identical
+            Good Partial Match:
+              value:
+                verification_id: ABC00123
+                reference_id: 12345
+                name_1: JOHN DOE
+                name_2: JOHN
+                status: SUCCESS
+                score: 0.85
+                reason: Word missing
+            Moderate Partial Match:
+              value:
+                verification_id: ABC00123
+                reference_id: 12345
+                name_1: JOHN DOE
+                name_2: J DO
+                status: SUCCESS
+                score: 0.7
+                reason: Initials penalty, Word missing
+            Poor Partial Match:
+              value:
+                verification_id: ABC00123
+                reference_id: 12345
+                name_1: JOHN DOE
+                name_2: DO
+                status: SUCCESS
+                score: 0.38
+                reason: Word missing
+            No Match:
+              value:
+                verification_id: ABC00123
+                reference_id: 12345
+                name_1: JOHN DOE
+                name_2: TOM
+                status: SUCCESS
+                score: 0.14
+                reason: The given names are different
+  examples:
+    VerificationIdWithSpecialCharacter:
+      value:
+        type: validation_error
+        code: verification_id_value_invalid
+        message: verification_id can include only alphanum, dot, hyphen and underscores.
+    Name1Empty:
+      value:
+        type: validation_error
+        code: name_1_value_invalid
+        message: name_1 is not allowed to be empty.
+    UsingTestCredentialsInProd:
+      value:
+        type: validation_error
+        code: x-client-secret_value_invalid
+        message: Client secret belongs to test environment
+    Name2Missing:
+      value:
+        type: validation_error
+        code: name_2_missing
+        message: name_2 is missing in the request.
+    Name1Missing:
+      value:
+        type: validation_error
+        code: name_1_missing
+        message: name_1 is missing in the request.
+    VerificationIdMissing:
+      value:
+        type: validation_error
+        code: verification_id_missing
+        message: verification_id is missing in the request.
+    XClientIdMissing:
+      value:
+        type: validation_error
+        code: x-client-id_missing
+        message: x-client-id is missing in the request.
+    Name2Empty:
+      value:
+        type: validation_error
+        code: name_2_value_invalid
+        message: name_2 is not allowed to be empty.
+  schemas:
+    NameMatchResponseSchema:
+      description: Success response for Name Match API
+      type: object
+      example:
+        verification_id: ABC00123
+        reference_id: 1358
+        name_1: John Doe
+        name_2: John Snow
+        status: SUCCESS
+        score: 0.85
+        reason: The given names are identical
+      properties:
+        verification_id:
+          type: string
+          description: It displays the unique ID you created to identify the verification request.
+          example: ABC00123
+        reference_id:
+          type: integer
+          description: 'It displays the unique ID created by Cashfree Payments for reference purposes.
+
+            format: `int64`'
+          example: 1358
+        name_1:
+          type: string
+          description: It displays the name you entered for verification.
+          example: John Doe
+        name_2:
+          type: string
+          description: It displays the name you entered for verificaiton with name_1.
+          example: John Snow
+        status:
+          type: string
+          description: 'It displays the status of the API request. Possible values are
+
+            - `SUCCESS`: A successful name match.'
+          example: SUCCESS
+        score:
+          type: number
+          description: It displays the score for name match verification, with values ranging from 0 to 1.
+          example: 0.85
+        reason:
+          type: string
+          description: It justifies the match score for the API request.
+          example: The given names are identical
+    ErrorResponseSchema:
+      description: Response in case of error.
+      type: object
+      properties:
+        code:
+          type: string
+          example: x-client-id_missing
+        error:
+          type: object
+          example:
+            ref_id: 102
+        message:
+          type: string
+          example: x-client-id is missing in the request.
+          description: It displays the outcome of the error.
+        type:
+          type: string
+          example: validation_error
+          description: It displays the type of error.
+    NameMatchRequestSchema:
+      description: Find the request parameters for the Name Match API
+      type: object
+      required:
+      - verification_id
+      - name_1
+      - name_2
+      example:
+        verification_id: ABC00123
+        name_1: JOHN DOE
+        name_2: JOHN DOE
+      properties:
+        verification_id:
+          description: It is the unique ID you need to create to identify the verification request. The maximum character limit is 50. Only alphanumeric, period (.), hyphen (-) and underscore ( _ ) are allowed.
+          type: string
+          example: ABC00123
+          default: ABC00123
+        name_1:
+          description: It is the name you want to verify.
+          type: string
+          example: JOHN DOE
+          default: JOHN DOE
+        name_2:
+          description: It is the name you want to verify with name_1.
+          type: string
+          example: JOHN DOE
+          default: JOHN DOE
+  x-elicitationConfig:
+    VrsNameMatchVerification:
+      enabled: true
+      fields:
+        name_1:
+          required: true
+          message: Please provide the first name to verify
+          schema:
+            type: string
+            title: First Name
+            description: First name to verify
+          mapping:
+            target: body.name_1
+            transform: string
+        name_2:
+          required: true
+          message: Please provide the second name to verify
+          schema:
+            type: string
+            title: Second Name
+            description: Second name to verify
+          mapping:
+            target: body.name_2
+            transform: string
+  parameters:
+    x_cf_signature:
+      description: Send the signature if IP is not whitelisted
+      name: x-cf-signature
+      in: header
+      required: false
+      schema:
+        type: string
+      example: ''
+  requestBodies:
+    NameMatchRequest:
+      description: Find the request parameters to verify names with variations
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NameMatchRequestSchema'
+  securitySchemes:
+    XClientID:
+      type: apiKey
+      in: header
+      name: x-client-id
+      description: Client app ID. You can find your app id in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+    XClientSecret:
+      type: apiKey
+      in: header
+      name: x-client-secret
+      description: Client secret key. You can find your secret in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+    XClientSignatureHeader:
+      type: apiKey
+      in: header
+      name: x-client-signature
+      description: Use this if you do not want to pass the secret key and instead want to use the signature.
+    XPartnerAPIKey:
+      type: apiKey
+      in: header
+      name: x-partner-apikey
+      description: If you are partner and you are making an api call on behalf of a merchant
+    XPartnerMerchantID:
+      type: apiKey
+      in: header
+      name: x-partner-merchantid
+      description: If you are partner use this to specify the merchant id if you don't have the merchant client app id
+externalDocs:
+  url: https://api.cashfree.com/pg
+  description: This url will have the information of all the APIs.
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true
+  samples-languages:
+  - shell

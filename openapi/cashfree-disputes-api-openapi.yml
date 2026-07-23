@@ -1,0 +1,1105 @@
+openapi: 3.0.0
+info:
+  version: '2025-01-01'
+  title: Cashfree Payment Gateway APIs Authorize Disputes API
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    email: developers@cashfree.com
+    name: API Support
+    url: https://discord.com/invite/QdZkNSxXsB
+  description: Cashfree's Payment Gateway APIs provide developers with a streamlined pathway to integrate advanced payment processing capabilities into their applications, platforms and websites.
+servers:
+- url: https://sandbox.cashfree.com/pg
+  description: Sandbox server
+- url: https://api.cashfree.com/pg
+  description: Production server
+tags:
+- name: Disputes
+  description: Collection of APIs to handle disputes.
+paths:
+  /orders/{order_id}/disputes:
+    get:
+      tags:
+      - Disputes
+      x-mcp:
+        enabled: true
+      summary: Get Disputes by Order Id
+      operationId: PGFetchOrderDisputes
+      description: Use this API to get all Dispute details by specifying the Order ID.
+      security:
+      - XClientID: []
+        XClientSecret: []
+      - XClientID: []
+        XPartnerAPIKey: []
+      - XClientID: []
+        XClientSignatureHeader: []
+      - XPartnerMerchantID: []
+        XPartnerAPIKey: []
+      parameters:
+      - $ref: '#/components/parameters/apiVersionHeader'
+      - $ref: '#/components/parameters/xRequestIDHeader'
+      - $ref: '#/components/parameters/xIdempotencyKeyHeader'
+      - in: path
+        name: order_id
+        required: true
+        schema:
+          type: string
+          description: Order or the invoice ID for which you want to view the disputes details.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DisputesEntity'
+          headers:
+            x-api-version:
+              $ref: '#/components/headers/x-api-version'
+            x-ratelimit-limit:
+              $ref: '#/components/headers/x-ratelimit-limit'
+            x-ratelimit-remaining:
+              $ref: '#/components/headers/x-ratelimit-remaining'
+            x-ratelimit-retry:
+              $ref: '#/components/headers/x-ratelimit-retry'
+            x-ratelimit-type:
+              $ref: '#/components/headers/x-ratelimit-type'
+            x-request-id:
+              $ref: '#/components/headers/x-request-id'
+            x-idempotency-key:
+              $ref: '#/components/headers/x-idempotency-key'
+            x-idempotency-replayed:
+              $ref: '#/components/headers/x-idempotency-replayed'
+        '400':
+          $ref: '#/components/responses/Response400'
+        '401':
+          $ref: '#/components/responses/Response401'
+        '404':
+          $ref: '#/components/responses/Response404'
+        '409':
+          $ref: '#/components/responses/Response409'
+        '422':
+          $ref: '#/components/responses/Response422'
+        '429':
+          $ref: '#/components/responses/Response429'
+        '500':
+          $ref: '#/components/responses/Response500'
+  /payments/{cf_payment_id}/disputes:
+    get:
+      tags:
+      - Disputes
+      summary: Get Disputes by Payment ID
+      x-mcp:
+        enabled: true
+      operationId: PGFetchPaymentDisputes
+      description: Use this API to get all Dispute details by specifying the Payment ID.
+      security:
+      - XClientID: []
+        XClientSecret: []
+      - XClientID: []
+        XPartnerAPIKey: []
+      - XClientID: []
+        XClientSignatureHeader: []
+      - XPartnerMerchantID: []
+        XPartnerAPIKey: []
+      parameters:
+      - $ref: '#/components/parameters/apiVersionHeader'
+      - $ref: '#/components/parameters/xRequestIDHeader'
+      - $ref: '#/components/parameters/xIdempotencyKeyHeader'
+      - in: path
+        name: cf_payment_id
+        required: true
+        schema:
+          type: integer
+          description: Cashfree Payment ID to view the payment details of an order.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DisputesEntity'
+          headers:
+            x-api-version:
+              $ref: '#/components/headers/x-api-version'
+            x-ratelimit-limit:
+              $ref: '#/components/headers/x-ratelimit-limit'
+            x-ratelimit-remaining:
+              $ref: '#/components/headers/x-ratelimit-remaining'
+            x-ratelimit-retry:
+              $ref: '#/components/headers/x-ratelimit-retry'
+            x-ratelimit-type:
+              $ref: '#/components/headers/x-ratelimit-type'
+            x-request-id:
+              $ref: '#/components/headers/x-request-id'
+            x-idempotency-key:
+              $ref: '#/components/headers/x-idempotency-key'
+            x-idempotency-replayed:
+              $ref: '#/components/headers/x-idempotency-replayed'
+        '400':
+          $ref: '#/components/responses/Response400'
+        '401':
+          $ref: '#/components/responses/Response401'
+        '404':
+          $ref: '#/components/responses/Response404'
+        '409':
+          $ref: '#/components/responses/Response409'
+        '422':
+          $ref: '#/components/responses/Response422'
+        '429':
+          $ref: '#/components/responses/Response429'
+        '500':
+          $ref: '#/components/responses/Response500'
+  /disputes/{dispute_id}:
+    get:
+      tags:
+      - Disputes
+      summary: Get Disputes by Dispute ID
+      x-mcp:
+        enabled: true
+      operationId: PGFetchDisputeByID
+      description: Use this API to get Dispute details by specifying the Dispute ID.
+      security:
+      - XClientID: []
+        XClientSecret: []
+      - XClientID: []
+        XPartnerAPIKey: []
+      - XClientID: []
+        XClientSignatureHeader: []
+      - XPartnerMerchantID: []
+        XPartnerAPIKey: []
+      parameters:
+      - $ref: '#/components/parameters/apiVersionHeader'
+      - $ref: '#/components/parameters/xRequestIDHeader'
+      - $ref: '#/components/parameters/xIdempotencyKeyHeader'
+      - in: path
+        name: dispute_id
+        required: true
+        schema:
+          type: integer
+          description: Cashfree dispute ID to view the dispute details of an order.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DisputesEntity'
+          headers:
+            x-api-version:
+              $ref: '#/components/headers/x-api-version'
+            x-ratelimit-limit:
+              $ref: '#/components/headers/x-ratelimit-limit'
+            x-ratelimit-remaining:
+              $ref: '#/components/headers/x-ratelimit-remaining'
+            x-ratelimit-retry:
+              $ref: '#/components/headers/x-ratelimit-retry'
+            x-ratelimit-type:
+              $ref: '#/components/headers/x-ratelimit-type'
+            x-request-id:
+              $ref: '#/components/headers/x-request-id'
+            x-idempotency-key:
+              $ref: '#/components/headers/x-idempotency-key'
+            x-idempotency-replayed:
+              $ref: '#/components/headers/x-idempotency-replayed'
+        '400':
+          $ref: '#/components/responses/Response400'
+        '401':
+          $ref: '#/components/responses/Response401'
+        '404':
+          $ref: '#/components/responses/Response404'
+        '409':
+          $ref: '#/components/responses/Response409'
+        '422':
+          $ref: '#/components/responses/Response422'
+        '429':
+          $ref: '#/components/responses/Response429'
+        '500':
+          $ref: '#/components/responses/Response500'
+  /disputes/{dispute_id}/accept:
+    put:
+      tags:
+      - Disputes
+      summary: Accept Dispute by Dispute ID
+      x-mcp:
+        enabled: true
+      operationId: PGAcceptDisputeByID
+      description: Use this API to get accept the Dispute by specifying the Dispute ID.
+      security:
+      - XClientID: []
+        XClientSecret: []
+      - XClientID: []
+        XPartnerAPIKey: []
+      - XClientID: []
+        XClientSignatureHeader: []
+      - XPartnerMerchantID: []
+        XPartnerAPIKey: []
+      parameters:
+      - $ref: '#/components/parameters/apiVersionHeader'
+      - $ref: '#/components/parameters/xRequestIDHeader'
+      - $ref: '#/components/parameters/xIdempotencyKeyHeader'
+      - in: path
+        name: dispute_id
+        required: true
+        schema:
+          type: integer
+          description: Cashfree dispute ID to view the dispute details of an order.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DisputesEntityMerchantAccepted'
+          headers:
+            x-api-version:
+              $ref: '#/components/headers/x-api-version'
+            x-ratelimit-limit:
+              $ref: '#/components/headers/x-ratelimit-limit'
+            x-ratelimit-remaining:
+              $ref: '#/components/headers/x-ratelimit-remaining'
+            x-ratelimit-retry:
+              $ref: '#/components/headers/x-ratelimit-retry'
+            x-ratelimit-type:
+              $ref: '#/components/headers/x-ratelimit-type'
+            x-request-id:
+              $ref: '#/components/headers/x-request-id'
+            x-idempotency-key:
+              $ref: '#/components/headers/x-idempotency-key'
+            x-idempotency-replayed:
+              $ref: '#/components/headers/x-idempotency-replayed'
+        '400':
+          $ref: '#/components/responses/Response400'
+        '401':
+          $ref: '#/components/responses/Response401'
+        '404':
+          $ref: '#/components/responses/Response404'
+        '409':
+          $ref: '#/components/responses/Response409'
+        '422':
+          $ref: '#/components/responses/Response422'
+        '429':
+          $ref: '#/components/responses/Response429'
+        '500':
+          $ref: '#/components/responses/Response500'
+  /disputes/{dispute_id}/documents:
+    post:
+      tags:
+      - Disputes
+      summary: Submit Evidence to contest the Dispute by Dispute ID
+      x-mcp:
+        enabled: true
+      operationId: PGUploadDisputesDocuments
+      description: Use this API to Submit the Evidences to contest the Dispute by specifying the Dispute ID.
+      security:
+      - XClientID: []
+        XClientSecret: []
+      - XClientID: []
+        XPartnerAPIKey: []
+      - XClientID: []
+        XClientSignatureHeader: []
+      - XPartnerMerchantID: []
+        XPartnerAPIKey: []
+      parameters:
+      - $ref: '#/components/parameters/apiVersionHeader'
+      - $ref: '#/components/parameters/xRequestIDHeader'
+      - $ref: '#/components/parameters/xIdempotencyKeyHeader'
+      - in: path
+        name: dispute_id
+        required: true
+        schema:
+          type: integer
+          description: Cashfree dispute ID to get Evidences to submit to contest the Dispute.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              - doc_type
+              properties:
+                file:
+                  type: string
+                  description: File types supported are jpeg, jpg, png, pdf and maximum file size allowed is 20 MB.
+                doc_type:
+                  type: string
+                  description: Mention the type of the document you are uploading. Possible values :- Delivery/Service Proof, Shipping Proof, Statement of Service, Proof of Service Used, Cancellation of Service Proof, Refund Proof, Business model explanation, Extra Charges Declaration, Terms & Conditions, Customer Withdrawal Letter, Certificate of Authenticity, Reseller Agreement. You can use get evidences to contest dispute API to fetch set of documents required to contest particular dispute.
+                note:
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DisputesEntity'
+          headers:
+            x-api-version:
+              $ref: '#/components/headers/x-api-version'
+            x-ratelimit-limit:
+              $ref: '#/components/headers/x-ratelimit-limit'
+            x-ratelimit-remaining:
+              $ref: '#/components/headers/x-ratelimit-remaining'
+            x-ratelimit-retry:
+              $ref: '#/components/headers/x-ratelimit-retry'
+            x-ratelimit-type:
+              $ref: '#/components/headers/x-ratelimit-type'
+            x-request-id:
+              $ref: '#/components/headers/x-request-id'
+            x-idempotency-key:
+              $ref: '#/components/headers/x-idempotency-key'
+            x-idempotency-replayed:
+              $ref: '#/components/headers/x-idempotency-replayed'
+        '400':
+          $ref: '#/components/responses/Response400'
+        '401':
+          $ref: '#/components/responses/Response401'
+        '404':
+          $ref: '#/components/responses/Response404'
+        '409':
+          $ref: '#/components/responses/Response409'
+        '422':
+          $ref: '#/components/responses/Response422'
+        '429':
+          $ref: '#/components/responses/Response429'
+        '500':
+          $ref: '#/components/responses/Response500'
+components:
+  schemas:
+    BadRequestError:
+      title: BadRequestError
+      description: Invalid request received from client
+      example:
+        message: bad URL, please check API documentation
+        code: request_failed
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+    RateLimitError:
+      title: RateLimitError
+      description: Error when rate limit is breached for your api
+      example:
+        message: Too many requests from IP. Check headers
+        code: request_failed
+        type: rate_limit_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - rate_limit_error
+          description: rate_limit_error
+    PreferredEvidence:
+      title: EvidencesToContestDispute
+      type: array
+      example:
+        preferred_evidence:
+        - document_type: Delivery/Service Proof
+          document_description: Proof that the cardholder/customer received the goods or services.
+        - document_type: Statement of Service
+          document_description: Account Statement of wallet where funds were loaded by customer.
+      items:
+        $ref: '#/components/schemas/EvidencesToContestDispute'
+    AuthenticationError:
+      title: AuthenticationError
+      description: Error if api keys are wrong
+      example:
+        message: authentication Failed
+        code: request_failed
+        type: authentication_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          description: authentication_error
+    OrderDetailsInDisputesEntity:
+      title: OrderDetailsInDisputesEntity
+      example:
+        order_id: Load_test_0103_FGA4HF12AC
+        order_currency: INR
+        order_amount: 10
+        cf_payment_id: 1489901523
+        payment_currency: INR
+        payment_amount: 10
+      type: object
+      properties:
+        order_id:
+          type: string
+        order_currency:
+          type: string
+        order_amount:
+          type: number
+        cf_payment_id:
+          type: string
+        payment_currency:
+          type: string
+        payment_amount:
+          type: number
+    CustomerDetailsInDisputesEntity:
+      title: CustomerDetailsInDisputesEntity
+      example:
+        customer_name: Manideep Ellur
+        customer_phone: 8281554863
+        customer_email: manideep.ellur@cashfree.com
+      type: object
+      properties:
+        customer_name:
+          type: string
+        customer_phone:
+          type: string
+        customer_email:
+          type: string
+    DisputesEntityMerchantAccepted:
+      title: DisputesEntityMerchantAccepted
+      type: object
+      example:
+        dispute_id: 433447817
+        dispute_type: DISPUTE
+        reason_code: 1401
+        reason_description: Fraud Transaction
+        dispute_amount: 10
+        created_at: '2023-01-18T11:26:58'
+        respond_by: '2023-01-19T00:00:00'
+        updated_at: '2023-01-18T11:26:58'
+        resolved_at: '2023-01-18T11:26:58'
+        dispute_status: DISPUTE_MERCHANT_ACCEPTED
+        cf_dispute_remarks: Load Testing
+        preferred_evidence: []
+        dispute_evidence: []
+        order_details:
+          order_id: Load_test_0103_FGA4HF12AC
+          order_currency: INR
+          order_amount: 10
+          cf_payment_id: 1489901523
+          payment_currency: INR
+          payment_amount: 10
+        customer_details:
+          customer_name: John Ellur
+          customer_phone: 8281554863
+          customer_email: john@cashfree.com
+      properties:
+        dispute_id:
+          type: integer
+        dispute_type:
+          type: string
+          enum:
+          - DISPUTE
+          - CHARGEBACK
+          - RETRIEVAL
+          - PRE_ARBITRATION
+          - ARBITRATION
+        reason_code:
+          type: string
+        reason_description:
+          type: string
+        dispute_amount:
+          type: number
+          description: Dispute amount may differ from transaction amount for partial cases.
+        created_at:
+          type: string
+          description: This is the time when the dispute was created.
+        respond_by:
+          type: string
+          description: This is the time by which evidence should be submitted to contest the dispute.
+        updated_at:
+          type: string
+          description: This is the time when the dispute case was updated.
+        resolved_at:
+          type: string
+          description: This is the time when the dispute case was closed.
+        dispute_status:
+          type: string
+          enum:
+          - DISPUTE_CREATED
+          - DISPUTE_DOCS_RECEIVED
+          - DISPUTE_UNDER_REVIEW
+          - DISPUTE_MERCHANT_WON
+          - DISPUTE_MERCHANT_LOST
+          - DISPUTE_MERCHANT_ACCEPTED
+          - DISPUTE_INSUFFICIENT_EVIDENCE
+          - CHARGEBACK_CREATED
+          - CHARGEBACK_DOCS_RECEIVED
+          - CHARGEBACK_UNDER_REVIEW
+          - CHARGEBACK_MERCHANT_WON
+          - CHARGEBACK_MERCHANT_LOST
+          - CHARGEBACK_MERCHANT_ACCEPTED
+          - CHARGEBACK_INSUFFICIENT_EVIDENCE
+          - RETRIEVAL_CREATED
+          - RETRIEVAL_DOCS_RECEIVED
+          - RETRIEVAL_UNDER_REVIEW
+          - RETRIEVAL_MERCHANT_WON
+          - RETRIEVAL_MERCHANT_LOST
+          - RETRIEVAL_MERCHANT_ACCEPTED
+          - RETRIEVAL_INSUFFICIENT_EVIDENCE
+          - PRE_ARBITRATION_CREATED
+          - PRE_ARBITRATION_DOCS_RECEIVED
+          - PRE_ARBITRATION_UNDER_REVIEW
+          - PRE_ARBITRATION_MERCHANT_WON
+          - PRE_ARBITRATION_MERCHANT_LOST
+          - PRE_ARBITRATION_MERCHANT_ACCEPTED
+          - PRE_ARBITRATION_INSUFFICIENT_EVIDENCE
+          - ARBITRATION_CREATED
+          - ARBITRATION_DOCS_RECEIVED
+          - ARBITRATION_UNDER_REVIEW
+          - ARBITRATION_MERCHANT_WON
+          - ARBITRATION_MERCHANT_LOST
+          - ARBITRATION_MERCHANT_ACCEPTED
+          - ARBITRATION_INSUFFICIENT_EVIDENCE
+        cf_dispute_remarks:
+          type: string
+        preferred_evidence:
+          $ref: '#/components/schemas/PreferredEvidence'
+        dispute_evidence:
+          $ref: '#/components/schemas/DisputeEvidence'
+        order_details:
+          $ref: '#/components/schemas/OrderDetailsInDisputesEntity'
+        customer_details:
+          $ref: '#/components/schemas/CustomerDetailsInDisputesEntity'
+    ApiError:
+      title: ApiError
+      description: Error at cashfree's server
+      example:
+        message: internal Server Error
+        code: internal_error
+        type: api_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - api_error
+          description: api_error
+    IdempotencyError:
+      title: IdempotencyError
+      description: Error when idempotency fails. Different request body with the same idempotent key
+      example:
+        message: something is not found
+        code: request_invalid
+        type: idempotency_error
+      type: object
+      properties:
+        message:
+          type: string
+        help:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - idempotency_error
+          description: idempotency_error
+    ApiError404:
+      title: ApiError404
+      description: Error when resource requested is not found
+      example:
+        message: something is not found
+        code: somethind_not_found
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+          description: invalid_request_error
+    DisputesEntity:
+      title: DisputesEntity
+      type: object
+      example:
+        dispute_id: 433447817
+        dispute_type: DISPUTE
+        reason_code: 1401
+        reason_description: Fraud Transaction
+        dispute_amount: 10
+        dispute_amount_currency: INR
+        created_at: '2023-01-18T11:26:58'
+        respond_by: '2023-01-19T00:00:00'
+        updated_at: '2023-01-18T11:26:58'
+        resolved_at: '9999-09-09T00:00:00'
+        dispute_status: DISPUTE_DOCS_RECEIVED
+        cf_dispute_remarks: Load Testing
+        preferred_evidence:
+        - document_type: Delivery/Service Proof
+          document_description: Proof that the cardholder/customer received the goods or services.
+        dispute_evidence:
+        - document_id: 18150
+          document_name: disputeSampleFile.pdf
+          document_type: DeliveryProof
+        order_details:
+          order_id: Load_test_0103_FGA4HF12AC
+          order_currency: INR
+          order_amount: 10
+          cf_payment_id: 1489901523
+          payment_currency: INR
+          payment_amount: 10
+        customer_details:
+          customer_name: John Ellur
+          customer_phone: 9876543210
+          customer_email: john@cashfree.com
+      properties:
+        dispute_id:
+          type: integer
+        dispute_type:
+          type: string
+          enum:
+          - DISPUTE
+          - CHARGEBACK
+          - RETRIEVAL
+          - PRE_ARBITRATION
+          - ARBITRATION
+        reason_code:
+          type: string
+        reason_description:
+          type: string
+        dispute_amount:
+          type: number
+          description: Dispute amount may differ from transaction amount for partial cases.
+        dispute_amount_currency:
+          type: string
+          description: Dispute amount currency for a dispute
+        created_at:
+          type: string
+          description: This is the time when the dispute was created.
+        respond_by:
+          type: string
+          description: This is the time by which evidence should be submitted to contest the dispute.
+        updated_at:
+          type: string
+          description: This is the time when the dispute case was updated.
+        resolved_at:
+          type: string
+          description: This is the time when the dispute case was closed.
+        dispute_status:
+          type: string
+          enum:
+          - DISPUTE_CREATED
+          - DISPUTE_DOCS_RECEIVED
+          - DISPUTE_UNDER_REVIEW
+          - DISPUTE_MERCHANT_WON
+          - DISPUTE_MERCHANT_LOST
+          - DISPUTE_MERCHANT_ACCEPTED
+          - DISPUTE_INSUFFICIENT_EVIDENCE
+          - CHARGEBACK_CREATED
+          - CHARGEBACK_DOCS_RECEIVED
+          - CHARGEBACK_UNDER_REVIEW
+          - CHARGEBACK_MERCHANT_WON
+          - CHARGEBACK_MERCHANT_LOST
+          - CHARGEBACK_MERCHANT_ACCEPTED
+          - CHARGEBACK_INSUFFICIENT_EVIDENCE
+          - RETRIEVAL_CREATED
+          - RETRIEVAL_DOCS_RECEIVED
+          - RETRIEVAL_UNDER_REVIEW
+          - RETRIEVAL_MERCHANT_WON
+          - RETRIEVAL_MERCHANT_LOST
+          - RETRIEVAL_MERCHANT_ACCEPTED
+          - RETRIEVAL_INSUFFICIENT_EVIDENCE
+          - PRE_ARBITRATION_CREATED
+          - PRE_ARBITRATION_DOCS_RECEIVED
+          - PRE_ARBITRATION_UNDER_REVIEW
+          - PRE_ARBITRATION_MERCHANT_WON
+          - PRE_ARBITRATION_MERCHANT_LOST
+          - PRE_ARBITRATION_MERCHANT_ACCEPTED
+          - PRE_ARBITRATION_INSUFFICIENT_EVIDENCE
+          - ARBITRATION_CREATED
+          - ARBITRATION_DOCS_RECEIVED
+          - ARBITRATION_UNDER_REVIEW
+          - ARBITRATION_MERCHANT_WON
+          - ARBITRATION_MERCHANT_LOST
+          - ARBITRATION_MERCHANT_ACCEPTED
+          - ARBITRATION_INSUFFICIENT_EVIDENCE
+        cf_dispute_remarks:
+          type: string
+        preferred_evidence:
+          $ref: '#/components/schemas/PreferredEvidence'
+        dispute_evidence:
+          $ref: '#/components/schemas/DisputeEvidence'
+        order_details:
+          $ref: '#/components/schemas/OrderDetailsInDisputesEntity'
+        customer_details:
+          $ref: '#/components/schemas/CustomerDetailsInDisputesEntity'
+    EvidencesToContestDispute:
+      title: EvidencesToContestDispute
+      example:
+        preferred_evidence:
+        - document_type: Delivery/Service Proof
+          document_description: Proof that the cardholder/customer received the goods or services.
+        - document_type: Statement of Service
+          document_description: Account Statement of wallet where funds were loaded by customer.
+      type: object
+      properties:
+        document_type:
+          type: string
+        document_description:
+          type: string
+    DisputeEvidence:
+      title: DisputeEvidence
+      example:
+      - document_id: 18150
+        document_name: disputeSampleFile.pdf
+        document_type: DeliveryProof
+      type: array
+      items:
+        $ref: '#/components/schemas/Evidence'
+    Evidence:
+      title: Evidence
+      example:
+        document_id: 18150
+        document_name: disputeSampleFile.pdf
+        document_type: DeliveryProof
+      type: object
+      properties:
+        document_id:
+          type: integer
+        document_name:
+          type: string
+        document_type:
+          type: string
+    ApiError409:
+      title: ApiError409
+      description: duplicate request
+      example:
+        message: order with same id is already present
+        code: order_already_exists
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        help:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+          description: invalid_request_error
+  headers:
+    x-ratelimit-limit:
+      schema:
+        type: integer
+      example: 200
+      description: Ratelimit set for your account for this API per minute
+    x-idempotency-key:
+      schema:
+        type: string
+      example: some-idem-id
+      description: An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.
+    x-ratelimit-retry:
+      schema:
+        type: integer
+      example: 4
+      description: 'Contains number of seconds to wait if rate limit is breached
+
+        - Is 0 if withing the limit
+
+        - Is between 1 and 59 if breached
+
+        '
+    x-ratelimit-type:
+      schema:
+        type: string
+        enum:
+        - app_id
+        - ip
+      example: ip
+      description: 'either ip or app_id
+
+        - `ip` if making a call from the browser. True for api where you don''t need `x-client-id` and `x-client-secret`
+
+        - `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`
+
+        '
+    x-ratelimit-remaining:
+      schema:
+        type: integer
+      example: 2
+      description: Rate limit remaning for your account for this API in the next minute. Uses sliding window
+    x-api-version:
+      schema:
+        type: string
+        format: YYYY-MM-DD
+        enum:
+        - '2022-09-01'
+      description: This header has the version of the API. The current version is `2022-09-01`.
+    x-idempotency-replayed:
+      schema:
+        type: string
+        format: boolean
+      example: 'true'
+      description: 'In conjunction with `x-idempotency-key` this means
+
+        - `true` if the response was replayed
+
+        - `false` if the response has not been replayed'
+    x-request-id:
+      schema:
+        type: string
+      example: some-req-id
+      description: Request id for your api call. Is blank or null if no `x-request-id` is sent during the request
+  responses:
+    Response400:
+      description: Bad request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response429:
+      description: Rate Limit Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response401:
+      description: Authentication Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AuthenticationError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response404:
+      description: Resource Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError404'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response500:
+      description: API related Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response409:
+      description: Resource already present
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError409'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response422:
+      description: Idempotency error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IdempotencyError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+  parameters:
+    xRequestIDHeader:
+      in: header
+      name: x-request-id
+      description: Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.
+      required: false
+      schema:
+        type: string
+      example: 4dfb9780-46fe-11ee-be56-0242ac120002
+    xIdempotencyKeyHeader:
+      in: header
+      name: x-idempotency-key
+      required: false
+      description: 'An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.
+
+        '
+      schema:
+        type: string
+        format: UUID
+      example: 47bf8872-46fe-11ee-be56-0242ac120002
+    apiVersionHeader:
+      in: header
+      name: x-api-version
+      description: API version to be used. Format is in YYYY-MM-DD
+      schema:
+        type: string
+        description: API version to be used
+        default: '2025-01-01'
+      example: '2025-01-01'
+      x-ignore: true
+  securitySchemes:
+    XClientID:
+      type: apiKey
+      in: header
+      name: x-client-id
+      description: Client app ID. You can find your app id in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+    XClientSecret:
+      type: apiKey
+      in: header
+      name: x-client-secret
+      description: Client secret key. You can find your secret in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+    XClientSignatureHeader:
+      type: apiKey
+      in: header
+      name: x-client-signature
+      description: Use this if you do not want to pass the secret key and instead want to use the signature.
+    XPartnerAPIKey:
+      type: apiKey
+      in: header
+      name: x-partner-apikey
+      description: If you are partner and you are making an api call on behalf of a merchant
+    XPartnerMerchantID:
+      type: apiKey
+      in: header
+      name: x-partner-merchantid
+      description: If you are partner use this to specify the merchant id if you don't have the merchant client app id
+externalDocs:
+  url: https://api.cashfree.com/pg
+  description: This url will have the information of all the APIs.
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true
+  samples-languages:
+  - shell

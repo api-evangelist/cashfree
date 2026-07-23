@@ -1,0 +1,643 @@
+openapi: 3.0.0
+info:
+  version: '2025-01-01'
+  title: Cashfree Payment Gateway APIs Authorize Settlement Reconciliation API
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    email: developers@cashfree.com
+    name: API Support
+    url: https://discord.com/invite/QdZkNSxXsB
+  description: Cashfree's Payment Gateway APIs provide developers with a streamlined pathway to integrate advanced payment processing capabilities into their applications, platforms and websites.
+servers:
+- url: https://sandbox.cashfree.com/pg
+  description: Sandbox server
+- url: https://api.cashfree.com/pg
+  description: Production server
+tags:
+- name: Settlement Reconciliation
+  description: Collection of APIs to handle settlements
+paths:
+  /settlements:
+    post:
+      tags:
+      - Settlement Reconciliation
+      summary: Get All Settlements
+      x-mcp:
+        enabled: true
+      operationId: PGFetchSettlements
+      description: Use this API to get all settlement details by specifying the settlement ID, settlement UTR or date range.
+      requestBody:
+        $ref: '#/components/requestBodies/FetchSettlementsRequest'
+      security:
+      - XClientID: []
+        XClientSecret: []
+      - XClientID: []
+        XPartnerAPIKey: []
+      - XClientID: []
+        XClientSignatureHeader: []
+      - XPartnerMerchantID: []
+        XPartnerAPIKey: []
+      parameters:
+      - name: Content-Type
+        in: header
+        schema:
+          type: string
+        example: application/json
+        description: application/json
+      - $ref: '#/components/parameters/apiVersionHeader'
+      - $ref: '#/components/parameters/xRequestIDHeader'
+      - $ref: '#/components/parameters/xIdempotencyKeyHeader'
+      - name: Accept
+        in: header
+        schema:
+          type: string
+        example: application/json
+        description: application/json
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettlementEntity'
+          headers:
+            x-api-version:
+              $ref: '#/components/headers/x-api-version'
+            x-ratelimit-limit:
+              $ref: '#/components/headers/x-ratelimit-limit'
+            x-ratelimit-remaining:
+              $ref: '#/components/headers/x-ratelimit-remaining'
+            x-ratelimit-retry:
+              $ref: '#/components/headers/x-ratelimit-retry'
+            x-ratelimit-type:
+              $ref: '#/components/headers/x-ratelimit-type'
+            x-request-id:
+              $ref: '#/components/headers/x-request-id'
+            x-idempotency-key:
+              $ref: '#/components/headers/x-idempotency-key'
+            x-idempotency-replayed:
+              $ref: '#/components/headers/x-idempotency-replayed'
+        '400':
+          $ref: '#/components/responses/Response400'
+        '401':
+          $ref: '#/components/responses/Response401'
+        '404':
+          $ref: '#/components/responses/Response404'
+        '409':
+          $ref: '#/components/responses/Response409'
+        '422':
+          $ref: '#/components/responses/Response422'
+        '429':
+          $ref: '#/components/responses/Response429'
+        '500':
+          $ref: '#/components/responses/Response500'
+components:
+  schemas:
+    BadRequestError:
+      title: BadRequestError
+      description: Invalid request received from client
+      example:
+        message: bad URL, please check API documentation
+        code: request_failed
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+    FetchSettlementsRequest:
+      type: object
+      description: Request to fetch settlement
+      example:
+        pagination:
+          limit: 10
+          cursor: eyJzZWFyY2hBZnRlciI6eyJsaXN0IjpbMTg4NjcxNDVdLCJlbXB0eSI6ZmFsc2V9LCJyZWNvbkFQSVR5cGUiOiJMRURHRVIifQ==
+        filters:
+          cf_settlement_ids:
+          - '4234233'
+          settlement_utrs:
+          - utr1
+          - utr2
+          start_date: '2022-07-20T00:00:00Z'
+          end_date: '2022-07-21T23:59:59Z'
+      properties:
+        pagination:
+          type: object
+          properties:
+            limit:
+              type: integer
+              description: The number of settlements you want to fetch. Maximum limit is 1000, default value is 10.
+            cursor:
+              type: string
+              description: Specifies from where the next set of settlement details should be fetched.
+          description: "To fetch the next set of settlements, pass the cursor received in the response to the next API call. \n To receive the data for the first time, pass the cursor as null. \n Limit would be number of settlements that you want to receive."
+          required:
+          - limit
+        filters:
+          type: object
+          properties:
+            cf_settlement_ids:
+              type: array
+              items:
+                type: string
+              description: List of settlement IDs for which you want the settlement reconciliation details.
+            settlement_utrs:
+              type: array
+              items:
+                type: string
+              description: List of settlement UTRs for which you want the settlement reconciliation details.
+            start_date:
+              type: string
+              description: Specify the start date from when you want the settlement reconciliation details.
+            end_date:
+              type: string
+              description: Specify the end date till when you want the settlement reconciliation details.
+          description: Specify either the Settlement ID, Settlement UTR, or start date and end date to fetch the settlement details.
+      required:
+      - pagination
+      - filters
+    RateLimitError:
+      title: RateLimitError
+      description: Error when rate limit is breached for your api
+      example:
+        message: Too many requests from IP. Check headers
+        code: request_failed
+        type: rate_limit_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - rate_limit_error
+          description: rate_limit_error
+    AuthenticationError:
+      title: AuthenticationError
+      description: Error if api keys are wrong
+      example:
+        message: authentication Failed
+        code: request_failed
+        type: authentication_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          description: authentication_error
+    ApiError:
+      title: ApiError
+      description: Error at cashfree's server
+      example:
+        message: internal Server Error
+        code: internal_error
+        type: api_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - api_error
+          description: api_error
+    IdempotencyError:
+      title: IdempotencyError
+      description: Error when idempotency fails. Different request body with the same idempotent key
+      example:
+        message: something is not found
+        code: request_invalid
+        type: idempotency_error
+      type: object
+      properties:
+        message:
+          type: string
+        help:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - idempotency_error
+          description: idempotency_error
+    ApiError404:
+      title: ApiError404
+      description: Error when resource requested is not found
+      example:
+        message: something is not found
+        code: somethind_not_found
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+          description: invalid_request_error
+    SettlementEntity:
+      title: SettlementsEntity
+      description: Settlement entity object
+      type: object
+      example:
+        cf_payment_id: '553338'
+        order_id: order-12-127
+        entity: settlement
+        order_amount: 100
+        payment_time: '2021-07-13T13:13:59+05:30'
+        service_charge: 10
+        service_tax: 1.8
+        settlement_amount: 88.2
+        cf_settlement_id: '6121238'
+        transfer_id: 238
+        transfer_time: '2021-07-25T12:57:52+05:30'
+        transfer_utr: N87912312
+        order_currency: INR
+        settlement_currency: INR
+        forex_conversion_handling_charge: 11.12
+        forex_conversion_handling_tax: 1.12
+        forex_conversion_rate: 84.24
+        charges_currency: INR
+      properties:
+        cf_payment_id:
+          type: string
+        cf_settlement_id:
+          type: string
+        settlement_currency:
+          type: string
+        order_id:
+          type: string
+        entity:
+          type: string
+        order_amount:
+          type: number
+        payment_time:
+          type: string
+        service_charge:
+          type: number
+        service_tax:
+          type: number
+        settlement_amount:
+          type: number
+        settlement_id:
+          type: integer
+        transfer_id:
+          type: integer
+        transfer_time:
+          type: string
+        transfer_utr:
+          type: string
+        forex_conversion_handling_charge:
+          type: number
+          description: Cashfree forex conversion charges for refund processing
+        forex_conversion_handling_tax:
+          type: number
+          description: Cashfree forex conversion tax for refund processing
+        forex_conversion_rate:
+          type: number
+          description: Cashfree forex conversion rate for refund processing
+        charges_currency:
+          type: string
+          description: Cashfree refund charges currency for a refund
+    ApiError409:
+      title: ApiError409
+      description: duplicate request
+      example:
+        message: order with same id is already present
+        code: order_already_exists
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        help:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+          description: invalid_request_error
+  requestBodies:
+    FetchSettlementsRequest:
+      description: Request Body to get the settlements
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FetchSettlementsRequest'
+  headers:
+    x-ratelimit-limit:
+      schema:
+        type: integer
+      example: 200
+      description: Ratelimit set for your account for this API per minute
+    x-idempotency-key:
+      schema:
+        type: string
+      example: some-idem-id
+      description: An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.
+    x-ratelimit-retry:
+      schema:
+        type: integer
+      example: 4
+      description: 'Contains number of seconds to wait if rate limit is breached
+
+        - Is 0 if withing the limit
+
+        - Is between 1 and 59 if breached
+
+        '
+    x-ratelimit-type:
+      schema:
+        type: string
+        enum:
+        - app_id
+        - ip
+      example: ip
+      description: 'either ip or app_id
+
+        - `ip` if making a call from the browser. True for api where you don''t need `x-client-id` and `x-client-secret`
+
+        - `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`
+
+        '
+    x-ratelimit-remaining:
+      schema:
+        type: integer
+      example: 2
+      description: Rate limit remaning for your account for this API in the next minute. Uses sliding window
+    x-api-version:
+      schema:
+        type: string
+        format: YYYY-MM-DD
+        enum:
+        - '2022-09-01'
+      description: This header has the version of the API. The current version is `2022-09-01`.
+    x-idempotency-replayed:
+      schema:
+        type: string
+        format: boolean
+      example: 'true'
+      description: 'In conjunction with `x-idempotency-key` this means
+
+        - `true` if the response was replayed
+
+        - `false` if the response has not been replayed'
+    x-request-id:
+      schema:
+        type: string
+      example: some-req-id
+      description: Request id for your api call. Is blank or null if no `x-request-id` is sent during the request
+  responses:
+    Response400:
+      description: Bad request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response429:
+      description: Rate Limit Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response401:
+      description: Authentication Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AuthenticationError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response404:
+      description: Resource Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError404'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response500:
+      description: API related Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response409:
+      description: Resource already present
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError409'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response422:
+      description: Idempotency error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IdempotencyError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+  parameters:
+    xRequestIDHeader:
+      in: header
+      name: x-request-id
+      description: Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.
+      required: false
+      schema:
+        type: string
+      example: 4dfb9780-46fe-11ee-be56-0242ac120002
+    xIdempotencyKeyHeader:
+      in: header
+      name: x-idempotency-key
+      required: false
+      description: 'An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.
+
+        '
+      schema:
+        type: string
+        format: UUID
+      example: 47bf8872-46fe-11ee-be56-0242ac120002
+    apiVersionHeader:
+      in: header
+      name: x-api-version
+      description: API version to be used. Format is in YYYY-MM-DD
+      schema:
+        type: string
+        description: API version to be used
+        default: '2025-01-01'
+      example: '2025-01-01'
+      x-ignore: true
+  securitySchemes:
+    XClientID:
+      type: apiKey
+      in: header
+      name: x-client-id
+      description: Client app ID. You can find your app id in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+    XClientSecret:
+      type: apiKey
+      in: header
+      name: x-client-secret
+      description: Client secret key. You can find your secret in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+    XClientSignatureHeader:
+      type: apiKey
+      in: header
+      name: x-client-signature
+      description: Use this if you do not want to pass the secret key and instead want to use the signature.
+    XPartnerAPIKey:
+      type: apiKey
+      in: header
+      name: x-partner-apikey
+      description: If you are partner and you are making an api call on behalf of a merchant
+    XPartnerMerchantID:
+      type: apiKey
+      in: header
+      name: x-partner-merchantid
+      description: If you are partner use this to specify the merchant id if you don't have the merchant client app id
+externalDocs:
+  url: https://api.cashfree.com/pg
+  description: This url will have the information of all the APIs.
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true
+  samples-languages:
+  - shell

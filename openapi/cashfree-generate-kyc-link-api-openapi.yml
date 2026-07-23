@@ -1,0 +1,377 @@
+openapi: 3.0.0
+info:
+  version: '2025-01-01'
+  title: Cashfree Payment Gateway APIs Authorize Generate KYC Link API
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    email: developers@cashfree.com
+    name: API Support
+    url: https://discord.com/invite/QdZkNSxXsB
+  description: Cashfree's Payment Gateway APIs provide developers with a streamlined pathway to integrate advanced payment processing capabilities into their applications, platforms and websites.
+servers:
+- url: https://sandbox.cashfree.com/pg
+  description: Sandbox server
+- url: https://api.cashfree.com/pg
+  description: Production server
+tags:
+- name: Generate KYC Link
+paths:
+  /form:
+    post:
+      operationId: VrsGenerateKYCLink
+      security:
+      - XClientID: []
+        XClientSecret: []
+      parameters:
+      - $ref: '#/components/parameters/x_cf_signature'
+      tags:
+      - Generate KYC Link
+      summary: Generate KYC Link
+      x-mcp:
+        enabled: true
+        config:
+          elicitation:
+            $ref: '#/components/x-elicitationConfig/VrsGenerateKYCLink'
+      description: Use this API to generate a verification form to verify the KYC information of your users digitally.
+      requestBody:
+        $ref: '#/components/requestBodies/GenerateKYCLinkRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/GenerateFormLinkResponse'
+        '400':
+          $ref: '#/components/responses/Response400KYCLinkGeneration'
+        '401':
+          $ref: '#/components/responses/Response401'
+        '403':
+          $ref: '#/components/responses/Response403'
+        '409':
+          $ref: '#/components/responses/Response409DuplicateId'
+        '422':
+          $ref: '#/components/responses/Response422'
+        '429':
+          $ref: '#/components/responses/Response429'
+        '500':
+          $ref: '#/components/responses/Response500'
+components:
+  schemas:
+    GenerateFormLinkResponseSchema:
+      description: Find the success response of Generate KYC Link
+      type: object
+      properties:
+        name:
+          type: string
+          description: It displays the name of the individual.
+          example: John Doe
+        phone:
+          type: string
+          description: It displays the phone number of the individual.
+          example: '9999999999'
+        email:
+          type: string
+          description: It displays the email address of the individual.
+          example: test@cashfree.com
+        verification_id:
+          type: string
+          description: It displays the unique ID you created to identity the form.
+          example: ABC00123
+        reference_id:
+          type: integer
+          description: It displays the unique ID created by Cashfree Payments for reference purposes.
+          example: 235461
+        form_link:
+          type: string
+          description: It displays the URL of the KYC Link.
+          example: https://forms-test.cashfree.com/verification/Y7tpcan5ksm0
+        form_status:
+          type: string
+          description: It displays the status of the form.
+          example: RECEIVED
+    emailString:
+      description: Email string
+      type: string
+      example: email
+    GenerateKYCLinkRequestSchema:
+      description: Request Body Schema for Generate KYC Link
+      type: object
+      required:
+      - phone
+      - template_name
+      - verification_id
+      properties:
+        name:
+          type: string
+          description: It is the name of the individual.
+          example: John Doe
+        phone:
+          type: string
+          description: It is the phone number of the individual.
+          example: '9999999999'
+        email:
+          type: string
+          description: It is the email address of the individual.
+          example: test@cashfree.com
+        template_name:
+          type: string
+          description: It is the name of the template you created using the merchant dashboard. You can also use the default template found there to generate the verification form. The default template is Aadhaar_verification. Using merchant dashboard, customized KYC Link templates can be created.
+          example: Aadhaar_verification
+        link_expiry:
+          type: string
+          description: It is the expiry date of the link. Its value can be max 30 days from the current date.
+          example: '2025-06-01'
+        notification_types:
+          type: array
+          description: It is the type(s) of notification used for sending the link.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/smsString'
+            - $ref: '#/components/schemas/emailString'
+            - $ref: '#/components/schemas/whatsappString'
+        verification_id:
+          type: string
+          description: It is the unique ID you created to identify the KYC link.
+          example: ABC00123
+    whatsappString:
+      description: Whatsapp string
+      type: string
+      example: whatsapp
+    ErrorResponseSchema:
+      description: Response in case of error.
+      type: object
+      properties:
+        code:
+          type: string
+          example: x-client-id_missing
+        error:
+          type: object
+          example:
+            ref_id: 102
+        message:
+          type: string
+          example: x-client-id is missing in the request.
+          description: It displays the outcome of the error.
+        type:
+          type: string
+          example: validation_error
+          description: It displays the type of error.
+    smsString:
+      description: SMS string
+      type: string
+      example: sms
+  examples:
+    VerificationIdWithSpecialCharacter:
+      value:
+        type: validation_error
+        code: verification_id_value_invalid
+        message: verification_id can include only alphanum, dot, hyphen and underscores.
+    UsingTestCredentialsInProd:
+      value:
+        type: validation_error
+        code: x-client-secret_value_invalid
+        message: Client secret belongs to test environment
+    VerificationIdMissing:
+      value:
+        type: validation_error
+        code: verification_id_missing
+        message: verification_id is missing in the request.
+    XClientIdMissing:
+      value:
+        type: validation_error
+        code: x-client-id_missing
+        message: x-client-id is missing in the request.
+  responses:
+    Response403:
+      description: Authentication error (IP not whitelisted)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            IP not whitelisted:
+              value:
+                type: authentication_error
+                code: ip_validation_failed
+                message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
+    Response429:
+      description: Rate limit exceed error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Rate limit error per operation:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_operation
+                message: Too many requests for this operation, rate limit reached
+            Rate limit error per IP:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_ip
+                message: Too many requests from the IP, rate limit reached
+    Response401:
+      description: Invalid client ID and client secret combination
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Invalid client ID and client secret combination:
+              value:
+                type: authentication_error
+                code: authentication_failed
+                message: Invalid clientId and clientSecret combination
+    GenerateFormLinkResponse:
+      description: Response Body for Generate KYC Link API
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GenerateFormLinkResponseSchema'
+    Response400KYCLinkGeneration:
+      description: Validation errors for Generate KYC Link API
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Verification ID Missing:
+              $ref: '#/components/examples/VerificationIdMissing'
+            Verification ID With Special Chars:
+              $ref: '#/components/examples/VerificationIdWithSpecialCharacter'
+            Verification_id Character Limit Exceeded:
+              value:
+                type: validation_error
+                code: verification_id_length_exceeded
+                message: verification_id can include a maximum of 50 characters.
+            Name Invalid:
+              value:
+                type: validation_error
+                code: name_value_invalid
+                message: name should only contains alphanumeric, space, dot and hyphen.
+            Template Name Invalid:
+              value:
+                type: validation_error
+                code: Bad request, please check API documentation
+                message: template name should be valid
+            Expiry Date Invalid:
+              value:
+                type: validation_error
+                code: REQUEST_INVALID
+                message: Please enter valid expiry date
+            Client ID/Client Secret in Missing:
+              $ref: '#/components/examples/XClientIdMissing'
+            Using-Test-Credentials-in-Prod:
+              $ref: '#/components/examples/UsingTestCredentialsInProd'
+    Response500:
+      description: Internal error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Internal Server Error:
+              value:
+                type: internal_error
+                code: request_failed
+                message: Unable to process your request. Try again after some time
+    Response422:
+      description: Validation error because of insufficient balance to process this request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Insufficient balance:
+              value:
+                type: validation_error
+                code: insufficient_balance
+                message: Insufficient balance to process this request
+    Response409DuplicateId:
+      description: Conflict error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Conflict Error:
+              value:
+                type: validation_error
+                code: verification_id_already_exists
+                message: verification id already exists
+  requestBodies:
+    GenerateKYCLinkRequest:
+      description: Find the request parameters for Generate KYC Link.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GenerateKYCLinkRequestSchema'
+  parameters:
+    x_cf_signature:
+      description: Send the signature if IP is not whitelisted
+      name: x-cf-signature
+      in: header
+      required: false
+      schema:
+        type: string
+      example: ''
+  x-elicitationConfig:
+    VrsGenerateKYCLink:
+      enabled: true
+      fields:
+        phone:
+          required: false
+          message: Please provide the phone number
+          schema:
+            type: string
+            title: Phone Number
+            description: Phone number of the user
+          mapping:
+            target: body.phone
+            transform: string
+        template_name:
+          required: true
+          message: Please provide the template name
+          schema:
+            type: string
+            title: Template Name
+            description: Template Name of the KYC form
+          mapping:
+            target: body.template_name
+            transform: string
+  securitySchemes:
+    XClientID:
+      type: apiKey
+      in: header
+      name: x-client-id
+      description: Client app ID. You can find your app id in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+    XClientSecret:
+      type: apiKey
+      in: header
+      name: x-client-secret
+      description: Client secret key. You can find your secret in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+    XClientSignatureHeader:
+      type: apiKey
+      in: header
+      name: x-client-signature
+      description: Use this if you do not want to pass the secret key and instead want to use the signature.
+    XPartnerAPIKey:
+      type: apiKey
+      in: header
+      name: x-partner-apikey
+      description: If you are partner and you are making an api call on behalf of a merchant
+    XPartnerMerchantID:
+      type: apiKey
+      in: header
+      name: x-partner-merchantid
+      description: If you are partner use this to specify the merchant id if you don't have the merchant client app id
+externalDocs:
+  url: https://api.cashfree.com/pg
+  description: This url will have the information of all the APIs.
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true
+  samples-languages:
+  - shell

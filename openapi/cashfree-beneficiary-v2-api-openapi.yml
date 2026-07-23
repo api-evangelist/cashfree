@@ -1,0 +1,732 @@
+openapi: 3.0.0
+info:
+  version: '2025-01-01'
+  title: Cashfree Payment Gateway APIs Authorize Beneficiary v2 API
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    email: developers@cashfree.com
+    name: API Support
+    url: https://discord.com/invite/QdZkNSxXsB
+  description: Cashfree's Payment Gateway APIs provide developers with a streamlined pathway to integrate advanced payment processing capabilities into their applications, platforms and websites.
+servers:
+- url: https://sandbox.cashfree.com/pg
+  description: Sandbox server
+- url: https://api.cashfree.com/pg
+  description: Production server
+tags:
+- name: Beneficiary v2
+paths:
+  /beneficiary:
+    post:
+      summary: Create Beneficiary V2
+      x-mcp:
+        enabled: false
+      description: Use this API to add a beneficiary to your Cashfree Payments account by providing the bank account number, IFSC, and other required details. Ensure the successful creation of the benficiary in your account before initiating a transfer.
+      tags:
+      - Beneficiary v2
+      operationId: PayoutCreateBeneficiary
+      deprecated: false
+      security:
+      - XClientID: []
+        XClientSecret: []
+      parameters:
+      - $ref: '#/components/parameters/apiVersionHeader'
+      - $ref: '#/components/parameters/xRequestIDHeader'
+      requestBody:
+        description: Find the request parameters to create a beneficiary
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBeneficiaryRequest'
+            examples:
+              bene_creation_request_v2:
+                $ref: '#/components/examples/create_beneficiary_request_v2'
+              bene_creation_request_with_only_vpa:
+                $ref: '#/components/examples/bene_creation_request_with_only_vpa'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Beneficiary'
+              examples:
+                create_beneficiary_success_response_v2:
+                  $ref: '#/components/examples/get_beneficiary_success_v2'
+        '400':
+          description: Bad request error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorV2'
+              examples:
+                bene_id_too_long:
+                  $ref: '#/components/examples/bene_id_too_large_v2'
+                invalid_bene_id_due_unacceptable_characters:
+                  $ref: '#/components/examples/invalid_bene_id_due_unacceptable_characters'
+                bank_account_given_ifsc_not_given:
+                  $ref: '#/components/examples/bank_account_given_ifsc_not_given_in_get_v2'
+                bank_ifsc_given_account_not_given:
+                  $ref: '#/components/examples/bank_ifsc_given_account_not_given_in_get_v2'
+                bank_account_number_too_large:
+                  $ref: '#/components/examples/bank_account_number_too_large'
+                bank_account_number_too_short:
+                  $ref: '#/components/examples/bank_account_number_too_short'
+                bank_account_invalid:
+                  $ref: '#/components/examples/bank_account_invalid'
+                invalid_ifsc:
+                  $ref: '#/components/examples/invalid_ifsc'
+        '403':
+          description: Forbidden error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorV2'
+              examples:
+                APIDisabled:
+                  $ref: '#/components/examples/APIsDisabledExampleV2'
+        '409':
+          description: Duplicate error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorV2'
+              examples:
+                duplicate_bene_id:
+                  $ref: '#/components/examples/duplicate_bene_creation_response'
+                bene_exist_for_bank_account:
+                  $ref: '#/components/examples/bene_exist_for_bank_account_and_ifsc'
+        '422':
+          description: Unprocessable error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorV2'
+              examples:
+                same_as_source_error:
+                  $ref: '#/components/examples/same_bene_as_source_v2'
+                VBA_beneficiary_not_enabled:
+                  $ref: '#/components/examples/vba_beneiciary_not_allowed'
+    get:
+      summary: Get Beneficiary V2
+      x-mcp:
+        enabled: false
+      description: Use this API to get the details of a particular beneficiary from your account. You can pass either beneficiary_id or the combination of bank_account_number and bank_ifsc to fetch the details.
+      tags:
+      - Beneficiary v2
+      operationId: PayoutFetchBeneficiary
+      deprecated: false
+      security:
+      - XClientID: []
+        XClientSecret: []
+      parameters:
+      - $ref: '#/components/parameters/apiVersionHeader'
+      - $ref: '#/components/parameters/xRequestIDHeader'
+      - in: query
+        name: beneficiary_id
+        description: It is the unique ID you created to identify the beneficiary while creating the beneficiary.
+        example: JOHN18011343
+        schema:
+          type: string
+          maxLength: 50
+      - in: query
+        name: bank_account_number
+        description: It is the bank account number of the beneficiary. If bank_account_number is passed in query, bank_ifsc should also be passed.
+        example: '00001111222233'
+        schema:
+          type: string
+          maxLength: 25
+          minLength: 4
+      - in: query
+        name: bank_ifsc
+        description: It is the IFSC information as present in the beneficiary's bank account information. If bank_ifsc is passed in query, bank_account_number should also be passed.
+        example: HDFC0000001
+        schema:
+          type: string
+          maxLength: 11
+          minLength: 11
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Beneficiary'
+              examples:
+                valid_beneficiary_id:
+                  $ref: '#/components/examples/get_beneficiary_success_v2'
+          headers:
+            x-request-id:
+              $ref: '#/components/headers/x-request-id'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorV2'
+              examples:
+                all_three_params_given:
+                  $ref: '#/components/examples/all_three_params_given'
+                bank_account_given_ifsc_not_given:
+                  $ref: '#/components/examples/bank_account_given_ifsc_not_given_in_get_v2'
+                bank_ifsc_given_account_not_given:
+                  $ref: '#/components/examples/bank_ifsc_given_account_not_given_in_get_v2'
+                no_bene_identifiers_provided:
+                  $ref: '#/components/examples/no_bene_identifiers_provided_v2'
+                bene_id_too_long:
+                  $ref: '#/components/examples/bene_id_too_large_v2'
+                invalid_bene_id_due_unacceptable_characters:
+                  $ref: '#/components/examples/invalid_bene_id_due_unacceptable_characters'
+                bank_account_number_too_large:
+                  $ref: '#/components/examples/bank_account_number_too_large'
+                bank_account_number_too_short:
+                  $ref: '#/components/examples/bank_account_number_too_short'
+                bank_account_invalid:
+                  $ref: '#/components/examples/bank_account_invalid'
+                invalid_ifsc:
+                  $ref: '#/components/examples/invalid_ifsc'
+          headers:
+            x-request-id:
+              $ref: '#/components/headers/x-request-id'
+        '403':
+          description: Forbidden error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorV2'
+              examples:
+                APIDisabled:
+                  $ref: '#/components/examples/APIsDisabledExampleV2'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorV2'
+              examples:
+                BeneficiaryIdNotFound:
+                  $ref: '#/components/examples/beneficiary_id_not_found_v2'
+                BeneficiaryBankAccountAndIfscDoesNotExist:
+                  $ref: '#/components/examples/beneficiary_with_account_does_not_exist_v2'
+                BeneficiaryAccountExistWithDifferentIfsc:
+                  $ref: '#/components/examples/bank_account_exists_with_a_different_ifsc_v2'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorV2'
+              examples:
+                InternalServerError:
+                  $ref: '#/components/examples/internal_server_error_v2'
+    delete:
+      summary: Remove Beneficiary V2
+      x-mcp:
+        enabled: false
+      description: Use this API to remove an existing beneficiary from the list of added beneficiaries.
+      tags:
+      - Beneficiary v2
+      operationId: PayoutDeleteBeneficiary
+      deprecated: false
+      security:
+      - XClientID: []
+        XClientSecret: []
+      parameters:
+      - $ref: '#/components/parameters/apiVersionHeader'
+      - $ref: '#/components/parameters/xRequestIDHeader'
+      - in: query
+        name: beneficiary_id
+        description: It is the unique ID you create to identify the beneficiary. The maximum character limit is 50. Only alphabets and whitespaces are allowed.
+        example: sample_test
+        schema:
+          type: string
+          maxLength: 50
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Beneficiary'
+              examples:
+                delete_beneficiary_success_response_v2:
+                  $ref: '#/components/examples/delete_bene_success_response_v2'
+          headers:
+            x-request-id:
+              $ref: '#/components/headers/x-request-id'
+        '400':
+          description: Bad request error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorV2'
+              examples:
+                bene_id_too_long:
+                  $ref: '#/components/examples/bene_id_too_large_v2'
+        '403':
+          description: Forbidden error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorV2'
+              examples:
+                APIDisabled:
+                  $ref: '#/components/examples/APIsDisabledExampleV2'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorV2'
+              examples:
+                BeneficiaryIdNotFound:
+                  $ref: '#/components/examples/beneficiary_id_not_found_v2'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorV2'
+              examples:
+                InternalServerError:
+                  $ref: '#/components/examples/internal_server_error_v2'
+components:
+  examples:
+    bank_account_exists_with_a_different_ifsc_v2:
+      summary: Beneficiary exists with the provided bank account number but a different IFSC
+      description: beneficiary exists with given beneficiary_bank_account_number but beneficiary_ifsc is different
+      value:
+        type: invalid_request_error
+        code: beneficiary_not_found
+        message: Beneficiary exists with the given bank_account_number but a different bank_ifsc
+    beneficiary_id_not_found_v2:
+      summary: Beneficiary with given beneficiary_id not found
+      description: Beneficiary with the given beneficiary_id does not exist
+      value:
+        type: invalid_request_error
+        code: beneficiary_not_found
+        message: Beneficiary does not exist
+    get_beneficiary_success_v2:
+      description: Example values for Get Beneficiary V2 success response
+      value:
+        beneficiary_id: JOHN18011343
+        beneficiary_name: John Doe
+        beneficiary_instrument_details:
+          bank_account_number: '1223334444'
+          bank_ifsc: HDFC0000001
+          vpa: test@upi
+        beneficiary_contact_details:
+          beneficiary_email: sample@cashfree.com
+          beneficiary_phone: '9876543210'
+          beneficiary_country_code: '+91'
+          beneficiary_address: 177A Bleecker Street
+          beneficiary_city: New York City
+          beneficiary_state: New York
+          beneficiary_postal_code: '560011'
+        beneficiary_status: VERIFIED
+        added_on: '2023-12-04T15:50:00Z'
+    bene_creation_request_with_only_vpa:
+      description: Beneficiary creation with only vpa
+      summary: Create beneficiary with only VPA
+      value:
+        beneficiary_id: JOHN18011343
+        beneficiary_name: John Doe
+        beneficiary_instrument_details:
+          vpa: test@upi
+        beneficiary_contact_details:
+          beneficiary_email: sample@cashfree.com
+          beneficiary_phone: '9876543210'
+          beneficiary_country_code: '+91'
+          beneficiary_address: 177A Bleecker Street
+          beneficiary_city: New York City
+          beneficiary_state: New York
+          beneficiary_postal_code: '560011'
+    beneficiary_with_account_does_not_exist_v2:
+      summary: Beneficiary with given account details not found
+      description: Beneficiary with given account details does not exist
+      value:
+        type: invalid_request_error
+        code: beneficiary_not_found
+        message: Beneficiary with the given bank_account_number and bank_ifsc does not exist
+    bank_account_number_too_large:
+      description: Bank account number provided is too large
+      summary: Provided bank account number is too large
+      value:
+        type: invalid_request_error
+        code: bank_account_number_length_exceeded
+        message: 'bank_account_number : should not be more than 25 characters long. value received: 235142352346523462456345263452345'
+    all_three_params_given:
+      summary: All three parameters provided
+      description: All three parameters are provided to get beneficiary details
+      value:
+        type: invalid_request_error
+        code: too_many_parameters_in_request
+        message: Please provide either bank_account_number and bank_ifsc together or beneficiary_id alone. Do not include all three parameters in the request
+    duplicate_bene_creation_response:
+      summary: Beneficiary exists with the given beneficiary ID
+      description: Beneficiary with given beneficiary id already exist
+      value:
+        type: invalid_request_error
+        code: beneficiary_id_already_exists
+        message: Beneficiary already exists with the given beneficiary_id
+    invalid_bene_id_due_unacceptable_characters:
+      description: Beneficiary ID contains characters that are not allowed
+      summary: Beneficiary ID contains characters that are not allowed
+      value:
+        type: invalid_request_error
+        code: beneficiary_id_invalid
+        message: 'beneficiary_id : should contain only letters, numbers, hyphen, underscore, pipe, and dot. Value received: .\qewqefwqev'
+    internal_server_error_v2:
+      summary: Internal server error
+      description: Error at Cashfree Payments' server
+      value:
+        type: api_error
+        code: internal_server_error
+        message: Error at cashfree's server
+    bene_id_too_large_v2:
+      description: Length of beneficiary_id is more than maximum allowed
+      summary: Length of beneficiary_id exceeded the maximum limit
+      value:
+        type: invalid_request_error
+        code: beneficiary_id_length_exceeded
+        message: 'beneficiary_id : should not be more than 50 characters long. value received: kl12b3rkh1bv234lkbr3jl24tbrlk234bkt234t134kbr1hk34jr'
+    no_bene_identifiers_provided_v2:
+      description: No details are provided with the request to identifiy the beneficiary
+      summary: Details are not provided with the request to identifiy the beneficiary
+      value:
+        type: invalid_request_error
+        code: beneficiary_identifiers_missing
+        message: 'beneficiary_identifiers : Either beneficiary_id or the combination of bank_account_number and bank_ifsc has to be provided with the request'
+    bank_account_invalid:
+      description: Bank account number contains characters that are not allowed
+      summary: Provided bank account number contains characters that are not allowed
+      value:
+        type: invalid_request_error
+        code: bank_account_number_invalid
+        message: 'bank_account_number : should be alphanumeric. value received: 123@'
+    same_bene_as_source_v2:
+      description: Beneficiary account is the same as the source bank account
+      summary: Beneficiary account is the same as the source bank account
+      value:
+        type: invalid_request_error
+        code: beneficiary_account_same_as_source
+        message: beneficiary_bank_account_number provided can not be same as source bank account
+    bank_account_number_too_short:
+      description: Bank account number provided is too short
+      summary: Provided bank account number is too short
+      value:
+        type: invalid_request_error
+        code: bank_account_number_length_short
+        message: 'bank_account_number : should not be less than 4 characters long. value received: 12'
+    delete_bene_success_response_v2:
+      description: Example values for Remove Beneficiary V2 success response
+      value:
+        beneficiary_id: JOHN18011343
+        beneficiary_name: John Doe
+        beneficiary_instrument_details:
+          bank_account_number: '1223334444'
+          bank_ifsc: HDFC0000001
+          vpa: test@upi
+        beneficiary_contact_details:
+          beneficiary_email: sample@cashfree.com
+          beneficiary_phone: '9876543210'
+          beneficiary_country_code: '+91'
+          beneficiary_address: 177A Bleecker Street
+          beneficiary_city: New York City
+          beneficiary_state: New York
+          beneficiary_postal_code: '560011'
+        beneficiary_status: DELETED
+        added_on: '2023-12-04T15:50:00Z'
+    APIsDisabledExampleV2:
+      summary: APIs disabled
+      description: Forbidden request. APIs are disabled
+      value:
+        type: invalid_request_error
+        code: apis_not_enabled
+        message: APIs not enabled. Please fill out the [Support Form](https://merchant.cashfree.com/merchants/landing?env=prod&raise_issue=1)
+    vba_beneiciary_not_allowed:
+      description: Adding virtual bank account as a beneficiary is not allowed for the account
+      summary: Virtual bank account is not allowed for the beneficiary
+      value:
+        type: invalid_request_error
+        code: vba_bene_not_allowed
+        message: Virtual bank account as beneficiary_bank_account_number is not allowed for the account
+    bene_exist_for_bank_account_and_ifsc:
+      description: Account number and ifsc are already registered as a beneficiary
+      summary: Account number and IFSC are already registered for a beneficiary
+      value:
+        type: invalid_request_error
+        code: beneficiary_already_exists
+        message: Beneficiary already exists with the given beneficiary_bank_account_number and beneficiary_ifsc
+    bank_ifsc_given_account_not_given_in_get_v2:
+      summary: Missing bank account number but IFSC is provided
+      description: Bank ifsc is provided but bank account number is not provided
+      value:
+        type: invalid_request_error
+        code: bank_account_number_missing
+        message: 'bank_account_number: should be provided with the request if bank_ifsc is provided'
+    create_beneficiary_request_v2:
+      description: Find the request body for creating a beneficiary with all the available information
+      summary: Create beneficiary with all the available information
+      value:
+        beneficiary_id: JOHN18011343
+        beneficiary_name: John Doe
+        beneficiary_instrument_details:
+          bank_account_number: '1223334444'
+          bank_ifsc: HDFC0000001
+          vpa: test@upi
+        beneficiary_contact_details:
+          beneficiary_email: sample@cashfree.com
+          beneficiary_phone: '9876543210'
+          beneficiary_country_code: '+91'
+          beneficiary_address: 177A Bleecker Street
+          beneficiary_city: New York City
+          beneficiary_state: New York
+          beneficiary_postal_code: '560011'
+    invalid_ifsc:
+      description: Invalid value given for IFSC
+      summary: Invalid IFSC
+      value:
+        type: invalid_request_error
+        code: bank_ifsc_invalid
+        message: 'bank_ifsc : please provide a valid IFSC. value received: SBIN00708410'
+    bank_account_given_ifsc_not_given_in_get_v2:
+      description: Bank account number is provided but ifsc is not provided
+      summary: Missing IFSC but bank account number is provided
+      value:
+        type: invalid_request_error
+        code: bank_ifsc_missing
+        message: 'bank_ifsc : should be provided with the request if bank_account_number is provided'
+  schemas:
+    CreateBeneficiaryRequest:
+      title: Create Beneficiary request body
+      description: Find the request parameters to create a beneficiary
+      type: object
+      required:
+      - beneficiary_id
+      - beneficiary_name
+      properties:
+        beneficiary_id:
+          example: JOHN18011343
+          type: string
+          maxLength: 50
+          description: It is the unique ID you create to identify the beneficiary. Alphanumeric, underscore ( _ ), pipe ( | ), and dot ( . ) are allowed.
+        beneficiary_name:
+          example: John Doe
+          type: string
+          description: It is the name of the beneficiary. The maximum character limit is 100. Only alphabets and whitespaces are allowed.
+          maxLength: 100
+        beneficiary_instrument_details:
+          type: object
+          description: Beneficiary instrument details
+          properties:
+            bank_account_number:
+              example: '00111122233'
+              type: string
+              maxLength: 25
+              minLength: 4
+              description: It is the beneficiary bank account number. The value should be between 9 and 18 characters. Alphanumeric characters are allowed. You need to input bank_ifsc if bank_account_number is passed.
+            bank_ifsc:
+              example: HDFC0000001
+              type: string
+              description: It is the IFSC information of the beneficiary's bank account in the standard IFSC format. The value should be 11 characters. (The first 4 characters should be alphabets, the 5th character should be a 0, and the remaining 6 characters should be numerals.). You need to input bank_account_number if bank_ifsc is passed.
+            vpa:
+              example: test@upi
+              type: string
+              description: It is the UPI VPA information of the beneficiary. Only valid UPI VPA information is accepted. It can be an Alphanumeric value with only period (.), hyphen (-), underscore ( _ ), and at the rate of (@). Hyphen (-) is accepted only before at the rate of (@).
+        beneficiary_contact_details:
+          type: object
+          description: It should contain the contact details of the beneficiary.
+          properties:
+            beneficiary_email:
+              example: johndoe_1@cashfree.com
+              type: string
+              maxLength: 200
+              description: It is the email address of the beneficiary. The maximum character limit is 200. It should contain dot (.) and at the rate of (@).
+            beneficiary_phone:
+              example: '9876543210'
+              type: string
+              description: It is the phone number of the beneficiary. Only reigstered Indian phone numbers are allowed. The value should be between 8 and 12 characters after stripping +91.
+            beneficiary_country_code:
+              example: '+91'
+              type: string
+              description: It is the country code (+91) of the beneficiary's phone number
+            beneficiary_address:
+              example: 177A Bleecker Street
+              type: string
+              description: It is the address information of the beneficiary.
+            beneficiary_city:
+              example: New York City
+              type: string
+              description: It is the name of the city as present in the beneficiary's address.
+            beneficiary_state:
+              example: New York
+              type: string
+              description: It is the name of the state as present in the beneficiary's address.
+            beneficiary_postal_code:
+              example: '560001'
+              type: string
+              description: It is the PIN code information as present in the beneficiary's address. The maximum character limit is 6. Only numbers are allowed.
+    ErrorV2:
+      title: Error
+      description: Error Response for non-2XX cases
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of the error received
+        code:
+          type: string
+          description: Code of the error received
+        message:
+          type: string
+          description: Detailed message explaining the response
+    Beneficiary:
+      title: Create Beneficiary success response
+      description: Contains the information of the created beneficiary
+      type: object
+      properties:
+        beneficiary_id:
+          example: JOHN18011343
+          type: string
+          description: It displays the unique Id you created to identify the beneficiary.
+        beneficiary_name:
+          example: John Doe
+          type: string
+          description: It displays the name of the beneficiary.
+        beneficiary_instrument_details:
+          type: object
+          description: It displays the payment instrument details of the beneficiary.
+          properties:
+            bank_account_number:
+              example: '00111122233'
+              type: string
+              description: It displays the bank account of the beneficiary.
+            bank_ifsc:
+              example: HDFC0000001
+              type: string
+              description: It displays the IFSC information of the beneficiary's bank account.
+            vpa:
+              example: test@upi
+              type: string
+              description: It displays the UPI VPA information of the beneficiary.
+        beneficiary_contact_details:
+          type: object
+          description: It displays the contact details of the beneficiary.
+          properties:
+            beneficiary_email:
+              example: johndoe1@cashfree.com
+              type: string
+              description: It displays the email address of the beneficiary.
+            beneficiary_phone:
+              example: '9876543210'
+              type: string
+              description: It displays the phone number of the beneficiary without the country code.
+            beneficiary_country_code:
+              example: '+91'
+              type: string
+              description: It displays the country code of the beneficiary's phone number.
+            beneficiary_address:
+              example: 177A Bleecker Street
+              type: string
+              description: It displays the address of the beneficiary.
+            beneficiary_city:
+              example: New York City
+              type: string
+              description: It displays the name of the city as present in the beneficiary's address.
+            beneficiary_state:
+              example: New York
+              type: string
+              description: It displays the name of the state as present in the beneficiary's address.
+            beneficiary_postal_code:
+              example: '560001'
+              type: string
+              description: It displays the PIN code as present in the beneficiary's address.
+        beneficiary_status:
+          example: VERIFIED
+          type: string
+          enum:
+          - VERIFIED
+          - INVALID
+          - INITIATED
+          - CANCELLED
+          - FAILED
+          - DELETED
+          description: 'It displays the current status of the beneficiary. Possible values are as follows
+
+            - `VERIFIED`: Beneficiary is verified and is available for payouts
+
+            - `INVALID`: Beneficiary is invalid
+
+            - `INITIATED`: Beneficiary verification initiated
+
+            - `CANCELLED`: Beneficiary verification cancelled
+
+            - `FAILED`: Failed to verify beneficiary
+
+            - `DELETED`: Beneficiary is deleted'
+        added_on:
+          example: '2023-11-22T12:38:22Z'
+          type: string
+          description: It displays the time of the addition of the beneficiary in UTC.
+  headers:
+    x-request-id:
+      schema:
+        type: string
+      example: some-req-id
+      description: It displays the request ID for the API request. Is blank or null if no `x-request-id` is sent during the request
+  parameters:
+    xRequestIDHeader:
+      in: header
+      name: x-request-id
+      description: It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.
+      required: false
+      schema:
+        type: string
+      example: 4dfb9780-46fe-11ee-be56-0242ac120002
+    apiVersionHeader:
+      in: header
+      name: x-api-version
+      description: It is the API version to be used. The accepted format is YYYY-MM-DD.
+      schema:
+        type: string
+        description: It is the API version to be used.
+        default: '2024-01-01'
+      example: '2024-01-01'
+  securitySchemes:
+    XClientID:
+      type: apiKey
+      in: header
+      name: x-client-id
+      description: Client app ID. You can find your app id in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+    XClientSecret:
+      type: apiKey
+      in: header
+      name: x-client-secret
+      description: Client secret key. You can find your secret in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+    XClientSignatureHeader:
+      type: apiKey
+      in: header
+      name: x-client-signature
+      description: Use this if you do not want to pass the secret key and instead want to use the signature.
+    XPartnerAPIKey:
+      type: apiKey
+      in: header
+      name: x-partner-apikey
+      description: If you are partner and you are making an api call on behalf of a merchant
+    XPartnerMerchantID:
+      type: apiKey
+      in: header
+      name: x-partner-merchantid
+      description: If you are partner use this to specify the merchant id if you don't have the merchant client app id
+externalDocs:
+  url: https://api.cashfree.com/pg
+  description: This url will have the information of all the APIs.
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true
+  samples-languages:
+  - shell

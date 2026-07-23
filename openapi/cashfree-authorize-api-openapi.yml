@@ -1,0 +1,134 @@
+openapi: 3.0.0
+info:
+  version: '2025-01-01'
+  title: Cashfree Payment Gateway APIs Authorize API
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    email: developers@cashfree.com
+    name: API Support
+    url: https://discord.com/invite/QdZkNSxXsB
+  description: Cashfree's Payment Gateway APIs provide developers with a streamlined pathway to integrate advanced payment processing capabilities into their applications, platforms and websites.
+servers:
+- url: https://sandbox.cashfree.com/pg
+  description: Sandbox server
+- url: https://api.cashfree.com/pg
+  description: Production server
+tags:
+- name: Authorize
+paths:
+  /v1/authorize:
+    post:
+      summary: Authorize
+      description: Use this API to authenticate with the Cashfree system and obtain the authorization bearer token. All other API calls must have this token as Authorization header in the format 'Bearer &lt;token&gt;' (without quotes) for them to get processed. The generated token is valid for 6 minutes.
+      x-mcp:
+        enabled: true
+      operationId: authorize-2
+      security:
+      - XClientID: []
+        XClientSecret: []
+      parameters:
+      - $ref: '#/components/parameters/apiVersionHeader'
+      - $ref: '#/components/parameters/xRequestIDHeader'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_10'
+        '401':
+          description: '401'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_401'
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: "curl -X POST \\\n  'http://{{Host%20Url}}/payout/v1/authorize' \\\n  -H 'X-Client-Id: {{client id}}' \\\n  -H 'X-Client-Secret: {{client secret}}' \\"
+        samples-languages:
+        - curl
+      tags:
+      - Authorize
+components:
+  parameters:
+    xRequestIDHeader:
+      in: header
+      name: x-request-id
+      description: It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.
+      required: false
+      schema:
+        type: string
+      example: 4dfb9780-46fe-11ee-be56-0242ac120002
+    apiVersionHeader:
+      in: header
+      name: x-api-version
+      description: It is the API version to be used. The accepted format is YYYY-MM-DD.
+      schema:
+        type: string
+        description: It is the API version to be used.
+        default: '2024-01-01'
+      example: '2024-01-01'
+  schemas:
+    inline_response_200_10:
+      type: object
+      properties:
+        status:
+          type: string
+          example: SUCCESS
+        subCode:
+          type: string
+          example: '200'
+        message:
+          type: string
+          example: Token is valid
+    inline_response_401:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ERROR
+        subCode:
+          type: string
+          example: '401'
+        message:
+          type: string
+          example: Invalid clientId and clientSecret combination
+  securitySchemes:
+    XClientID:
+      type: apiKey
+      in: header
+      name: x-client-id
+      description: Client app ID. You can find your app id in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+    XClientSecret:
+      type: apiKey
+      in: header
+      name: x-client-secret
+      description: Client secret key. You can find your secret in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+    XClientSignatureHeader:
+      type: apiKey
+      in: header
+      name: x-client-signature
+      description: Use this if you do not want to pass the secret key and instead want to use the signature.
+    XPartnerAPIKey:
+      type: apiKey
+      in: header
+      name: x-partner-apikey
+      description: If you are partner and you are making an api call on behalf of a merchant
+    XPartnerMerchantID:
+      type: apiKey
+      in: header
+      name: x-partner-merchantid
+      description: If you are partner use this to specify the merchant id if you don't have the merchant client app id
+externalDocs:
+  url: https://api.cashfree.com/pg
+  description: This url will have the information of all the APIs.
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true
+  samples-languages:
+  - shell

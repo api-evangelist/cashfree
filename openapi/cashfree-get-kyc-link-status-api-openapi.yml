@@ -1,0 +1,321 @@
+openapi: 3.0.0
+info:
+  version: '2025-01-01'
+  title: Cashfree Payment Gateway APIs Authorize Get KYC Link Status API
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    email: developers@cashfree.com
+    name: API Support
+    url: https://discord.com/invite/QdZkNSxXsB
+  description: Cashfree's Payment Gateway APIs provide developers with a streamlined pathway to integrate advanced payment processing capabilities into their applications, platforms and websites.
+servers:
+- url: https://sandbox.cashfree.com/pg
+  description: Sandbox server
+- url: https://api.cashfree.com/pg
+  description: Production server
+tags:
+- name: Get KYC Link Status
+paths:
+  /form:
+    get:
+      tags:
+      - Get KYC Link Status
+      operationId: VrsGetKYCLinkStatus
+      security:
+      - XClientID: []
+        XClientSecret: []
+      summary: Get KYC Link Status
+      x-mcp:
+        enabled: true
+      description: Use this API to get the status of the verification form. You need to input either the verification_id or reference_id to get the KYC Link status.
+      parameters:
+      - $ref: '#/components/parameters/x_cf_signature'
+      - name: verificationID
+        description: It is the unique ID you created to identify the KYC link.
+        in: query
+        required: false
+        schema:
+          type: string
+          example: ABC00123
+          default: ABC00123
+      - name: referenceID
+        description: It is the unique ID you receive in the response of Generate KYC Link API.
+        in: query
+        required: false
+        schema:
+          type: string
+          example: '235461'
+          default: '235461'
+      responses:
+        '200':
+          $ref: '#/components/responses/getFormStatusResponse'
+        '400':
+          $ref: '#/components/responses/400GetFormStatus'
+        '401':
+          $ref: '#/components/responses/Response401'
+        '403':
+          $ref: '#/components/responses/Response403'
+        '404':
+          $ref: '#/components/responses/Response404GetFormStatus'
+        '429':
+          $ref: '#/components/responses/Response429'
+        '500':
+          $ref: '#/components/responses/Response500'
+components:
+  schemas:
+    bavFormStatusResponseSchema:
+      description: Bank Details Validation Product Status
+      type: object
+      properties:
+        reference_id:
+          type: integer
+          example: 236
+        type:
+          type: string
+          example: BANKDETAILS_VALIDATION
+        status:
+          type: string
+          example: FAILED
+    getFormStatusResponseSchema:
+      description: Find the success response for Get Form Status
+      type: object
+      properties:
+        name:
+          type: string
+          description: It displays the name of the individual.
+          example: John Doe
+        phone:
+          type: string
+          description: It displays the phone number of the individual.
+          example: 9999999999
+        email:
+          type: string
+          description: It displays the email address of the individual.
+          example: test@cashfree.com
+        verification_id:
+          type: string
+          description: It displays the unique ID you created to identify the form.
+          example: testverificationid
+        reference_id:
+          type: integer
+          description: It displays the unique ID created by Cashfree Payments for reference purposes.
+          example: 235461
+        link_expiry:
+          type: string
+          description: It displays the expiry date of the link.
+          example: '2025-12-02'
+        form_link:
+          type: string
+          description: It displays the URL of the form.
+          example: https://forms.cashfree.com/
+        form_status:
+          type: string
+          description: It displays the status of the form.
+          example: PENDING
+        verification_details:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/aadhaarFormStatusResponseSchema'
+            - $ref: '#/components/schemas/panFormStatusResponseSchema'
+            - $ref: '#/components/schemas/bavFormStatusResponseSchema'
+            - $ref: '#/components/schemas/upiFormStatusResponseSchema'
+    aadhaarFormStatusResponseSchema:
+      description: It displays the status of aadhaar verification
+      type: object
+      properties:
+        reference_id:
+          type: integer
+          description: It displays the unique ID created by Cashfree Payments for reference purposes.
+          example: 234
+        type:
+          type: string
+          description: It displays the verification type.
+          example: OFFLINE_AADHAAR_VERIFICATION
+        status:
+          type: string
+          description: It displays the verification status.
+          example: SUCCESS
+    panFormStatusResponseSchema:
+      description: PAN Verification Product Status
+      type: object
+      properties:
+        reference_id:
+          type: integer
+          example: 0
+        type:
+          type: string
+          example: PANDETAILS_VERIFICATION
+        status:
+          type: string
+          example: PENDING
+    upiFormStatusResponseSchema:
+      description: Upi Verification Product Status
+      type: object
+      properties:
+        reference_id:
+          type: integer
+          example: 237
+        type:
+          type: string
+          example: UPIDETAILS_VALIDATION
+        status:
+          type: string
+          example: FAILED
+    ErrorResponseSchema:
+      description: Response in case of error.
+      type: object
+      properties:
+        code:
+          type: string
+          example: x-client-id_missing
+        error:
+          type: object
+          example:
+            ref_id: 102
+        message:
+          type: string
+          example: x-client-id is missing in the request.
+          description: It displays the outcome of the error.
+        type:
+          type: string
+          example: validation_error
+          description: It displays the type of error.
+  responses:
+    Response500:
+      description: Internal error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Internal Server Error:
+              value:
+                type: internal_error
+                code: request_failed
+                message: Unable to process your request. Try again after some time
+    Response429:
+      description: Rate limit exceed error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Rate limit error per operation:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_operation
+                message: Too many requests for this operation, rate limit reached
+            Rate limit error per IP:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_ip
+                message: Too many requests from the IP, rate limit reached
+    Response401:
+      description: Invalid client ID and client secret combination
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Invalid client ID and client secret combination:
+              value:
+                type: authentication_error
+                code: authentication_failed
+                message: Invalid clientId and clientSecret combination
+    Response403:
+      description: Authentication error (IP not whitelisted)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            IP not whitelisted:
+              value:
+                type: authentication_error
+                code: ip_validation_failed
+                message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
+    getFormStatusResponse:
+      description: Response Body of VRS GetFormStatus API
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/getFormStatusResponseSchema'
+    400GetFormStatus:
+      description: Get Form Status responses for 400
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Reference ID or Verification ID Missing:
+              value:
+                type: validation_error
+                code: invalid_request
+                message: Provide verificationID or referenceID
+            Client ID in Missing:
+              value:
+                type: validation_error
+                code: x-client-id_missing
+                message: x-client-id is missing in the request.
+            Client Secret in Missing:
+              value:
+                type: validation_error
+                code: x-client-secret_missing
+                message: x-client-secret is missing in the request.
+    Response404GetFormStatus:
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          example:
+            type: not_found_error
+            code: Resource not found
+            message: No data found
+  parameters:
+    x_cf_signature:
+      description: Send the signature if IP is not whitelisted
+      name: x-cf-signature
+      in: header
+      required: false
+      schema:
+        type: string
+      example: ''
+  securitySchemes:
+    XClientID:
+      type: apiKey
+      in: header
+      name: x-client-id
+      description: Client app ID. You can find your app id in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+    XClientSecret:
+      type: apiKey
+      in: header
+      name: x-client-secret
+      description: Client secret key. You can find your secret in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+    XClientSignatureHeader:
+      type: apiKey
+      in: header
+      name: x-client-signature
+      description: Use this if you do not want to pass the secret key and instead want to use the signature.
+    XPartnerAPIKey:
+      type: apiKey
+      in: header
+      name: x-partner-apikey
+      description: If you are partner and you are making an api call on behalf of a merchant
+    XPartnerMerchantID:
+      type: apiKey
+      in: header
+      name: x-partner-merchantid
+      description: If you are partner use this to specify the merchant id if you don't have the merchant client app id
+externalDocs:
+  url: https://api.cashfree.com/pg
+  description: This url will have the information of all the APIs.
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true
+  samples-languages:
+  - shell

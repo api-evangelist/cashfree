@@ -1,0 +1,259 @@
+openapi: 3.0.0
+info:
+  version: '2025-01-01'
+  title: Cashfree Payment Gateway APIs Authorize Deactivate Static KYC Link API
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    email: developers@cashfree.com
+    name: API Support
+    url: https://discord.com/invite/QdZkNSxXsB
+  description: Cashfree's Payment Gateway APIs provide developers with a streamlined pathway to integrate advanced payment processing capabilities into their applications, platforms and websites.
+servers:
+- url: https://sandbox.cashfree.com/pg
+  description: Sandbox server
+- url: https://api.cashfree.com/pg
+  description: Production server
+tags:
+- name: Deactivate Static KYC Link
+paths:
+  /form/static-link:
+    delete:
+      operationId: VrsDeactivateStaticKYCLink
+      security:
+      - XClientID: []
+        XClientSecret: []
+      tags:
+      - Deactivate Static KYC Link
+      summary: Deactivate Static KYC Link
+      x-mcp:
+        enabled: true
+      description: Use this API to deactivate a static KYC Link.
+      parameters:
+      - $ref: '#/components/parameters/x_cf_signature'
+      - name: template_name
+        in: query
+        description: It is name of the template using which static KYC link was generated.
+        example: Aadhaar_verification
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/DeactivateStaticKYCLinkResponse'
+        '400':
+          $ref: '#/components/responses/Response400DeactivateStaticKYCLink'
+        '401':
+          $ref: '#/components/responses/Response401'
+        '403':
+          $ref: '#/components/responses/Response403'
+        '404':
+          $ref: '#/components/responses/Response404StaticKYCLink'
+        '422':
+          $ref: '#/components/responses/Response422'
+        '429':
+          $ref: '#/components/responses/Response429'
+        '500':
+          $ref: '#/components/responses/Response500'
+components:
+  responses:
+    DeactivateStaticKYCLinkResponse:
+      description: Response Body for Generate Static KYC Link API
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DeactivateStaticKYCLinkResponseSchema'
+          examples:
+            Success:
+              value:
+                message: Successfully Deactivated
+                template_name: Aadhaar_verification
+                static_link: https://verification.cashfree.com/forms?shortCode=m2bjk9uakkcg
+                status: INACTIVE
+    Response500:
+      description: Internal error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Internal Server Error:
+              value:
+                type: internal_error
+                code: request_failed
+                message: Unable to process your request. Try again after some time
+    Response429:
+      description: Rate limit exceed error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Rate limit error per operation:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_operation
+                message: Too many requests for this operation, rate limit reached
+            Rate limit error per IP:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_ip
+                message: Too many requests from the IP, rate limit reached
+    Response401:
+      description: Invalid client ID and client secret combination
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Invalid client ID and client secret combination:
+              value:
+                type: authentication_error
+                code: authentication_failed
+                message: Invalid clientId and clientSecret combination
+    Response400DeactivateStaticKYCLink:
+      description: Validation error in deactivate Static KYC Link
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Template Name Missing:
+              value:
+                type: validation_error
+                code: template_name_missing
+                message: template_name is missing in the request.
+            Template Name Invalid:
+              value:
+                type: validation_error
+                code: template_name_value_invalid
+                message: template_name should only contains alphanumeric, dot, underscore and hyphen.
+            No Static Link Linked To Template:
+              value:
+                type: validation_error
+                code: static_link_not_linked
+                message: no active static link linked to provided template.
+    Response403:
+      description: Authentication error (IP not whitelisted)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            IP not whitelisted:
+              value:
+                type: authentication_error
+                code: ip_validation_failed
+                message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
+    Response404StaticKYCLink:
+      description: Not found errors in Static KYC Link
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Template Name not Found:
+              value:
+                type: validation_error
+                code: template_name_not_found
+                message: template_name does not exist
+    Response422:
+      description: Validation error because of insufficient balance to process this request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Insufficient balance:
+              value:
+                type: validation_error
+                code: insufficient_balance
+                message: Insufficient balance to process this request
+  schemas:
+    DeactivateStaticKYCLinkResponseSchema:
+      description: Find the success response of Deactivate Static KYC Link
+      type: object
+      properties:
+        message:
+          type: string
+          description: It displays whether template name is deactivated.
+          example: Successfully Deactivated
+        static_link:
+          type: string
+          description: It displays the URL of the static KYC Link.
+          example: https://forms.cashfree.com/verification/global-link/Y7tpcan5ksm0
+        template_name:
+          type: string
+          description: It is the name of the template you selected for creating static link.
+          example: Aadhaar_verification
+        status:
+          type: string
+          description: 'It displays the status of the deactivated static link.
+
+            Possible values are:
+
+            - `INACTIVE`'
+          example: INACTIVE
+    ErrorResponseSchema:
+      description: Response in case of error.
+      type: object
+      properties:
+        code:
+          type: string
+          example: x-client-id_missing
+        error:
+          type: object
+          example:
+            ref_id: 102
+        message:
+          type: string
+          example: x-client-id is missing in the request.
+          description: It displays the outcome of the error.
+        type:
+          type: string
+          example: validation_error
+          description: It displays the type of error.
+  parameters:
+    x_cf_signature:
+      description: Send the signature if IP is not whitelisted
+      name: x-cf-signature
+      in: header
+      required: false
+      schema:
+        type: string
+      example: ''
+  securitySchemes:
+    XClientID:
+      type: apiKey
+      in: header
+      name: x-client-id
+      description: Client app ID. You can find your app id in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+    XClientSecret:
+      type: apiKey
+      in: header
+      name: x-client-secret
+      description: Client secret key. You can find your secret in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+    XClientSignatureHeader:
+      type: apiKey
+      in: header
+      name: x-client-signature
+      description: Use this if you do not want to pass the secret key and instead want to use the signature.
+    XPartnerAPIKey:
+      type: apiKey
+      in: header
+      name: x-partner-apikey
+      description: If you are partner and you are making an api call on behalf of a merchant
+    XPartnerMerchantID:
+      type: apiKey
+      in: header
+      name: x-partner-merchantid
+      description: If you are partner use this to specify the merchant id if you don't have the merchant client app id
+externalDocs:
+  url: https://api.cashfree.com/pg
+  description: This url will have the information of all the APIs.
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true
+  samples-languages:
+  - shell

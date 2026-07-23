@@ -1,0 +1,411 @@
+openapi: 3.0.0
+info:
+  version: '2025-01-01'
+  title: Cashfree Payment Gateway APIs Authorize Easy-Split API
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    email: developers@cashfree.com
+    name: API Support
+    url: https://discord.com/invite/QdZkNSxXsB
+  description: Cashfree's Payment Gateway APIs provide developers with a streamlined pathway to integrate advanced payment processing capabilities into their applications, platforms and websites.
+servers:
+- url: https://sandbox.cashfree.com/pg
+  description: Sandbox server
+- url: https://api.cashfree.com/pg
+  description: Production server
+tags:
+- name: Easy-Split
+  description: Collection of APIs to handle Easy-Split.
+paths:
+  /split/order/vendor/recon:
+    post:
+      summary: Get Split and Settlement Details by OrderID v2.0
+      x-mcp:
+        enabled: true
+      tags:
+      - Easy-Split
+      operationId: PGESOrderRecon
+      deprecated: false
+      description: Use this API to get all the split details, settled and unsettled transactions details of each vendor who were part of a particular order by providing order Id or start date and end date.
+      security:
+      - XClientID: []
+        XClientSecret: []
+      - XClientID: []
+        XPartnerAPIKey: []
+      - XClientID: []
+        XClientSignatureHeader: []
+      - XPartnerMerchantID: []
+        XPartnerAPIKey: []
+      requestBody:
+        $ref: '#/components/requestBodies/ESOrderReconRequestBody'
+      parameters:
+      - $ref: '#/components/parameters/apiVersionHeader'
+      - $ref: '#/components/parameters/xRequestIDHeader'
+      - $ref: '#/components/parameters/xIdempotencyKeyHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/ESOrderReconSuccessResponse'
+        '400':
+          $ref: '#/components/responses/Response400ESOrderRecon'
+        '404':
+          $ref: '#/components/responses/Response404ESOrderRecon'
+        '409':
+          $ref: '#/components/responses/Response409ESOrderRecon'
+components:
+  schemas:
+    BadRequestError:
+      title: BadRequestError
+      description: Invalid request received from client
+      example:
+        message: bad URL, please check API documentation
+        code: request_failed
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+    ESOrderReconResponse:
+      title: ESOrderReconResponse
+      description: ES Order Recon Response
+      type: object
+      properties:
+        cursor:
+          type: string
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              amount:
+                type: number
+                format: float64
+              settlement_eligibility_time:
+                type: string
+              status:
+                type: string
+              merchant_order_id:
+                type: string
+              tx_time:
+                type: string
+              settled:
+                type: string
+              entity_id:
+                type: string
+              merchant_settlement_utr:
+                type: string
+              currency:
+                type: string
+              sale_type:
+                type: string
+              customer_name:
+                type: string
+              customer_email:
+                type: string
+              customer_phone:
+                type: string
+              merchant_vendor_commission:
+                type: string
+              split_service_charge:
+                type: string
+              split_service_tax:
+                type: string
+              pg_service_tax:
+                type: string
+              pg_service_charge:
+                type: string
+              pg_charge_postpaid:
+                type: string
+              merchant_settlement_id:
+                type: string
+              added_on:
+                type: string
+              tags:
+                type: string
+              entity_type:
+                type: string
+              settlement_initiated_on:
+                type: string
+              settlement_time:
+                type: string
+              order_splits:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    split:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          merchant_vendor_id:
+                            type: string
+                          percentage:
+                            type: number
+                            format: float64
+                          tags:
+                            type: object
+                    created_at:
+                      type: string
+              eligible_split_balance:
+                type: string
+        limit:
+          type: integer
+    ESOrderReconRequest:
+      title: ESOrderReconRequest
+      description: ES Order Recon Request
+      type: object
+      properties:
+        filters:
+          type: object
+          description: Provide the filter object details.
+          properties:
+            start_date:
+              type: string
+              description: Specify the start data from which you want to get the recon data.
+            end_date:
+              type: string
+              description: Specify the end data till which you want to get the recon data.
+            order_ids:
+              type: array
+              description: Please provide list of order ids for which you want to get the recon data.
+              items:
+                type: string
+        pagination:
+          type: object
+          description: Set limit based on your requirement. Pagination limit will fetch a set of orders, next set of orders can be generated using the cursor shared in previous response of the same API.
+          properties:
+            cursor:
+              type: string
+            limit:
+              type: integer
+              description: Set the minimum/maximum limit for number of filtered data. Min value - 10, Max value - 100.
+      required:
+      - filters
+      - pagination
+  parameters:
+    apiVersionHeader:
+      in: header
+      name: x-api-version
+      description: API version to be used. Format is in YYYY-MM-DD
+      schema:
+        type: string
+        description: API version to be used
+        default: '2025-01-01'
+      example: '2025-01-01'
+      x-ignore: true
+    xRequestIDHeader:
+      in: header
+      name: x-request-id
+      description: Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.
+      required: false
+      schema:
+        type: string
+      example: 4dfb9780-46fe-11ee-be56-0242ac120002
+    xIdempotencyKeyHeader:
+      in: header
+      name: x-idempotency-key
+      required: false
+      description: 'An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.
+
+        '
+      schema:
+        type: string
+        format: UUID
+      example: 47bf8872-46fe-11ee-be56-0242ac120002
+  responses:
+    Response409ESOrderRecon:
+      description: ES Order Recon Failure Response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestError'
+          examples:
+            Settlement already initiated to merchant:
+              value:
+                message: Transaction already processed, not eligible for split
+                code: api_request_failed
+                type: invalid_request_error
+    Response400ESOrderRecon:
+      description: ES Order Recon Failure Response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestError'
+          examples:
+            Filter not present:
+              value:
+                message: At least one of the filters needs to be present orderIds or Date
+                code: request_failed
+                type: invalid_request_error
+    ESOrderReconSuccessResponse:
+      description: ES Order Recon Success Response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ESOrderReconResponse'
+          examples:
+            PG:
+              value:
+                cursor: null
+                data:
+                - amount: 900000
+                  settlement_eligibility_time: '2024-01-08 11:30:00'
+                  merchant_order_id: order_1527072afd7Hlp4lpVLiz7dj0P0i84r1X
+                  tx_time: '2024-01-08 17:00:00'
+                  settled: 'NO'
+                  entity_id: '14910180251'
+                  merchant_settlement_utr: N/A
+                  currency: INR
+                  sale_type: CREDIT
+                  customer_name: Manideep
+                  customer_email: manideep.ellur@cashfree.com
+                  customer_phone: '8281554863'
+                  merchant_vendor_commission: '810000.00'
+                  split_service_charge: '900.00'
+                  split_service_tax: '162.00'
+                  pg_service_tax: '4698.90'
+                  pg_service_charge: '26105.00'
+                  pg_charge_postpaid: '1'
+                  merchant_settlement_id: N/A
+                  added_on: '2024-01-08 17:00:00'
+                  tags: tags
+                  entity_type: transaction
+                  settlement_initiated_on: N/A
+                  settlement_time: N/A
+                  order_splits:
+                  - split:
+                    - merchant_vendor_id: vendor20Lakh
+                      percentage: 90
+                      tags: null
+                    created_at: '2024-01-08 17:00:01'
+                  eligible_split_balance: '0.00'
+                - amount: 810000
+                  merchant_order_id: order_1527072afd7Hlp4lpVLiz7dj0P0i84r1X
+                  tx_time: '2024-01-08 17:00:00'
+                  settled: 'YES'
+                  entity_id: '305293'
+                  merchant_vendor_id: vendor20Lakh
+                  currency: INR
+                  sale_type: CREDIT
+                  customer_name: Manideep
+                  customer_email: manideep.ellur@cashfree.com
+                  customer_phone: '8281554863'
+                  added_on: '2024-01-08 17:00:01'
+                  entity_type: vendor_commission
+                  past_settlements:
+                  - settlement_id: 54878
+                    settlement_initiated_on: '2024-01-08 17:14:38'
+                    status: SUCCESS
+                  vendor_split_service_charges: '0.00'
+                  vendor_split_service_tax: '0.00'
+                  vendor_settlement_time: '2024-01-08 17:14:39'
+                  vendor_settlement_initiated_on: '2024-01-08 17:14:38'
+                  vendor_settlement_eligibility_time: '2024-01-08 16:50:00'
+                  vendor_settlement_id: '54878'
+                  vendor_settlement_utr: '1704714278653975'
+                  vendor_commission: '810000.00'
+                  vendor_pg_service_charge: '0.00'
+                  vendor_pg_service_tax: '0.00'
+                  status: N/A
+                limit: 2
+            Auto Collect:
+              value:
+                message: Order settlement details
+                status: OK
+                orderAmount: 500
+                orderSplit:
+                - vendorId: vendorId1
+                  amount: 123
+                - vendorId: vendorId2
+                  percentage: 20
+                - vendorId: vendorId3
+                  amount: 150
+                serviceCharge: 5
+                serviceTax: 0.9
+                splitServiceCharge: 7.5
+                splitServiceTax: 1.35
+                settlementAmount: 112.25
+                settlementEligiblityDate: '2022-10-14 15:00:00'
+                vendors:
+                - id: vendorId1
+                  settlementId: 81
+                  settlementAmount: 123
+                  settlementEligibilityDate: '2022-10-14 15:00:00'
+                - id: vendorId2
+                  settlementId: 82
+                  settlementAmount: 100
+                  settlementEligibilityDate: '2022-10-14 15:00:00'
+                - id: vendorId3
+                  settlementId: 84
+                  settlementAmount: 150
+                  settlementEligibilityDate: '2022-10-14 15:00:00'
+    Response404ESOrderRecon:
+      description: ES Order Recon Failure Response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestError'
+          examples:
+            Order not found:
+              value:
+                message: Order not found
+                code: order_not_found
+                type: invalid_request_error
+  requestBodies:
+    ESOrderReconRequestBody:
+      description: Get Split and Settlement Details by OrderID v2.0
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ESOrderReconRequest'
+          example:
+            filters:
+              start_date: null
+              end_date: null
+              order_ids:
+              - order_1527072afd7Hlp4lpVLiz7dj0P0i84r1X
+  securitySchemes:
+    XClientID:
+      type: apiKey
+      in: header
+      name: x-client-id
+      description: Client app ID. You can find your app id in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+    XClientSecret:
+      type: apiKey
+      in: header
+      name: x-client-secret
+      description: Client secret key. You can find your secret in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+    XClientSignatureHeader:
+      type: apiKey
+      in: header
+      name: x-client-signature
+      description: Use this if you do not want to pass the secret key and instead want to use the signature.
+    XPartnerAPIKey:
+      type: apiKey
+      in: header
+      name: x-partner-apikey
+      description: If you are partner and you are making an api call on behalf of a merchant
+    XPartnerMerchantID:
+      type: apiKey
+      in: header
+      name: x-partner-merchantid
+      description: If you are partner use this to specify the merchant id if you don't have the merchant client app id
+externalDocs:
+  url: https://api.cashfree.com/pg
+  description: This url will have the information of all the APIs.
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true
+  samples-languages:
+  - shell

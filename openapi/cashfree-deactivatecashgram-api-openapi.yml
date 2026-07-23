@@ -1,0 +1,164 @@
+openapi: 3.0.0
+info:
+  version: '2025-01-01'
+  title: Cashfree Payment Gateway APIs Authorize DeactivateCashgram API
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    email: developers@cashfree.com
+    name: API Support
+    url: https://discord.com/invite/QdZkNSxXsB
+  description: Cashfree's Payment Gateway APIs provide developers with a streamlined pathway to integrate advanced payment processing capabilities into their applications, platforms and websites.
+servers:
+- url: https://sandbox.cashfree.com/pg
+  description: Sandbox server
+- url: https://api.cashfree.com/pg
+  description: Production server
+tags:
+- name: DeactivateCashgram
+paths:
+  /v1/deactivateCashgram:
+    post:
+      summary: Deactivate Cashgram
+      x-mcp:
+        enabled: true
+        config:
+          elicitation:
+            $ref: '#/components/x-elicitationConfig/deactivateCashgram'
+      description: ''
+      operationId: deactivate-cashgram1
+      parameters:
+      - name: Authorization
+        in: header
+        description: Bearer auth token
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v1_deactivateCashgram_body'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_9'
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404_4'
+      deprecated: false
+      security: []
+      x-readme:
+        code-samples:
+        - language: curl
+          code: "curl -X GET \\\n  'http://{{Host%20Url}}/payout/v1/deactivateCashgram?cashgramId=JOHaN10' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: Bearer {{Token}}'"
+        - language: text
+          code: "const cfSdk = require('cashfree-sdk');\nconst {Cashgram} = cfSdk.Payouts;\nconst response = await Cashgram.DeactivateCashgram({\n            cashgramId: \"JOHaN10\"\n        });"
+          name: Node
+        - language: java
+          code: "import com.cashfree.lib.clients.Payouts;\nimport com.cashfree.lib.clients.Cashgram;\nimport com.cashfree.lib.domains.CashgramDetails\nPayouts payouts = Payouts.getInstance {\n    Environment.PRODUCTION, \"<client_id>\", \"<client_secret>\");\npayouts.init();\nCashgram cashgram = new Cashgram(payouts);\ncashgram.deactivateCashgram(\"JOHaN10\");\n}"
+        - language: python
+          code: 'from cashfree_sdk.payouts import Payouts
+
+            from cashfree_sdk.payouts.cashgram import Cashgram
+
+            status = Cashgram.deactivate_cashgram(cashgramId="JOHaN10")'
+        samples-languages:
+        - curl
+        - text
+        - java
+        - python
+      tags:
+      - DeactivateCashgram
+components:
+  schemas:
+    inline_response_200_9:
+      type: object
+      properties:
+        status:
+          type: string
+          example: SUCCESS
+        subCode:
+          type: string
+          example: '200'
+        message:
+          type: string
+          example: Cashgram with id - JOHaN10 successfully deactivated!
+    inline_response_404_4:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ERROR
+        subCode:
+          type: string
+          example: '404'
+        message:
+          type: string
+          example: Cashgram with id JOHaN10 does not exists
+    v1_deactivateCashgram_body:
+      required:
+      - cashgramId
+      type: object
+      properties:
+        cashgramId:
+          type: string
+          description: ID of the Cashgram to be deactivated. Alphanumeric and underscore (_) allowed (35 character limit)
+  x-elicitationConfig:
+    deactivateCashgram:
+      enabled: true
+      fields:
+        cashgram_id:
+          required: true
+          message: Please provide the Cashgram ID to be deactivated
+          schema:
+            type: string
+            title: Cashgram ID
+            description: The unique identifier of the Cashgram to be deactivated
+          mapping:
+            target: path.cashgram_id
+            transform: string
+  securitySchemes:
+    XClientID:
+      type: apiKey
+      in: header
+      name: x-client-id
+      description: Client app ID. You can find your app id in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+    XClientSecret:
+      type: apiKey
+      in: header
+      name: x-client-secret
+      description: Client secret key. You can find your secret in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+    XClientSignatureHeader:
+      type: apiKey
+      in: header
+      name: x-client-signature
+      description: Use this if you do not want to pass the secret key and instead want to use the signature.
+    XPartnerAPIKey:
+      type: apiKey
+      in: header
+      name: x-partner-apikey
+      description: If you are partner and you are making an api call on behalf of a merchant
+    XPartnerMerchantID:
+      type: apiKey
+      in: header
+      name: x-partner-merchantid
+      description: If you are partner use this to specify the merchant id if you don't have the merchant client app id
+externalDocs:
+  url: https://api.cashfree.com/pg
+  description: This url will have the information of all the APIs.
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true
+  samples-languages:
+  - shell
