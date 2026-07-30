@@ -1,7 +1,20 @@
 aid: cashfree
 name: Cashfree Payments
 description: Cashfree Payments is an Indian payment gateway and banking platform providing REST APIs for payment links, subscriptions, payouts, refunds, QR codes, and banking payouts across UPI, credit and debit cards, net banking, and international payment methods. It serves over one million businesses with RBI authorisation as a Payment Aggregator and Prepaid Payment Instrument provider.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/cashfree.png
 url: https://raw.githubusercontent.com/api-evangelist/cashfree/refs/heads/main/apis.yml
 created: "2026-06-13"
 modified: "2026-06-13"
@@ -18,103 +31,385 @@ tags:
   - Net Banking
   - Identity Verification
 apis:
-  - aid: cashfree:payments
-    name: Cashfree Payment Gateway API
-    description: REST API for creating and managing payment orders, processing transactions across UPI, cards, net banking, wallets, and international payment methods, and handling refunds, settlements, and disputes.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.cashfree.com/docs/api-reference/overview
-    baseURL: https://api.cashfree.com
-    tags:
-      - Payments
-      - Orders
-      - Refunds
-      - Settlements
-      - UPI
-      - Cards
-      - Net Banking
-    properties:
-      - type: Documentation
-        url: https://www.cashfree.com/docs/api-reference/overview
-      - type: Authentication
-        url: https://www.cashfree.com/docs
-      - type: OpenAPI
-        url: openapi/openapi-payment-gateway.json
-    contact:
-      - FN: Cashfree Payments Developer Support
-        url: https://www.cashfree.com/support/
-  - aid: cashfree:payouts
-    name: Cashfree Payouts API
-    description: REST API for automating fund transfers to beneficiaries — vendors, employees, refund recipients, loan disbursements, and insurance claims. Supports batch payouts, beneficiary management, and connected banking.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.cashfree.com/docs
-    baseURL: https://payout-api.cashfree.com
-    tags:
-      - Payouts
-      - Transfers
-      - Beneficiaries
-      - Batch Payouts
-    properties:
-      - type: Documentation
-        url: https://www.cashfree.com/docs
-      - type: OpenAPI
-        url: openapi/openapi-payouts.json
-    contact:
-      - FN: Cashfree Payments Developer Support
-        url: https://www.cashfree.com/support/
-  - aid: cashfree:subscriptions
-    name: Cashfree Subscriptions API
-    description: API for creating and managing recurring payment mandates using UPI AutoPay and eNACH, including subscription plans, customer mandates, and automated billing cycles.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.cashfree.com/docs
-    baseURL: https://api.cashfree.com
-    tags:
-      - Subscriptions
-      - Recurring Payments
-      - UPI AutoPay
-      - eNACH
-    properties:
-      - type: Documentation
-        url: https://www.cashfree.com/docs
-    contact:
-      - FN: Cashfree Payments Developer Support
-        url: https://www.cashfree.com/support/
-  - aid: cashfree:secure-id
-    name: Cashfree Secure ID (Verification) API
-    description: Identity verification and KYC API supporting PAN, Aadhaar, bank account, GST, passport, driving licence verification, face match, and video KYC for onboarding and compliance workflows.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.cashfree.com/docs
-    baseURL: https://api.cashfree.com
-    tags:
-      - Identity Verification
-      - KYC
-      - Aadhaar
-      - PAN
-      - Bank Account Verification
-    properties:
-      - type: Documentation
-        url: https://www.cashfree.com/docs
-      - type: OpenAPI
-        url: openapi/openapi-verification.json
-    contact:
-      - FN: Cashfree Payments Developer Support
-        url: https://www.cashfree.com/support/
-  - aid: cashfree:platforms
-    name: Cashfree Platforms API
-    description: API for marketplace and SaaS platform operators to onboard sub-merchants, split payments, manage settlements to multiple vendors, and operate escrow arrangements.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.cashfree.com/docs
-    baseURL: https://api.cashfree.com
-    tags:
-      - Marketplaces
-      - Split Payments
-      - Merchant Onboarding
-      - Escrow
-    properties:
-      - type: Documentation
-        url: https://www.cashfree.com/docs
-    contact:
-      - FN: Cashfree Payments Developer Support
-        url: https://www.cashfree.com/support/
+- aid: cashfree:subscriptions
+  name: Cashfree Subscriptions API
+  description: >-
+    API for creating and managing recurring payment mandates using UPI AutoPay and eNACH, including subscription
+    plans, customer mandates, and automated billing cycles.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.cashfree.com/docs
+  baseURL: https://api.cashfree.com
+  tags:
+  - Subscriptions
+  - Recurring Payments
+  - UPI AutoPay
+  - eNACH
+  properties:
+  - type: Documentation
+    url: https://www.cashfree.com/docs
+  contact:
+  - FN: Cashfree Payments Developer Support
+    url: https://www.cashfree.com/support/
+- aid: cashfree:platforms
+  name: Cashfree Platforms API
+  description: >-
+    API for marketplace and SaaS platform operators to onboard sub-merchants, split payments, manage settlements
+    to multiple vendors, and operate escrow arrangements.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.cashfree.com/docs
+  baseURL: https://api.cashfree.com
+  tags:
+  - Marketplaces
+  - Split Payments
+  - Merchant Onboarding
+  - Escrow
+  properties:
+  - type: Documentation
+    url: https://www.cashfree.com/docs
+  contact:
+  - FN: Cashfree Payments Developer Support
+    url: https://www.cashfree.com/support/
+- aid: cashfree:cashfree-authorize-api
+  name: Cashfree Payments Authorize API
+  description: The Authorize API from Cashfree Payments — 1 operation(s) for authorize.
+  humanURL: https://www.cashfree.com/docs/api-reference/overview
+  baseURL: https://api.cashfree.com
+  tags:
+  - Authorize
+  properties:
+  - type: OpenAPI
+    url: openapi/cashfree-authorize-api-openapi.yml
+  - type: Documentation
+    url: https://www.cashfree.com/docs/api-reference/overview
+  - type: Authentication
+    url: https://www.cashfree.com/docs
+  - type: Documentation
+    url: https://www.cashfree.com/docs
+- aid: cashfree:cashfree-beneficiary-v2-api
+  name: Cashfree Payments Beneficiary v2 API
+  description: The Beneficiary v2 API from Cashfree Payments — 1 operation(s) for beneficiary v2.
+  humanURL: https://www.cashfree.com/docs/api-reference/overview
+  baseURL: https://api.cashfree.com
+  tags:
+  - Beneficiary v2
+  properties:
+  - type: OpenAPI
+    url: openapi/cashfree-beneficiary-v2-api-openapi.yml
+  - type: Documentation
+    url: https://www.cashfree.com/docs/api-reference/overview
+  - type: Authentication
+    url: https://www.cashfree.com/docs
+  - type: Documentation
+    url: https://www.cashfree.com/docs
+- aid: cashfree:cashfree-createcashgram-api
+  name: Cashfree Payments CreateCashgram API
+  description: The CreateCashgram API from Cashfree Payments — 1 operation(s) for createcashgram.
+  humanURL: https://www.cashfree.com/docs/api-reference/overview
+  baseURL: https://api.cashfree.com
+  tags:
+  - CreateCashgram
+  properties:
+  - type: OpenAPI
+    url: openapi/cashfree-createcashgram-api-openapi.yml
+  - type: Documentation
+    url: https://www.cashfree.com/docs/api-reference/overview
+  - type: Authentication
+    url: https://www.cashfree.com/docs
+  - type: Documentation
+    url: https://www.cashfree.com/docs
+- aid: cashfree:cashfree-deactivate-static-kyc-link-api
+  name: Cashfree Payments Deactivate Static KYC Link API
+  description: >-
+    The Deactivate Static KYC Link API from Cashfree Payments — 1 operation(s) for deactivate static kyc
+    link.
+  humanURL: https://www.cashfree.com/docs/api-reference/overview
+  baseURL: https://api.cashfree.com
+  tags:
+  - Deactivate Static KYC Link
+  properties:
+  - type: OpenAPI
+    url: openapi/cashfree-deactivate-static-kyc-link-api-openapi.yml
+  - type: Documentation
+    url: https://www.cashfree.com/docs/api-reference/overview
+  - type: Authentication
+    url: https://www.cashfree.com/docs
+  - type: Documentation
+    url: https://www.cashfree.com/docs
+- aid: cashfree:cashfree-deactivatecashgram-api
+  name: Cashfree Payments DeactivateCashgram API
+  description: >-
+    The DeactivateCashgram API from Cashfree Payments — 1 operation(s) for deactivatecashgram.
+  humanURL: https://www.cashfree.com/docs/api-reference/overview
+  baseURL: https://api.cashfree.com
+  tags:
+  - DeactivateCashgram
+  properties:
+  - type: OpenAPI
+    url: openapi/cashfree-deactivatecashgram-api-openapi.yml
+  - type: Documentation
+    url: https://www.cashfree.com/docs/api-reference/overview
+  - type: Authentication
+    url: https://www.cashfree.com/docs
+  - type: Documentation
+    url: https://www.cashfree.com/docs
+- aid: cashfree:cashfree-disputes-api
+  name: Cashfree Payments Disputes API
+  description: Collection of APIs to handle disputes.
+  humanURL: https://www.cashfree.com/docs/api-reference/overview
+  baseURL: https://api.cashfree.com
+  tags:
+  - Disputes
+  properties:
+  - type: OpenAPI
+    url: openapi/cashfree-disputes-api-openapi.yml
+  - type: Documentation
+    url: https://www.cashfree.com/docs/api-reference/overview
+  - type: Authentication
+    url: https://www.cashfree.com/docs
+  - type: Documentation
+    url: https://www.cashfree.com/docs
+- aid: cashfree:cashfree-easy-split-api
+  name: Cashfree Payments Easy-Split API
+  description: Collection of APIs to handle Easy-Split.
+  humanURL: https://www.cashfree.com/docs/api-reference/overview
+  baseURL: https://api.cashfree.com
+  tags:
+  - Easy-Split
+  properties:
+  - type: OpenAPI
+    url: openapi/cashfree-easy-split-api-openapi.yml
+  - type: Documentation
+    url: https://www.cashfree.com/docs/api-reference/overview
+  - type: Authentication
+    url: https://www.cashfree.com/docs
+  - type: Documentation
+    url: https://www.cashfree.com/docs
+- aid: cashfree:cashfree-eligibility-api
+  name: Cashfree Payments Eligibility API
+  description: Collection of APIs to check eligible entities - payment methods, offers, affordability
+  humanURL: https://www.cashfree.com/docs/api-reference/overview
+  baseURL: https://api.cashfree.com
+  tags:
+  - Eligibility
+  properties:
+  - type: OpenAPI
+    url: openapi/cashfree-eligibility-api-openapi.yml
+  - type: Documentation
+    url: https://www.cashfree.com/docs/api-reference/overview
+  - type: Authentication
+    url: https://www.cashfree.com/docs
+  - type: Documentation
+    url: https://www.cashfree.com/docs
+- aid: cashfree:cashfree-generate-kyc-link-api
+  name: Cashfree Payments Generate KYC Link API
+  description: The Generate KYC Link API from Cashfree Payments — 1 operation(s) for generate kyc link.
+  humanURL: https://www.cashfree.com/docs/api-reference/overview
+  baseURL: https://api.cashfree.com
+  tags:
+  - Generate KYC Link
+  properties:
+  - type: OpenAPI
+    url: openapi/cashfree-generate-kyc-link-api-openapi.yml
+  - type: Documentation
+    url: https://www.cashfree.com/docs/api-reference/overview
+  - type: Authentication
+    url: https://www.cashfree.com/docs
+  - type: Documentation
+    url: https://www.cashfree.com/docs
+- aid: cashfree:cashfree-generate-static-kyc-link-api
+  name: Cashfree Payments Generate Static KYC Link API
+  description: >-
+    The Generate Static KYC Link API from Cashfree Payments — 1 operation(s) for generate static kyc link.
+  humanURL: https://www.cashfree.com/docs/api-reference/overview
+  baseURL: https://api.cashfree.com
+  tags:
+  - Generate Static KYC Link
+  properties:
+  - type: OpenAPI
+    url: openapi/cashfree-generate-static-kyc-link-api-openapi.yml
+  - type: Documentation
+    url: https://www.cashfree.com/docs/api-reference/overview
+  - type: Authentication
+    url: https://www.cashfree.com/docs
+  - type: Documentation
+    url: https://www.cashfree.com/docs
+- aid: cashfree:cashfree-get-kyc-link-status-api
+  name: Cashfree Payments Get KYC Link Status API
+  description: >-
+    The Get KYC Link Status API from Cashfree Payments — 1 operation(s) for get kyc link status.
+  humanURL: https://www.cashfree.com/docs/api-reference/overview
+  baseURL: https://api.cashfree.com
+  tags:
+  - Get KYC Link Status
+  properties:
+  - type: OpenAPI
+    url: openapi/cashfree-get-kyc-link-status-api-openapi.yml
+  - type: Documentation
+    url: https://www.cashfree.com/docs/api-reference/overview
+  - type: Authentication
+    url: https://www.cashfree.com/docs
+  - type: Documentation
+    url: https://www.cashfree.com/docs
+- aid: cashfree:cashfree-getcashgramstatus-api
+  name: Cashfree Payments GetCashgramStatus API
+  description: The GetCashgramStatus API from Cashfree Payments — 1 operation(s) for getcashgramstatus.
+  humanURL: https://www.cashfree.com/docs/api-reference/overview
+  baseURL: https://api.cashfree.com
+  tags:
+  - GetCashgramStatus
+  properties:
+  - type: OpenAPI
+    url: openapi/cashfree-getcashgramstatus-api-openapi.yml
+  - type: Documentation
+    url: https://www.cashfree.com/docs/api-reference/overview
+  - type: Authentication
+    url: https://www.cashfree.com/docs
+  - type: Documentation
+    url: https://www.cashfree.com/docs
+- aid: cashfree:cashfree-name-match-api
+  name: Cashfree Payments Name Match API
+  description: Operation related to Name Match verification.
+  humanURL: https://www.cashfree.com/docs/api-reference/overview
+  baseURL: https://api.cashfree.com
+  tags:
+  - Name Match
+  properties:
+  - type: OpenAPI
+    url: openapi/cashfree-name-match-api-openapi.yml
+  - type: Documentation
+    url: https://www.cashfree.com/docs/api-reference/overview
+  - type: Authentication
+    url: https://www.cashfree.com/docs
+  - type: Documentation
+    url: https://www.cashfree.com/docs
+- aid: cashfree:cashfree-orders-api
+  name: Cashfree Payments Orders API
+  description: Collection of APIs to handle orders.
+  humanURL: https://www.cashfree.com/docs/api-reference/overview
+  baseURL: https://api.cashfree.com
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/cashfree-orders-api-openapi.yml
+  - type: Documentation
+    url: https://www.cashfree.com/docs/api-reference/overview
+  - type: Authentication
+    url: https://www.cashfree.com/docs
+  - type: Documentation
+    url: https://www.cashfree.com/docs
+- aid: cashfree:cashfree-payment-links-api
+  name: Cashfree Payments Payment Links API
+  description: Collection of APIs to handle payment links.
+  humanURL: https://www.cashfree.com/docs/api-reference/overview
+  baseURL: https://api.cashfree.com
+  tags:
+  - Payment Links
+  properties:
+  - type: OpenAPI
+    url: openapi/cashfree-payment-links-api-openapi.yml
+  - type: Documentation
+    url: https://www.cashfree.com/docs/api-reference/overview
+  - type: Authentication
+    url: https://www.cashfree.com/docs
+  - type: Documentation
+    url: https://www.cashfree.com/docs
+- aid: cashfree:cashfree-payments-api
+  name: Cashfree Payments Payments API
+  description: Collection of APIs to handle payments.
+  humanURL: https://www.cashfree.com/docs/api-reference/overview
+  baseURL: https://api.cashfree.com
+  tags:
+  - Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/cashfree-payments-api-openapi.yml
+  - type: Documentation
+    url: https://www.cashfree.com/docs/api-reference/overview
+  - type: Authentication
+    url: https://www.cashfree.com/docs
+  - type: Documentation
+    url: https://www.cashfree.com/docs
+- aid: cashfree:cashfree-refunds-api
+  name: Cashfree Payments Refunds API
+  description: Collection of APIs to handle refunds.
+  humanURL: https://www.cashfree.com/docs/api-reference/overview
+  baseURL: https://api.cashfree.com
+  tags:
+  - Refunds
+  properties:
+  - type: OpenAPI
+    url: openapi/cashfree-refunds-api-openapi.yml
+  - type: Documentation
+    url: https://www.cashfree.com/docs/api-reference/overview
+  - type: Authentication
+    url: https://www.cashfree.com/docs
+  - type: Documentation
+    url: https://www.cashfree.com/docs
+- aid: cashfree:cashfree-settlement-reconciliation-api
+  name: Cashfree Payments Settlement Reconciliation API
+  description: Collection of APIs to handle settlements
+  humanURL: https://www.cashfree.com/docs/api-reference/overview
+  baseURL: https://api.cashfree.com
+  tags:
+  - Settlement Reconciliation
+  properties:
+  - type: OpenAPI
+    url: openapi/cashfree-settlement-reconciliation-api-openapi.yml
+  - type: Documentation
+    url: https://www.cashfree.com/docs/api-reference/overview
+  - type: Authentication
+    url: https://www.cashfree.com/docs
+  - type: Documentation
+    url: https://www.cashfree.com/docs
+- aid: cashfree:cashfree-settlements-api
+  name: Cashfree Payments Settlements API
+  description: Collection of APIs to handle settlements.
+  humanURL: https://www.cashfree.com/docs/api-reference/overview
+  baseURL: https://api.cashfree.com
+  tags:
+  - Settlements
+  properties:
+  - type: OpenAPI
+    url: openapi/cashfree-settlements-api-openapi.yml
+  - type: Documentation
+    url: https://www.cashfree.com/docs/api-reference/overview
+  - type: Authentication
+    url: https://www.cashfree.com/docs
+  - type: Documentation
+    url: https://www.cashfree.com/docs
+- aid: cashfree:cashfree-simulation-api
+  name: Cashfree Payments Simulation API
+  description: Collection of APIs to handle simulation.
+  humanURL: https://www.cashfree.com/docs/api-reference/overview
+  baseURL: https://api.cashfree.com
+  tags:
+  - Simulation
+  properties:
+  - type: OpenAPI
+    url: openapi/cashfree-simulation-api-openapi.yml
+  - type: Documentation
+    url: https://www.cashfree.com/docs/api-reference/overview
+  - type: Authentication
+    url: https://www.cashfree.com/docs
+  - type: Documentation
+    url: https://www.cashfree.com/docs
+- aid: cashfree:cashfree-transfers-v2-api
+  name: Cashfree Payments Transfers v2 API
+  description: The Transfers v2 API from Cashfree Payments — 2 operation(s) for transfers v2.
+  humanURL: https://www.cashfree.com/docs/api-reference/overview
+  baseURL: https://api.cashfree.com
+  tags:
+  - Transfers v2
+  properties:
+  - type: OpenAPI
+    url: openapi/cashfree-transfers-v2-api-openapi.yml
+  - type: Documentation
+    url: https://www.cashfree.com/docs/api-reference/overview
+  - type: Authentication
+    url: https://www.cashfree.com/docs
+  - type: Documentation
+    url: https://www.cashfree.com/docs
 common:
   - type: AgenticAccess
     url: agentic-access/cashfree-agentic-access.yml
