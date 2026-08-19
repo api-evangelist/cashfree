@@ -1,0 +1,169 @@
+{
+  "item": [
+    {
+      "id": "eb50c525-c003-484f-9b1d-834544438667",
+      "name": "GetCashgramStatus",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6fdc946c-1c96-4b66-92e0-7f2980664644",
+          "name": "Get Cashgram Status",
+          "request": {
+            "name": "Get Cashgram Status",
+            "description": {
+              "content": "Use this API to get the status of the Cashgram created.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "getCashgramStatus"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cashgramId",
+                  "value": "<string>",
+                  "description": "(Required) ID of the Cashgram"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f2a9b053-a8a2-469e-8cc3-15b9a5869226",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "getCashgramStatus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cashgramId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Bearer auth token",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"SUCCESS\",\n  \"subCode\": \"200\",\n  \"message\": \"Cashgram details retrieved\",\n  \"data\": {\n    \"cashgramStatus\": \"ACTIVE\",\n    \"referenceId\": 123456,\n    \"cashgramId\": \"JOHaN10\",\n    \"cashgramLink\": \"http://csgr.am/abcdefg\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "317d2930-0374-47ba-9b94-5b7bbef2d52f",
+              "name": "422",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "getCashgramStatus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cashgramId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Bearer auth token",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ERROR\",\n  \"subCode\": \"404\",\n  \"message\": \"Cashgram with id JOHaN10 does not exists\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://sandbox.cashfree.com/pg",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "991391db-6d09-4189-a324-129e0c07fbfb",
+    "name": "Cashfree Payment Gateway APIs Authorize GetCashgramStatus API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Cashfree's Payment Gateway APIs provide developers with a streamlined pathway to integrate advanced payment processing capabilities into their applications, platforms and websites.\n\nContact Support:\n Name: API Support\n Email: developers@cashfree.com",
+      "type": "text/plain"
+    }
+  }
+}

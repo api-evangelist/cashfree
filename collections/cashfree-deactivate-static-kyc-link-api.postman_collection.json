@@ -1,0 +1,537 @@
+{
+  "item": [
+    {
+      "id": "b539cd26-66d6-4334-a120-497169bb7d97",
+      "name": "Deactivate Static KYC Link",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a88ed13f-f854-4889-98ec-9ae06d3cf971",
+          "name": "Deactivate Static KYC Link",
+          "request": {
+            "name": "Deactivate Static KYC Link",
+            "description": {
+              "content": "Use this API to deactivate a static KYC Link.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "form",
+                "static-link"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "template_name",
+                  "value": "<string>",
+                  "description": "It is name of the template using which static KYC link was generated."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Send the signature if IP is not whitelisted",
+                "key": "x-cf-signature",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-client-id"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e77efe5e-55ef-40ad-9da0-b30691e06247",
+              "name": "Response Body for Generate Static KYC Link API",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form",
+                    "static-link"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "template_name",
+                      "value": "Aadhaar_verification"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Successfully Deactivated\",\n  \"template_name\": \"Aadhaar_verification\",\n  \"static_link\": \"https://verification.cashfree.com/forms?shortCode=m2bjk9uakkcg\",\n  \"status\": \"INACTIVE\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd37eac8-f39f-4461-81b6-e7b9158d371c",
+              "name": "Validation error in deactivate Static KYC Link",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form",
+                    "static-link"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "template_name",
+                      "value": "Aadhaar_verification"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"validation_error\",\n  \"code\": \"template_name_missing\",\n  \"message\": \"template_name is missing in the request.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30af80da-50f0-4a6c-983e-ef1b19fd65ec",
+              "name": "Invalid client ID and client secret combination",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form",
+                    "static-link"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "template_name",
+                      "value": "Aadhaar_verification"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"authentication_error\",\n  \"code\": \"authentication_failed\",\n  \"message\": \"Invalid clientId and clientSecret combination\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b52e4512-469a-4951-a965-652fe6a5cfe9",
+              "name": "Authentication error (IP not whitelisted)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form",
+                    "static-link"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "template_name",
+                      "value": "Aadhaar_verification"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"authentication_error\",\n  \"code\": \"ip_validation_failed\",\n  \"message\": \"IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7773b4d-1201-4565-a9ec-d69330d62bb5",
+              "name": "Not found errors in Static KYC Link",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form",
+                    "static-link"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "template_name",
+                      "value": "Aadhaar_verification"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"validation_error\",\n  \"code\": \"template_name_not_found\",\n  \"message\": \"template_name does not exist\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ceb3a010-70a7-48fb-8a5b-2c2fa8ac8935",
+              "name": "Validation error because of insufficient balance to process this request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form",
+                    "static-link"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "template_name",
+                      "value": "Aadhaar_verification"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"validation_error\",\n  \"code\": \"insufficient_balance\",\n  \"message\": \"Insufficient balance to process this request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dbb1a3ce-0aab-480f-b089-8bb0af4baed2",
+              "name": "Rate limit exceed error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form",
+                    "static-link"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "template_name",
+                      "value": "Aadhaar_verification"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"rate_limit_error\",\n  \"code\": \"too_many_requests_per_operation\",\n  \"message\": \"Too many requests for this operation, rate limit reached\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97a6ff33-3c3d-4964-b5f9-7ae84d377203",
+              "name": "Internal error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form",
+                    "static-link"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "template_name",
+                      "value": "Aadhaar_verification"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"internal_error\",\n  \"code\": \"request_failed\",\n  \"message\": \"Unable to process your request. Try again after some time\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://sandbox.cashfree.com/pg",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f0df3400-540b-4cd8-9f06-37a4780daa6d",
+    "name": "Cashfree Payment Gateway APIs Authorize Deactivate Static KYC Link API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Cashfree's Payment Gateway APIs provide developers with a streamlined pathway to integrate advanced payment processing capabilities into their applications, platforms and websites.\n\nContact Support:\n Name: API Support\n Email: developers@cashfree.com",
+      "type": "text/plain"
+    }
+  }
+}

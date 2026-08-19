@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cashfree Payment Gateway APIs Authorize Get KYC Link Status API",
+    "version": "2025-01-01"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Get KYC Link Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get KYC Link Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox.cashfree.com/pg/form",
+            "headers": [
+              {
+                "name": "x-cf-signature",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "verificationID",
+                "value": "",
+                "type": "query",
+                "description": "It is the unique ID you created to identify the KYC link."
+              },
+              {
+                "name": "referenceID",
+                "value": "",
+                "type": "query",
+                "description": "It is the unique ID you receive in the response of Generate KYC Link API."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-client-id",
+              "value": "{{x-client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Use this API to get the status of the verification form. You need to input either the verification_id or reference_id to get the KYC Link status."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

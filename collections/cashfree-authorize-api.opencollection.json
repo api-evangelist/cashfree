@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cashfree Payment Gateway APIs Authorize API",
+    "version": "2025-01-01"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authorize",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Authorize",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox.cashfree.com/pg/v1/authorize",
+            "headers": [
+              {
+                "name": "x-api-version",
+                "value": "2024-01-01"
+              },
+              {
+                "name": "x-request-id",
+                "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-client-id",
+              "value": "{{x-client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Use this API to authenticate with the Cashfree system and obtain the authorization bearer token. All other API calls must have this token as Authorization header in the format 'Bearer &lt;token&gt;' (without quotes) for them to get processed. The generated token is valid for 6 minutes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

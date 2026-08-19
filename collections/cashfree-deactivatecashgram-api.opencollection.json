@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cashfree Payment Gateway APIs Authorize DeactivateCashgram API",
+    "version": "2025-01-01"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DeactivateCashgram",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Deactivate Cashgram",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox.cashfree.com/pg/v1/deactivateCashgram",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deactivate Cashgram"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

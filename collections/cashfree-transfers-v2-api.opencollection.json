@@ -1,0 +1,162 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cashfree Payment Gateway APIs Authorize Transfers v2 API",
+    "version": "2025-01-01"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transfers v2",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Transfer Status V2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox.cashfree.com/pg/transfers",
+            "headers": [
+              {
+                "name": "x-api-version",
+                "value": "2024-01-01"
+              },
+              {
+                "name": "x-request-id",
+                "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+              }
+            ],
+            "params": [
+              {
+                "name": "cf_transfer_id",
+                "value": "10023",
+                "type": "query",
+                "description": "It is the unique ID created by Cashfree Payments. You receive it in the response of the initiated standard transfer request. (Either cf_transfer_id or transfer_id is mandatory)"
+              },
+              {
+                "name": "transfer_id",
+                "value": "Sample_test",
+                "type": "query",
+                "description": "It is the unique ID you created to identify the standard transfer request."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-client-id",
+              "value": "{{x-client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Use this API to get the status of the initiated transfer. You can use either the transfer_id or cf_transfer_id to fetch the details."
+        },
+        {
+          "info": {
+            "name": "Standard Transfer V2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox.cashfree.com/pg/transfers",
+            "headers": [
+              {
+                "name": "x-api-version",
+                "value": "2024-01-01"
+              },
+              {
+                "name": "x-request-id",
+                "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-client-id",
+              "value": "{{x-client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Use this API to initiate an amount transfer at Cashfree Payments. It is an async request by default."
+        },
+        {
+          "info": {
+            "name": "Get Batch Transfer Status V2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox.cashfree.com/pg/transfers/batch",
+            "headers": [
+              {
+                "name": "x-api-version",
+                "value": "2024-01-01"
+              },
+              {
+                "name": "x-request-id",
+                "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+              }
+            ],
+            "params": [
+              {
+                "name": "cf_batch_transfer_id",
+                "value": "10023",
+                "type": "query",
+                "description": "It is the unique ID created by Cashfree Payments. You receive it in the response of the initiated batch transfer request. (Either cf_batch_transfer_id or batch_transfer_id is mandatory)"
+              },
+              {
+                "name": "batch_transfer_id",
+                "value": "Sample_test",
+                "type": "query",
+                "description": "It is the unique ID you created to identify the batch transfer request."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-client-id",
+              "value": "{{x-client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Use this API to get the status of the initiated batch transfer. You can use either the batch_transfer_id or cf_batch_transfer_id to fetch the details."
+        },
+        {
+          "info": {
+            "name": "Batch Transfer V2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox.cashfree.com/pg/transfers/batch",
+            "headers": [
+              {
+                "name": "x-api-version",
+                "value": "2024-01-01"
+              },
+              {
+                "name": "x-request-id",
+                "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-client-id",
+              "value": "{{x-client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Use this API to initiate a batch transfer request at Cashfree Payments. You can transfer money to multiple beneficiaries. The batch transfer limit is 5,000 in the production environment and 1,000 by default in the test environment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

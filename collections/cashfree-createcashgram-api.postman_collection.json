@@ -1,0 +1,181 @@
+{
+  "item": [
+    {
+      "id": "8b1c3194-70ee-4f82-bed1-547afbbe6230",
+      "name": "CreateCashgram",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1e5dd135-9b0b-4054-9df6-b64e0a367e9c",
+          "name": "Create Cashgram",
+          "request": {
+            "name": "Create Cashgram",
+            "description": {
+              "content": "Use this API to create a Cashgram.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "createCashgram"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<float>\",\n  \"cashgramId\": \"<string>\",\n  \"linkExpiry\": \"<string>\",\n  \"name\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"email\": \"<string>\",\n  \"remarks\": \"<string>\",\n  \"notifyCustomer\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "76c97642-97a7-4ef0-892e-5d864ac82b00",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "createCashgram"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Bearer auth token",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<float>\",\n  \"cashgramId\": \"<string>\",\n  \"linkExpiry\": \"<string>\",\n  \"name\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"email\": \"<string>\",\n  \"remarks\": \"<string>\",\n  \"notifyCustomer\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"SUCCESS\",\n  \"subCode\": \"200\",\n  \"message\": \"Cashgram Created\",\n  \"data\": {\n    \"referenceId\": 123456,\n    \"cashgramLink\": \"http://csgr.am/abcdefg\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b36f010f-b587-4b91-99ba-36b08f340098",
+              "name": "409",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "createCashgram"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Bearer auth token",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<float>\",\n  \"cashgramId\": \"<string>\",\n  \"linkExpiry\": \"<string>\",\n  \"name\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"email\": \"<string>\",\n  \"remarks\": \"<string>\",\n  \"notifyCustomer\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ERROR\",\n  \"subCode\": \"409\",\n  \"message\": \"Cashgram with id JOHaN10 already exists\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://sandbox.cashfree.com/pg",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "653c6c0a-a438-4f6d-89a7-c9b40725836d",
+    "name": "Cashfree Payment Gateway APIs Authorize CreateCashgram API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Cashfree's Payment Gateway APIs provide developers with a streamlined pathway to integrate advanced payment processing capabilities into their applications, platforms and websites.\n\nContact Support:\n Name: API Support\n Email: developers@cashfree.com",
+      "type": "text/plain"
+    }
+  }
+}

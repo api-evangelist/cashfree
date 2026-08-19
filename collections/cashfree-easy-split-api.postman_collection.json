@@ -1,0 +1,373 @@
+{
+  "item": [
+    {
+      "id": "c337c4d9-8558-4f85-8022-abff1fb5e3e9",
+      "name": "Easy-Split",
+      "description": {
+        "content": "Collection of APIs to handle Easy-Split.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a2bace1d-95b2-42c1-9ac7-91c8330bc484",
+          "name": "Get Split and Settlement Details by OrderID v2.0",
+          "request": {
+            "name": "Get Split and Settlement Details by OrderID v2.0",
+            "description": {
+              "content": "Use this API to get all the split details, settled and unsettled transactions details of each vendor who were part of a particular order by providing order Id or start date and end date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "split",
+                "order",
+                "vendor",
+                "recon"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "API version to be used. Format is in YYYY-MM-DD",
+                "key": "x-api-version",
+                "value": "2025-01-01"
+              },
+              {
+                "disabled": false,
+                "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                "key": "x-request-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                "key": "x-idempotency-key",
+                "value": "<UUID>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-client-id"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filters\": {\n    \"start_date\": \"<string>\",\n    \"end_date\": \"<string>\",\n    \"order_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"pagination\": {\n    \"cursor\": \"<string>\",\n    \"limit\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "578f9af7-9cab-48b5-9052-eeb991d9d91b",
+              "name": "ES Order Recon Success Response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "split",
+                    "order",
+                    "vendor",
+                    "recon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cursor\": null,\n  \"data\": [\n    {\n      \"amount\": 900000,\n      \"settlement_eligibility_time\": \"2024-01-08 11:30:00\",\n      \"merchant_order_id\": \"order_1527072afd7Hlp4lpVLiz7dj0P0i84r1X\",\n      \"tx_time\": \"2024-01-08 17:00:00\",\n      \"settled\": \"NO\",\n      \"entity_id\": \"14910180251\",\n      \"merchant_settlement_utr\": \"N/A\",\n      \"currency\": \"INR\",\n      \"sale_type\": \"CREDIT\",\n      \"customer_name\": \"Manideep\",\n      \"customer_email\": \"manideep.ellur@cashfree.com\",\n      \"customer_phone\": \"8281554863\",\n      \"merchant_vendor_commission\": \"810000.00\",\n      \"split_service_charge\": \"900.00\",\n      \"split_service_tax\": \"162.00\",\n      \"pg_service_tax\": \"4698.90\",\n      \"pg_service_charge\": \"26105.00\",\n      \"pg_charge_postpaid\": \"1\",\n      \"merchant_settlement_id\": \"N/A\",\n      \"added_on\": \"2024-01-08 17:00:00\",\n      \"tags\": \"tags\",\n      \"entity_type\": \"transaction\",\n      \"settlement_initiated_on\": \"N/A\",\n      \"settlement_time\": \"N/A\",\n      \"order_splits\": [\n        {\n          \"split\": [\n            {\n              \"merchant_vendor_id\": \"vendor20Lakh\",\n              \"percentage\": 90,\n              \"tags\": null\n            }\n          ],\n          \"created_at\": \"2024-01-08 17:00:01\"\n        }\n      ],\n      \"eligible_split_balance\": \"0.00\"\n    },\n    {\n      \"amount\": 810000,\n      \"merchant_order_id\": \"order_1527072afd7Hlp4lpVLiz7dj0P0i84r1X\",\n      \"tx_time\": \"2024-01-08 17:00:00\",\n      \"settled\": \"YES\",\n      \"entity_id\": \"305293\",\n      \"merchant_vendor_id\": \"vendor20Lakh\",\n      \"currency\": \"INR\",\n      \"sale_type\": \"CREDIT\",\n      \"customer_name\": \"Manideep\",\n      \"customer_email\": \"manideep.ellur@cashfree.com\",\n      \"customer_phone\": \"8281554863\",\n      \"added_on\": \"2024-01-08 17:00:01\",\n      \"entity_type\": \"vendor_commission\",\n      \"past_settlements\": [\n        {\n          \"settlement_id\": 54878,\n          \"settlement_initiated_on\": \"2024-01-08 17:14:38\",\n          \"status\": \"SUCCESS\"\n        }\n      ],\n      \"vendor_split_service_charges\": \"0.00\",\n      \"vendor_split_service_tax\": \"0.00\",\n      \"vendor_settlement_time\": \"2024-01-08 17:14:39\",\n      \"vendor_settlement_initiated_on\": \"2024-01-08 17:14:38\",\n      \"vendor_settlement_eligibility_time\": \"2024-01-08 16:50:00\",\n      \"vendor_settlement_id\": \"54878\",\n      \"vendor_settlement_utr\": \"1704714278653975\",\n      \"vendor_commission\": \"810000.00\",\n      \"vendor_pg_service_charge\": \"0.00\",\n      \"vendor_pg_service_tax\": \"0.00\",\n      \"status\": \"N/A\"\n    }\n  ],\n  \"limit\": 2\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89bfdec2-2fda-46c3-908c-e1ea2b8a1c81",
+              "name": "ES Order Recon Failure Response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "split",
+                    "order",
+                    "vendor",
+                    "recon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"At least one of the filters needs to be present orderIds or Date\",\n  \"code\": \"request_failed\",\n  \"type\": \"invalid_request_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8a9b981-3d37-4070-8d89-df8453c1e710",
+              "name": "ES Order Recon Failure Response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "split",
+                    "order",
+                    "vendor",
+                    "recon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Order not found\",\n  \"code\": \"order_not_found\",\n  \"type\": \"invalid_request_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dd329dda-fc1b-47b4-8632-a33530c6eefc",
+              "name": "ES Order Recon Failure Response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "split",
+                    "order",
+                    "vendor",
+                    "recon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Transaction already processed, not eligible for split\",\n  \"code\": \"api_request_failed\",\n  \"type\": \"invalid_request_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://sandbox.cashfree.com/pg",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ba18f145-4daf-4d50-a270-e53d029111f2",
+    "name": "Cashfree Payment Gateway APIs Authorize Easy-Split API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Cashfree's Payment Gateway APIs provide developers with a streamlined pathway to integrate advanced payment processing capabilities into their applications, platforms and websites.\n\nContact Support:\n Name: API Support\n Email: developers@cashfree.com",
+      "type": "text/plain"
+    }
+  }
+}

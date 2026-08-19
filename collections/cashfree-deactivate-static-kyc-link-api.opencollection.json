@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cashfree Payment Gateway APIs Authorize Deactivate Static KYC Link API",
+    "version": "2025-01-01"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Deactivate Static KYC Link",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Deactivate Static KYC Link",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://sandbox.cashfree.com/pg/form/static-link",
+            "headers": [
+              {
+                "name": "x-cf-signature",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "template_name",
+                "value": "Aadhaar_verification",
+                "type": "query",
+                "description": "It is name of the template using which static KYC link was generated."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-client-id",
+              "value": "{{x-client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Use this API to deactivate a static KYC Link."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

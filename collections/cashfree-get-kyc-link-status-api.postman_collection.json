@@ -1,0 +1,508 @@
+{
+  "item": [
+    {
+      "id": "a2b8cbe8-9062-4d82-8bb1-993a46e00607",
+      "name": "Get KYC Link Status",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "680bdbb4-2f27-438e-b079-8ee1abd6eeb2",
+          "name": "Get KYC Link Status",
+          "request": {
+            "name": "Get KYC Link Status",
+            "description": {
+              "content": "Use this API to get the status of the verification form. You need to input either the verification_id or reference_id to get the KYC Link status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "form"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "verificationID",
+                  "value": "ABC00123",
+                  "description": "It is the unique ID you created to identify the KYC link."
+                },
+                {
+                  "disabled": false,
+                  "key": "referenceID",
+                  "value": "235461",
+                  "description": "It is the unique ID you receive in the response of Generate KYC Link API."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Send the signature if IP is not whitelisted",
+                "key": "x-cf-signature",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-client-id"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1eb07400-59ee-4152-9249-69a4690f863c",
+              "name": "Response Body of VRS GetFormStatus API",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "verificationID",
+                      "value": "ABC00123"
+                    },
+                    {
+                      "key": "referenceID",
+                      "value": "235461"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"John Doe\",\n  \"phone\": \"string\",\n  \"email\": \"test@cashfree.com\",\n  \"verification_id\": \"testverificationid\",\n  \"reference_id\": 235461,\n  \"link_expiry\": \"2025-12-02\",\n  \"form_link\": \"https://forms.cashfree.com/\",\n  \"form_status\": \"PENDING\",\n  \"verification_details\": [\n    {\n      \"reference_id\": 234,\n      \"type\": \"OFFLINE_AADHAAR_VERIFICATION\",\n      \"status\": \"SUCCESS\"\n    },\n    {\n      \"reference_id\": 234,\n      \"type\": \"OFFLINE_AADHAAR_VERIFICATION\",\n      \"status\": \"SUCCESS\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4bc7ea7c-78c6-4db6-97b1-b51db7925483",
+              "name": "Get Form Status responses for 400",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "verificationID",
+                      "value": "ABC00123"
+                    },
+                    {
+                      "key": "referenceID",
+                      "value": "235461"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"validation_error\",\n  \"code\": \"invalid_request\",\n  \"message\": \"Provide verificationID or referenceID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8099ccf-6d19-4c18-b4ef-e38e81409eff",
+              "name": "Invalid client ID and client secret combination",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "verificationID",
+                      "value": "ABC00123"
+                    },
+                    {
+                      "key": "referenceID",
+                      "value": "235461"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"authentication_error\",\n  \"code\": \"authentication_failed\",\n  \"message\": \"Invalid clientId and clientSecret combination\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d8adaf5-560b-4c93-81cf-e9204123f927",
+              "name": "Authentication error (IP not whitelisted)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "verificationID",
+                      "value": "ABC00123"
+                    },
+                    {
+                      "key": "referenceID",
+                      "value": "235461"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"authentication_error\",\n  \"code\": \"ip_validation_failed\",\n  \"message\": \"IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e617c56-058a-4f8d-bf98-9d26d5a42f30",
+              "name": "Not found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "verificationID",
+                      "value": "ABC00123"
+                    },
+                    {
+                      "key": "referenceID",
+                      "value": "235461"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"not_found_error\",\n  \"code\": \"Resource not found\",\n  \"message\": \"No data found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3731f7c0-3994-4383-8153-1bd62e60b27c",
+              "name": "Rate limit exceed error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "verificationID",
+                      "value": "ABC00123"
+                    },
+                    {
+                      "key": "referenceID",
+                      "value": "235461"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"rate_limit_error\",\n  \"code\": \"too_many_requests_per_operation\",\n  \"message\": \"Too many requests for this operation, rate limit reached\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9897e202-d0d6-4b68-87ca-a548d28885e8",
+              "name": "Internal error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "verificationID",
+                      "value": "ABC00123"
+                    },
+                    {
+                      "key": "referenceID",
+                      "value": "235461"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"internal_error\",\n  \"code\": \"request_failed\",\n  \"message\": \"Unable to process your request. Try again after some time\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://sandbox.cashfree.com/pg",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d5d6200c-0a09-45d7-88f3-3b61b1425525",
+    "name": "Cashfree Payment Gateway APIs Authorize Get KYC Link Status API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Cashfree's Payment Gateway APIs provide developers with a streamlined pathway to integrate advanced payment processing capabilities into their applications, platforms and websites.\n\nContact Support:\n Name: API Support\n Email: developers@cashfree.com",
+      "type": "text/plain"
+    }
+  }
+}

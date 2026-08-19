@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cashfree Payment Gateway APIs Authorize CreateCashgram API",
+    "version": "2025-01-01"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CreateCashgram",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Cashgram",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox.cashfree.com/pg/v1/createCashgram",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this API to create a Cashgram."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

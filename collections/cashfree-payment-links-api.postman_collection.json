@@ -1,0 +1,4235 @@
+{
+  "item": [
+    {
+      "id": "ee23cb67-c5fe-4e69-b94a-30a47771d7cf",
+      "name": "Payment Links",
+      "description": {
+        "content": "Collection of APIs to handle payment links.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "48f564b7-0f13-4e9a-952c-b749ee191739",
+          "name": "Create Payment Link",
+          "request": {
+            "name": "Create Payment Link",
+            "description": {
+              "content": "Use this API to create a new payment link. The created payment link url will be available in the API response parameter link_url. Please pass non required fields only if user passed that are critical like phone",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "links"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "API version to be used. Format is in YYYY-MM-DD",
+                "key": "x-api-version",
+                "value": "2025-01-01"
+              },
+              {
+                "disabled": false,
+                "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                "key": "x-request-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                "key": "x-idempotency-key",
+                "value": "<UUID>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-client-id"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"link_currency\": \"<string>\",\n  \"link_id\": \"<string>\",\n  \"link_amount\": \"<double>\",\n  \"customer_details\": {\n    \"customer_phone\": \"<string>\",\n    \"customer_email\": \"<string>\",\n    \"customer_name\": \"<string>\",\n    \"customer_bank_account_number\": \"<string>\",\n    \"customer_bank_ifsc\": \"<string>\",\n    \"customer_bank_code\": \"<integer>\"\n  },\n  \"link_purpose\": \"<string>\",\n  \"link_partial_payments\": \"<boolean>\",\n  \"link_minimum_partial_amount\": \"<double>\",\n  \"link_expiry_time\": \"<string>\",\n  \"link_notify\": {\n    \"send_sms\": \"<boolean>\",\n    \"send_email\": \"<boolean>\"\n  },\n  \"link_auto_reminders\": \"<boolean>\",\n  \"link_notes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"link_meta\": {\n    \"notify_url\": \"<string>\",\n    \"upi_intent\": \"<string>\",\n    \"return_url\": \"<string>\",\n    \"payment_methods\": \"<string>\"\n  },\n  \"order_splits\": [\n    {\n      \"vendor_id\": \"<string>\",\n      \"amount\": \"<number>\",\n      \"percentage\": \"<number>\",\n      \"tags\": {\n        \"key_0\": \"<object>\",\n        \"key_1\": \"<object>\",\n        \"key_2\": \"<object>\",\n        \"key_3\": \"<object>\",\n        \"key_4\": \"<object>\",\n        \"key_5\": \"<object>\"\n      }\n    },\n    {\n      \"vendor_id\": \"<string>\",\n      \"amount\": \"<number>\",\n      \"percentage\": \"<number>\",\n      \"tags\": {\n        \"key_0\": \"<object>\",\n        \"key_1\": \"<object>\",\n        \"key_2\": \"<object>\",\n        \"key_3\": \"<object>\",\n        \"key_4\": \"<object>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "404a9ada-44a9-4d2c-9b46-88ede6819da6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cf_link_id\": \"string\",\n  \"link_id\": \"string\",\n  \"link_status\": \"string\",\n  \"link_currency\": \"string\",\n  \"link_amount\": 3832.7887255233804,\n  \"link_amount_paid\": 8563.539695737803,\n  \"link_partial_payments\": false,\n  \"link_minimum_partial_amount\": 4036.4429979669926,\n  \"link_purpose\": \"string\",\n  \"link_created_at\": \"string\",\n  \"customer_details\": {\n    \"customer_phone\": \"<string>\",\n    \"customer_email\": \"<string>\",\n    \"customer_name\": \"<string>\",\n    \"customer_bank_account_number\": \"<string>\",\n    \"customer_bank_ifsc\": \"<string>\",\n    \"customer_bank_code\": \"<integer>\"\n  },\n  \"link_meta\": {\n    \"notify_url\": \"https://ee08e626ecd88c61c85f5c69c0418cb5.m.pipedream.net\",\n    \"upi_intent\": \"false\",\n    \"return_url\": \"https://www.cashfree.com/devstudio/thankyou\"\n  },\n  \"link_url\": \"string\",\n  \"link_expiry_time\": \"string\",\n  \"link_notes\": {\n    \"key_1\": \"value_1\",\n    \"key_2\": \"value_2\"\n  },\n  \"link_auto_reminders\": false,\n  \"link_notify\": {\n    \"send_sms\": false,\n    \"send_email\": true\n  },\n  \"link_qrcode\": \"string\",\n  \"order_splits\": [\n    {\n      \"vendor_id\": \"Vendor01\",\n      \"amount\": 100.12,\n      \"description\": \"order amount should be more than equal to 100.12\"\n    },\n    {\n      \"vendor_id\": \"Vendor01\",\n      \"amount\": 100.12,\n      \"description\": \"order amount should be more than equal to 100.12\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d9b13e00-dbd2-404d-a0c5-615193b83852",
+              "name": "Bad request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"bad URL, please check API documentation\",\n  \"code\": \"request_failed\",\n  \"type\": \"invalid_request_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "520a678c-1863-49e8-9d42-0dc35560db69",
+              "name": "Authentication Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"authentication Failed\",\n  \"code\": \"request_failed\",\n  \"type\": \"authentication_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4e100ea-ba60-40ee-8c43-e8f6bafee014",
+              "name": "Resource Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"something is not found\",\n  \"code\": \"somethind_not_found\",\n  \"type\": \"invalid_request_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "32ad8cf4-bd9a-42d2-9740-8d0a1e23a728",
+              "name": "Resource already present",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"order with same id is already present\",\n  \"code\": \"order_already_exists\",\n  \"type\": \"invalid_request_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ba885e15-70f8-4130-8e9c-ef42309df9c4",
+              "name": "Idempotency error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"something is not found\",\n  \"code\": \"request_invalid\",\n  \"type\": \"idempotency_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "977e4e0a-3b72-4f8b-8c05-04e547aa2584",
+              "name": "Rate Limit Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Too many requests from IP. Check headers\",\n  \"code\": \"request_failed\",\n  \"type\": \"rate_limit_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a60d6e3-60b6-4407-857b-d53f1b542172",
+              "name": "API related Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"internal Server Error\",\n  \"code\": \"internal_error\",\n  \"type\": \"api_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ba4eda72-3fe0-490a-8f70-f95c0ae4362f",
+          "name": "Fetch Payment Link Details",
+          "request": {
+            "name": "Fetch Payment Link Details",
+            "description": {
+              "content": "Use this API to view all details and status of a payment link.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "links",
+                ":link_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "link_id",
+                  "description": "(Required) The payment link ID for which you want to view the details."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "API version to be used. Format is in YYYY-MM-DD",
+                "key": "x-api-version",
+                "value": "2025-01-01"
+              },
+              {
+                "disabled": false,
+                "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                "key": "x-request-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                "key": "x-idempotency-key",
+                "value": "<UUID>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-client-id"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "67ffb63f-e6b1-499e-9423-be910bd03566",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cf_link_id\": \"string\",\n  \"link_id\": \"string\",\n  \"link_status\": \"string\",\n  \"link_currency\": \"string\",\n  \"link_amount\": 8132.975219829014,\n  \"link_amount_paid\": 5543.766647285137,\n  \"link_partial_payments\": true,\n  \"link_minimum_partial_amount\": 3816.653407475833,\n  \"link_purpose\": \"string\",\n  \"link_created_at\": \"string\",\n  \"customer_details\": {\n    \"customer_phone\": \"<string>\",\n    \"customer_email\": \"<string>\",\n    \"customer_name\": \"<string>\",\n    \"customer_bank_account_number\": \"<string>\",\n    \"customer_bank_ifsc\": \"<string>\",\n    \"customer_bank_code\": \"<integer>\"\n  },\n  \"link_meta\": {\n    \"notify_url\": \"https://ee08e626ecd88c61c85f5c69c0418cb5.m.pipedream.net\",\n    \"upi_intent\": \"false\",\n    \"return_url\": \"https://www.cashfree.com/devstudio/thankyou\"\n  },\n  \"link_url\": \"string\",\n  \"link_expiry_time\": \"string\",\n  \"link_notes\": {\n    \"key_1\": \"value_1\",\n    \"key_2\": \"value_2\"\n  },\n  \"link_auto_reminders\": false,\n  \"link_notify\": {\n    \"send_sms\": false,\n    \"send_email\": true\n  },\n  \"link_qrcode\": \"string\",\n  \"order_splits\": [\n    {\n      \"vendor_id\": \"Vendor01\",\n      \"amount\": 100.12,\n      \"description\": \"order amount should be more than equal to 100.12\"\n    },\n    {\n      \"vendor_id\": \"Vendor01\",\n      \"amount\": 100.12,\n      \"description\": \"order amount should be more than equal to 100.12\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6de44a2-5ecf-4623-924d-92af27948227",
+              "name": "Bad request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"bad URL, please check API documentation\",\n  \"code\": \"request_failed\",\n  \"type\": \"invalid_request_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "340c91b6-5c6a-4ec9-a4ae-227531b2e2cd",
+              "name": "Authentication Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"authentication Failed\",\n  \"code\": \"request_failed\",\n  \"type\": \"authentication_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c70115ce-db5c-4b9f-96e8-e391fa2f5245",
+              "name": "Resource Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"something is not found\",\n  \"code\": \"somethind_not_found\",\n  \"type\": \"invalid_request_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "751f74f2-80be-4ea2-b742-fdcd77a12e5a",
+              "name": "Resource already present",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"order with same id is already present\",\n  \"code\": \"order_already_exists\",\n  \"type\": \"invalid_request_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec0b2d2c-be33-467a-b35d-074e92bd3a81",
+              "name": "Idempotency error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"something is not found\",\n  \"code\": \"request_invalid\",\n  \"type\": \"idempotency_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c5acc2f-a213-4604-8e96-ae038ef09977",
+              "name": "Rate Limit Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Too many requests from IP. Check headers\",\n  \"code\": \"request_failed\",\n  \"type\": \"rate_limit_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1084d316-0e3e-4edb-8f60-3ab79f972ec2",
+              "name": "API related Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"internal Server Error\",\n  \"code\": \"internal_error\",\n  \"type\": \"api_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46b830d8-e38b-4b0d-ab60-8012ccd3b1fa",
+              "name": "Bank related Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"something is not found\",\n  \"code\": \"bank_processing_failure\",\n  \"type\": \"api_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "48cd2bab-0778-4f9f-b8ab-4734ead41ff0",
+          "name": "Cancel Payment Link",
+          "request": {
+            "name": "Cancel Payment Link",
+            "description": {
+              "content": "Use this API to cancel a payment link. No further payments can be done against a cancelled link. Only a link in ACTIVE status can be cancelled.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "links",
+                ":link_id",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "link_id",
+                  "description": "(Required) The payment link ID for which you want to view the details."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "API version to be used. Format is in YYYY-MM-DD",
+                "key": "x-api-version",
+                "value": "2025-01-01"
+              },
+              {
+                "disabled": false,
+                "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                "key": "x-request-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                "key": "x-idempotency-key",
+                "value": "<UUID>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-client-id"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d18b450d-a061-4462-9733-de59d61f8adc",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cf_link_id\": \"string\",\n  \"link_id\": \"string\",\n  \"link_status\": \"string\",\n  \"link_currency\": \"string\",\n  \"link_amount\": 8132.975219829014,\n  \"link_amount_paid\": 5543.766647285137,\n  \"link_partial_payments\": true,\n  \"link_minimum_partial_amount\": 3816.653407475833,\n  \"link_purpose\": \"string\",\n  \"link_created_at\": \"string\",\n  \"customer_details\": {\n    \"customer_phone\": \"<string>\",\n    \"customer_email\": \"<string>\",\n    \"customer_name\": \"<string>\",\n    \"customer_bank_account_number\": \"<string>\",\n    \"customer_bank_ifsc\": \"<string>\",\n    \"customer_bank_code\": \"<integer>\"\n  },\n  \"link_meta\": {\n    \"notify_url\": \"https://ee08e626ecd88c61c85f5c69c0418cb5.m.pipedream.net\",\n    \"upi_intent\": \"false\",\n    \"return_url\": \"https://www.cashfree.com/devstudio/thankyou\"\n  },\n  \"link_url\": \"string\",\n  \"link_expiry_time\": \"string\",\n  \"link_notes\": {\n    \"key_1\": \"value_1\",\n    \"key_2\": \"value_2\"\n  },\n  \"link_auto_reminders\": false,\n  \"link_notify\": {\n    \"send_sms\": false,\n    \"send_email\": true\n  },\n  \"link_qrcode\": \"string\",\n  \"order_splits\": [\n    {\n      \"vendor_id\": \"Vendor01\",\n      \"amount\": 100.12,\n      \"description\": \"order amount should be more than equal to 100.12\"\n    },\n    {\n      \"vendor_id\": \"Vendor01\",\n      \"amount\": 100.12,\n      \"description\": \"order amount should be more than equal to 100.12\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73b32615-eb30-47e5-93d4-4f8a4df21ee5",
+              "name": "Bad request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"bad URL, please check API documentation\",\n  \"code\": \"request_failed\",\n  \"type\": \"invalid_request_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5faf36f6-732d-4c72-a6f5-77911ea3e532",
+              "name": "Authentication Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"authentication Failed\",\n  \"code\": \"request_failed\",\n  \"type\": \"authentication_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57db0da1-cbc0-4515-bbbc-c6e7ffad3325",
+              "name": "Resource Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"something is not found\",\n  \"code\": \"somethind_not_found\",\n  \"type\": \"invalid_request_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6838b24e-5992-45c6-8033-7fc9059c7ccf",
+              "name": "Resource already present",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"order with same id is already present\",\n  \"code\": \"order_already_exists\",\n  \"type\": \"invalid_request_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "02e4fad0-be43-442a-9251-bae92c61bb38",
+              "name": "Idempotency error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"something is not found\",\n  \"code\": \"request_invalid\",\n  \"type\": \"idempotency_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c73a3ba6-058c-4c03-b47c-81ffa160e235",
+              "name": "Rate Limit Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Too many requests from IP. Check headers\",\n  \"code\": \"request_failed\",\n  \"type\": \"rate_limit_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d9a9eea6-a944-4b5a-84d6-72fe8e314cf8",
+              "name": "API related Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"internal Server Error\",\n  \"code\": \"internal_error\",\n  \"type\": \"api_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c71a7732-c8e4-4d34-8571-e4518bf87d54",
+          "name": "Get Orders for a Payment Link",
+          "request": {
+            "name": "Get Orders for a Payment Link",
+            "description": {
+              "content": "Use this API to view all order details for a payment link.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "links",
+                ":link_id",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Mention What is status of orders you want to fetch, default is PAID. Possible value: ALL, PAID"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "link_id",
+                  "description": "(Required) The payment link ID for which you want to view the details."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "API version to be used. Format is in YYYY-MM-DD",
+                "key": "x-api-version",
+                "value": "2025-01-01"
+              },
+              {
+                "disabled": false,
+                "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                "key": "x-request-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                "key": "x-idempotency-key",
+                "value": "<UUID>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-client-id"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "76685432-a862-4ab5-8c39-401925376b50",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "ALL"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"cf_order_id\": \"2149460581\",\n    \"created_at\": \"2023-08-11T18:02:46+05:30\",\n    \"customer_details\": {\n      \"customer_id\": \"409128494\",\n      \"customer_name\": \"Johmn Doe\",\n      \"customer_email\": \"pmlpayme@ntsas.com\",\n      \"customer_phone\": \"9876543210\",\n      \"customer_uid\": \"54deabb4-ba45-4a60-9e6a-9c016fe7ab10\"\n    },\n    \"entity\": \"order\",\n    \"order_amount\": 22,\n    \"payment_session_id\": \"session_a1VXIPJo8kh7IBigVXX8LgTMupQW_cu25FS8KwLwQLOmiHqbBxq5UhEilrhbDSKKHA6UAuOj9506aaHNlFAHEqYrHSEl9AVtYQN9LIIc4vkH\",\n    \"order_currency\": \"INR\",\n    \"order_expiry_time\": \"2023-09-09T18:02:46+05:30\",\n    \"order_id\": \"order_3242Tq4Edj9CC5RDcMeobmJOWOBJij\",\n    \"order_meta\": {\n      \"return_url\": \"https://www.cashfree.com/devstudio/thankyou\",\n      \"payment_methods\": \"cc\",\n      \"notify_url\": \"https://example.com/cf_notify\"\n    },\n    \"order_note\": \"some order note LIST\",\n    \"order_splits\": [],\n    \"order_status\": \"ACTIVE\",\n    \"order_tags\": {\n      \"name\": \"John\",\n      \"age\": \"19\"\n    },\n    \"terminal_data\": null,\n    \"cart_details\": {\n      \"cart_id\": \"1\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c49112ec-fb86-41a4-ad78-a4111c37c024",
+              "name": "Bad request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "ALL"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"bad URL, please check API documentation\",\n  \"code\": \"request_failed\",\n  \"type\": \"invalid_request_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "841dc3bf-c64f-4446-8955-c709217c96f1",
+              "name": "Authentication Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "ALL"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"authentication Failed\",\n  \"code\": \"request_failed\",\n  \"type\": \"authentication_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67c2e254-f71f-40e0-9360-44872496c7eb",
+              "name": "Resource Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "ALL"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"something is not found\",\n  \"code\": \"somethind_not_found\",\n  \"type\": \"invalid_request_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df226ded-e284-4442-b5aa-fd701557a040",
+              "name": "Resource already present",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "ALL"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"order with same id is already present\",\n  \"code\": \"order_already_exists\",\n  \"type\": \"invalid_request_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d240d06-2102-4bbc-940b-9a36b2a3c514",
+              "name": "Idempotency error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "ALL"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"something is not found\",\n  \"code\": \"request_invalid\",\n  \"type\": \"idempotency_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "911cfe88-9939-42c8-96fc-e495c35fd291",
+              "name": "Rate Limit Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "ALL"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Too many requests from IP. Check headers\",\n  \"code\": \"request_failed\",\n  \"type\": \"rate_limit_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "281e508c-6558-43a4-b662-5aab8b72425a",
+              "name": "API related Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links",
+                    ":link_id",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "ALL"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "link_id",
+                      "description": "(Required) The payment link ID for which you want to view the details."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "API version to be used. Format is in YYYY-MM-DD",
+                    "key": "x-api-version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.\n",
+                    "key": "x-idempotency-key",
+                    "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "This header has the version of the API. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2022-09-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "Ratelimit set for your account for this API per minute",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "Rate limit remaning for your account for this API in the next minute. Uses sliding window",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains number of seconds to wait if rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "either ip or app_id\n- `ip` if making a call from the browser. True for api where you don't need `x-client-id` and `x-client-secret`\n- `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`\n",
+                  "key": "x-ratelimit-type",
+                  "value": "ip"
+                },
+                {
+                  "disabled": false,
+                  "description": "Request id for your api call. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.",
+                  "key": "x-idempotency-key",
+                  "value": "some-idem-id"
+                },
+                {
+                  "disabled": false,
+                  "description": "In conjunction with `x-idempotency-key` this means\n- `true` if the response was replayed\n- `false` if the response has not been replayed",
+                  "key": "x-idempotency-replayed",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"internal Server Error\",\n  \"code\": \"internal_error\",\n  \"type\": \"api_error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://sandbox.cashfree.com/pg",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6d6a13bb-6cbc-48ac-9b79-94bc88d0a17b",
+    "name": "Cashfree Payment Gateway APIs Authorize Payment Links API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Cashfree's Payment Gateway APIs provide developers with a streamlined pathway to integrate advanced payment processing capabilities into their applications, platforms and websites.\n\nContact Support:\n Name: API Support\n Email: developers@cashfree.com",
+      "type": "text/plain"
+    }
+  }
+}

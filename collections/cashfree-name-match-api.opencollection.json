@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cashfree Payment Gateway APIs Authorize Name Match API",
+    "version": "2025-01-01"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Name Match",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Verify Name Match",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox.cashfree.com/pg/name-match",
+            "headers": [
+              {
+                "name": "x-cf-signature",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-client-id",
+              "value": "{{x-client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Use this API to verify names that have enormous variations. Provide us the names you want to verify, and we will tell you whether they match and provide the reason. View the [test data](https://www.cashfree.com/docs/api-reference/vrs/data-to-test-integration#name-match) and use the information to trigger the validations. The test data are usable only in the test environments such as sandbox."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

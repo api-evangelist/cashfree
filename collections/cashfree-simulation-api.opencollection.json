@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cashfree Payment Gateway APIs Authorize Simulation API",
+    "version": "2025-01-01"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Simulation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Simulate Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox.cashfree.com/pg/simulate",
+            "headers": [
+              {
+                "name": "x-api-version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "x-request-id",
+                "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+              },
+              {
+                "name": "x-idempotency-key",
+                "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-client-id",
+              "value": "{{x-client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Use this API to simulate payment. To use this API you should first create an order using the Create Order API. Also, you need to create a payment with the same order."
+        },
+        {
+          "info": {
+            "name": "Fetch Simulation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox.cashfree.com/pg/simulate/:simulation_id",
+            "headers": [
+              {
+                "name": "x-api-version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "x-request-id",
+                "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+              },
+              {
+                "name": "x-idempotency-key",
+                "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+              }
+            ],
+            "params": [
+              {
+                "name": "simulation_id",
+                "value": "sim_2900842gV18Lhh7owswLj5XF0uHHUn1CX",
+                "type": "path",
+                "description": "Provide the SimulationId for which the details have to be fetched."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-client-id",
+              "value": "{{x-client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Use this API to fetch simulated payment details."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

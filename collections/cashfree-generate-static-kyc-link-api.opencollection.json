@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cashfree Payment Gateway APIs Authorize Generate Static KYC Link API",
+    "version": "2025-01-01"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Generate Static KYC Link",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate Static KYC Link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox.cashfree.com/pg/form/static-link",
+            "headers": [
+              {
+                "name": "x-cf-signature",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-client-id",
+              "value": "{{x-client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Use this API to generate a static KYC link to verify the KYC information of your users digitally."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

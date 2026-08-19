@@ -1,0 +1,131 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cashfree Payment Gateway APIs Authorize Beneficiary v2 API",
+    "version": "2025-01-01"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Beneficiary v2",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Beneficiary V2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox.cashfree.com/pg/beneficiary",
+            "headers": [
+              {
+                "name": "x-api-version",
+                "value": "2024-01-01"
+              },
+              {
+                "name": "x-request-id",
+                "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+              }
+            ],
+            "params": [
+              {
+                "name": "beneficiary_id",
+                "value": "JOHN18011343",
+                "type": "query",
+                "description": "It is the unique ID you created to identify the beneficiary while creating the beneficiary."
+              },
+              {
+                "name": "bank_account_number",
+                "value": "00001111222233",
+                "type": "query",
+                "description": "It is the bank account number of the beneficiary. If bank_account_number is passed in query, bank_ifsc should also be passed."
+              },
+              {
+                "name": "bank_ifsc",
+                "value": "HDFC0000001",
+                "type": "query",
+                "description": "It is the IFSC information as present in the beneficiary's bank account information. If bank_ifsc is passed in query, bank_account_number should also be passed."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-client-id",
+              "value": "{{x-client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Use this API to get the details of a particular beneficiary from your account. You can pass either beneficiary_id or the combination of bank_account_number and bank_ifsc to fetch the details."
+        },
+        {
+          "info": {
+            "name": "Create Beneficiary V2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox.cashfree.com/pg/beneficiary",
+            "headers": [
+              {
+                "name": "x-api-version",
+                "value": "2024-01-01"
+              },
+              {
+                "name": "x-request-id",
+                "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-client-id",
+              "value": "{{x-client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Use this API to add a beneficiary to your Cashfree Payments account by providing the bank account number, IFSC, and other required details. Ensure the successful creation of the benficiary in your account before initiating a transfer."
+        },
+        {
+          "info": {
+            "name": "Remove Beneficiary V2",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://sandbox.cashfree.com/pg/beneficiary",
+            "headers": [
+              {
+                "name": "x-api-version",
+                "value": "2024-01-01"
+              },
+              {
+                "name": "x-request-id",
+                "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+              }
+            ],
+            "params": [
+              {
+                "name": "beneficiary_id",
+                "value": "sample_test",
+                "type": "query",
+                "description": "It is the unique ID you create to identify the beneficiary. The maximum character limit is 50. Only alphabets and whitespaces are allowed."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-client-id",
+              "value": "{{x-client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Use this API to remove an existing beneficiary from the list of added beneficiaries."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

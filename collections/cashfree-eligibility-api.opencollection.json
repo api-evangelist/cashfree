@@ -1,0 +1,53 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cashfree Payment Gateway APIs Authorize Eligibility API",
+    "version": "2025-01-01"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Eligibility",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get eligible Payment Methods",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://sandbox.cashfree.com/pg/eligibility/payment_methods",
+            "headers": [
+              {
+                "name": "x-api-version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "x-request-id",
+                "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+              },
+              {
+                "name": "x-idempotency-key",
+                "value": "47bf8872-46fe-11ee-be56-0242ac120002"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-client-id",
+              "value": "{{x-client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Use this API to get eligible Payment Methods"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

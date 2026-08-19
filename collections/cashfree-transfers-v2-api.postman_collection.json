@@ -1,0 +1,1480 @@
+{
+  "item": [
+    {
+      "id": "923968cc-0b87-488f-a2fc-c28b9ecc97de",
+      "name": "Transfers v2",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bb380a7b-0252-4a91-bee9-ef50f78ffc11",
+          "name": "Standard Transfer V2",
+          "request": {
+            "name": "Standard Transfer V2",
+            "description": {
+              "content": "Use this API to initiate an amount transfer at Cashfree Payments. It is an async request by default.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transfers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                "key": "x-api-version",
+                "value": "2024-01-01"
+              },
+              {
+                "disabled": false,
+                "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                "key": "x-request-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-client-id"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transfer_amount\": \"<double>\",\n  \"transfer_id\": \"<string>\",\n  \"beneficiary_details\": {\n    \"beneficiary_id\": \"<string>\",\n    \"beneficiary_name\": \"<string>\",\n    \"beneficiary_instrument_details\": {\n      \"bank_account_number\": \"<string>\",\n      \"bank_ifsc\": \"<string>\",\n      \"vpa\": \"<string>\",\n      \"card_details\": {\n        \"card_token\": \"<string>\",\n        \"card_network_type\": \"<string>\",\n        \"card_cryptogram\": \"<string>\",\n        \"card_token_expiry\": \"<string>\",\n        \"card_type\": \"<string>\",\n        \"card_token_PAN_sequence_number\": \"<string>\"\n      }\n    },\n    \"beneficiary_contact_details\": {\n      \"beneficiary_email\": \"<string>\",\n      \"beneficiary_phone\": \"<string>\",\n      \"beneficiary_country_code\": \"<string>\",\n      \"beneficiary_address\": \"<string>\",\n      \"beneficiary_city\": \"<string>\",\n      \"beneficiary_state\": \"<string>\",\n      \"beneficiary_postal_code\": \"<string>\"\n    }\n  },\n  \"transfer_currency\": \"<string>\",\n  \"transfer_mode\": \"<string>\",\n  \"transfer_remarks\": \"<string>\",\n  \"fundsource_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "11f3be74-26b9-4cc7-8153-39407ce71370",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transfer_id\": \"JUNOB2018\",\n  \"transfer_amount\": 1,\n  \"beneficiary_details\": {\n    \"beneficiary_id\": \"JOHN18011\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "It displays the API version. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2024-01-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "It displays the rate limit per minute set for your account for this API request.",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "It displays the remaining rate limit in the next minute for your account for this API requeste. Uses sliding window.",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "It displays the number of seconds to wait if the rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "It displays the request ID for the API request. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transfer_id\": \"JUNOB2018\",\n  \"cf_transfer_id\": \"123456\",\n  \"status\": \"RECEIVED\",\n  \"status_code\": \"RECEIVED\",\n  \"status_description\": \"The transfer has been received by Cashfree successfully for further processing. You should use Check Status API response or Webhooks to know the terminal state of the transfer request.\",\n  \"beneficiary_details\": {\n    \"beneficiary_id\": \"JOHN18011\"\n  },\n  \"transfer_amount\": 1,\n  \"transfer_mode\": \"BANK\",\n  \"fundsource_id\": \"CASHFREE_1\",\n  \"added_on\": \"2021-11-24T13:39:25Z\",\n  \"updated_on\": \"2021-11-24T13:40:27Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ce95c0d-4a33-477d-aad1-c29e8af274e3",
+              "name": "invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transfer_id\": \"JUNOB2018\",\n  \"transfer_amount\": 1,\n  \"beneficiary_details\": {\n    \"beneficiary_id\": \"JOHN18011\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"invalid_request_error\",\n  \"code\": \"transfer_id_missing\",\n  \"message\": \"transfer_id is missing in the request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9b7420d-1479-42f5-a5ca-36abb3c6345c",
+              "name": "Forbidden error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transfer_id\": \"JUNOB2018\",\n  \"transfer_amount\": 1,\n  \"beneficiary_details\": {\n    \"beneficiary_id\": \"JOHN18011\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"invalid_request_error\",\n  \"code\": \"apis_not_enabled\",\n  \"message\": \"APIs not enabled. Please fill out the [Support Form](https://merchant.cashfree.com/merchants/landing?env=prod&raise_issue=1)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cae3b8dd-f7bd-46c5-9a3f-17870674f4d9",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transfer_id\": \"JUNOB2018\",\n  \"transfer_amount\": 1,\n  \"beneficiary_details\": {\n    \"beneficiary_id\": \"JOHN18011\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"invalid_request_error\",\n  \"code\": \"beneficiary_not_found\",\n  \"message\": \"Beneficiary does not exist\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b08c2567-5cfc-45ef-9e29-015f4cfadf8a",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transfer_id\": \"JUNOB2018\",\n  \"transfer_amount\": 1,\n  \"beneficiary_details\": {\n    \"beneficiary_id\": \"JOHN18011\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"api_error\",\n  \"code\": \"internal_server_error\",\n  \"message\": \"Error at cashfree's server\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4928f011-9ea7-439b-9aff-989e4bdd3529",
+          "name": "Get Transfer Status V2",
+          "request": {
+            "name": "Get Transfer Status V2",
+            "description": {
+              "content": "Use this API to get the status of the initiated transfer. You can use either the transfer_id or cf_transfer_id to fetch the details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transfers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cf_transfer_id",
+                  "value": "<string>",
+                  "description": "It is the unique ID created by Cashfree Payments. You receive it in the response of the initiated standard transfer request. (Either cf_transfer_id or transfer_id is mandatory)"
+                },
+                {
+                  "disabled": false,
+                  "key": "transfer_id",
+                  "value": "<string>",
+                  "description": "It is the unique ID you created to identify the standard transfer request."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                "key": "x-api-version",
+                "value": "2024-01-01"
+              },
+              {
+                "disabled": false,
+                "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                "key": "x-request-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-client-id"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c25effc9-808b-4ddd-8a31-89e9bbbaa892",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cf_transfer_id",
+                      "value": "10023"
+                    },
+                    {
+                      "key": "transfer_id",
+                      "value": "Sample_test"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "It displays the API version. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2024-01-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "It displays the rate limit per minute set for your account for this API request.",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "It displays the remaining rate limit in the next minute for your account for this API requeste. Uses sliding window.",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "It displays the number of seconds to wait if the rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "It displays the request ID for the API request. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transfer_id\": \"JUNOB2018\",\n  \"cf_transfer_id\": \"123456\",\n  \"status\": \"RECEIVED\",\n  \"status_code\": \"RECEIVED\",\n  \"status_description\": \"The transfer has been received by Cashfree successfully for further processing. You should use Check Status API response or Webhooks to know the terminal state of the transfer request.\",\n  \"beneficiary_details\": {\n    \"beneficiary_id\": \"JOHN18011\"\n  },\n  \"transfer_amount\": 1,\n  \"transfer_mode\": \"BANK\",\n  \"fundsource_id\": \"CASHFREE_1\",\n  \"added_on\": \"2021-11-24T13:39:25Z\",\n  \"updated_on\": \"2021-11-24T13:40:27Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66288d18-dc0a-48e4-b742-7b8a9975c4f7",
+              "name": "Forbidden error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cf_transfer_id",
+                      "value": "10023"
+                    },
+                    {
+                      "key": "transfer_id",
+                      "value": "Sample_test"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"invalid_request_error\",\n  \"code\": \"apis_not_enabled\",\n  \"message\": \"APIs not enabled. Please fill out the [Support Form](https://merchant.cashfree.com/merchants/landing?env=prod&raise_issue=1)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3bf6938-9e04-47bc-a515-2870c42cc427",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cf_transfer_id",
+                      "value": "10023"
+                    },
+                    {
+                      "key": "transfer_id",
+                      "value": "Sample_test"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"invalid_request_error\",\n  \"code\": \"cf_transfer_id_not_found\",\n  \"message\": \"cf_transfer_id does not exist\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "574eb617-bdcb-43c1-8207-5f423f7fa122",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cf_transfer_id",
+                      "value": "10023"
+                    },
+                    {
+                      "key": "transfer_id",
+                      "value": "Sample_test"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"api_error\",\n  \"code\": \"internal_server_error\",\n  \"message\": \"Error at cashfree's server\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e2c21ee-0592-4727-b4f1-91465d35b826",
+          "name": "Batch Transfer V2",
+          "request": {
+            "name": "Batch Transfer V2",
+            "description": {
+              "content": "Use this API to initiate a batch transfer request at Cashfree Payments. You can transfer money to multiple beneficiaries. The batch transfer limit is 5,000 in the production environment and 1,000 by default in the test environment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transfers",
+                "batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                "key": "x-api-version",
+                "value": "2024-01-01"
+              },
+              {
+                "disabled": false,
+                "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                "key": "x-request-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-client-id"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"batch_transfer_id\": \"<string>\",\n  \"transfers\": [\n    {\n      \"transfer_amount\": \"<double>\",\n      \"transfer_id\": \"<string>\",\n      \"transfer_currency\": \"<string>\",\n      \"transfer_mode\": \"<string>\",\n      \"beneficiary_details\": {\n        \"beneficiary_id\": \"<string>\",\n        \"beneficiary_name\": \"<string>\",\n        \"beneficiary_instrument_details\": {\n          \"bank_account_number\": \"<string>\",\n          \"bank_ifsc\": \"<string>\",\n          \"vpa\": \"<string>\"\n        },\n        \"beneficiary_contact_details\": {\n          \"beneficiary_email\": \"<string>\",\n          \"beneficiary_phone\": \"<string>\",\n          \"beneficiary_country_code\": \"<string>\",\n          \"beneficiary_address\": \"<string>\",\n          \"beneficiary_city\": \"<string>\",\n          \"beneficiary_state\": \"<string>\",\n          \"beneficiary_postal_code\": \"<string>\"\n        }\n      },\n      \"transfer_remarks\": \"<string>\",\n      \"fundsource_id\": \"<string>\"\n    },\n    {\n      \"transfer_amount\": \"<double>\",\n      \"transfer_id\": \"<string>\",\n      \"transfer_currency\": \"<string>\",\n      \"transfer_mode\": \"<string>\",\n      \"beneficiary_details\": {\n        \"beneficiary_id\": \"<string>\",\n        \"beneficiary_name\": \"<string>\",\n        \"beneficiary_instrument_details\": {\n          \"bank_account_number\": \"<string>\",\n          \"bank_ifsc\": \"<string>\",\n          \"vpa\": \"<string>\"\n        },\n        \"beneficiary_contact_details\": {\n          \"beneficiary_email\": \"<string>\",\n          \"beneficiary_phone\": \"<string>\",\n          \"beneficiary_country_code\": \"<string>\",\n          \"beneficiary_address\": \"<string>\",\n          \"beneficiary_city\": \"<string>\",\n          \"beneficiary_state\": \"<string>\",\n          \"beneficiary_postal_code\": \"<string>\"\n        }\n      },\n      \"transfer_remarks\": \"<string>\",\n      \"fundsource_id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "32508be0-331e-43fb-a549-be9a9ef57bdb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"batch_transfer_id\": \"test_batch_transfer_id\",\n  \"transfers\": [\n    {\n      \"transfer_id\": \"JUNOB2018\",\n      \"transfer_amount\": 1,\n      \"beneficiary_details\": {\n        \"beneficiary_id\": \"JOHN18011\"\n      }\n    },\n    {\n      \"transfer_id\": \"JUNOB2018\",\n      \"transfer_amount\": 1,\n      \"transfer_mode\": \"imps\",\n      \"beneficiary_details\": {\n        \"beneficiary_details\": {\n          \"beneficiary_instrument_details\": {\n            \"bank_account_number\": \"1234554321\",\n            \"bank_ifsc\": \"SBIN0001161\"\n          }\n        }\n      }\n    },\n    {\n      \"transfer_id\": \"JUNOB2018\",\n      \"transfer_amount\": 1,\n      \"transfer_mode\": \"imps\",\n      \"beneficiary_details\": {\n        \"beneficiary_details\": {\n          \"beneficiary_id\": \"JOHN18011\"\n        }\n      },\n      \"fundsource_id\": \"CASHFREE_1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "It displays the API version. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2024-01-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "It displays the rate limit per minute set for your account for this API request.",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "It displays the remaining rate limit in the next minute for your account for this API requeste. Uses sliding window.",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "It displays the number of seconds to wait if the rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "It displays the request ID for the API request. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batch_transfer_id\": \"test_batch_transfer_id\",\n  \"cf_batch_transfer_id\": \"123456\",\n  \"status\": \"RECEIVED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "924226fd-93e4-4424-8324-08adda2e16bd",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"batch_transfer_id\": \"test_batch_transfer_id\",\n  \"transfers\": [\n    {\n      \"transfer_id\": \"JUNOB2018\",\n      \"transfer_amount\": 1,\n      \"beneficiary_details\": {\n        \"beneficiary_id\": \"JOHN18011\"\n      }\n    },\n    {\n      \"transfer_id\": \"JUNOB2018\",\n      \"transfer_amount\": 1,\n      \"transfer_mode\": \"imps\",\n      \"beneficiary_details\": {\n        \"beneficiary_details\": {\n          \"beneficiary_instrument_details\": {\n            \"bank_account_number\": \"1234554321\",\n            \"bank_ifsc\": \"SBIN0001161\"\n          }\n        }\n      }\n    },\n    {\n      \"transfer_id\": \"JUNOB2018\",\n      \"transfer_amount\": 1,\n      \"transfer_mode\": \"imps\",\n      \"beneficiary_details\": {\n        \"beneficiary_details\": {\n          \"beneficiary_id\": \"JOHN18011\"\n        }\n      },\n      \"fundsource_id\": \"CASHFREE_1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"invalid_request_error\",\n  \"code\": \"batch_transfer_id_missing\",\n  \"message\": \"batch_transfer_id is missing in the request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e50cbc9-2b7f-444e-af6c-0e2c834d0ab3",
+              "name": "Batch transfer_id already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"batch_transfer_id\": \"test_batch_transfer_id\",\n  \"transfers\": [\n    {\n      \"transfer_id\": \"JUNOB2018\",\n      \"transfer_amount\": 1,\n      \"beneficiary_details\": {\n        \"beneficiary_id\": \"JOHN18011\"\n      }\n    },\n    {\n      \"transfer_id\": \"JUNOB2018\",\n      \"transfer_amount\": 1,\n      \"transfer_mode\": \"imps\",\n      \"beneficiary_details\": {\n        \"beneficiary_details\": {\n          \"beneficiary_instrument_details\": {\n            \"bank_account_number\": \"1234554321\",\n            \"bank_ifsc\": \"SBIN0001161\"\n          }\n        }\n      }\n    },\n    {\n      \"transfer_id\": \"JUNOB2018\",\n      \"transfer_amount\": 1,\n      \"transfer_mode\": \"imps\",\n      \"beneficiary_details\": {\n        \"beneficiary_details\": {\n          \"beneficiary_id\": \"JOHN18011\"\n        }\n      },\n      \"fundsource_id\": \"CASHFREE_1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"invalid_request_error\",\n  \"code\": \"batch_transfer_id_already_exists\",\n  \"message\": \"batch_transfer_id already exists. please pass unique id in each request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d06cb603-b584-4047-a423-ea406c76b173",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"batch_transfer_id\": \"test_batch_transfer_id\",\n  \"transfers\": [\n    {\n      \"transfer_id\": \"JUNOB2018\",\n      \"transfer_amount\": 1,\n      \"beneficiary_details\": {\n        \"beneficiary_id\": \"JOHN18011\"\n      }\n    },\n    {\n      \"transfer_id\": \"JUNOB2018\",\n      \"transfer_amount\": 1,\n      \"transfer_mode\": \"imps\",\n      \"beneficiary_details\": {\n        \"beneficiary_details\": {\n          \"beneficiary_instrument_details\": {\n            \"bank_account_number\": \"1234554321\",\n            \"bank_ifsc\": \"SBIN0001161\"\n          }\n        }\n      }\n    },\n    {\n      \"transfer_id\": \"JUNOB2018\",\n      \"transfer_amount\": 1,\n      \"transfer_mode\": \"imps\",\n      \"beneficiary_details\": {\n        \"beneficiary_details\": {\n          \"beneficiary_id\": \"JOHN18011\"\n        }\n      },\n      \"fundsource_id\": \"CASHFREE_1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"api_error\",\n  \"code\": \"internal_server_error\",\n  \"message\": \"Error at cashfree's server\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6972b0d5-607f-4a87-a56a-fd4dcb6222e6",
+          "name": "Get Batch Transfer Status V2",
+          "request": {
+            "name": "Get Batch Transfer Status V2",
+            "description": {
+              "content": "Use this API to get the status of the initiated batch transfer. You can use either the batch_transfer_id or cf_batch_transfer_id to fetch the details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transfers",
+                "batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cf_batch_transfer_id",
+                  "value": "<string>",
+                  "description": "It is the unique ID created by Cashfree Payments. You receive it in the response of the initiated batch transfer request. (Either cf_batch_transfer_id or batch_transfer_id is mandatory)"
+                },
+                {
+                  "disabled": false,
+                  "key": "batch_transfer_id",
+                  "value": "<string>",
+                  "description": "It is the unique ID you created to identify the batch transfer request."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                "key": "x-api-version",
+                "value": "2024-01-01"
+              },
+              {
+                "disabled": false,
+                "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                "key": "x-request-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-client-id"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e5c9d8f9-2732-447e-bb00-01bd0053b1d1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cf_batch_transfer_id",
+                      "value": "10023"
+                    },
+                    {
+                      "key": "batch_transfer_id",
+                      "value": "Sample_test"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "It displays the API version. The current version is `2022-09-01`.",
+                  "key": "x-api-version",
+                  "value": "2024-01-01"
+                },
+                {
+                  "disabled": false,
+                  "description": "It displays the rate limit per minute set for your account for this API request.",
+                  "key": "x-ratelimit-limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "description": "It displays the remaining rate limit in the next minute for your account for this API requeste. Uses sliding window.",
+                  "key": "x-ratelimit-remaining",
+                  "value": "2"
+                },
+                {
+                  "disabled": false,
+                  "description": "It displays the number of seconds to wait if the rate limit is breached\n- Is 0 if withing the limit\n- Is between 1 and 59 if breached\n",
+                  "key": "x-ratelimit-retry",
+                  "value": "4"
+                },
+                {
+                  "disabled": false,
+                  "description": "It displays the request ID for the API request. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batch_transfer_id\": \"test_batch_transfer_id\",\n  \"cf_batch_transfer_id\": \"123456\",\n  \"status\": \"RECEIVED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91617b62-654d-43a6-8ba0-96f2aaa36b67",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cf_batch_transfer_id",
+                      "value": "10023"
+                    },
+                    {
+                      "key": "batch_transfer_id",
+                      "value": "Sample_test"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"invalid_request_error\",\n  \"code\": \"cf_batch_transfer_id\",\n  \"message\": \"cf_batch_transfer_id does not exist\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d183c1cf-964a-4650-bded-efc2e7bc0c1d",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cf_batch_transfer_id",
+                      "value": "10023"
+                    },
+                    {
+                      "key": "batch_transfer_id",
+                      "value": "Sample_test"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"api_error\",\n  \"code\": \"internal_server_error\",\n  \"message\": \"Error at cashfree's server\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://sandbox.cashfree.com/pg",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "90c66a00-e711-45a5-b226-78f1f5c9b736",
+    "name": "Cashfree Payment Gateway APIs Authorize Transfers v2 API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Cashfree's Payment Gateway APIs provide developers with a streamlined pathway to integrate advanced payment processing capabilities into their applications, platforms and websites.\n\nContact Support:\n Name: API Support\n Email: developers@cashfree.com",
+      "type": "text/plain"
+    }
+  }
+}

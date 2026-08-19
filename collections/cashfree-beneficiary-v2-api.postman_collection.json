@@ -1,0 +1,1233 @@
+{
+  "item": [
+    {
+      "id": "ca57c267-9602-40ba-ad81-fc9807531a29",
+      "name": "Beneficiary v2",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6e38d6c7-7ea1-4ca7-bbfb-aa22abe7c84a",
+          "name": "Create Beneficiary V2",
+          "request": {
+            "name": "Create Beneficiary V2",
+            "description": {
+              "content": "Use this API to add a beneficiary to your Cashfree Payments account by providing the bank account number, IFSC, and other required details. Ensure the successful creation of the benficiary in your account before initiating a transfer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "beneficiary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                "key": "x-api-version",
+                "value": "2024-01-01"
+              },
+              {
+                "disabled": false,
+                "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                "key": "x-request-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-client-id"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"beneficiary_id\": \"<string>\",\n  \"beneficiary_name\": \"<string>\",\n  \"beneficiary_instrument_details\": {\n    \"bank_account_number\": \"<string>\",\n    \"bank_ifsc\": \"<string>\",\n    \"vpa\": \"<string>\"\n  },\n  \"beneficiary_contact_details\": {\n    \"beneficiary_email\": \"<string>\",\n    \"beneficiary_phone\": \"<string>\",\n    \"beneficiary_country_code\": \"<string>\",\n    \"beneficiary_address\": \"<string>\",\n    \"beneficiary_city\": \"<string>\",\n    \"beneficiary_state\": \"<string>\",\n    \"beneficiary_postal_code\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8c96b945-f6b0-44d0-9b63-c272273ce922",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beneficiary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"beneficiary_id\": \"JOHN18011343\",\n  \"beneficiary_name\": \"John Doe\",\n  \"beneficiary_instrument_details\": {\n    \"bank_account_number\": \"1223334444\",\n    \"bank_ifsc\": \"HDFC0000001\",\n    \"vpa\": \"test@upi\"\n  },\n  \"beneficiary_contact_details\": {\n    \"beneficiary_email\": \"sample@cashfree.com\",\n    \"beneficiary_phone\": \"9876543210\",\n    \"beneficiary_country_code\": \"+91\",\n    \"beneficiary_address\": \"177A Bleecker Street\",\n    \"beneficiary_city\": \"New York City\",\n    \"beneficiary_state\": \"New York\",\n    \"beneficiary_postal_code\": \"560011\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"beneficiary_id\": \"JOHN18011343\",\n  \"beneficiary_name\": \"John Doe\",\n  \"beneficiary_instrument_details\": {\n    \"bank_account_number\": \"1223334444\",\n    \"bank_ifsc\": \"HDFC0000001\",\n    \"vpa\": \"test@upi\"\n  },\n  \"beneficiary_contact_details\": {\n    \"beneficiary_email\": \"sample@cashfree.com\",\n    \"beneficiary_phone\": \"9876543210\",\n    \"beneficiary_country_code\": \"+91\",\n    \"beneficiary_address\": \"177A Bleecker Street\",\n    \"beneficiary_city\": \"New York City\",\n    \"beneficiary_state\": \"New York\",\n    \"beneficiary_postal_code\": \"560011\"\n  },\n  \"beneficiary_status\": \"VERIFIED\",\n  \"added_on\": \"2023-12-04T15:50:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b10b19a9-6dc2-4651-bc0a-ca4d7d3b0600",
+              "name": "Bad request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beneficiary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"beneficiary_id\": \"JOHN18011343\",\n  \"beneficiary_name\": \"John Doe\",\n  \"beneficiary_instrument_details\": {\n    \"bank_account_number\": \"1223334444\",\n    \"bank_ifsc\": \"HDFC0000001\",\n    \"vpa\": \"test@upi\"\n  },\n  \"beneficiary_contact_details\": {\n    \"beneficiary_email\": \"sample@cashfree.com\",\n    \"beneficiary_phone\": \"9876543210\",\n    \"beneficiary_country_code\": \"+91\",\n    \"beneficiary_address\": \"177A Bleecker Street\",\n    \"beneficiary_city\": \"New York City\",\n    \"beneficiary_state\": \"New York\",\n    \"beneficiary_postal_code\": \"560011\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"invalid_request_error\",\n  \"code\": \"beneficiary_id_length_exceeded\",\n  \"message\": \"beneficiary_id : should not be more than 50 characters long. value received: kl12b3rkh1bv234lkbr3jl24tbrlk234bkt234t134kbr1hk34jr\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "13555a79-c8bd-41bc-b590-7cfcc3903dc7",
+              "name": "Forbidden error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beneficiary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"beneficiary_id\": \"JOHN18011343\",\n  \"beneficiary_name\": \"John Doe\",\n  \"beneficiary_instrument_details\": {\n    \"bank_account_number\": \"1223334444\",\n    \"bank_ifsc\": \"HDFC0000001\",\n    \"vpa\": \"test@upi\"\n  },\n  \"beneficiary_contact_details\": {\n    \"beneficiary_email\": \"sample@cashfree.com\",\n    \"beneficiary_phone\": \"9876543210\",\n    \"beneficiary_country_code\": \"+91\",\n    \"beneficiary_address\": \"177A Bleecker Street\",\n    \"beneficiary_city\": \"New York City\",\n    \"beneficiary_state\": \"New York\",\n    \"beneficiary_postal_code\": \"560011\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"invalid_request_error\",\n  \"code\": \"apis_not_enabled\",\n  \"message\": \"APIs not enabled. Please fill out the [Support Form](https://merchant.cashfree.com/merchants/landing?env=prod&raise_issue=1)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "22151533-18ae-49c6-bab6-c685cbc0dfb2",
+              "name": "Duplicate error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beneficiary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"beneficiary_id\": \"JOHN18011343\",\n  \"beneficiary_name\": \"John Doe\",\n  \"beneficiary_instrument_details\": {\n    \"bank_account_number\": \"1223334444\",\n    \"bank_ifsc\": \"HDFC0000001\",\n    \"vpa\": \"test@upi\"\n  },\n  \"beneficiary_contact_details\": {\n    \"beneficiary_email\": \"sample@cashfree.com\",\n    \"beneficiary_phone\": \"9876543210\",\n    \"beneficiary_country_code\": \"+91\",\n    \"beneficiary_address\": \"177A Bleecker Street\",\n    \"beneficiary_city\": \"New York City\",\n    \"beneficiary_state\": \"New York\",\n    \"beneficiary_postal_code\": \"560011\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"invalid_request_error\",\n  \"code\": \"beneficiary_id_already_exists\",\n  \"message\": \"Beneficiary already exists with the given beneficiary_id\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8eaae519-f0e3-495c-ba03-0056381f45ac",
+              "name": "Unprocessable error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beneficiary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"beneficiary_id\": \"JOHN18011343\",\n  \"beneficiary_name\": \"John Doe\",\n  \"beneficiary_instrument_details\": {\n    \"bank_account_number\": \"1223334444\",\n    \"bank_ifsc\": \"HDFC0000001\",\n    \"vpa\": \"test@upi\"\n  },\n  \"beneficiary_contact_details\": {\n    \"beneficiary_email\": \"sample@cashfree.com\",\n    \"beneficiary_phone\": \"9876543210\",\n    \"beneficiary_country_code\": \"+91\",\n    \"beneficiary_address\": \"177A Bleecker Street\",\n    \"beneficiary_city\": \"New York City\",\n    \"beneficiary_state\": \"New York\",\n    \"beneficiary_postal_code\": \"560011\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"invalid_request_error\",\n  \"code\": \"beneficiary_account_same_as_source\",\n  \"message\": \"beneficiary_bank_account_number provided can not be same as source bank account\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fb9ba82a-25d1-4ea6-80b6-ac607cb91924",
+          "name": "Get Beneficiary V2",
+          "request": {
+            "name": "Get Beneficiary V2",
+            "description": {
+              "content": "Use this API to get the details of a particular beneficiary from your account. You can pass either beneficiary_id or the combination of bank_account_number and bank_ifsc to fetch the details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "beneficiary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "beneficiary_id",
+                  "value": "<string>",
+                  "description": "It is the unique ID you created to identify the beneficiary while creating the beneficiary."
+                },
+                {
+                  "disabled": false,
+                  "key": "bank_account_number",
+                  "value": "<string>",
+                  "description": "It is the bank account number of the beneficiary. If bank_account_number is passed in query, bank_ifsc should also be passed."
+                },
+                {
+                  "disabled": false,
+                  "key": "bank_ifsc",
+                  "value": "<string>",
+                  "description": "It is the IFSC information as present in the beneficiary's bank account information. If bank_ifsc is passed in query, bank_account_number should also be passed."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                "key": "x-api-version",
+                "value": "2024-01-01"
+              },
+              {
+                "disabled": false,
+                "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                "key": "x-request-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-client-id"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2f621598-5c9e-4891-a1a6-f899e73af24d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beneficiary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "beneficiary_id",
+                      "value": "JOHN18011343"
+                    },
+                    {
+                      "key": "bank_account_number",
+                      "value": "00001111222233"
+                    },
+                    {
+                      "key": "bank_ifsc",
+                      "value": "HDFC0000001"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "It displays the request ID for the API request. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"beneficiary_id\": \"JOHN18011343\",\n  \"beneficiary_name\": \"John Doe\",\n  \"beneficiary_instrument_details\": {\n    \"bank_account_number\": \"1223334444\",\n    \"bank_ifsc\": \"HDFC0000001\",\n    \"vpa\": \"test@upi\"\n  },\n  \"beneficiary_contact_details\": {\n    \"beneficiary_email\": \"sample@cashfree.com\",\n    \"beneficiary_phone\": \"9876543210\",\n    \"beneficiary_country_code\": \"+91\",\n    \"beneficiary_address\": \"177A Bleecker Street\",\n    \"beneficiary_city\": \"New York City\",\n    \"beneficiary_state\": \"New York\",\n    \"beneficiary_postal_code\": \"560011\"\n  },\n  \"beneficiary_status\": \"VERIFIED\",\n  \"added_on\": \"2023-12-04T15:50:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28d39bb7-f460-45ed-8e00-96e6795d41d1",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beneficiary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "beneficiary_id",
+                      "value": "JOHN18011343"
+                    },
+                    {
+                      "key": "bank_account_number",
+                      "value": "00001111222233"
+                    },
+                    {
+                      "key": "bank_ifsc",
+                      "value": "HDFC0000001"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "It displays the request ID for the API request. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"invalid_request_error\",\n  \"code\": \"too_many_parameters_in_request\",\n  \"message\": \"Please provide either bank_account_number and bank_ifsc together or beneficiary_id alone. Do not include all three parameters in the request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77f7a7b0-225c-42eb-8558-db197198998d",
+              "name": "Forbidden error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beneficiary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "beneficiary_id",
+                      "value": "JOHN18011343"
+                    },
+                    {
+                      "key": "bank_account_number",
+                      "value": "00001111222233"
+                    },
+                    {
+                      "key": "bank_ifsc",
+                      "value": "HDFC0000001"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"invalid_request_error\",\n  \"code\": \"apis_not_enabled\",\n  \"message\": \"APIs not enabled. Please fill out the [Support Form](https://merchant.cashfree.com/merchants/landing?env=prod&raise_issue=1)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7dc553a8-0e2d-4ccf-bd6b-fcb2e78c3504",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beneficiary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "beneficiary_id",
+                      "value": "JOHN18011343"
+                    },
+                    {
+                      "key": "bank_account_number",
+                      "value": "00001111222233"
+                    },
+                    {
+                      "key": "bank_ifsc",
+                      "value": "HDFC0000001"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"invalid_request_error\",\n  \"code\": \"beneficiary_not_found\",\n  \"message\": \"Beneficiary does not exist\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e5c8b0d0-6f5c-41fb-afe7-29f0dcf3842d",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beneficiary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "beneficiary_id",
+                      "value": "JOHN18011343"
+                    },
+                    {
+                      "key": "bank_account_number",
+                      "value": "00001111222233"
+                    },
+                    {
+                      "key": "bank_ifsc",
+                      "value": "HDFC0000001"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"api_error\",\n  \"code\": \"internal_server_error\",\n  \"message\": \"Error at cashfree's server\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c16b26b-70f1-46c6-96c4-857240d7d3de",
+          "name": "Remove Beneficiary V2",
+          "request": {
+            "name": "Remove Beneficiary V2",
+            "description": {
+              "content": "Use this API to remove an existing beneficiary from the list of added beneficiaries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "beneficiary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "beneficiary_id",
+                  "value": "<string>",
+                  "description": "It is the unique ID you create to identify the beneficiary. The maximum character limit is 50. Only alphabets and whitespaces are allowed."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                "key": "x-api-version",
+                "value": "2024-01-01"
+              },
+              {
+                "disabled": false,
+                "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                "key": "x-request-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-client-id"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7187bc84-fc1a-4146-8c6c-a01ca990ef7d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beneficiary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "beneficiary_id",
+                      "value": "sample_test"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "It displays the request ID for the API request. Is blank or null if no `x-request-id` is sent during the request",
+                  "key": "x-request-id",
+                  "value": "some-req-id"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"beneficiary_id\": \"JOHN18011343\",\n  \"beneficiary_name\": \"John Doe\",\n  \"beneficiary_instrument_details\": {\n    \"bank_account_number\": \"1223334444\",\n    \"bank_ifsc\": \"HDFC0000001\",\n    \"vpa\": \"test@upi\"\n  },\n  \"beneficiary_contact_details\": {\n    \"beneficiary_email\": \"sample@cashfree.com\",\n    \"beneficiary_phone\": \"9876543210\",\n    \"beneficiary_country_code\": \"+91\",\n    \"beneficiary_address\": \"177A Bleecker Street\",\n    \"beneficiary_city\": \"New York City\",\n    \"beneficiary_state\": \"New York\",\n    \"beneficiary_postal_code\": \"560011\"\n  },\n  \"beneficiary_status\": \"DELETED\",\n  \"added_on\": \"2023-12-04T15:50:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "732b3b6d-7f55-4737-9fc4-b9e1d44dae0a",
+              "name": "Bad request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beneficiary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "beneficiary_id",
+                      "value": "sample_test"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"invalid_request_error\",\n  \"code\": \"beneficiary_id_length_exceeded\",\n  \"message\": \"beneficiary_id : should not be more than 50 characters long. value received: kl12b3rkh1bv234lkbr3jl24tbrlk234bkt234t134kbr1hk34jr\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4f8f727-ecd1-45a7-8f75-817cc085be7c",
+              "name": "Forbidden error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beneficiary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "beneficiary_id",
+                      "value": "sample_test"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"invalid_request_error\",\n  \"code\": \"apis_not_enabled\",\n  \"message\": \"APIs not enabled. Please fill out the [Support Form](https://merchant.cashfree.com/merchants/landing?env=prod&raise_issue=1)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bdadd95b-2b81-4b20-a475-5f49b761f90e",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beneficiary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "beneficiary_id",
+                      "value": "sample_test"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"invalid_request_error\",\n  \"code\": \"beneficiary_not_found\",\n  \"message\": \"Beneficiary does not exist\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64c31179-520b-4084-a939-62cf7fde7b26",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beneficiary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "beneficiary_id",
+                      "value": "sample_test"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the API version to be used. The accepted format is YYYY-MM-DD.",
+                    "key": "x-api-version",
+                    "value": "2024-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.",
+                    "key": "x-request-id",
+                    "value": "4dfb9780-46fe-11ee-be56-0242ac120002"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"api_error\",\n  \"code\": \"internal_server_error\",\n  \"message\": \"Error at cashfree's server\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://sandbox.cashfree.com/pg",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "844dfd75-8804-46d7-852c-cca3258c4d96",
+    "name": "Cashfree Payment Gateway APIs Authorize Beneficiary v2 API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Cashfree's Payment Gateway APIs provide developers with a streamlined pathway to integrate advanced payment processing capabilities into their applications, platforms and websites.\n\nContact Support:\n Name: API Support\n Email: developers@cashfree.com",
+      "type": "text/plain"
+    }
+  }
+}

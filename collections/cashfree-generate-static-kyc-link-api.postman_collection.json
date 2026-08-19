@@ -1,0 +1,503 @@
+{
+  "item": [
+    {
+      "id": "4e17de4b-f078-4838-883c-e962f75dacfa",
+      "name": "Generate Static KYC Link",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2b530fdd-7425-489e-ad5b-0a51bd1e6bd7",
+          "name": "Generate Static KYC Link",
+          "request": {
+            "name": "Generate Static KYC Link",
+            "description": {
+              "content": "Use this API to generate a static KYC link to verify the KYC information of your users digitally.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "form",
+                "static-link"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Send the signature if IP is not whitelisted",
+                "key": "x-cf-signature",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-client-id"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"template_name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "91d56d29-b273-4da9-9a6a-6bf147b5df48",
+              "name": "Response Body for Generate Static KYC Link API",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form",
+                    "static-link"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"static_link\": \"https://verification.cashfree.com/forms?shortCode=m2bjk9uakkcg\",\n  \"qr_code\": \"iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAABlBMVEX///8AAABVwtN+AAACuklEQVR42uyYwa3jMAxEx/CBR5WgTqzGgtiBG5M7UQk66mB4FkP/3WR/A5aB8PZ/3sGUqOGQ+MY3bhhGklsd6sAdiAASJgz6b70RUADLQQgiuaMBqQ0VGHsCSMvhwFBHrvqDDRjqzLUzYCPrwLWM1FG3qU+g6sMfXg9G5hsCgG3MmOtMFoAZiduviroaOJ/eFF71EdeyR8tt0uX8epuXAh4DDzzDSnKknXX9f1wMWEFSCYRXncsjjjpstkTW911cDkCqNbk+PACMhZ5DOMJ6K8Cy5ZDxDIv/bLTsijJ2BbBNyiOsBbqLZAcSX3XuB1CxSBJ+pHiH0bY2cPnQh8sBxJY8hwOIe1T3NfIIR+CNAKmFNwhZhkck9TaZw8c5XA/o6bUpSHnnMlMFw8MEPNANIOV1uzhz5YIdlpUF0BVQSOiYn3p6UL9QA6nP8OEfrgZ01N55l7DEJarj8nDpHW8EWDGe0wIXzBzZ5Hm2t3voAUC0TDkx9Yu5AC21gVKHv1rdBUAi1UnA+6hVMOwHkKfl4W7Mq7qoxxk/GsodALfiQFJeRR3D/aS63r+4HjC2ZOphS2AZqYvhxkPTRO0JgGcx/9jFlixDDWRHP0Bxu+ifzSVSyjxhAjDXjgCkJh+2BHJxu3iOtPVOgDvzzQVkLQ95MbgQz+9h8nrAXBAAPKGa3tFghx2B7+3B9YB78wMTZHJW3x7YaXLmroDsWQxyYjrqJOH99LQ3AHx6POcFf5nlZy1yfBjOy4FzB1JT9Q+nC8ggO/FO83rg3CaRGnLd9CLJiX244h6Ac5nMOlRNvLsPwaYs/o0PPQC+4ZzwlCkre6QvONzW3AzIYeNpedWaW2pTeNXugHPHxbVQ/mFrCK//F/tXA14wWQ2CexyLTxM+BHcE/F0mL2HHI+5AsmzS2h33Ab7xja7iTwAAAP//HxNnsaD8lqMAAAAASUVORK5CYII=\",\n  \"status\": \"ACTIVE\",\n  \"template_name\": \"Aadhaar_verification\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5eb78179-63f3-4d58-b8ff-13b0aa0ccb6a",
+              "name": "Validation error in Static KYC Link",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form",
+                    "static-link"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"validation_error\",\n  \"code\": \"template_name_missing\",\n  \"message\": \"template_name is missing in the request.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ea8bc72-e44d-4e45-a00f-72afbfd3fc0b",
+              "name": "Invalid client ID and client secret combination",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form",
+                    "static-link"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"authentication_error\",\n  \"code\": \"authentication_failed\",\n  \"message\": \"Invalid clientId and clientSecret combination\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c8348909-c704-4bd0-86da-2bb1be233d07",
+              "name": "Authentication error (IP not whitelisted)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form",
+                    "static-link"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"authentication_error\",\n  \"code\": \"ip_validation_failed\",\n  \"message\": \"IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99028bce-b529-4b59-aee1-3eb9e09ebbcb",
+              "name": "Not found errors in Static KYC Link",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form",
+                    "static-link"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"validation_error\",\n  \"code\": \"template_name_not_found\",\n  \"message\": \"template_name does not exist\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2dcf7f3f-c50a-49c3-986e-418508513e96",
+              "name": "Validation error because of insufficient balance to process this request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form",
+                    "static-link"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"validation_error\",\n  \"code\": \"insufficient_balance\",\n  \"message\": \"Insufficient balance to process this request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b904798c-28ed-496c-ba6e-7c0ae57fea63",
+              "name": "Rate limit exceed error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form",
+                    "static-link"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"rate_limit_error\",\n  \"code\": \"too_many_requests_per_operation\",\n  \"message\": \"Too many requests for this operation, rate limit reached\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb996ab7-d62a-4d6e-b70e-043e3f7ada06",
+              "name": "Internal error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "form",
+                    "static-link"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-client-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Send the signature if IP is not whitelisted",
+                    "key": "x-cf-signature",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"internal_error\",\n  \"code\": \"request_failed\",\n  \"message\": \"Unable to process your request. Try again after some time\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://sandbox.cashfree.com/pg",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cf387c2d-7c34-4897-a51f-09818cca2c18",
+    "name": "Cashfree Payment Gateway APIs Authorize Generate Static KYC Link API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Cashfree's Payment Gateway APIs provide developers with a streamlined pathway to integrate advanced payment processing capabilities into their applications, platforms and websites.\n\nContact Support:\n Name: API Support\n Email: developers@cashfree.com",
+      "type": "text/plain"
+    }
+  }
+}
