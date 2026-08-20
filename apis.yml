@@ -25,6 +25,17 @@ tags:
   - UPI
   - India
   - Payment Gateway
+  - Subscription
+  - Refunds
+  - QR Codes
+  - Net Banking
+  - Identity Verification
+tags_raw:
+  - Payments
+  - Payouts
+  - UPI
+  - India
+  - Payment Gateway
   - Subscriptions
   - Refunds
   - QR Codes
@@ -40,6 +51,11 @@ apis:
   humanURL: https://www.cashfree.com/docs
   baseURL: https://api.cashfree.com
   tags:
+  - Subscription
+  - Recurring Payments
+  - UPI AutoPay
+  - eNACH
+  tags_raw:
   - Subscriptions
   - Recurring Payments
   - UPI AutoPay
@@ -288,6 +304,8 @@ apis:
   humanURL: https://www.cashfree.com/docs/api-reference/overview
   baseURL: https://api.cashfree.com
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -368,6 +386,8 @@ apis:
   humanURL: https://www.cashfree.com/docs/api-reference/overview
   baseURL: https://api.cashfree.com
   tags:
+  - Settlement
+  tags_raw:
   - Settlements
   properties:
   - type: OpenAPI
