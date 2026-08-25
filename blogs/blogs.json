@@ -10,12 +10,9 @@
     },
     {
       "source": "https://in.linkedin.com/company/cashfree",
-      "feed_url": "https://in.linkedin.com/company/cashfree",
-      "title": "",
-      "saved": 0,
-      "method": "none"
+      "error": "HTTPError"
     }
   ],
-  "fetched": "2026-08-15T12:22:01Z",
-  "post_count": 75
+  "fetched": "2026-08-22T20:20:02Z",
+  "post_count": 79
 }
