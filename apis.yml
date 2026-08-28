@@ -1,6 +1,18 @@
 aid: cashfree
 name: Cashfree Payments
 description: Cashfree Payments is an Indian payment gateway and banking platform providing REST APIs for payment links, subscriptions, payouts, refunds, QR codes, and banking payouts across UPI, credit and debit cards, net banking, and international payment methods. It serves over one million businesses with RBI authorisation as a Payment Aggregator and Prepaid Payment Instrument provider.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
