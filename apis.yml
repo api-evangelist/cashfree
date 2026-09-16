@@ -1,6 +1,9 @@
 aid: cashfree
 name: Cashfree Payments
-description: Cashfree Payments is an Indian payment gateway and banking platform providing REST APIs for payment links, subscriptions, payouts, refunds, QR codes, and banking payouts across UPI, credit and debit cards, net banking, and international payment methods. It serves over one million businesses with RBI authorisation as a Payment Aggregator and Prepaid Payment Instrument provider.
+description: Cashfree Payments is an Indian payment gateway and banking platform providing REST APIs for
+  payment links, subscriptions, payouts, refunds, QR codes, and banking payouts across UPI, credit and
+  debit cards, net banking, and international payment methods. It serves over one million businesses with
+  RBI authorisation as a Payment Aggregator and Prepaid Payment Instrument provider.
 deliveryModel:
   model: saas
   open_source: false
@@ -29,37 +32,36 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/cashfree.png
 url: https://raw.githubusercontent.com/api-evangelist/cashfree/refs/heads/main/apis.yml
-created: "2026-06-13"
-modified: "2026-06-13"
+created: '2026-06-13'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 tags:
-  - Payments
-  - Payouts
-  - UPI
-  - India
-  - Payment Gateway
-  - Subscription
-  - Refunds
-  - QR Codes
-  - Net Banking
-  - Identity Verification
+- Payments
+- Payouts
+- UPI
+- India
+- Payment Gateway
+- Subscription
+- Refunds
+- QR Codes
+- Net Banking
+- Identity Verification
 tags_raw:
-  - Payments
-  - Payouts
-  - UPI
-  - India
-  - Payment Gateway
-  - Subscriptions
-  - Refunds
-  - QR Codes
-  - Net Banking
-  - Identity Verification
+- Payments
+- Payouts
+- UPI
+- India
+- Payment Gateway
+- Subscriptions
+- Refunds
+- QR Codes
+- Net Banking
+- Identity Verification
 apis:
 - aid: cashfree:subscriptions
   name: Cashfree Subscriptions API
-  description: >-
-    API for creating and managing recurring payment mandates using UPI AutoPay and eNACH, including subscription
-    plans, customer mandates, and automated billing cycles.
+  description: API for creating and managing recurring payment mandates using UPI AutoPay and eNACH, including
+    subscription plans, customer mandates, and automated billing cycles.
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://www.cashfree.com/docs
   baseURL: https://api.cashfree.com
@@ -81,9 +83,8 @@ apis:
     url: https://www.cashfree.com/support/
 - aid: cashfree:platforms
   name: Cashfree Platforms API
-  description: >-
-    API for marketplace and SaaS platform operators to onboard sub-merchants, split payments, manage settlements
-    to multiple vendors, and operate escrow arrangements.
+  description: API for marketplace and SaaS platform operators to onboard sub-merchants, split payments,
+    manage settlements to multiple vendors, and operate escrow arrangements.
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://www.cashfree.com/docs
   baseURL: https://api.cashfree.com
@@ -148,9 +149,8 @@ apis:
     url: https://www.cashfree.com/docs
 - aid: cashfree:cashfree-deactivate-static-kyc-link-api
   name: Cashfree Payments Deactivate Static KYC Link API
-  description: >-
-    The Deactivate Static KYC Link API from Cashfree Payments — 1 operation(s) for deactivate static kyc
-    link.
+  description: The Deactivate Static KYC Link API from Cashfree Payments — 1 operation(s) for deactivate
+    static kyc link.
   humanURL: https://www.cashfree.com/docs/api-reference/overview
   baseURL: https://api.cashfree.com
   tags:
@@ -166,8 +166,7 @@ apis:
     url: https://www.cashfree.com/docs
 - aid: cashfree:cashfree-deactivatecashgram-api
   name: Cashfree Payments DeactivateCashgram API
-  description: >-
-    The DeactivateCashgram API from Cashfree Payments — 1 operation(s) for deactivatecashgram.
+  description: The DeactivateCashgram API from Cashfree Payments — 1 operation(s) for deactivatecashgram.
   humanURL: https://www.cashfree.com/docs/api-reference/overview
   baseURL: https://api.cashfree.com
   tags:
@@ -247,8 +246,8 @@ apis:
     url: https://www.cashfree.com/docs
 - aid: cashfree:cashfree-generate-static-kyc-link-api
   name: Cashfree Payments Generate Static KYC Link API
-  description: >-
-    The Generate Static KYC Link API from Cashfree Payments — 1 operation(s) for generate static kyc link.
+  description: The Generate Static KYC Link API from Cashfree Payments — 1 operation(s) for generate static
+    kyc link.
   humanURL: https://www.cashfree.com/docs/api-reference/overview
   baseURL: https://api.cashfree.com
   tags:
@@ -264,8 +263,7 @@ apis:
     url: https://www.cashfree.com/docs
 - aid: cashfree:cashfree-get-kyc-link-status-api
   name: Cashfree Payments Get KYC Link Status API
-  description: >-
-    The Get KYC Link Status API from Cashfree Payments — 1 operation(s) for get kyc link status.
+  description: The Get KYC Link Status API from Cashfree Payments — 1 operation(s) for get kyc link status.
   humanURL: https://www.cashfree.com/docs/api-reference/overview
   baseURL: https://api.cashfree.com
   tags:
@@ -346,7 +344,7 @@ apis:
   - type: Documentation
     url: https://www.cashfree.com/docs
 - aid: cashfree:cashfree-payments-api
-  name: Cashfree Payments Payments API
+  name: Cashfree Payments API
   description: Collection of APIs to handle payments.
   humanURL: https://www.cashfree.com/docs/api-reference/overview
   baseURL: https://api.cashfree.com
@@ -444,50 +442,50 @@ apis:
   - type: Documentation
     url: https://www.cashfree.com/docs
 common:
-  - type: AgenticAccess
-    url: agentic-access/cashfree-agentic-access.yml
-  - type: DomainSecurity
-    url: security/cashfree-domain-security.yml
-  - type: Authentication
-    url: authentication/cashfree-authentication.yml
-  - type: Website
-    url: https://www.cashfree.com/
-  - type: Documentation
-    url: https://www.cashfree.com/docs
-  - type: GitHubOrg
-    url: https://github.com/cashfree
-  - type: LinkedIn
-    url: https://in.linkedin.com/company/cashfree
-  - type: Blog
-    url: https://www.cashfree.com/blog/
-  - type: Pricing
-    url: https://www.cashfree.com/payment-gateway-charges/
-  - type: StatusPage
-    url: https://status.cashfree.com/
-  - type: X
-    url: https://x.com/gocashfree
-  - type: DevPortal
-    url: https://www.cashfree.com/devstudio
-  - type: Support
-    url: https://www.cashfree.com/support/
-  - type: Contact
-    url: https://www.cashfree.com/contact-us/
-  - type: Plans
-    url: plans/cashfree-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/cashfree-rate-limits.yml
-  - type: FinOps
-    url: finops/cashfree-finops.yml
-  - type: Vocabulary
-    url: vocabulary/cashfree-vocabulary.json
-  - type: JSONSchema
-    url: json-schema/cashfree-payment-gateway-schemas.json
-  - type: JSONSchema
-    url: json-schema/cashfree-payouts-schemas.json
-  - type: JSONSchema
-    url: json-schema/cashfree-verification-schemas.json
-  - type: JSONLD
-    url: json-ld/cashfree-provider.jsonld
+- type: AgenticAccess
+  url: agentic-access/cashfree-agentic-access.yml
+- type: DomainSecurity
+  url: security/cashfree-domain-security.yml
+- type: Authentication
+  url: authentication/cashfree-authentication.yml
+- type: Website
+  url: https://www.cashfree.com/
+- type: Documentation
+  url: https://www.cashfree.com/docs
+- type: GitHubOrg
+  url: https://github.com/cashfree
+- type: LinkedIn
+  url: https://in.linkedin.com/company/cashfree
+- type: Blog
+  url: https://www.cashfree.com/blog/
+- type: Pricing
+  url: https://www.cashfree.com/payment-gateway-charges/
+- type: StatusPage
+  url: https://status.cashfree.com/
+- type: X
+  url: https://x.com/gocashfree
+- type: DevPortal
+  url: https://www.cashfree.com/devstudio
+- type: Support
+  url: https://www.cashfree.com/support/
+- type: Contact
+  url: https://www.cashfree.com/contact-us/
+- type: Plans
+  url: plans/cashfree-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/cashfree-rate-limits.yml
+- type: FinOps
+  url: finops/cashfree-finops.yml
+- type: Vocabulary
+  url: vocabulary/cashfree-vocabulary.json
+- type: JSONSchema
+  url: json-schema/cashfree-payment-gateway-schemas.json
+- type: JSONSchema
+  url: json-schema/cashfree-payouts-schemas.json
+- type: JSONSchema
+  url: json-schema/cashfree-verification-schemas.json
+- type: JSONLD
+  url: json-ld/cashfree-provider.jsonld
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
