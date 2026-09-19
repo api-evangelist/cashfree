@@ -89,6 +89,11 @@ apis:
   humanURL: https://www.cashfree.com/docs
   baseURL: https://api.cashfree.com
   tags:
+  - Marketplace
+  - Split Payments
+  - Merchant Onboarding
+  - Escrow
+  tags_raw:
   - Marketplaces
   - Split Payments
   - Merchant Onboarding
