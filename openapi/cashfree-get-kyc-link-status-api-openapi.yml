@@ -1,7 +1,5 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  version: '2025-01-01'
-  title: Cashfree Payment Gateway APIs Authorize Get KYC Link Status API
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
@@ -9,12 +7,14 @@ info:
     email: developers@cashfree.com
     name: API Support
     url: https://discord.com/invite/QdZkNSxXsB
-  description: Cashfree's Payment Gateway APIs provide developers with a streamlined pathway to integrate advanced payment processing capabilities into their applications, platforms and websites.
+  title: Cashfree Verification API's. Get KYC Link Status API
+  version: '2023-12-18'
+  description: Cashfree's Verification APIs provide different types of verification to our merchants.
 servers:
-- url: https://sandbox.cashfree.com/pg
-  description: Sandbox server
-- url: https://api.cashfree.com/pg
-  description: Production server
+- description: Test Server
+  url: https://sandbox.cashfree.com/verification
+- description: Production Server
+  url: https://api.cashfree.com/verification
 tags:
 - name: Get KYC Link Status
 paths:
@@ -64,6 +64,98 @@ paths:
         '500':
           $ref: '#/components/responses/Response500'
 components:
+  responses:
+    Response500:
+      description: Internal error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Internal Server Error:
+              value:
+                type: internal_error
+                code: request_failed
+                message: Unable to process your request. Try again after some time
+    Response401:
+      description: Invalid client ID and client secret combination
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Invalid client ID and client secret combination:
+              value:
+                type: authentication_error
+                code: authentication_failed
+                message: Invalid clientId and clientSecret combination
+    Response404GetFormStatus:
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          example:
+            type: not_found_error
+            code: Resource not found
+            message: No data found
+    Response403:
+      description: Authentication error (IP not whitelisted)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            IP not whitelisted:
+              value:
+                type: authentication_error
+                code: ip_validation_failed
+                message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
+    getFormStatusResponse:
+      description: Response Body of VRS GetFormStatus API
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/getFormStatusResponseSchema'
+    Response429:
+      description: Rate limit exceed error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Rate limit error per operation:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_operation
+                message: Too many requests for this operation, rate limit reached
+            Rate limit error per IP:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_ip
+                message: Too many requests from the IP, rate limit reached
+    400GetFormStatus:
+      description: Get Form Status responses for 400
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Reference ID or Verification ID Missing:
+              value:
+                type: validation_error
+                code: invalid_request
+                message: Provide verificationID or referenceID
+            Client ID in Missing:
+              value:
+                type: validation_error
+                code: x-client-id_missing
+                message: x-client-id is missing in the request.
+            Client Secret in Missing:
+              value:
+                type: validation_error
+                code: x-client-secret_missing
+                message: x-client-secret is missing in the request.
   schemas:
     bavFormStatusResponseSchema:
       description: Bank Details Validation Product Status
@@ -78,6 +170,54 @@ components:
         status:
           type: string
           example: FAILED
+    upiFormStatusResponseSchema:
+      description: Upi Verification Product Status
+      type: object
+      properties:
+        reference_id:
+          type: integer
+          example: 237
+        type:
+          type: string
+          example: UPIDETAILS_VALIDATION
+        status:
+          type: string
+          example: FAILED
+    aadhaarFormStatusResponseSchema:
+      description: It displays the status of aadhaar verification
+      type: object
+      properties:
+        reference_id:
+          type: integer
+          description: It displays the unique ID created by Cashfree Payments for reference purposes.
+          example: 234
+        type:
+          type: string
+          description: It displays the verification type.
+          example: OFFLINE_AADHAAR_VERIFICATION
+        status:
+          type: string
+          description: It displays the verification status.
+          example: SUCCESS
+    ErrorResponseSchema:
+      description: Response in case of error.
+      type: object
+      properties:
+        code:
+          type: string
+          example: x-client-id_missing
+        error:
+          type: object
+          example:
+            ref_id: 102
+        message:
+          type: string
+          example: x-client-id is missing in the request.
+          description: It displays the outcome of the error.
+        type:
+          type: string
+          example: validation_error
+          description: It displays the type of error.
     getFormStatusResponseSchema:
       description: Find the success response for Get Form Status
       type: object
@@ -122,22 +262,6 @@ components:
             - $ref: '#/components/schemas/panFormStatusResponseSchema'
             - $ref: '#/components/schemas/bavFormStatusResponseSchema'
             - $ref: '#/components/schemas/upiFormStatusResponseSchema'
-    aadhaarFormStatusResponseSchema:
-      description: It displays the status of aadhaar verification
-      type: object
-      properties:
-        reference_id:
-          type: integer
-          description: It displays the unique ID created by Cashfree Payments for reference purposes.
-          example: 234
-        type:
-          type: string
-          description: It displays the verification type.
-          example: OFFLINE_AADHAAR_VERIFICATION
-        status:
-          type: string
-          description: It displays the verification status.
-          example: SUCCESS
     panFormStatusResponseSchema:
       description: PAN Verification Product Status
       type: object
@@ -151,130 +275,6 @@ components:
         status:
           type: string
           example: PENDING
-    upiFormStatusResponseSchema:
-      description: Upi Verification Product Status
-      type: object
-      properties:
-        reference_id:
-          type: integer
-          example: 237
-        type:
-          type: string
-          example: UPIDETAILS_VALIDATION
-        status:
-          type: string
-          example: FAILED
-    ErrorResponseSchema:
-      description: Response in case of error.
-      type: object
-      properties:
-        code:
-          type: string
-          example: x-client-id_missing
-        error:
-          type: object
-          example:
-            ref_id: 102
-        message:
-          type: string
-          example: x-client-id is missing in the request.
-          description: It displays the outcome of the error.
-        type:
-          type: string
-          example: validation_error
-          description: It displays the type of error.
-  responses:
-    Response500:
-      description: Internal error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Internal Server Error:
-              value:
-                type: internal_error
-                code: request_failed
-                message: Unable to process your request. Try again after some time
-    Response429:
-      description: Rate limit exceed error.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Rate limit error per operation:
-              value:
-                type: rate_limit_error
-                code: too_many_requests_per_operation
-                message: Too many requests for this operation, rate limit reached
-            Rate limit error per IP:
-              value:
-                type: rate_limit_error
-                code: too_many_requests_per_ip
-                message: Too many requests from the IP, rate limit reached
-    Response401:
-      description: Invalid client ID and client secret combination
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Invalid client ID and client secret combination:
-              value:
-                type: authentication_error
-                code: authentication_failed
-                message: Invalid clientId and clientSecret combination
-    Response403:
-      description: Authentication error (IP not whitelisted)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            IP not whitelisted:
-              value:
-                type: authentication_error
-                code: ip_validation_failed
-                message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
-    getFormStatusResponse:
-      description: Response Body of VRS GetFormStatus API
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/getFormStatusResponseSchema'
-    400GetFormStatus:
-      description: Get Form Status responses for 400
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Reference ID or Verification ID Missing:
-              value:
-                type: validation_error
-                code: invalid_request
-                message: Provide verificationID or referenceID
-            Client ID in Missing:
-              value:
-                type: validation_error
-                code: x-client-id_missing
-                message: x-client-id is missing in the request.
-            Client Secret in Missing:
-              value:
-                type: validation_error
-                code: x-client-secret_missing
-                message: x-client-secret is missing in the request.
-    Response404GetFormStatus:
-      description: Not found error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          example:
-            type: not_found_error
-            code: Resource not found
-            message: No data found
   parameters:
     x_cf_signature:
       description: Send the signature if IP is not whitelisted
@@ -285,37 +285,27 @@ components:
         type: string
       example: ''
   securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
     XClientID:
       type: apiKey
       in: header
       name: x-client-id
-      description: Client app ID. You can find your app id in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+      description: Client ID. You can find your ID in the [Merchant Dashboard](https://merchant.cashfree.com/verificationsuite/developers/api-keys).
     XClientSecret:
       type: apiKey
       in: header
       name: x-client-secret
-      description: Client secret key. You can find your secret in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
-    XClientSignatureHeader:
+      description: Client secret key. You can find your secret key in the [Merchant Dashboard](https://merchant.cashfree.com/verificationsuite/developers/api-keys).
+    UVXClientID:
       type: apiKey
       in: header
-      name: x-client-signature
-      description: Use this if you do not want to pass the secret key and instead want to use the signature.
-    XPartnerAPIKey:
+      name: x-client-id
+      description: Client ID. You can find your ID in the [Merchant Dashboard](https://merchant.cashfree.com/verificationsuite/secure-share).
+    UVXClientSecret:
       type: apiKey
       in: header
-      name: x-partner-apikey
-      description: If you are partner and you are making an api call on behalf of a merchant
-    XPartnerMerchantID:
-      type: apiKey
-      in: header
-      name: x-partner-merchantid
-      description: If you are partner use this to specify the merchant id if you don't have the merchant client app id
-externalDocs:
-  url: https://api.cashfree.com/pg
-  description: This url will have the information of all the APIs.
-x-readme:
-  explorer-enabled: true
-  proxy-enabled: true
-  samples-enabled: true
-  samples-languages:
-  - shell
+      name: x-client-secret
+      description: Client secret key. You can find your secret key in the [Merchant Dashboard](https://merchant.cashfree.com/verificationsuite/secure-share).

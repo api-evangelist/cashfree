@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  version: '2025-01-01'
-  title: Cashfree Payment Gateway APIs Authorize DeactivateCashgram API
+  version: '2024-01-01'
+  title: Cashfree Payout Deactivate Cashgram API
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
@@ -9,11 +9,11 @@ info:
     email: developers@cashfree.com
     name: API Support
     url: https://discord.com/invite/QdZkNSxXsB
-  description: Cashfree's Payment Gateway APIs provide developers with a streamlined pathway to integrate advanced payment processing capabilities into their applications, platforms and websites.
+  description: Cashfree's Payout APIs provide developers with a streamlined pathway to integrate advanced payout capabilities into their applications, platforms and websites.
 servers:
-- url: https://sandbox.cashfree.com/pg
+- url: https://sandbox.cashfree.com/payout
   description: Sandbox server
-- url: https://api.cashfree.com/pg
+- url: https://api.cashfree.com/payout
   description: Production server
 tags:
 - name: DeactivateCashgram
@@ -132,33 +132,12 @@ components:
       type: apiKey
       in: header
       name: x-client-id
-      description: Client app ID. You can find your app id in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
+      description: Client ID. You can find your app id in the [Merchant Dashboard](https://merchant.cashfree.com/payouts/developers/api-keys).
     XClientSecret:
       type: apiKey
       in: header
       name: x-client-secret
-      description: Client secret key. You can find your secret in the [merchant dashboard](https://merchant.cashfree.com/merchants/pg/developers/api-keys?env=prod").
-    XClientSignatureHeader:
-      type: apiKey
-      in: header
-      name: x-client-signature
-      description: Use this if you do not want to pass the secret key and instead want to use the signature.
-    XPartnerAPIKey:
-      type: apiKey
-      in: header
-      name: x-partner-apikey
-      description: If you are partner and you are making an api call on behalf of a merchant
-    XPartnerMerchantID:
-      type: apiKey
-      in: header
-      name: x-partner-merchantid
-      description: If you are partner use this to specify the merchant id if you don't have the merchant client app id
+      description: Client secret key. You can find your secret in the [Merchant Dashboard](https://merchant.cashfree.com/payouts/developers/api-keys).
 externalDocs:
-  url: https://api.cashfree.com/pg
+  url: https://api.cashfree.com/payout
   description: This url will have the information of all the APIs.
-x-readme:
-  explorer-enabled: true
-  proxy-enabled: true
-  samples-enabled: true
-  samples-languages:
-  - shell

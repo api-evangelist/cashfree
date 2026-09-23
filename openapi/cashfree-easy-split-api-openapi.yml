@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   version: '2025-01-01'
-  title: Cashfree Payment Gateway APIs Authorize Easy-Split API
+  title: Cashfree Payment Gateway Easy Split API
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
@@ -74,6 +74,38 @@ components:
           type: string
           enum:
           - invalid_request_error
+    ESOrderReconRequest:
+      title: ESOrderReconRequest
+      description: ES Order Recon Request
+      type: object
+      properties:
+        filters:
+          type: object
+          description: Provide the filter object details.
+          properties:
+            start_date:
+              type: string
+              description: Specify the start data from which you want to get the recon data.
+            end_date:
+              type: string
+              description: Specify the end data till which you want to get the recon data.
+            order_ids:
+              type: array
+              description: Please provide list of order ids for which you want to get the recon data.
+              items:
+                type: string
+        pagination:
+          type: object
+          description: Set limit based on your requirement. Pagination limit will fetch a set of orders, next set of orders can be generated using the cursor shared in previous response of the same API.
+          properties:
+            cursor:
+              type: string
+            limit:
+              type: integer
+              description: Set the minimum/maximum limit for number of filtered data. Min value - 10, Max value - 100.
+      required:
+      - filters
+      - pagination
     ESOrderReconResponse:
       title: ESOrderReconResponse
       description: ES Order Recon Response
@@ -160,49 +192,7 @@ components:
                 type: string
         limit:
           type: integer
-    ESOrderReconRequest:
-      title: ESOrderReconRequest
-      description: ES Order Recon Request
-      type: object
-      properties:
-        filters:
-          type: object
-          description: Provide the filter object details.
-          properties:
-            start_date:
-              type: string
-              description: Specify the start data from which you want to get the recon data.
-            end_date:
-              type: string
-              description: Specify the end data till which you want to get the recon data.
-            order_ids:
-              type: array
-              description: Please provide list of order ids for which you want to get the recon data.
-              items:
-                type: string
-        pagination:
-          type: object
-          description: Set limit based on your requirement. Pagination limit will fetch a set of orders, next set of orders can be generated using the cursor shared in previous response of the same API.
-          properties:
-            cursor:
-              type: string
-            limit:
-              type: integer
-              description: Set the minimum/maximum limit for number of filtered data. Min value - 10, Max value - 100.
-      required:
-      - filters
-      - pagination
   parameters:
-    apiVersionHeader:
-      in: header
-      name: x-api-version
-      description: API version to be used. Format is in YYYY-MM-DD
-      schema:
-        type: string
-        description: API version to be used
-        default: '2025-01-01'
-      example: '2025-01-01'
-      x-ignore: true
     xRequestIDHeader:
       in: header
       name: x-request-id
@@ -222,31 +212,17 @@ components:
         type: string
         format: UUID
       example: 47bf8872-46fe-11ee-be56-0242ac120002
+    apiVersionHeader:
+      in: header
+      name: x-api-version
+      description: API version to be used. Format is in YYYY-MM-DD
+      schema:
+        type: string
+        description: API version to be used
+        default: '2025-01-01'
+      example: '2025-01-01'
+      x-ignore: true
   responses:
-    Response409ESOrderRecon:
-      description: ES Order Recon Failure Response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/BadRequestError'
-          examples:
-            Settlement already initiated to merchant:
-              value:
-                message: Transaction already processed, not eligible for split
-                code: api_request_failed
-                type: invalid_request_error
-    Response400ESOrderRecon:
-      description: ES Order Recon Failure Response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/BadRequestError'
-          examples:
-            Filter not present:
-              value:
-                message: At least one of the filters needs to be present orderIds or Date
-                code: request_failed
-                type: invalid_request_error
     ESOrderReconSuccessResponse:
       description: ES Order Recon Success Response.
       content:
@@ -360,6 +336,30 @@ components:
               value:
                 message: Order not found
                 code: order_not_found
+                type: invalid_request_error
+    Response400ESOrderRecon:
+      description: ES Order Recon Failure Response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestError'
+          examples:
+            Filter not present:
+              value:
+                message: At least one of the filters needs to be present orderIds or Date
+                code: request_failed
+                type: invalid_request_error
+    Response409ESOrderRecon:
+      description: ES Order Recon Failure Response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestError'
+          examples:
+            Settlement already initiated to merchant:
+              value:
+                message: Transaction already processed, not eligible for split
+                code: api_request_failed
                 type: invalid_request_error
   requestBodies:
     ESOrderReconRequestBody:
