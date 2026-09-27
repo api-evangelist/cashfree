@@ -80,14 +80,6 @@ components:
           type: string
           example: Invalid clientId and clientSecret combination
   parameters:
-    xRequestIDHeader:
-      in: header
-      name: x-request-id
-      description: It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.
-      required: false
-      schema:
-        type: string
-      example: 4dfb9780-46fe-11ee-be56-0242ac120002
     apiVersionHeader:
       in: header
       name: x-api-version
@@ -97,6 +89,14 @@ components:
         description: It is the API version to be used.
         default: '2024-01-01'
       example: '2024-01-01'
+    xRequestIDHeader:
+      in: header
+      name: x-request-id
+      description: It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.
+      required: false
+      schema:
+        type: string
+      example: 4dfb9780-46fe-11ee-be56-0242ac120002
   securitySchemes:
     XClientID:
       type: apiKey

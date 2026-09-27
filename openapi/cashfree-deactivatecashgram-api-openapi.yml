@@ -81,6 +81,14 @@ paths:
       - DeactivateCashgram
 components:
   schemas:
+    v1_deactivateCashgram_body:
+      required:
+      - cashgramId
+      type: object
+      properties:
+        cashgramId:
+          type: string
+          description: ID of the Cashgram to be deactivated. Alphanumeric and underscore (_) allowed (35 character limit)
     inline_response_200_9:
       type: object
       properties:
@@ -105,14 +113,6 @@ components:
         message:
           type: string
           example: Cashgram with id JOHaN10 does not exists
-    v1_deactivateCashgram_body:
-      required:
-      - cashgramId
-      type: object
-      properties:
-        cashgramId:
-          type: string
-          description: ID of the Cashgram to be deactivated. Alphanumeric and underscore (_) allowed (35 character limit)
   x-elicitationConfig:
     deactivateCashgram:
       enabled: true

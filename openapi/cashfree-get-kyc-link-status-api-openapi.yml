@@ -65,40 +65,6 @@ paths:
           $ref: '#/components/responses/Response500'
 components:
   responses:
-    Response500:
-      description: Internal error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Internal Server Error:
-              value:
-                type: internal_error
-                code: request_failed
-                message: Unable to process your request. Try again after some time
-    Response401:
-      description: Invalid client ID and client secret combination
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Invalid client ID and client secret combination:
-              value:
-                type: authentication_error
-                code: authentication_failed
-                message: Invalid clientId and clientSecret combination
-    Response404GetFormStatus:
-      description: Not found error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          example:
-            type: not_found_error
-            code: Resource not found
-            message: No data found
     Response403:
       description: Authentication error (IP not whitelisted)
       content:
@@ -111,29 +77,16 @@ components:
                 type: authentication_error
                 code: ip_validation_failed
                 message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
-    getFormStatusResponse:
-      description: Response Body of VRS GetFormStatus API
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/getFormStatusResponseSchema'
-    Response429:
-      description: Rate limit exceed error.
+    Response404GetFormStatus:
+      description: Not found error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Rate limit error per operation:
-              value:
-                type: rate_limit_error
-                code: too_many_requests_per_operation
-                message: Too many requests for this operation, rate limit reached
-            Rate limit error per IP:
-              value:
-                type: rate_limit_error
-                code: too_many_requests_per_ip
-                message: Too many requests from the IP, rate limit reached
+          example:
+            type: not_found_error
+            code: Resource not found
+            message: No data found
     400GetFormStatus:
       description: Get Form Status responses for 400
       content:
@@ -156,33 +109,67 @@ components:
                 type: validation_error
                 code: x-client-secret_missing
                 message: x-client-secret is missing in the request.
+    getFormStatusResponse:
+      description: Response Body of VRS GetFormStatus API
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/getFormStatusResponseSchema'
+    Response500:
+      description: Internal error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Internal Server Error:
+              value:
+                type: internal_error
+                code: request_failed
+                message: Unable to process your request. Try again after some time
+    Response429:
+      description: Rate limit exceed error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Rate limit error per operation:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_operation
+                message: Too many requests for this operation, rate limit reached
+            Rate limit error per IP:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_ip
+                message: Too many requests from the IP, rate limit reached
+    Response401:
+      description: Invalid client ID and client secret combination
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Invalid client ID and client secret combination:
+              value:
+                type: authentication_error
+                code: authentication_failed
+                message: Invalid clientId and clientSecret combination
   schemas:
-    bavFormStatusResponseSchema:
-      description: Bank Details Validation Product Status
+    panFormStatusResponseSchema:
+      description: PAN Verification Product Status
       type: object
       properties:
         reference_id:
           type: integer
-          example: 236
+          example: 0
         type:
           type: string
-          example: BANKDETAILS_VALIDATION
+          example: PANDETAILS_VERIFICATION
         status:
           type: string
-          example: FAILED
-    upiFormStatusResponseSchema:
-      description: Upi Verification Product Status
-      type: object
-      properties:
-        reference_id:
-          type: integer
-          example: 237
-        type:
-          type: string
-          example: UPIDETAILS_VALIDATION
-        status:
-          type: string
-          example: FAILED
+          example: PENDING
     aadhaarFormStatusResponseSchema:
       description: It displays the status of aadhaar verification
       type: object
@@ -199,25 +186,19 @@ components:
           type: string
           description: It displays the verification status.
           example: SUCCESS
-    ErrorResponseSchema:
-      description: Response in case of error.
+    bavFormStatusResponseSchema:
+      description: Bank Details Validation Product Status
       type: object
       properties:
-        code:
-          type: string
-          example: x-client-id_missing
-        error:
-          type: object
-          example:
-            ref_id: 102
-        message:
-          type: string
-          example: x-client-id is missing in the request.
-          description: It displays the outcome of the error.
+        reference_id:
+          type: integer
+          example: 236
         type:
           type: string
-          example: validation_error
-          description: It displays the type of error.
+          example: BANKDETAILS_VALIDATION
+        status:
+          type: string
+          example: FAILED
     getFormStatusResponseSchema:
       description: Find the success response for Get Form Status
       type: object
@@ -262,19 +243,38 @@ components:
             - $ref: '#/components/schemas/panFormStatusResponseSchema'
             - $ref: '#/components/schemas/bavFormStatusResponseSchema'
             - $ref: '#/components/schemas/upiFormStatusResponseSchema'
-    panFormStatusResponseSchema:
-      description: PAN Verification Product Status
+    ErrorResponseSchema:
+      description: Response in case of error.
+      type: object
+      properties:
+        code:
+          type: string
+          example: x-client-id_missing
+        error:
+          type: object
+          example:
+            ref_id: 102
+        message:
+          type: string
+          example: x-client-id is missing in the request.
+          description: It displays the outcome of the error.
+        type:
+          type: string
+          example: validation_error
+          description: It displays the type of error.
+    upiFormStatusResponseSchema:
+      description: Upi Verification Product Status
       type: object
       properties:
         reference_id:
           type: integer
-          example: 0
+          example: 237
         type:
           type: string
-          example: PANDETAILS_VERIFICATION
+          example: UPIDETAILS_VALIDATION
         status:
           type: string
-          example: PENDING
+          example: FAILED
   parameters:
     x_cf_signature:
       description: Send the signature if IP is not whitelisted

@@ -94,33 +94,194 @@ paths:
         '500':
           $ref: '#/components/responses/Response500'
 components:
+  responses:
+    Response404:
+      description: Resource Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError404'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response500:
+      description: API related Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response400:
+      description: Bad request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response401:
+      description: Authentication Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AuthenticationError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response422:
+      description: Idempotency error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IdempotencyError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response409:
+      description: Resource already present
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError409'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response429:
+      description: Rate Limit Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
   schemas:
-    BadRequestError:
-      title: BadRequestError
-      description: Invalid request received from client
+    RateLimitError:
+      title: RateLimitError
+      description: Error when rate limit is breached for your api
       example:
-        message: bad URL, please check API documentation
+        message: Too many requests from IP. Check headers
         code: request_failed
-        type: invalid_request_error
+        type: rate_limit_error
       type: object
       properties:
         message:
           type: string
         code:
           type: string
-        help:
-          type: string
         type:
           type: string
           enum:
-          - invalid_request_error
-    ApiError409:
-      title: ApiError409
-      description: duplicate request
+          - rate_limit_error
+          description: rate_limit_error
+    IdempotencyError:
+      title: IdempotencyError
+      description: Error when idempotency fails. Different request body with the same idempotent key
       example:
-        message: order with same id is already present
-        code: order_already_exists
-        type: invalid_request_error
+        message: something is not found
+        code: request_invalid
+        type: idempotency_error
       type: object
       properties:
         message:
@@ -132,72 +293,8 @@ components:
         type:
           type: string
           enum:
-          - invalid_request_error
-          description: invalid_request_error
-    SettlementEntity:
-      title: SettlementsEntity
-      description: Settlement entity object
-      type: object
-      example:
-        cf_payment_id: '553338'
-        order_id: order-12-127
-        entity: settlement
-        order_amount: 100
-        payment_time: '2021-07-13T13:13:59+05:30'
-        service_charge: 10
-        service_tax: 1.8
-        settlement_amount: 88.2
-        cf_settlement_id: '6121238'
-        transfer_id: 238
-        transfer_time: '2021-07-25T12:57:52+05:30'
-        transfer_utr: N87912312
-        order_currency: INR
-        settlement_currency: INR
-        forex_conversion_handling_charge: 11.12
-        forex_conversion_handling_tax: 1.12
-        forex_conversion_rate: 84.24
-        charges_currency: INR
-      properties:
-        cf_payment_id:
-          type: string
-        cf_settlement_id:
-          type: string
-        settlement_currency:
-          type: string
-        order_id:
-          type: string
-        entity:
-          type: string
-        order_amount:
-          type: number
-        payment_time:
-          type: string
-        service_charge:
-          type: number
-        service_tax:
-          type: number
-        settlement_amount:
-          type: number
-        settlement_id:
-          type: integer
-        transfer_id:
-          type: integer
-        transfer_time:
-          type: string
-        transfer_utr:
-          type: string
-        forex_conversion_handling_charge:
-          type: number
-          description: Cashfree forex conversion charges for refund processing
-        forex_conversion_handling_tax:
-          type: number
-          description: Cashfree forex conversion tax for refund processing
-        forex_conversion_rate:
-          type: number
-          description: Cashfree forex conversion rate for refund processing
-        charges_currency:
-          type: string
-          description: Cashfree refund charges currency for a refund
+          - idempotency_error
+          description: idempotency_error
     AuthenticationError:
       title: AuthenticationError
       description: Error if api keys are wrong
@@ -265,44 +362,6 @@ components:
       required:
       - pagination
       - filters
-    RateLimitError:
-      title: RateLimitError
-      description: Error when rate limit is breached for your api
-      example:
-        message: Too many requests from IP. Check headers
-        code: request_failed
-        type: rate_limit_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          enum:
-          - rate_limit_error
-          description: rate_limit_error
-    IdempotencyError:
-      title: IdempotencyError
-      description: Error when idempotency fails. Different request body with the same idempotent key
-      example:
-        message: something is not found
-        code: request_invalid
-        type: idempotency_error
-      type: object
-      properties:
-        message:
-          type: string
-        help:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          enum:
-          - idempotency_error
-          description: idempotency_error
     ApiError404:
       title: ApiError404
       description: Error when resource requested is not found
@@ -343,37 +402,121 @@ components:
           enum:
           - api_error
           description: api_error
-  parameters:
-    apiVersionHeader:
-      in: header
-      name: x-api-version
-      description: API version to be used. Format is in YYYY-MM-DD
+    BadRequestError:
+      title: BadRequestError
+      description: Invalid request received from client
+      example:
+        message: bad URL, please check API documentation
+        code: request_failed
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+    SettlementEntity:
+      title: SettlementsEntity
+      description: Settlement entity object
+      type: object
+      example:
+        cf_payment_id: '553338'
+        order_id: order-12-127
+        entity: settlement
+        order_amount: 100
+        payment_time: '2021-07-13T13:13:59+05:30'
+        service_charge: 10
+        service_tax: 1.8
+        settlement_amount: 88.2
+        cf_settlement_id: '6121238'
+        transfer_id: 238
+        transfer_time: '2021-07-25T12:57:52+05:30'
+        transfer_utr: N87912312
+        order_currency: INR
+        settlement_currency: INR
+        forex_conversion_handling_charge: 11.12
+        forex_conversion_handling_tax: 1.12
+        forex_conversion_rate: 84.24
+        charges_currency: INR
+      properties:
+        cf_payment_id:
+          type: string
+        cf_settlement_id:
+          type: string
+        settlement_currency:
+          type: string
+        order_id:
+          type: string
+        entity:
+          type: string
+        order_amount:
+          type: number
+        payment_time:
+          type: string
+        service_charge:
+          type: number
+        service_tax:
+          type: number
+        settlement_amount:
+          type: number
+        settlement_id:
+          type: integer
+        transfer_id:
+          type: integer
+        transfer_time:
+          type: string
+        transfer_utr:
+          type: string
+        forex_conversion_handling_charge:
+          type: number
+          description: Cashfree forex conversion charges for refund processing
+        forex_conversion_handling_tax:
+          type: number
+          description: Cashfree forex conversion tax for refund processing
+        forex_conversion_rate:
+          type: number
+          description: Cashfree forex conversion rate for refund processing
+        charges_currency:
+          type: string
+          description: Cashfree refund charges currency for a refund
+    ApiError409:
+      title: ApiError409
+      description: duplicate request
+      example:
+        message: order with same id is already present
+        code: order_already_exists
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        help:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+          description: invalid_request_error
+  headers:
+    x-ratelimit-retry:
       schema:
-        type: string
-        description: API version to be used
-        default: '2025-01-01'
-      example: '2025-01-01'
-      x-ignore: true
-    xRequestIDHeader:
-      in: header
-      name: x-request-id
-      description: Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.
-      required: false
-      schema:
-        type: string
-      example: 4dfb9780-46fe-11ee-be56-0242ac120002
-    xIdempotencyKeyHeader:
-      in: header
-      name: x-idempotency-key
-      required: false
-      description: 'An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.
+        type: integer
+      example: 4
+      description: 'Contains number of seconds to wait if rate limit is breached
+
+        - Is 0 if withing the limit
+
+        - Is between 1 and 59 if breached
 
         '
-      schema:
-        type: string
-        format: UUID
-      example: 47bf8872-46fe-11ee-be56-0242ac120002
-  headers:
     x-ratelimit-remaining:
       schema:
         type: integer
@@ -384,6 +527,20 @@ components:
         type: string
       example: some-idem-id
       description: An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.
+    x-ratelimit-type:
+      schema:
+        type: string
+        enum:
+        - app_id
+        - ip
+      example: ip
+      description: 'either ip or app_id
+
+        - `ip` if making a call from the browser. True for api where you don''t need `x-client-id` and `x-client-secret`
+
+        - `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`
+
+        '
     x-request-id:
       schema:
         type: string
@@ -399,20 +556,11 @@ components:
         - `true` if the response was replayed
 
         - `false` if the response has not been replayed'
-    x-ratelimit-type:
+    x-ratelimit-limit:
       schema:
-        type: string
-        enum:
-        - app_id
-        - ip
-      example: ip
-      description: 'either ip or app_id
-
-        - `ip` if making a call from the browser. True for api where you don''t need `x-client-id` and `x-client-secret`
-
-        - `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`
-
-        '
+        type: integer
+      example: 200
+      description: Ratelimit set for your account for this API per minute
     x-api-version:
       schema:
         type: string
@@ -420,184 +568,36 @@ components:
         enum:
         - '2022-09-01'
       description: This header has the version of the API. The current version is `2022-09-01`.
-    x-ratelimit-limit:
-      schema:
-        type: integer
-      example: 200
-      description: Ratelimit set for your account for this API per minute
-    x-ratelimit-retry:
-      schema:
-        type: integer
-      example: 4
-      description: 'Contains number of seconds to wait if rate limit is breached
-
-        - Is 0 if withing the limit
-
-        - Is between 1 and 59 if breached
+  parameters:
+    xIdempotencyKeyHeader:
+      in: header
+      name: x-idempotency-key
+      required: false
+      description: 'An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.
 
         '
-  responses:
-    Response429:
-      description: Rate Limit Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RateLimitError'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response404:
-      description: Resource Not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiError404'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response500:
-      description: API related Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiError'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response409:
-      description: Resource already present
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiError409'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response400:
-      description: Bad request error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/BadRequestError'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response422:
-      description: Idempotency error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/IdempotencyError'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response401:
-      description: Authentication Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/AuthenticationError'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
+      schema:
+        type: string
+        format: UUID
+      example: 47bf8872-46fe-11ee-be56-0242ac120002
+    xRequestIDHeader:
+      in: header
+      name: x-request-id
+      description: Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.
+      required: false
+      schema:
+        type: string
+      example: 4dfb9780-46fe-11ee-be56-0242ac120002
+    apiVersionHeader:
+      in: header
+      name: x-api-version
+      description: API version to be used. Format is in YYYY-MM-DD
+      schema:
+        type: string
+        description: API version to be used
+        default: '2025-01-01'
+      example: '2025-01-01'
+      x-ignore: true
   requestBodies:
     FetchSettlementsRequest:
       description: Request Body to get the settlements

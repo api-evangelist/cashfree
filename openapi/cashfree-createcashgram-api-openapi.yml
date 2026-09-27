@@ -76,19 +76,46 @@ paths:
       tags:
       - CreateCashgram
 components:
+  x-elicitationConfig:
+    createCashgram:
+      enabled: true
+      fields:
+        amount:
+          required: true
+          message: Please provide the amount for Cashgram
+          schema:
+            type: number
+            title: Cashgram Amount
+            description: Amount for Cashgram (minimum 1 INR)
+            minimum: 1
+          mapping:
+            target: body.amount
+            transform: number
+        phone:
+          required: true
+          message: Please provide the beneficiary's phone number
+          schema:
+            type: string
+            title: Phone Number
+            description: Beneficiary's phone number in E.164 format
+          mapping:
+            target: body.phone
+            transform: string
   schemas:
-    inline_response_409_1:
+    inline_response_200_8:
       type: object
       properties:
         status:
           type: string
-          example: ERROR
+          example: SUCCESS
         subCode:
           type: string
-          example: '409'
+          example: '200'
         message:
           type: string
-          example: Cashgram with id JOHaN10 already exists
+          example: Cashgram Created
+        data:
+          $ref: '#/components/schemas/inline_response_200_8_data'
     v1_createCashgram_body:
       required:
       - amount
@@ -133,45 +160,18 @@ components:
         cashgramLink:
           type: string
           example: http://csgr.am/abcdefg
-    inline_response_200_8:
+    inline_response_409_1:
       type: object
       properties:
         status:
           type: string
-          example: SUCCESS
+          example: ERROR
         subCode:
           type: string
-          example: '200'
+          example: '409'
         message:
           type: string
-          example: Cashgram Created
-        data:
-          $ref: '#/components/schemas/inline_response_200_8_data'
-  x-elicitationConfig:
-    createCashgram:
-      enabled: true
-      fields:
-        amount:
-          required: true
-          message: Please provide the amount for Cashgram
-          schema:
-            type: number
-            title: Cashgram Amount
-            description: Amount for Cashgram (minimum 1 INR)
-            minimum: 1
-          mapping:
-            target: body.amount
-            transform: number
-        phone:
-          required: true
-          message: Please provide the beneficiary's phone number
-          schema:
-            type: string
-            title: Phone Number
-            description: Beneficiary's phone number in E.164 format
-          mapping:
-            target: body.phone
-            transform: string
+          example: Cashgram with id JOHaN10 already exists
   securitySchemes:
     XClientID:
       type: apiKey

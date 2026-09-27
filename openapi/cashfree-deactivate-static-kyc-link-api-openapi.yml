@@ -57,30 +57,6 @@ paths:
           $ref: '#/components/responses/Response500'
 components:
   responses:
-    Response500:
-      description: Internal error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Internal Server Error:
-              value:
-                type: internal_error
-                code: request_failed
-                message: Unable to process your request. Try again after some time
-    Response401:
-      description: Invalid client ID and client secret combination
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Invalid client ID and client secret combination:
-              value:
-                type: authentication_error
-                code: authentication_failed
-                message: Invalid clientId and clientSecret combination
     Response403:
       description: Authentication error (IP not whitelisted)
       content:
@@ -93,35 +69,6 @@ components:
                 type: authentication_error
                 code: ip_validation_failed
                 message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
-    Response404StaticKYCLink:
-      description: Not found errors in Static KYC Link
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Template Name not Found:
-              value:
-                type: validation_error
-                code: template_name_not_found
-                message: template_name does not exist
-    Response429:
-      description: Rate limit exceed error.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Rate limit error per operation:
-              value:
-                type: rate_limit_error
-                code: too_many_requests_per_operation
-                message: Too many requests for this operation, rate limit reached
-            Rate limit error per IP:
-              value:
-                type: rate_limit_error
-                code: too_many_requests_per_ip
-                message: Too many requests from the IP, rate limit reached
     Response422:
       description: Validation error because of insufficient balance to process this request
       content:
@@ -134,6 +81,18 @@ components:
                 type: validation_error
                 code: insufficient_balance
                 message: Insufficient balance to process this request
+    Response404StaticKYCLink:
+      description: Not found errors in Static KYC Link
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Template Name not Found:
+              value:
+                type: validation_error
+                code: template_name_not_found
+                message: template_name does not exist
     Response400DeactivateStaticKYCLink:
       description: Validation error in deactivate Static KYC Link
       content:
@@ -169,7 +128,67 @@ components:
                 template_name: Aadhaar_verification
                 static_link: https://verification.cashfree.com/forms?shortCode=m2bjk9uakkcg
                 status: INACTIVE
+    Response500:
+      description: Internal error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Internal Server Error:
+              value:
+                type: internal_error
+                code: request_failed
+                message: Unable to process your request. Try again after some time
+    Response429:
+      description: Rate limit exceed error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Rate limit error per operation:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_operation
+                message: Too many requests for this operation, rate limit reached
+            Rate limit error per IP:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_ip
+                message: Too many requests from the IP, rate limit reached
+    Response401:
+      description: Invalid client ID and client secret combination
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Invalid client ID and client secret combination:
+              value:
+                type: authentication_error
+                code: authentication_failed
+                message: Invalid clientId and clientSecret combination
   schemas:
+    ErrorResponseSchema:
+      description: Response in case of error.
+      type: object
+      properties:
+        code:
+          type: string
+          example: x-client-id_missing
+        error:
+          type: object
+          example:
+            ref_id: 102
+        message:
+          type: string
+          example: x-client-id is missing in the request.
+          description: It displays the outcome of the error.
+        type:
+          type: string
+          example: validation_error
+          description: It displays the type of error.
     DeactivateStaticKYCLinkResponseSchema:
       description: Find the success response of Deactivate Static KYC Link
       type: object
@@ -194,25 +213,6 @@ components:
 
             - `INACTIVE`'
           example: INACTIVE
-    ErrorResponseSchema:
-      description: Response in case of error.
-      type: object
-      properties:
-        code:
-          type: string
-          example: x-client-id_missing
-        error:
-          type: object
-          example:
-            ref_id: 102
-        message:
-          type: string
-          example: x-client-id is missing in the request.
-          description: It displays the outcome of the error.
-        type:
-          type: string
-          example: validation_error
-          description: It displays the type of error.
   parameters:
     x_cf_signature:
       description: Send the signature if IP is not whitelisted

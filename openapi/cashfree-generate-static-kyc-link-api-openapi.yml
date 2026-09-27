@@ -53,18 +53,55 @@ paths:
           $ref: '#/components/responses/Response500'
 components:
   responses:
-    Response500:
-      description: Internal error
+    Response403:
+      description: Authentication error (IP not whitelisted)
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseSchema'
           examples:
-            Internal Server Error:
+            IP not whitelisted:
               value:
-                type: internal_error
-                code: request_failed
-                message: Unable to process your request. Try again after some time
+                type: authentication_error
+                code: ip_validation_failed
+                message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
+    Response422:
+      description: Validation error because of insufficient balance to process this request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Insufficient balance:
+              value:
+                type: validation_error
+                code: insufficient_balance
+                message: Insufficient balance to process this request
+    Response404StaticKYCLink:
+      description: Not found errors in Static KYC Link
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Template Name not Found:
+              value:
+                type: validation_error
+                code: template_name_not_found
+                message: template_name does not exist
+    StaticKYCLinkResponse:
+      description: Response Body for Generate Static KYC Link API
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GenerateFormLinkQRCodeResponseSchema'
+          examples:
+            Success:
+              value:
+                static_link: https://verification.cashfree.com/forms?shortCode=m2bjk9uakkcg
+                qr_code: iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAABlBMVEX///8AAABVwtN+AAACuklEQVR42uyYwa3jMAxEx/CBR5WgTqzGgtiBG5M7UQk66mB4FkP/3WR/A5aB8PZ/3sGUqOGQ+MY3bhhGklsd6sAdiAASJgz6b70RUADLQQgiuaMBqQ0VGHsCSMvhwFBHrvqDDRjqzLUzYCPrwLWM1FG3qU+g6sMfXg9G5hsCgG3MmOtMFoAZiduviroaOJ/eFF71EdeyR8tt0uX8epuXAh4DDzzDSnKknXX9f1wMWEFSCYRXncsjjjpstkTW911cDkCqNbk+PACMhZ5DOMJ6K8Cy5ZDxDIv/bLTsijJ2BbBNyiOsBbqLZAcSX3XuB1CxSBJ+pHiH0bY2cPnQh8sBxJY8hwOIe1T3NfIIR+CNAKmFNwhZhkck9TaZw8c5XA/o6bUpSHnnMlMFw8MEPNANIOV1uzhz5YIdlpUF0BVQSOiYn3p6UL9QA6nP8OEfrgZ01N55l7DEJarj8nDpHW8EWDGe0wIXzBzZ5Hm2t3voAUC0TDkx9Yu5AC21gVKHv1rdBUAi1UnA+6hVMOwHkKfl4W7Mq7qoxxk/GsodALfiQFJeRR3D/aS63r+4HjC2ZOphS2AZqYvhxkPTRO0JgGcx/9jFlixDDWRHP0Bxu+ifzSVSyjxhAjDXjgCkJh+2BHJxu3iOtPVOgDvzzQVkLQ95MbgQz+9h8nrAXBAAPKGa3tFghx2B7+3B9YB78wMTZHJW3x7YaXLmroDsWQxyYjrqJOH99LQ3AHx6POcFf5nlZy1yfBjOy4FzB1JT9Q+nC8ggO/FO83rg3CaRGnLd9CLJiX244h6Ac5nMOlRNvLsPwaYs/o0PPQC+4ZzwlCkre6QvONzW3AzIYeNpedWaW2pTeNXugHPHxbVQ/mFrCK//F/tXA14wWQ2CexyLTxM+BHcE/F0mL2HHI+5AsmzS2h33Ab7xja7iTwAAAP//HxNnsaD8lqMAAAAASUVORK5CYII=
+                status: ACTIVE
+                template_name: Aadhaar_verification
     Response400StaticKYCLink:
       description: Validation error in Static KYC Link
       content:
@@ -82,43 +119,18 @@ components:
                 type: validation_error
                 code: template_name_value_invalid
                 message: template_name should only contains alphanumeric, dot, underscore and hyphen.
-    StaticKYCLinkResponse:
-      description: Response Body for Generate Static KYC Link API
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GenerateFormLinkQRCodeResponseSchema'
-          examples:
-            Success:
-              value:
-                static_link: https://verification.cashfree.com/forms?shortCode=m2bjk9uakkcg
-                qr_code: iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAABlBMVEX///8AAABVwtN+AAACuklEQVR42uyYwa3jMAxEx/CBR5WgTqzGgtiBG5M7UQk66mB4FkP/3WR/A5aB8PZ/3sGUqOGQ+MY3bhhGklsd6sAdiAASJgz6b70RUADLQQgiuaMBqQ0VGHsCSMvhwFBHrvqDDRjqzLUzYCPrwLWM1FG3qU+g6sMfXg9G5hsCgG3MmOtMFoAZiduviroaOJ/eFF71EdeyR8tt0uX8epuXAh4DDzzDSnKknXX9f1wMWEFSCYRXncsjjjpstkTW911cDkCqNbk+PACMhZ5DOMJ6K8Cy5ZDxDIv/bLTsijJ2BbBNyiOsBbqLZAcSX3XuB1CxSBJ+pHiH0bY2cPnQh8sBxJY8hwOIe1T3NfIIR+CNAKmFNwhZhkck9TaZw8c5XA/o6bUpSHnnMlMFw8MEPNANIOV1uzhz5YIdlpUF0BVQSOiYn3p6UL9QA6nP8OEfrgZ01N55l7DEJarj8nDpHW8EWDGe0wIXzBzZ5Hm2t3voAUC0TDkx9Yu5AC21gVKHv1rdBUAi1UnA+6hVMOwHkKfl4W7Mq7qoxxk/GsodALfiQFJeRR3D/aS63r+4HjC2ZOphS2AZqYvhxkPTRO0JgGcx/9jFlixDDWRHP0Bxu+ifzSVSyjxhAjDXjgCkJh+2BHJxu3iOtPVOgDvzzQVkLQ95MbgQz+9h8nrAXBAAPKGa3tFghx2B7+3B9YB78wMTZHJW3x7YaXLmroDsWQxyYjrqJOH99LQ3AHx6POcFf5nlZy1yfBjOy4FzB1JT9Q+nC8ggO/FO83rg3CaRGnLd9CLJiX244h6Ac5nMOlRNvLsPwaYs/o0PPQC+4ZzwlCkre6QvONzW3AzIYeNpedWaW2pTeNXugHPHxbVQ/mFrCK//F/tXA14wWQ2CexyLTxM+BHcE/F0mL2HHI+5AsmzS2h33Ab7xja7iTwAAAP//HxNnsaD8lqMAAAAASUVORK5CYII=
-                status: ACTIVE
-                template_name: Aadhaar_verification
-    Response403:
-      description: Authentication error (IP not whitelisted)
+    Response500:
+      description: Internal error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseSchema'
           examples:
-            IP not whitelisted:
+            Internal Server Error:
               value:
-                type: authentication_error
-                code: ip_validation_failed
-                message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
-    Response404StaticKYCLink:
-      description: Not found errors in Static KYC Link
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Template Name not Found:
-              value:
-                type: validation_error
-                code: template_name_not_found
-                message: template_name does not exist
+                type: internal_error
+                code: request_failed
+                message: Unable to process your request. Try again after some time
     Response429:
       description: Rate limit exceed error.
       content:
@@ -136,18 +148,6 @@ components:
                 type: rate_limit_error
                 code: too_many_requests_per_ip
                 message: Too many requests from the IP, rate limit reached
-    Response422:
-      description: Validation error because of insufficient balance to process this request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Insufficient balance:
-              value:
-                type: validation_error
-                code: insufficient_balance
-                message: Insufficient balance to process this request
     Response401:
       description: Invalid client ID and client secret combination
       content:
@@ -161,18 +161,6 @@ components:
                 code: authentication_failed
                 message: Invalid clientId and clientSecret combination
   schemas:
-    StaticKYCLinkRequestSchema:
-      description: Request Body Schema for Generate Static KYC Link
-      type: object
-      example:
-        template_name: Aadhaar_verification
-      required:
-      - template_name
-      properties:
-        template_name:
-          type: string
-          description: It is the name of the template you created using the merchant dashboard. You can also use the default template found there to generate the static KYC link. The default template is Aadhaar_verification. Using merchant dashboard, customized KYC Link templates can be created.
-          example: Aadhaar_verification
     ErrorResponseSchema:
       description: Response in case of error.
       type: object
@@ -216,14 +204,18 @@ components:
 
             - `ACTIVE`'
           example: ACTIVE
-  requestBodies:
-    StaticKYCLinkRequest:
-      description: Find the request parameters for Generate Static KYC Link.
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/StaticKYCLinkRequestSchema'
+    StaticKYCLinkRequestSchema:
+      description: Request Body Schema for Generate Static KYC Link
+      type: object
+      example:
+        template_name: Aadhaar_verification
+      required:
+      - template_name
+      properties:
+        template_name:
+          type: string
+          description: It is the name of the template you created using the merchant dashboard. You can also use the default template found there to generate the static KYC link. The default template is Aadhaar_verification. Using merchant dashboard, customized KYC Link templates can be created.
+          example: Aadhaar_verification
   parameters:
     x_cf_signature:
       description: Send the signature if IP is not whitelisted
@@ -233,6 +225,14 @@ components:
       schema:
         type: string
       example: ''
+  requestBodies:
+    StaticKYCLinkRequest:
+      description: Find the request parameters for Generate Static KYC Link.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StaticKYCLinkRequestSchema'
   securitySchemes:
     bearerAuth:
       type: http

@@ -407,93 +407,105 @@ paths:
                   $ref: '#/components/examples/authentication_internal_server_error'
 components:
   examples:
-    batchTransfer_transfer_id_invalid:
-      description: Invalid transfer_id
+    beneficiary_bank_ifsc_invalid:
+      description: Invalid IFSC
       value:
         type: invalid_request_error
-        code: transfers[0].transfer_id_invalid
-        message: transfer_id should be alphanumeric
-    transfer_request_v2:
-      summary: Transfer request with beneficiary_id
-      description: The API request to iniate a transfer with beneficiary_id
-      value:
-        transfer_id: JUNOB2018
-        transfer_amount: 1
-        beneficiary_details:
-          beneficiary_id: JOHN18011
-    batch_transfer_request_v2:
-      summary: Batch transfer request
-      description: The API request to initiate a batch transfer
-      value:
-        batch_transfer_id: test_batch_transfer_id
-        transfers:
-        - transfer_id: JUNOB2018
-          transfer_amount: 1
-          beneficiary_details:
-            beneficiary_id: JOHN18011
-        - transfer_id: JUNOB2018
-          transfer_amount: 1
-          transfer_mode: imps
-          beneficiary_details:
-            beneficiary_details:
-              beneficiary_instrument_details:
-                bank_account_number: '1234554321'
-                bank_ifsc: SBIN0001161
-        - transfer_id: JUNOB2018
-          transfer_amount: 1
-          transfer_mode: imps
-          beneficiary_details:
-            beneficiary_details:
-              beneficiary_id: JOHN18011
-          fundsource_id: CASHFREE_1
-    batchTransfer_transfer_mode_invalid:
-      description: Invalid transfer_mode
-      value:
-        type: invalid_request_error
-        code: transfers[0].transfer_mode_invalid
-        message: 'transfer_mode is invalid allowed values are : bank, imps, neft, rtgs, upi, paytm, amazonpay, card and cardupi'
-    beneficiary_name_invalid:
-      description: Invalid beneficiary_name
-      value:
-        type: invalid_request_error
-        code: beneficiary_details.beneficiary_name_invalid
-        message: beneficiary_name is invalid. only alphabets and whitespaces are allowed
-    batchTransfer_beneficiary_id_invalid:
-      description: Invalid beneficiary_id
-      value:
-        type: invalid_request_error
-        code: transfers[0].beneficiary_details.beneficiary_id_invalid
-        message: beneficiary_id should be alphanumeric
-    transfer_id_not_found:
-      summary: transfer_id not found
-      description: transfer_id not found
-      value:
-        type: invalid_request_error
-        code: transfer_id_not_found
-        message: transfer_id does not exist
-    transfer_request_v2_with_card_details:
-      summary: Transfer request with card_details
-      description: The API request to iniate a transfer with card_details
+        code: beneficiary_details.beneficiary_instrument_details.bank_ifsc_invalid
+        message: bank_ifsc should be in standard ifsc format
+    transfer_request_v2_fundsource_id:
+      summary: Transfer request with fundsource_id (when you want to debit money from a particular fund source)
+      description: The API request to initiate a transfer and debit the money from a particular fund source
       value:
         transfer_id: JUNOB2018
         transfer_amount: 1
         transfer_mode: imps
         beneficiary_details:
           beneficiary_details:
-            beneficiary_instrument_details:
-              card_details:
-                card_token: '4640837721072836'
-                card_network_type: MASTERCARD
-                card_cryptogram: jjoutwsdgfdou124354ljlsdhgout968957
-                card_token_expiry: 2032-10
-                card_type: CREDIT
-                card_token_PAN_sequence_number: '001'
-    batchTransfer_beneficiary_vpa_invalid:
-      description: Invalid beneficiary VPA
+            beneficiary_id: JOHN18011
+        fundsource_id: CASHFREE_1
+    batchTransfer_transfer_amount_invalid:
+      description: Invalid transfer_amount
       value:
         type: invalid_request_error
-        code: transfers[0].beneficiary_details.beneficiary_instrument_details.vpa_invalid
-        message: vpa is in invalid format
+        code: transfers[0].transfer_amount_invalid
+        message: transfer_amount should be greater then 1.00
+    internal_server_error_v2:
+      summary: Internal server error
+      description: Error at Cashfree Payments' server
+      value:
+        type: api_error
+        code: internal_server_error
+        message: Error at cashfree's server
+    transfer_received_response_v2:
+      summary: Transfer received
+      description: Transfer received by Cashfree Payments. Please check the status after some time.
+      value:
+        transfer_id: JUNOB2018
+        cf_transfer_id: '123456'
+        status: RECEIVED
+        status_code: RECEIVED
+        status_description: The transfer has been received by Cashfree successfully for further processing. You should use Check Status API response or Webhooks to know the terminal state of the transfer request.
+        beneficiary_details:
+          beneficiary_id: JOHN18011
+        transfer_amount: 1
+        transfer_mode: BANK
+        fundsource_id: CASHFREE_1
+        added_on: '2021-11-24T13:39:25Z'
+        updated_on: '2021-11-24T13:40:27Z'
+    beneficiary_bank_account_invalid:
+      description: Invalid beneficiary bank account details
+      value:
+        type: invalid_request_error
+        code: beneficiary_details.beneficiary_instrument_details.bank_account_number_invalid
+        message: bank_account_number should be alphanumeric
+    beneficiary_vpa_invalid_2:
+      description: VPA in the request does not match with the beneficiary's VPA
+      value:
+        type: invalid_request_error
+        code: beneficiary_details.beneficiary_instrument_details.vpa_invalid
+        message: 'Vpa passed in the request does not match with the beneficiary with beneficiary_id :: test_beneId'
+    beneficiary_bank_account_invalid_2:
+      description: Bank account number in the request does not match with the beneficiary's bank account number
+      value:
+        type: invalid_request_error
+        code: beneficiary_details.beneficiary_instrument_details.bank_account_number_invalid
+        message: 'Bank account number passed in the request does not match with the beneficiary with beneficiary_id :: test_beneId'
+    beneficiary_name_invalid:
+      description: Invalid beneficiary_name
+      value:
+        type: invalid_request_error
+        code: beneficiary_details.beneficiary_name_invalid
+        message: beneficiary_name is invalid. only alphabets and whitespaces are allowed
+    transfer_pending_approval_response_v2:
+      summary: Transfer is pending for approval
+      description: Transfer is pending for approval.
+      value:
+        transfer_id: JUNOB2018
+        cf_transfer_id: '123456'
+        status: APPROVAL_PENDING
+        status_code: APPROVAL_PENDING
+        status_description: The transfer requires approval. You can approve or reject the transfer request from the Cashfree Merchant Dashboard.
+        beneficiary_details:
+          beneficiary_id: JOHN18011
+        transfer_amount: 1
+        transfer_mode: BANK
+        fundsource_id: CASHFREE_1
+        added_on: '2021-11-24T13:39:25Z'
+        updated_on: '2021-11-24T13:40:27Z'
+    batchTransfer_beneficiary_bank_account_invalid:
+      description: beneficiary bank account is invalid
+      value:
+        type: invalid_request_error
+        code: transfers[0].beneficiary_details.beneficiary_instrument_details.bank_account_number_invalid
+        message: bank_account_number should be alphanumeric
+    cf_transfer_id_not_found:
+      summary: cf_transfer_id not found
+      description: cf_transfer_id not found
+      value:
+        type: invalid_request_error
+        code: cf_transfer_id_not_found
+        message: cf_transfer_id does not exist
     transfer_pending_response_v2:
       summary: Transfer pending at the bank
       description: Transfer initiated by Cashfree Payments and is pending at the bank's side
@@ -520,12 +532,74 @@ components:
         type: invalid_request_error
         code: beneficiary_details.beneficiary_instrument_details.vpa_invalid
         message: vpa is in invalid format
+    batchTransfer_transfer_mode_invalid:
+      description: Invalid transfer_mode
+      value:
+        type: invalid_request_error
+        code: transfers[0].transfer_mode_invalid
+        message: 'transfer_mode is invalid allowed values are : bank, imps, neft, rtgs, upi, paytm, amazonpay, card and cardupi'
     transfer_amount_invalid:
       description: Invalid transfer_amount
       value:
         type: invalid_request_error
         code: transfer_amount_invalid
         message: transfer_amount should be greater then 1.00
+    batch_transfer_received_response_v2:
+      summary: Batch transfer received successfully
+      description: Batch transfer received successfully by Cashfree Payments. Please check the status of the batch transfer after some time.
+      value:
+        batch_transfer_id: test_batch_transfer_id
+        cf_batch_transfer_id: '123456'
+        status: RECEIVED
+    batch_transfer_request_v2:
+      summary: Batch transfer request
+      description: The API request to initiate a batch transfer
+      value:
+        batch_transfer_id: test_batch_transfer_id
+        transfers:
+        - transfer_id: JUNOB2018
+          transfer_amount: 1
+          beneficiary_details:
+            beneficiary_id: JOHN18011
+        - transfer_id: JUNOB2018
+          transfer_amount: 1
+          transfer_mode: imps
+          beneficiary_details:
+            beneficiary_details:
+              beneficiary_instrument_details:
+                bank_account_number: '1234554321'
+                bank_ifsc: SBIN0001161
+        - transfer_id: JUNOB2018
+          transfer_amount: 1
+          transfer_mode: imps
+          beneficiary_details:
+            beneficiary_details:
+              beneficiary_id: JOHN18011
+          fundsource_id: CASHFREE_1
+    transfer_request_v2_with_bene_details:
+      summary: Transfer request with beneficiary_details
+      description: The API request to iniate a transfer with beneficiary_details
+      value:
+        transfer_id: JUNOB2018
+        transfer_amount: 1
+        transfer_mode: imps
+        beneficiary_details:
+          beneficiary_details:
+            beneficiary_instrument_details:
+              bank_account_number: '1234554321'
+              bank_ifsc: SBIN0001161
+    batchTransfer_transfer_id_invalid:
+      description: Invalid transfer_id
+      value:
+        type: invalid_request_error
+        code: transfers[0].transfer_id_invalid
+        message: transfer_id should be alphanumeric
+    batchTransfer_beneficiary_name_invalid:
+      description: Invalid transfer_id
+      value:
+        type: invalid_request_error
+        code: transfers[0].beneficiary_details.beneficiary_name_invalid
+        message: beneficiary_name is invalid. only alphabets and whitespaces are allowed
     transfer_completed_response_v2:
       summary: Transfer completed successfully
       description: Transfer completed successfully
@@ -548,38 +622,77 @@ components:
         fundsource_id: CASHFREE_1
         added_on: '2021-11-24T13:39:25Z'
         updated_on: '2021-11-24T13:40:27Z'
-    batch_transfer_id_already_exists:
-      summary: batch_transfer_id not found
-      description: batch_transfer_id not found
+    batchTransfer_beneficiary_bank_ifsc_invalid:
+      description: Invalid bank account details
       value:
         type: invalid_request_error
-        code: batch_transfer_id_already_exists
-        message: batch_transfer_id already exists. please pass unique id in each request
-    batchTransfer_transfer_id_missing:
+        code: transfers[0].beneficiary_details.beneficiary_instrument_details.bank_ifsc_invalid
+        message: bank_ifsc should be in standard ifsc format
+    APIsDisabledExampleV2:
+      summary: APIs disabled
+      description: Forbidden request. APIs are disabled
+      value:
+        type: invalid_request_error
+        code: apis_not_enabled
+        message: APIs not enabled. Please fill out the [Support Form](https://merchant.cashfree.com/merchants/landing?env=prod&raise_issue=1)
+    transfer_id_invalid:
+      description: Invalid transfer_id
+      value:
+        type: invalid_request_error
+        code: transfer_id_invalid
+        message: transfer_id should be alphanumeric
+    batchTransfer_beneficiary_id_invalid:
+      description: Invalid beneficiary_id
+      value:
+        type: invalid_request_error
+        code: transfers[0].beneficiary_details.beneficiary_id_invalid
+        message: beneficiary_id should be alphanumeric
+    BeneficiaryNotFoundV2:
+      summary: Beneficiary not found
+      description: Beneficiary does not exist
+      value:
+        type: invalid_request_error
+        code: beneficiary_not_found
+        message: Beneficiary does not exist
+    transfer_id_missing:
       description: Missing transfer_id
       value:
         type: invalid_request_error
-        code: transfers[0].transfer_id_missing
+        code: transfer_id_missing
         message: transfer_id is missing in the request
+    transfer_request_v2:
+      summary: Transfer request with beneficiary_id
+      description: The API request to iniate a transfer with beneficiary_id
+      value:
+        transfer_id: JUNOB2018
+        transfer_amount: 1
+        beneficiary_details:
+          beneficiary_id: JOHN18011
     batch_transfer_id_missing:
       description: Missing batch_transfer_id
       value:
         type: invalid_request_error
         code: batch_transfer_id_missing
         message: batch_transfer_id is missing in the request
-    cf_transfer_id_not_found:
-      summary: cf_transfer_id not found
-      description: cf_transfer_id not found
+    transfer_failed_response_v2:
+      summary: Transfer failed
+      description: Amount cannot be transferred to beneficiary as the transfer failed
       value:
-        type: invalid_request_error
-        code: cf_transfer_id_not_found
-        message: cf_transfer_id does not exist
-    beneficiary_id_invalid:
-      description: Invalid beneficiary_id
-      value:
-        type: invalid_request_error
-        code: beneficiary_details.beneficiary_id_invalid
-        message: beneficiary_id should be alphanumeric
+        transfer_id: JUNOB2018
+        cf_transfer_id: '123456'
+        status: FAILED
+        status_code: IMPS_MODE_FAIL
+        status_description: The transfer has been reversed by the beneficiary bank because the beneficiary bank account doesnot support IMPS transfers. This rejection is done by the beneficiary bank for the specific beneficiary account. You can try NEFT or other channels to do the disbursals.
+        beneficiary_details:
+          beneficiary_id: JOHN18011
+          beneficiary_instrument_details:
+            bank_account_number: '7766671501729'
+            bank_ifsc: SBIN0000003
+        transfer_amount: 1
+        transfer_mode: BANK
+        fundsource_id: CASHFREE_1
+        added_on: '2021-11-24T13:39:25Z'
+        updated_on: '2021-11-24T13:40:27Z'
     transfer_reversed_response_v2:
       summary: Transfer reversed
       description: The transfer has been reversed by bank. Please review the status_description field to understand the reason reversal.
@@ -599,109 +712,24 @@ components:
         fundsource_id: CASHFREE_1
         added_on: '2021-11-24T13:39:25Z'
         updated_on: '2021-11-24T13:40:27Z'
-    beneficiary_bank_ifsc_invalid:
-      description: Invalid IFSC
+    beneficiary_id_invalid:
+      description: Invalid beneficiary_id
       value:
         type: invalid_request_error
-        code: beneficiary_details.beneficiary_instrument_details.bank_ifsc_invalid
-        message: bank_ifsc should be in standard ifsc format
-    batchTransfer_beneficiary_bank_account_invalid:
-      description: beneficiary bank account is invalid
-      value:
-        type: invalid_request_error
-        code: transfers[0].beneficiary_details.beneficiary_instrument_details.bank_account_number_invalid
-        message: bank_account_number should be alphanumeric
-    transfer_pending_approval_response_v2:
-      summary: Transfer is pending for approval
-      description: Transfer is pending for approval.
-      value:
-        transfer_id: JUNOB2018
-        cf_transfer_id: '123456'
-        status: APPROVAL_PENDING
-        status_code: APPROVAL_PENDING
-        status_description: The transfer requires approval. You can approve or reject the transfer request from the Cashfree Merchant Dashboard.
-        beneficiary_details:
-          beneficiary_id: JOHN18011
-        transfer_amount: 1
-        transfer_mode: BANK
-        fundsource_id: CASHFREE_1
-        added_on: '2021-11-24T13:39:25Z'
-        updated_on: '2021-11-24T13:40:27Z'
-    transfer_request_v2_with_bene_details:
-      summary: Transfer request with beneficiary_details
-      description: The API request to iniate a transfer with beneficiary_details
-      value:
-        transfer_id: JUNOB2018
-        transfer_amount: 1
-        transfer_mode: imps
-        beneficiary_details:
-          beneficiary_details:
-            beneficiary_instrument_details:
-              bank_account_number: '1234554321'
-              bank_ifsc: SBIN0001161
+        code: beneficiary_details.beneficiary_id_invalid
+        message: beneficiary_id should be alphanumeric
     transfer_amount_missing:
       description: Misisng transfer_amount
       value:
         type: invalid_request_error
         code: transfer_amount_missing
         message: transfer_amount is missing in the request
-    BeneficiaryNotFoundV2:
-      summary: Beneficiary not found
-      description: Beneficiary does not exist
+    beneficiary_bank_ifsc_invalid_2:
+      description: IFSC in the request does not match with the beneficiary's IFSC
       value:
         type: invalid_request_error
-        code: beneficiary_not_found
-        message: Beneficiary does not exist
-    transfer_received_response_v2:
-      summary: Transfer received
-      description: Transfer received by Cashfree Payments. Please check the status after some time.
-      value:
-        transfer_id: JUNOB2018
-        cf_transfer_id: '123456'
-        status: RECEIVED
-        status_code: RECEIVED
-        status_description: The transfer has been received by Cashfree successfully for further processing. You should use Check Status API response or Webhooks to know the terminal state of the transfer request.
-        beneficiary_details:
-          beneficiary_id: JOHN18011
-        transfer_amount: 1
-        transfer_mode: BANK
-        fundsource_id: CASHFREE_1
-        added_on: '2021-11-24T13:39:25Z'
-        updated_on: '2021-11-24T13:40:27Z'
-    beneficiary_bank_account_invalid_2:
-      description: Bank account number in the request does not match with the beneficiary's bank account number
-      value:
-        type: invalid_request_error
-        code: beneficiary_details.beneficiary_instrument_details.bank_account_number_invalid
-        message: 'Bank account number passed in the request does not match with the beneficiary with beneficiary_id :: test_beneId'
-    transfer_id_missing:
-      description: Missing transfer_id
-      value:
-        type: invalid_request_error
-        code: transfer_id_missing
-        message: transfer_id is missing in the request
-    beneficiary_vpa_invalid_2:
-      description: VPA in the request does not match with the beneficiary's VPA
-      value:
-        type: invalid_request_error
-        code: beneficiary_details.beneficiary_instrument_details.vpa_invalid
-        message: 'Vpa passed in the request does not match with the beneficiary with beneficiary_id :: test_beneId'
-    transfer_rejected_response_v2:
-      summary: Transfer rejected
-      description: The transfer has been rejected by Cashfree Oatnebts. Please review the 'status_description' field to understand the reason for rejection.
-      value:
-        transfer_id: JUNOB2018
-        cf_transfer_id: '123456'
-        status: REJECTED
-        status_code: INVALID_MODE_FOR_PYID
-        status_description: The transfer has been rejected because the payment instrument does not support this mode of transfer. You should get this mode activated on the payment instrument ID by contacting Cashfree, and then initiate a new transfer request.
-        beneficiary_details:
-          beneficiary_id: JOHN18011
-        transfer_amount: 1
-        transfer_mode: BANK
-        fundsource_id: CASHFREE_1
-        added_on: '2021-11-24T13:39:25Z'
-        updated_on: '2021-11-24T13:40:27Z'
+        code: beneficiary_details.beneficiary_instrument_details.bank_ifsc_invalid
+        message: 'Bank ifsc passed in the request does not match with the beneficiary with beneficiary_id :: test_beneId'
     authentication_internal_server_error:
       summary: Internal server error while authenticating request
       description: Internal server error while authenticating request
@@ -709,24 +737,30 @@ components:
         type: authentication_error
         code: internal_server_error
         message: Unable to authenticate the request. Please fill out the [Support Form](https://merchant.cashfree.com/merchants/landing?env=prod&raise_issue=1)
-    batch_transfer_received_response_v2:
-      summary: Batch transfer received successfully
-      description: Batch transfer received successfully by Cashfree Payments. Please check the status of the batch transfer after some time.
-      value:
-        batch_transfer_id: test_batch_transfer_id
-        cf_batch_transfer_id: '123456'
-        status: RECEIVED
-    transfer_request_v2_fundsource_id:
-      summary: Transfer request with fundsource_id (when you want to debit money from a particular fund source)
-      description: The API request to initiate a transfer and debit the money from a particular fund source
+    transfer_request_v2_with_card_details:
+      summary: Transfer request with card_details
+      description: The API request to iniate a transfer with card_details
       value:
         transfer_id: JUNOB2018
         transfer_amount: 1
         transfer_mode: imps
         beneficiary_details:
           beneficiary_details:
-            beneficiary_id: JOHN18011
-        fundsource_id: CASHFREE_1
+            beneficiary_instrument_details:
+              card_details:
+                card_token: '4640837721072836'
+                card_network_type: MASTERCARD
+                card_cryptogram: jjoutwsdgfdou124354ljlsdhgout968957
+                card_token_expiry: 2032-10
+                card_type: CREDIT
+                card_token_PAN_sequence_number: '001'
+    transfer_id_not_found:
+      summary: transfer_id not found
+      description: transfer_id not found
+      value:
+        type: invalid_request_error
+        code: transfer_id_not_found
+        message: transfer_id does not exist
     batchTransfer_transfer_amount_missing:
       description: Missing transfer_amount
       value:
@@ -740,44 +774,6 @@ components:
         type: invalid_request_error
         code: cf_batch_transfer_id
         message: cf_batch_transfer_id does not exist
-    batch_transfer_id_invalid:
-      description: Invalid batch_transfer_id
-      value:
-        type: invalid_request_error
-        code: batch_transfer_id_invalid
-        message: batch_transfer_id should be alphanumeric
-    beneficiary_bank_account_invalid:
-      description: Invalid beneficiary bank account details
-      value:
-        type: invalid_request_error
-        code: beneficiary_details.beneficiary_instrument_details.bank_account_number_invalid
-        message: bank_account_number should be alphanumeric
-    batchTransfer_beneficiary_bank_ifsc_invalid:
-      description: Invalid bank account details
-      value:
-        type: invalid_request_error
-        code: transfers[0].beneficiary_details.beneficiary_instrument_details.bank_ifsc_invalid
-        message: bank_ifsc should be in standard ifsc format
-    batch_transfer_id_not_found:
-      summary: batch_transfer_id not found
-      description: batch_transfer_id not found
-      value:
-        type: invalid_request_error
-        code: batch_transfer_id_not_found
-        message: batch_transfer_id does not exist
-    APIsDisabledExampleV2:
-      summary: APIs disabled
-      description: Forbidden request. APIs are disabled
-      value:
-        type: invalid_request_error
-        code: apis_not_enabled
-        message: APIs not enabled. Please fill out the [Support Form](https://merchant.cashfree.com/merchants/landing?env=prod&raise_issue=1)
-    batchTransfer_transfer_amount_invalid:
-      description: Invalid transfer_amount
-      value:
-        type: invalid_request_error
-        code: transfers[0].transfer_amount_invalid
-        message: transfer_amount should be greater then 1.00
     batch_transfer_pending_response_v2:
       summary: Batch transfer pending
       description: Batch Transfer pending at the bank. Please check the status of batch transfer after some time.
@@ -832,57 +828,168 @@ components:
           fundsource_id: CASHFREE_1
           added_on: '2021-11-24T13:39:25Z'
           updated_on: '2021-11-24T13:40:27Z'
-    batchTransfer_beneficiary_name_invalid:
-      description: Invalid transfer_id
+    batchTransfer_transfer_id_missing:
+      description: Missing transfer_id
       value:
         type: invalid_request_error
-        code: transfers[0].beneficiary_details.beneficiary_name_invalid
-        message: beneficiary_name is invalid. only alphabets and whitespaces are allowed
-    transfer_id_invalid:
-      description: Invalid transfer_id
+        code: transfers[0].transfer_id_missing
+        message: transfer_id is missing in the request
+    batch_transfer_id_not_found:
+      summary: batch_transfer_id not found
+      description: batch_transfer_id not found
       value:
         type: invalid_request_error
-        code: transfer_id_invalid
-        message: transfer_id should be alphanumeric
+        code: batch_transfer_id_not_found
+        message: batch_transfer_id does not exist
+    transfer_rejected_response_v2:
+      summary: Transfer rejected
+      description: The transfer has been rejected by Cashfree Oatnebts. Please review the 'status_description' field to understand the reason for rejection.
+      value:
+        transfer_id: JUNOB2018
+        cf_transfer_id: '123456'
+        status: REJECTED
+        status_code: INVALID_MODE_FOR_PYID
+        status_description: The transfer has been rejected because the payment instrument does not support this mode of transfer. You should get this mode activated on the payment instrument ID by contacting Cashfree, and then initiate a new transfer request.
+        beneficiary_details:
+          beneficiary_id: JOHN18011
+        transfer_amount: 1
+        transfer_mode: BANK
+        fundsource_id: CASHFREE_1
+        added_on: '2021-11-24T13:39:25Z'
+        updated_on: '2021-11-24T13:40:27Z'
+    batch_transfer_id_invalid:
+      description: Invalid batch_transfer_id
+      value:
+        type: invalid_request_error
+        code: batch_transfer_id_invalid
+        message: batch_transfer_id should be alphanumeric
+    batch_transfer_id_already_exists:
+      summary: batch_transfer_id not found
+      description: batch_transfer_id not found
+      value:
+        type: invalid_request_error
+        code: batch_transfer_id_already_exists
+        message: batch_transfer_id already exists. please pass unique id in each request
+    batchTransfer_beneficiary_vpa_invalid:
+      description: Invalid beneficiary VPA
+      value:
+        type: invalid_request_error
+        code: transfers[0].beneficiary_details.beneficiary_instrument_details.vpa_invalid
+        message: vpa is in invalid format
     transfer_mode_invalid:
       description: Invalid transfer_mode
       value:
         type: invalid_request_error
         code: transfer_mode_invalid
         message: 'transfer_mode is invalid allowed values are : bank, imps, neft, rtgs, upi, paytm, amazonpay, card and cardupi'
-    beneficiary_bank_ifsc_invalid_2:
-      description: IFSC in the request does not match with the beneficiary's IFSC
-      value:
-        type: invalid_request_error
-        code: beneficiary_details.beneficiary_instrument_details.bank_ifsc_invalid
-        message: 'Bank ifsc passed in the request does not match with the beneficiary with beneficiary_id :: test_beneId'
-    transfer_failed_response_v2:
-      summary: Transfer failed
-      description: Amount cannot be transferred to beneficiary as the transfer failed
-      value:
-        transfer_id: JUNOB2018
-        cf_transfer_id: '123456'
-        status: FAILED
-        status_code: IMPS_MODE_FAIL
-        status_description: The transfer has been reversed by the beneficiary bank because the beneficiary bank account doesnot support IMPS transfers. This rejection is done by the beneficiary bank for the specific beneficiary account. You can try NEFT or other channels to do the disbursals.
-        beneficiary_details:
-          beneficiary_id: JOHN18011
-          beneficiary_instrument_details:
-            bank_account_number: '7766671501729'
-            bank_ifsc: SBIN0000003
-        transfer_amount: 1
-        transfer_mode: BANK
-        fundsource_id: CASHFREE_1
-        added_on: '2021-11-24T13:39:25Z'
-        updated_on: '2021-11-24T13:40:27Z'
-    internal_server_error_v2:
-      summary: Internal server error
-      description: Error at Cashfree Payments' server
-      value:
-        type: api_error
-        code: internal_server_error
-        message: Error at cashfree's server
   schemas:
+    ErrorV2:
+      title: Error
+      description: Error Response for non-2XX cases
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of the error received
+        code:
+          type: string
+          description: Code of the error received
+        message:
+          type: string
+          description: Detailed message explaining the response
+    CreateTransferResponse:
+      title: Standard Transfer V2 Response
+      description: Standard Transfer V2 Response
+      type: object
+      properties:
+        transfer_id:
+          description: It displays the unique ID you created to identify the transfer.
+          type: string
+        cf_transfer_id:
+          description: It displays the unique ID created by Cashfree Payments. You receive this ID in the response after initiating the standard transfer request.
+          type: string
+        status:
+          description: It displays the status of the transfer.
+          type: string
+        beneficiary_details:
+          type: object
+          description: It displays the details of the beneficiary.
+          properties:
+            beneficiary_id:
+              description: It displays the unique ID to identify the beneficiary to whom you initiated the transfer request.
+              type: string
+            beneficiary_instrument_details:
+              type: object
+              description: It displays the details of where the beneficiary will receive the money.
+              properties:
+                bank_account_number:
+                  type: string
+                  description: It displays the bank account number of the beneficiary.
+                ifsc:
+                  type: string
+                  description: It displays the IFSC information of the beneficiary's bank account.
+                vpa:
+                  type: string
+                  description: It displays the UPI VPA information of the beneficiary.
+        transfer_amount:
+          description: It displays the transfer amount initiated in the request.
+          type: number
+          format: double
+        transfer_service_charge:
+          description: It displays the service charge applicable for the successful transfer request.
+          type: number
+          format: double
+        transfer_service_tax:
+          description: It displays the service tax applicable for the successful transfer request.
+          type: number
+          format: double
+        transfer_mode:
+          description: It displays the mode of the transfer.
+          type: string
+        transfer_utr:
+          description: It displays the unique number that is generated to recognise any fund transfer that is created by the bank that facilitates the transfer.
+          type: string
+        fundsource_id:
+          description: It displays the ID of the fund source from where the money was debited for this transfer request.
+          type: string
+        added_on:
+          description: It displays the time of when the transfer request was added to the system.
+          type: string
+        updated_on:
+          description: It displays the updated time for the transfer.
+          type: string
+    CreateBatchTransferResponse:
+      title: Batch Transfer V2 Response
+      description: Batch Transfer V2 Response
+      type: object
+      properties:
+        batch_transfer_id:
+          type: string
+          description: It displays the unique ID you created to identify the batch transfer request.
+        cf_batch_transfer_id:
+          type: string
+          description: It displays the unique ID created by Cashfree Payments. You receive this ID in the response after initiating the batch transfer request.
+        status:
+          type: string
+          description: It displays the status of the API request.
+    FetchBatchTransferResponse:
+      title: Batch Transfer Status V2 Response
+      description: Batch Transfer Status V2 Response
+      type: object
+      properties:
+        batch_transfer_id:
+          description: It displays the unique ID you created to identify the batch transfer.
+          type: string
+        cf_batch_transfer_id:
+          description: It displays the unique ID created by Cashfree Payments. You receive this ID in the response after initiating the batch transfer request.
+          type: string
+        status:
+          description: It displays the status of the batch transfer.
+          type: string
+        transfers:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateTransferResponse'
     CreateTransferRequest:
       title: Standard Transfer V2
       description: Standard Transfer V2
@@ -997,38 +1104,6 @@ components:
       - transfer_amount
       - transfer_id
       - beneficiary_details
-    CreateBatchTransferResponse:
-      title: Batch Transfer V2 Response
-      description: Batch Transfer V2 Response
-      type: object
-      properties:
-        batch_transfer_id:
-          type: string
-          description: It displays the unique ID you created to identify the batch transfer request.
-        cf_batch_transfer_id:
-          type: string
-          description: It displays the unique ID created by Cashfree Payments. You receive this ID in the response after initiating the batch transfer request.
-        status:
-          type: string
-          description: It displays the status of the API request.
-    FetchBatchTransferResponse:
-      title: Batch Transfer Status V2 Response
-      description: Batch Transfer Status V2 Response
-      type: object
-      properties:
-        batch_transfer_id:
-          description: It displays the unique ID you created to identify the batch transfer.
-          type: string
-        cf_batch_transfer_id:
-          description: It displays the unique ID created by Cashfree Payments. You receive this ID in the response after initiating the batch transfer request.
-          type: string
-        status:
-          description: It displays the status of the batch transfer.
-          type: string
-        transfers:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreateTransferResponse'
     CreateBatchTransferRequest:
       title: Batch Transfer V2
       description: Batch Transfer V2
@@ -1128,123 +1203,7 @@ components:
             - transfer_id
       required:
       - batch_transfer_id
-    CreateTransferResponse:
-      title: Standard Transfer V2 Response
-      description: Standard Transfer V2 Response
-      type: object
-      properties:
-        transfer_id:
-          description: It displays the unique ID you created to identify the transfer.
-          type: string
-        cf_transfer_id:
-          description: It displays the unique ID created by Cashfree Payments. You receive this ID in the response after initiating the standard transfer request.
-          type: string
-        status:
-          description: It displays the status of the transfer.
-          type: string
-        beneficiary_details:
-          type: object
-          description: It displays the details of the beneficiary.
-          properties:
-            beneficiary_id:
-              description: It displays the unique ID to identify the beneficiary to whom you initiated the transfer request.
-              type: string
-            beneficiary_instrument_details:
-              type: object
-              description: It displays the details of where the beneficiary will receive the money.
-              properties:
-                bank_account_number:
-                  type: string
-                  description: It displays the bank account number of the beneficiary.
-                ifsc:
-                  type: string
-                  description: It displays the IFSC information of the beneficiary's bank account.
-                vpa:
-                  type: string
-                  description: It displays the UPI VPA information of the beneficiary.
-        transfer_amount:
-          description: It displays the transfer amount initiated in the request.
-          type: number
-          format: double
-        transfer_service_charge:
-          description: It displays the service charge applicable for the successful transfer request.
-          type: number
-          format: double
-        transfer_service_tax:
-          description: It displays the service tax applicable for the successful transfer request.
-          type: number
-          format: double
-        transfer_mode:
-          description: It displays the mode of the transfer.
-          type: string
-        transfer_utr:
-          description: It displays the unique number that is generated to recognise any fund transfer that is created by the bank that facilitates the transfer.
-          type: string
-        fundsource_id:
-          description: It displays the ID of the fund source from where the money was debited for this transfer request.
-          type: string
-        added_on:
-          description: It displays the time of when the transfer request was added to the system.
-          type: string
-        updated_on:
-          description: It displays the updated time for the transfer.
-          type: string
-    ErrorV2:
-      title: Error
-      description: Error Response for non-2XX cases
-      type: object
-      properties:
-        type:
-          type: string
-          description: Type of the error received
-        code:
-          type: string
-          description: Code of the error received
-        message:
-          type: string
-          description: Detailed message explaining the response
-  parameters:
-    apiVersionHeader:
-      in: header
-      name: x-api-version
-      description: It is the API version to be used. The accepted format is YYYY-MM-DD.
-      schema:
-        type: string
-        description: It is the API version to be used.
-        default: '2024-01-01'
-      example: '2024-01-01'
-    xRequestIDHeader:
-      in: header
-      name: x-request-id
-      description: It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.
-      required: false
-      schema:
-        type: string
-      example: 4dfb9780-46fe-11ee-be56-0242ac120002
   headers:
-    x-ratelimit-remaining:
-      schema:
-        type: integer
-      example: 2
-      description: It displays the remaining rate limit in the next minute for your account for this API requeste. Uses sliding window.
-    x-request-id:
-      schema:
-        type: string
-      example: some-req-id
-      description: It displays the request ID for the API request. Is blank or null if no `x-request-id` is sent during the request
-    x-api-version:
-      schema:
-        type: string
-        format: YYYY-MM-DD
-        enum:
-        - '2022-09-01'
-        default: '2024-01-01'
-      description: It displays the API version. The current version is `2022-09-01`.
-    x-ratelimit-limit:
-      schema:
-        type: integer
-      example: 200
-      description: It displays the rate limit per minute set for your account for this API request.
     x-ratelimit-retry:
       schema:
         type: integer
@@ -1256,6 +1215,47 @@ components:
         - Is between 1 and 59 if breached
 
         '
+    x-ratelimit-remaining:
+      schema:
+        type: integer
+      example: 2
+      description: It displays the remaining rate limit in the next minute for your account for this API requeste. Uses sliding window.
+    x-request-id:
+      schema:
+        type: string
+      example: some-req-id
+      description: It displays the request ID for the API request. Is blank or null if no `x-request-id` is sent during the request
+    x-ratelimit-limit:
+      schema:
+        type: integer
+      example: 200
+      description: It displays the rate limit per minute set for your account for this API request.
+    x-api-version:
+      schema:
+        type: string
+        format: YYYY-MM-DD
+        enum:
+        - '2022-09-01'
+        default: '2024-01-01'
+      description: It displays the API version. The current version is `2022-09-01`.
+  parameters:
+    xRequestIDHeader:
+      in: header
+      name: x-request-id
+      description: It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.
+      required: false
+      schema:
+        type: string
+      example: 4dfb9780-46fe-11ee-be56-0242ac120002
+    apiVersionHeader:
+      in: header
+      name: x-api-version
+      description: It is the API version to be used. The accepted format is YYYY-MM-DD.
+      schema:
+        type: string
+        description: It is the API version to be used.
+        default: '2024-01-01'
+      example: '2024-01-01'
   x-elicitationConfig:
     createTransfer:
       enabled: true

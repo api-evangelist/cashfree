@@ -58,68 +58,19 @@ paths:
         '502':
           $ref: '#/components/responses/Response502V2'
 components:
-  parameters:
-    x_cf_signature:
-      description: Send the signature if IP is not whitelisted
-      name: x-cf-signature
-      in: header
-      required: false
-      schema:
-        type: string
-      example: ''
   responses:
-    Response429:
-      description: Rate limit exceed error.
+    Response403:
+      description: Authentication error (IP not whitelisted)
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseSchema'
           examples:
-            Rate limit error per operation:
+            IP not whitelisted:
               value:
-                type: rate_limit_error
-                code: too_many_requests_per_operation
-                message: Too many requests for this operation, rate limit reached
-            Rate limit error per IP:
-              value:
-                type: rate_limit_error
-                code: too_many_requests_per_ip
-                message: Too many requests from the IP, rate limit reached
-    Response500V2:
-      description: Internal error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Internal Server Error:
-              value:
-                type: internal_error
-                code: verification_failed
-                message: something went wrong
-    Response400NameMatch:
-      description: Validation errors for Name Match API
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Verification ID Missing:
-              $ref: '#/components/examples/VerificationIdMissing'
-            Verification ID With Special Chars:
-              $ref: '#/components/examples/VerificationIdWithSpecialCharacter'
-            Name 1 Missing:
-              $ref: '#/components/examples/Name1Missing'
-            Name 2 Missing:
-              $ref: '#/components/examples/Name2Missing'
-            Name 1 Empty:
-              $ref: '#/components/examples/Name1Empty'
-            Name 2 Empty:
-              $ref: '#/components/examples/Name2Empty'
-            Client ID/Client Secret in Missing:
-              $ref: '#/components/examples/XClientIdMissing'
-            Using-Test-Credentials-in-Prod:
-              $ref: '#/components/examples/UsingTestCredentialsInProd'
+                type: authentication_error
+                code: ip_validation_failed
+                message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
     NameMatchResponse:
       description: Success response for verifing name variations
       content:
@@ -184,30 +135,18 @@ components:
                 type: validation_error
                 code: verification_id_already_exists
                 message: verification id already exists
-    Response422:
-      description: Validation error because of insufficient balance to process this request
+    Response500V2:
+      description: Internal error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseSchema'
           examples:
-            Insufficient balance:
+            Internal Server Error:
               value:
-                type: validation_error
-                code: insufficient_balance
-                message: Insufficient balance to process this request
-    Response403:
-      description: Authentication error (IP not whitelisted)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            IP not whitelisted:
-              value:
-                type: authentication_error
-                code: ip_validation_failed
-                message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
+                type: internal_error
+                code: verification_failed
+                message: something went wrong
     Response401:
       description: Invalid client ID and client secret combination
       content:
@@ -220,6 +159,18 @@ components:
                 type: authentication_error
                 code: authentication_failed
                 message: Invalid clientId and clientSecret combination
+    Response422:
+      description: Validation error because of insufficient balance to process this request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Insufficient balance:
+              value:
+                type: validation_error
+                code: insufficient_balance
+                message: Insufficient balance to process this request
     Response502V2:
       description: Gateway error
       content:
@@ -232,6 +183,87 @@ components:
                 type: internal_error
                 code: verification_failed
                 message: verification attempt failed
+    Response400NameMatch:
+      description: Validation errors for Name Match API
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Verification ID Missing:
+              $ref: '#/components/examples/VerificationIdMissing'
+            Verification ID With Special Chars:
+              $ref: '#/components/examples/VerificationIdWithSpecialCharacter'
+            Name 1 Missing:
+              $ref: '#/components/examples/Name1Missing'
+            Name 2 Missing:
+              $ref: '#/components/examples/Name2Missing'
+            Name 1 Empty:
+              $ref: '#/components/examples/Name1Empty'
+            Name 2 Empty:
+              $ref: '#/components/examples/Name2Empty'
+            Client ID/Client Secret in Missing:
+              $ref: '#/components/examples/XClientIdMissing'
+            Using-Test-Credentials-in-Prod:
+              $ref: '#/components/examples/UsingTestCredentialsInProd'
+    Response429:
+      description: Rate limit exceed error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Rate limit error per operation:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_operation
+                message: Too many requests for this operation, rate limit reached
+            Rate limit error per IP:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_ip
+                message: Too many requests from the IP, rate limit reached
+  examples:
+    XClientIdMissing:
+      value:
+        type: validation_error
+        code: x-client-id_missing
+        message: x-client-id is missing in the request.
+    Name2Missing:
+      value:
+        type: validation_error
+        code: name_2_missing
+        message: name_2 is missing in the request.
+    Name1Empty:
+      value:
+        type: validation_error
+        code: name_1_value_invalid
+        message: name_1 is not allowed to be empty.
+    UsingTestCredentialsInProd:
+      value:
+        type: validation_error
+        code: x-client-secret_value_invalid
+        message: Client secret belongs to test environment
+    Name1Missing:
+      value:
+        type: validation_error
+        code: name_1_missing
+        message: name_1 is missing in the request.
+    VerificationIdMissing:
+      value:
+        type: validation_error
+        code: verification_id_missing
+        message: verification_id is missing in the request.
+    VerificationIdWithSpecialCharacter:
+      value:
+        type: validation_error
+        code: verification_id_value_invalid
+        message: verification_id can include only alphanum, dot, hyphen and underscores.
+    Name2Empty:
+      value:
+        type: validation_error
+        code: name_2_value_invalid
+        message: name_2 is not allowed to be empty.
   schemas:
     NameMatchResponseSchema:
       description: Success response for Name Match API
@@ -323,55 +355,15 @@ components:
           type: string
           example: JOHN DOE
           default: JOHN DOE
-  requestBodies:
-    NameMatchRequest:
-      description: Find the request parameters to verify names with variations
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/NameMatchRequestSchema'
-  examples:
-    VerificationIdWithSpecialCharacter:
-      value:
-        type: validation_error
-        code: verification_id_value_invalid
-        message: verification_id can include only alphanum, dot, hyphen and underscores.
-    VerificationIdMissing:
-      value:
-        type: validation_error
-        code: verification_id_missing
-        message: verification_id is missing in the request.
-    Name1Missing:
-      value:
-        type: validation_error
-        code: name_1_missing
-        message: name_1 is missing in the request.
-    XClientIdMissing:
-      value:
-        type: validation_error
-        code: x-client-id_missing
-        message: x-client-id is missing in the request.
-    Name1Empty:
-      value:
-        type: validation_error
-        code: name_1_value_invalid
-        message: name_1 is not allowed to be empty.
-    UsingTestCredentialsInProd:
-      value:
-        type: validation_error
-        code: x-client-secret_value_invalid
-        message: Client secret belongs to test environment
-    Name2Empty:
-      value:
-        type: validation_error
-        code: name_2_value_invalid
-        message: name_2 is not allowed to be empty.
-    Name2Missing:
-      value:
-        type: validation_error
-        code: name_2_missing
-        message: name_2 is missing in the request.
+  parameters:
+    x_cf_signature:
+      description: Send the signature if IP is not whitelisted
+      name: x-cf-signature
+      in: header
+      required: false
+      schema:
+        type: string
+      example: ''
   x-elicitationConfig:
     VrsNameMatchVerification:
       enabled: true
@@ -396,6 +388,14 @@ components:
           mapping:
             target: body.name_2
             transform: string
+  requestBodies:
+    NameMatchRequest:
+      description: Find the request parameters to verify names with variations
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NameMatchRequestSchema'
   securitySchemes:
     bearerAuth:
       type: http
