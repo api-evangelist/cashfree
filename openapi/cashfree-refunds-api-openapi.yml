@@ -230,12 +230,35 @@ paths:
           $ref: '#/components/responses/Response502'
 components:
   responses:
-    Response404:
-      description: Resource Not found
+    Response409:
+      description: Resource already present
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ApiError404'
+            $ref: '#/components/schemas/ApiError409'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response422:
+      description: Idempotency error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IdempotencyError'
       headers:
         x-api-version:
           $ref: '#/components/headers/x-api-version'
@@ -322,12 +345,12 @@ components:
           $ref: '#/components/headers/x-idempotency-key'
         x-idempotency-replayed:
           $ref: '#/components/headers/x-idempotency-replayed'
-    Response422:
-      description: Idempotency error
+    Response404:
+      description: Resource Not found
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/IdempotencyError'
+            $ref: '#/components/schemas/ApiError404'
       headers:
         x-api-version:
           $ref: '#/components/headers/x-api-version'
@@ -351,29 +374,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiError502'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response409:
-      description: Resource already present
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiError409'
       headers:
         x-api-version:
           $ref: '#/components/headers/x-api-version'
@@ -415,60 +415,6 @@ components:
         x-idempotency-replayed:
           $ref: '#/components/headers/x-idempotency-replayed'
   schemas:
-    RateLimitError:
-      title: RateLimitError
-      description: Error when rate limit is breached for your api
-      example:
-        message: Too many requests from IP. Check headers
-        code: request_failed
-        type: rate_limit_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          enum:
-          - rate_limit_error
-          description: rate_limit_error
-    IdempotencyError:
-      title: IdempotencyError
-      description: Error when idempotency fails. Different request body with the same idempotent key
-      example:
-        message: something is not found
-        code: request_invalid
-        type: idempotency_error
-      type: object
-      properties:
-        message:
-          type: string
-        help:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          enum:
-          - idempotency_error
-          description: idempotency_error
-    AuthenticationError:
-      title: AuthenticationError
-      description: Error if api keys are wrong
-      example:
-        message: authentication Failed
-        code: request_failed
-        type: authentication_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          description: authentication_error
     ApiError502:
       title: ApiError502
       description: Error when there is error at partner bank
@@ -492,6 +438,66 @@ components:
           enum:
           - api_error
           description: api_error
+    RateLimitError:
+      title: RateLimitError
+      description: Error when rate limit is breached for your api
+      example:
+        message: Too many requests from IP. Check headers
+        code: request_failed
+        type: rate_limit_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - rate_limit_error
+          description: rate_limit_error
+    RefundSpeed:
+      title: RefundSpeed
+      description: How fast refund has to be proecessed
+      type: object
+      example:
+        requested: STANDARD
+        accepted: STANDARD
+        processed: STANDARD
+        message: Error message, if any
+      properties:
+        requested:
+          type: string
+          description: Requested speed of refund.
+        accepted:
+          type: string
+          description: Accepted speed of refund.
+        processed:
+          type: string
+          description: Processed speed of refund.
+        message:
+          type: string
+          description: Error message, if any for refund_speed request
+    ApiError404:
+      title: ApiError404
+      description: Error when resource requested is not found
+      example:
+        message: something is not found
+        code: somethind_not_found
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+          description: invalid_request_error
     VendorSplit:
       title: VendorSplit
       description: Use to split order when cashfree's Easy Split is enabled for your account.
@@ -518,85 +524,22 @@ components:
             type: object
       required:
       - vendor_id
-    ApiError404:
-      title: ApiError404
-      description: Error when resource requested is not found
+    AuthenticationError:
+      title: AuthenticationError
+      description: Error if api keys are wrong
       example:
-        message: something is not found
-        code: somethind_not_found
-        type: invalid_request_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        help:
-          type: string
-        type:
-          type: string
-          enum:
-          - invalid_request_error
-          description: invalid_request_error
-    ApiError:
-      title: ApiError
-      description: Error at cashfree's server
-      example:
-        message: internal Server Error
-        code: internal_error
-        type: api_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        help:
-          type: string
-        type:
-          type: string
-          enum:
-          - api_error
-          description: api_error
-    BadRequestError:
-      title: BadRequestError
-      description: Invalid request received from client
-      example:
-        message: bad URL, please check API documentation
+        message: authentication Failed
         code: request_failed
-        type: invalid_request_error
+        type: authentication_error
       type: object
       properties:
         message:
           type: string
         code:
           type: string
-        help:
-          type: string
         type:
           type: string
-          enum:
-          - invalid_request_error
-    ApiError409:
-      title: ApiError409
-      description: duplicate request
-      example:
-        message: order with same id is already present
-        code: order_already_exists
-        type: invalid_request_error
-      type: object
-      properties:
-        message:
-          type: string
-        help:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          enum:
-          - invalid_request_error
-          description: invalid_request_error
+          description: authentication_error
     OrderCreateRefundRequest:
       title: OrderCreateRefundRequest
       description: create refund request object
@@ -634,28 +577,65 @@ components:
       required:
       - refund_amount
       - refund_id
-    RefundSpeed:
-      title: RefundSpeed
-      description: How fast refund has to be proecessed
-      type: object
+    BadRequestError:
+      title: BadRequestError
+      description: Invalid request received from client
       example:
-        requested: STANDARD
-        accepted: STANDARD
-        processed: STANDARD
-        message: Error message, if any
+        message: bad URL, please check API documentation
+        code: request_failed
+        type: invalid_request_error
+      type: object
       properties:
-        requested:
-          type: string
-          description: Requested speed of refund.
-        accepted:
-          type: string
-          description: Accepted speed of refund.
-        processed:
-          type: string
-          description: Processed speed of refund.
         message:
           type: string
-          description: Error message, if any for refund_speed request
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+    IdempotencyError:
+      title: IdempotencyError
+      description: Error when idempotency fails. Different request body with the same idempotent key
+      example:
+        message: something is not found
+        code: request_invalid
+        type: idempotency_error
+      type: object
+      properties:
+        message:
+          type: string
+        help:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - idempotency_error
+          description: idempotency_error
+    ApiError:
+      title: ApiError
+      description: Error at cashfree's server
+      example:
+        message: internal Server Error
+        code: internal_error
+        type: api_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - api_error
+          description: api_error
     RefundEntity:
       title: RefundEntity
       description: The refund entity
@@ -765,7 +745,59 @@ components:
         charges_currency:
           type: string
           description: Cashfree refund charges currency for a refund
+    ApiError409:
+      title: ApiError409
+      description: duplicate request
+      example:
+        message: order with same id is already present
+        code: order_already_exists
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        help:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+          description: invalid_request_error
   headers:
+    x-idempotency-replayed:
+      schema:
+        type: string
+        format: boolean
+      example: 'true'
+      description: 'In conjunction with `x-idempotency-key` this means
+
+        - `true` if the response was replayed
+
+        - `false` if the response has not been replayed'
+    x-api-version:
+      schema:
+        type: string
+        format: YYYY-MM-DD
+        enum:
+        - '2022-09-01'
+      description: This header has the version of the API. The current version is `2022-09-01`.
+    x-idempotency-key:
+      schema:
+        type: string
+      example: some-idem-id
+      description: An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.
+    x-request-id:
+      schema:
+        type: string
+      example: some-req-id
+      description: Request id for your api call. Is blank or null if no `x-request-id` is sent during the request
+    x-ratelimit-remaining:
+      schema:
+        type: integer
+      example: 2
+      description: Rate limit remaning for your account for this API in the next minute. Uses sliding window
     x-ratelimit-retry:
       schema:
         type: integer
@@ -777,16 +809,6 @@ components:
         - Is between 1 and 59 if breached
 
         '
-    x-ratelimit-remaining:
-      schema:
-        type: integer
-      example: 2
-      description: Rate limit remaning for your account for this API in the next minute. Uses sliding window
-    x-idempotency-key:
-      schema:
-        type: string
-      example: some-idem-id
-      description: An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.
     x-ratelimit-type:
       schema:
         type: string
@@ -801,34 +823,38 @@ components:
         - `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`
 
         '
-    x-request-id:
-      schema:
-        type: string
-      example: some-req-id
-      description: Request id for your api call. Is blank or null if no `x-request-id` is sent during the request
-    x-idempotency-replayed:
-      schema:
-        type: string
-        format: boolean
-      example: 'true'
-      description: 'In conjunction with `x-idempotency-key` this means
-
-        - `true` if the response was replayed
-
-        - `false` if the response has not been replayed'
     x-ratelimit-limit:
       schema:
         type: integer
       example: 200
       description: Ratelimit set for your account for this API per minute
-    x-api-version:
+  requestBodies:
+    OrderCreateRefundRequest:
+      description: Request Body to Create Refunds
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OrderCreateRefundRequest'
+  parameters:
+    orderIDParam:
+      name: order_id
+      in: path
+      required: true
+      description: The id which uniquely identifies your order
       schema:
         type: string
-        format: YYYY-MM-DD
-        enum:
-        - '2022-09-01'
-      description: This header has the version of the API. The current version is `2022-09-01`.
-  parameters:
+      example: your-order-id
+    apiVersionHeader:
+      in: header
+      name: x-api-version
+      description: API version to be used. Format is in YYYY-MM-DD
+      schema:
+        type: string
+        description: API version to be used
+        default: '2025-01-01'
+      example: '2025-01-01'
+      x-ignore: true
     xIdempotencyKeyHeader:
       in: header
       name: x-idempotency-key
@@ -840,14 +866,6 @@ components:
         type: string
         format: UUID
       example: 47bf8872-46fe-11ee-be56-0242ac120002
-    orderIDParam:
-      name: order_id
-      in: path
-      required: true
-      description: The id which uniquely identifies your order
-      schema:
-        type: string
-      example: your-order-id
     xRequestIDHeader:
       in: header
       name: x-request-id
@@ -856,39 +874,6 @@ components:
       schema:
         type: string
       example: 4dfb9780-46fe-11ee-be56-0242ac120002
-    apiVersionHeader:
-      in: header
-      name: x-api-version
-      description: API version to be used. Format is in YYYY-MM-DD
-      schema:
-        type: string
-        description: API version to be used
-        default: '2025-01-01'
-      example: '2025-01-01'
-      x-ignore: true
-  requestBodies:
-    OrderCreateRefundRequest:
-      description: Request Body to Create Refunds
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/OrderCreateRefundRequest'
-  x-elicitationConfig:
-    createRefund:
-      enabled: true
-      fields:
-        refund_amount:
-          required: true
-          message: Please provide the refund amount
-          schema:
-            type: number
-            title: Refund Amount
-            description: Amount to be refunded (minimum 1 INR)
-            minimum: 1
-          mapping:
-            target: body.refund_amount
-            transform: number
   examples:
     refunds_entity_example:
       summary: Refund Entity
@@ -916,6 +901,21 @@ components:
         forex_conversion_handling_tax: 1.12
         forex_conversion_rate: 84.24
         charges_currency: INR
+  x-elicitationConfig:
+    createRefund:
+      enabled: true
+      fields:
+        refund_amount:
+          required: true
+          message: Please provide the refund amount
+          schema:
+            type: number
+            title: Refund Amount
+            description: Amount to be refunded (minimum 1 INR)
+            minimum: 1
+          mapping:
+            target: body.refund_amount
+            transform: number
   securitySchemes:
     XClientID:
       type: apiKey

@@ -65,18 +65,6 @@ paths:
           $ref: '#/components/responses/Response500'
 components:
   responses:
-    Response403:
-      description: Authentication error (IP not whitelisted)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            IP not whitelisted:
-              value:
-                type: authentication_error
-                code: ip_validation_failed
-                message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
     Response404GetFormStatus:
       description: Not found error
       content:
@@ -87,6 +75,18 @@ components:
             type: not_found_error
             code: Resource not found
             message: No data found
+    Response401:
+      description: Invalid client ID and client secret combination
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Invalid client ID and client secret combination:
+              value:
+                type: authentication_error
+                code: authentication_failed
+                message: Invalid clientId and clientSecret combination
     400GetFormStatus:
       description: Get Form Status responses for 400
       content:
@@ -109,24 +109,6 @@ components:
                 type: validation_error
                 code: x-client-secret_missing
                 message: x-client-secret is missing in the request.
-    getFormStatusResponse:
-      description: Response Body of VRS GetFormStatus API
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/getFormStatusResponseSchema'
-    Response500:
-      description: Internal error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Internal Server Error:
-              value:
-                type: internal_error
-                code: request_failed
-                message: Unable to process your request. Try again after some time
     Response429:
       description: Rate limit exceed error.
       content:
@@ -144,19 +126,65 @@ components:
                 type: rate_limit_error
                 code: too_many_requests_per_ip
                 message: Too many requests from the IP, rate limit reached
-    Response401:
-      description: Invalid client ID and client secret combination
+    Response403:
+      description: Authentication error (IP not whitelisted)
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseSchema'
           examples:
-            Invalid client ID and client secret combination:
+            IP not whitelisted:
               value:
                 type: authentication_error
-                code: authentication_failed
-                message: Invalid clientId and clientSecret combination
+                code: ip_validation_failed
+                message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
+    Response500:
+      description: Internal error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Internal Server Error:
+              value:
+                type: internal_error
+                code: request_failed
+                message: Unable to process your request. Try again after some time
+    getFormStatusResponse:
+      description: Response Body of VRS GetFormStatus API
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/getFormStatusResponseSchema'
+  parameters:
+    x_cf_signature:
+      description: Send the signature if IP is not whitelisted
+      name: x-cf-signature
+      in: header
+      required: false
+      schema:
+        type: string
+      example: ''
   schemas:
+    ErrorResponseSchema:
+      description: Response in case of error.
+      type: object
+      properties:
+        code:
+          type: string
+          example: x-client-id_missing
+        error:
+          type: object
+          example:
+            ref_id: 102
+        message:
+          type: string
+          example: x-client-id is missing in the request.
+          description: It displays the outcome of the error.
+        type:
+          type: string
+          example: validation_error
+          description: It displays the type of error.
     panFormStatusResponseSchema:
       description: PAN Verification Product Status
       type: object
@@ -170,6 +198,19 @@ components:
         status:
           type: string
           example: PENDING
+    upiFormStatusResponseSchema:
+      description: Upi Verification Product Status
+      type: object
+      properties:
+        reference_id:
+          type: integer
+          example: 237
+        type:
+          type: string
+          example: UPIDETAILS_VALIDATION
+        status:
+          type: string
+          example: FAILED
     aadhaarFormStatusResponseSchema:
       description: It displays the status of aadhaar verification
       type: object
@@ -243,47 +284,6 @@ components:
             - $ref: '#/components/schemas/panFormStatusResponseSchema'
             - $ref: '#/components/schemas/bavFormStatusResponseSchema'
             - $ref: '#/components/schemas/upiFormStatusResponseSchema'
-    ErrorResponseSchema:
-      description: Response in case of error.
-      type: object
-      properties:
-        code:
-          type: string
-          example: x-client-id_missing
-        error:
-          type: object
-          example:
-            ref_id: 102
-        message:
-          type: string
-          example: x-client-id is missing in the request.
-          description: It displays the outcome of the error.
-        type:
-          type: string
-          example: validation_error
-          description: It displays the type of error.
-    upiFormStatusResponseSchema:
-      description: Upi Verification Product Status
-      type: object
-      properties:
-        reference_id:
-          type: integer
-          example: 237
-        type:
-          type: string
-          example: UPIDETAILS_VALIDATION
-        status:
-          type: string
-          example: FAILED
-  parameters:
-    x_cf_signature:
-      description: Send the signature if IP is not whitelisted
-      name: x-cf-signature
-      in: header
-      required: false
-      schema:
-        type: string
-      example: ''
   securitySchemes:
     bearerAuth:
       type: http

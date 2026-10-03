@@ -80,6 +80,18 @@ paths:
       - GetCashgramStatus
 components:
   schemas:
+    inline_response_404_4:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ERROR
+        subCode:
+          type: string
+          example: '404'
+        message:
+          type: string
+          example: Cashgram with id JOHaN10 does not exists
     inline_response_200_11_data:
       type: object
       properties:
@@ -110,18 +122,6 @@ components:
           example: Cashgram details retrieved
         data:
           $ref: '#/components/schemas/inline_response_200_11_data'
-    inline_response_404_4:
-      type: object
-      properties:
-        status:
-          type: string
-          example: ERROR
-        subCode:
-          type: string
-          example: '404'
-        message:
-          type: string
-          example: Cashgram with id JOHaN10 does not exists
   securitySchemes:
     XClientID:
       type: apiKey

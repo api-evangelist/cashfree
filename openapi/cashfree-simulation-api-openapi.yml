@@ -135,30 +135,241 @@ paths:
         '500':
           $ref: '#/components/responses/Response500'
 components:
+  headers:
+    x-idempotency-replayed:
+      schema:
+        type: string
+        format: boolean
+      example: 'true'
+      description: 'In conjunction with `x-idempotency-key` this means
+
+        - `true` if the response was replayed
+
+        - `false` if the response has not been replayed'
+    x-api-version:
+      schema:
+        type: string
+        format: YYYY-MM-DD
+        enum:
+        - '2022-09-01'
+      description: This header has the version of the API. The current version is `2022-09-01`.
+    x-idempotency-key:
+      schema:
+        type: string
+      example: some-idem-id
+      description: An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.
+    x-request-id:
+      schema:
+        type: string
+      example: some-req-id
+      description: Request id for your api call. Is blank or null if no `x-request-id` is sent during the request
+    x-ratelimit-remaining:
+      schema:
+        type: integer
+      example: 2
+      description: Rate limit remaning for your account for this API in the next minute. Uses sliding window
+    x-ratelimit-retry:
+      schema:
+        type: integer
+      example: 4
+      description: 'Contains number of seconds to wait if rate limit is breached
+
+        - Is 0 if withing the limit
+
+        - Is between 1 and 59 if breached
+
+        '
+    x-ratelimit-type:
+      schema:
+        type: string
+        enum:
+        - app_id
+        - ip
+      example: ip
+      description: 'either ip or app_id
+
+        - `ip` if making a call from the browser. True for api where you don''t need `x-client-id` and `x-client-secret`
+
+        - `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`
+
+        '
+    x-ratelimit-limit:
+      schema:
+        type: integer
+      example: 200
+      description: Ratelimit set for your account for this API per minute
+  schemas:
+    RateLimitError:
+      title: RateLimitError
+      description: Error when rate limit is breached for your api
+      example:
+        message: Too many requests from IP. Check headers
+        code: request_failed
+        type: rate_limit_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - rate_limit_error
+          description: rate_limit_error
+    SimulateRequest:
+      title: SimulateRequest
+      description: simulate payment request object
+      type: object
+      properties:
+        entity:
+          type: string
+          enum:
+          - PAYMENTS
+          - SUBS_PAYMENTS
+          description: Entity type should be PAYMENTS or SUBS_PAYMENTS only.
+        entity_id:
+          type: string
+          description: If the entity type is PAYMENTS, the entity_id will be the transactionId. If the entity type is SUBS_PAYMENTS, the entity_id will be the merchantTxnId
+        entity_simulation:
+          $ref: '#/components/schemas/EntitySimulationRequest'
+      required:
+      - entity
+      - entity_id
+      - entity_simulation
+    ApiError404:
+      title: ApiError404
+      description: Error when resource requested is not found
+      example:
+        message: something is not found
+        code: somethind_not_found
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+          description: invalid_request_error
+    SimulationResponse:
+      title: SimulationResponse
+      description: Simulation response object
+      type: object
+      example:
+        simulation_id: sim_2900842gV18Lhh7owswLj5XF0uHHUn1CX
+        entity: PAYMENTS
+        entity_id: '14934289844'
+        entity_simulation:
+          payment_status: FAILED
+          payment_error_code: ISSUER_NOT_AVAILABLE
+      properties:
+        simulation_id:
+          type: string
+        entity:
+          type: string
+        entity_id:
+          type: string
+        entity_simulation:
+          $ref: '#/components/schemas/EntitySimulationResponse'
+    AuthenticationError:
+      title: AuthenticationError
+      description: Error if api keys are wrong
+      example:
+        message: authentication Failed
+        code: request_failed
+        type: authentication_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          description: authentication_error
+    BadRequestError:
+      title: BadRequestError
+      description: Invalid request received from client
+      example:
+        message: bad URL, please check API documentation
+        code: request_failed
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+    ApiError:
+      title: ApiError
+      description: Error at cashfree's server
+      example:
+        message: internal Server Error
+        code: internal_error
+        type: api_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - api_error
+          description: api_error
+    EntitySimulationResponse:
+      title: entity_simulation
+      description: Entity Simulation it contains payment_status and payment_error_code
+      type: object
+      example:
+        payment_status: FAILED
+        payment_error_code: ISSUER_NOT_AVAILABLE
+      properties:
+        payment_status:
+          type: string
+          description: Payment Status
+        payment_error_code:
+          type: string
+          description: Payment Error Code
+      required:
+      - payment_status
+    EntitySimulationRequest:
+      title: entity_simulation
+      description: Entity Simulation it contains payment_status and payment_error_code
+      type: object
+      example:
+        payment_status: FAILED
+        payment_error_code: ISSUER_NOT_AVAILABLE
+      properties:
+        payment_status:
+          type: string
+          enum:
+          - SUCCESS
+          - FAILED
+          - PENDING
+          - USER_DROPPED
+          description: Payment Status
+        payment_error_code:
+          type: string
+          description: Payment Error Code
+      required:
+      - payment_status
   responses:
-    Response404:
-      description: Resource Not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiError404'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
     Response500:
       description: API related Error
       content:
@@ -228,6 +439,29 @@ components:
           $ref: '#/components/headers/x-idempotency-key'
         x-idempotency-replayed:
           $ref: '#/components/headers/x-idempotency-replayed'
+    Response404:
+      description: Resource Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError404'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
     Response429:
       description: Rate Limit Error
       content:
@@ -251,270 +485,6 @@ components:
           $ref: '#/components/headers/x-idempotency-key'
         x-idempotency-replayed:
           $ref: '#/components/headers/x-idempotency-replayed'
-  schemas:
-    EntitySimulationRequest:
-      title: entity_simulation
-      description: Entity Simulation it contains payment_status and payment_error_code
-      type: object
-      example:
-        payment_status: FAILED
-        payment_error_code: ISSUER_NOT_AVAILABLE
-      properties:
-        payment_status:
-          type: string
-          enum:
-          - SUCCESS
-          - FAILED
-          - PENDING
-          - USER_DROPPED
-          description: Payment Status
-        payment_error_code:
-          type: string
-          description: Payment Error Code
-      required:
-      - payment_status
-    RateLimitError:
-      title: RateLimitError
-      description: Error when rate limit is breached for your api
-      example:
-        message: Too many requests from IP. Check headers
-        code: request_failed
-        type: rate_limit_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          enum:
-          - rate_limit_error
-          description: rate_limit_error
-    AuthenticationError:
-      title: AuthenticationError
-      description: Error if api keys are wrong
-      example:
-        message: authentication Failed
-        code: request_failed
-        type: authentication_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          description: authentication_error
-    SimulationResponse:
-      title: SimulationResponse
-      description: Simulation response object
-      type: object
-      example:
-        simulation_id: sim_2900842gV18Lhh7owswLj5XF0uHHUn1CX
-        entity: PAYMENTS
-        entity_id: '14934289844'
-        entity_simulation:
-          payment_status: FAILED
-          payment_error_code: ISSUER_NOT_AVAILABLE
-      properties:
-        simulation_id:
-          type: string
-        entity:
-          type: string
-        entity_id:
-          type: string
-        entity_simulation:
-          $ref: '#/components/schemas/EntitySimulationResponse'
-    ApiError404:
-      title: ApiError404
-      description: Error when resource requested is not found
-      example:
-        message: something is not found
-        code: somethind_not_found
-        type: invalid_request_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        help:
-          type: string
-        type:
-          type: string
-          enum:
-          - invalid_request_error
-          description: invalid_request_error
-    ApiError:
-      title: ApiError
-      description: Error at cashfree's server
-      example:
-        message: internal Server Error
-        code: internal_error
-        type: api_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        help:
-          type: string
-        type:
-          type: string
-          enum:
-          - api_error
-          description: api_error
-    BadRequestError:
-      title: BadRequestError
-      description: Invalid request received from client
-      example:
-        message: bad URL, please check API documentation
-        code: request_failed
-        type: invalid_request_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        help:
-          type: string
-        type:
-          type: string
-          enum:
-          - invalid_request_error
-    SimulateRequest:
-      title: SimulateRequest
-      description: simulate payment request object
-      type: object
-      properties:
-        entity:
-          type: string
-          enum:
-          - PAYMENTS
-          - SUBS_PAYMENTS
-          description: Entity type should be PAYMENTS or SUBS_PAYMENTS only.
-        entity_id:
-          type: string
-          description: If the entity type is PAYMENTS, the entity_id will be the transactionId. If the entity type is SUBS_PAYMENTS, the entity_id will be the merchantTxnId
-        entity_simulation:
-          $ref: '#/components/schemas/EntitySimulationRequest'
-      required:
-      - entity
-      - entity_id
-      - entity_simulation
-    EntitySimulationResponse:
-      title: entity_simulation
-      description: Entity Simulation it contains payment_status and payment_error_code
-      type: object
-      example:
-        payment_status: FAILED
-        payment_error_code: ISSUER_NOT_AVAILABLE
-      properties:
-        payment_status:
-          type: string
-          description: Payment Status
-        payment_error_code:
-          type: string
-          description: Payment Error Code
-      required:
-      - payment_status
-  headers:
-    x-ratelimit-retry:
-      schema:
-        type: integer
-      example: 4
-      description: 'Contains number of seconds to wait if rate limit is breached
-
-        - Is 0 if withing the limit
-
-        - Is between 1 and 59 if breached
-
-        '
-    x-ratelimit-remaining:
-      schema:
-        type: integer
-      example: 2
-      description: Rate limit remaning for your account for this API in the next minute. Uses sliding window
-    x-idempotency-key:
-      schema:
-        type: string
-      example: some-idem-id
-      description: An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.
-    x-ratelimit-type:
-      schema:
-        type: string
-        enum:
-        - app_id
-        - ip
-      example: ip
-      description: 'either ip or app_id
-
-        - `ip` if making a call from the browser. True for api where you don''t need `x-client-id` and `x-client-secret`
-
-        - `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`
-
-        '
-    x-request-id:
-      schema:
-        type: string
-      example: some-req-id
-      description: Request id for your api call. Is blank or null if no `x-request-id` is sent during the request
-    x-idempotency-replayed:
-      schema:
-        type: string
-        format: boolean
-      example: 'true'
-      description: 'In conjunction with `x-idempotency-key` this means
-
-        - `true` if the response was replayed
-
-        - `false` if the response has not been replayed'
-    x-ratelimit-limit:
-      schema:
-        type: integer
-      example: 200
-      description: Ratelimit set for your account for this API per minute
-    x-api-version:
-      schema:
-        type: string
-        format: YYYY-MM-DD
-        enum:
-        - '2022-09-01'
-      description: This header has the version of the API. The current version is `2022-09-01`.
-  parameters:
-    xIdempotencyKeyHeader:
-      in: header
-      name: x-idempotency-key
-      required: false
-      description: 'An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.
-
-        '
-      schema:
-        type: string
-        format: UUID
-      example: 47bf8872-46fe-11ee-be56-0242ac120002
-    xRequestIDHeader:
-      in: header
-      name: x-request-id
-      description: Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.
-      required: false
-      schema:
-        type: string
-      example: 4dfb9780-46fe-11ee-be56-0242ac120002
-    apiVersionHeader:
-      in: header
-      name: x-api-version
-      description: API version to be used. Format is in YYYY-MM-DD
-      schema:
-        type: string
-        description: API version to be used
-        default: '2025-01-01'
-      example: '2025-01-01'
-      x-ignore: true
   requestBodies:
     SimulateRequest:
       description: Request Body to Make Simulation
@@ -538,6 +508,36 @@ components:
                 entity_simulation:
                   payment_status: SUCCESS
                   payment_error_code: ''
+  parameters:
+    apiVersionHeader:
+      in: header
+      name: x-api-version
+      description: API version to be used. Format is in YYYY-MM-DD
+      schema:
+        type: string
+        description: API version to be used
+        default: '2025-01-01'
+      example: '2025-01-01'
+      x-ignore: true
+    xIdempotencyKeyHeader:
+      in: header
+      name: x-idempotency-key
+      required: false
+      description: 'An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.
+
+        '
+      schema:
+        type: string
+        format: UUID
+      example: 47bf8872-46fe-11ee-be56-0242ac120002
+    xRequestIDHeader:
+      in: header
+      name: x-request-id
+      description: Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.
+      required: false
+      schema:
+        type: string
+      example: 4dfb9780-46fe-11ee-be56-0242ac120002
   securitySchemes:
     XClientID:
       type: apiKey

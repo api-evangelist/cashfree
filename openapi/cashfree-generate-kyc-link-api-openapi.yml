@@ -55,19 +55,40 @@ paths:
         '500':
           $ref: '#/components/responses/Response500'
 components:
+  examples:
+    VerificationIdMissing:
+      value:
+        type: validation_error
+        code: verification_id_missing
+        message: verification_id is missing in the request.
+    UsingTestCredentialsInProd:
+      value:
+        type: validation_error
+        code: x-client-secret_value_invalid
+        message: Client secret belongs to test environment
+    VerificationIdWithSpecialCharacter:
+      value:
+        type: validation_error
+        code: verification_id_value_invalid
+        message: verification_id can include only alphanum, dot, hyphen and underscores.
+    XClientIdMissing:
+      value:
+        type: validation_error
+        code: x-client-id_missing
+        message: x-client-id is missing in the request.
   responses:
-    Response403:
-      description: Authentication error (IP not whitelisted)
+    Response422:
+      description: Validation error because of insufficient balance to process this request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseSchema'
           examples:
-            IP not whitelisted:
+            Insufficient balance:
               value:
-                type: authentication_error
-                code: ip_validation_failed
-                message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
+                type: validation_error
+                code: insufficient_balance
+                message: Insufficient balance to process this request
     Response500:
       description: Internal error
       content:
@@ -80,18 +101,6 @@ components:
                 type: internal_error
                 code: request_failed
                 message: Unable to process your request. Try again after some time
-    Response409DuplicateId:
-      description: Conflict error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Conflict Error:
-              value:
-                type: validation_error
-                code: verification_id_already_exists
-                message: verification id already exists
     GenerateFormLinkResponse:
       description: Response Body for Generate KYC Link API
       content:
@@ -110,18 +119,47 @@ components:
                 type: authentication_error
                 code: authentication_failed
                 message: Invalid clientId and clientSecret combination
-    Response422:
-      description: Validation error because of insufficient balance to process this request
+    Response409DuplicateId:
+      description: Conflict error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseSchema'
           examples:
-            Insufficient balance:
+            Conflict Error:
               value:
                 type: validation_error
-                code: insufficient_balance
-                message: Insufficient balance to process this request
+                code: verification_id_already_exists
+                message: verification id already exists
+    Response403:
+      description: Authentication error (IP not whitelisted)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            IP not whitelisted:
+              value:
+                type: authentication_error
+                code: ip_validation_failed
+                message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
+    Response429:
+      description: Rate limit exceed error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Rate limit error per operation:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_operation
+                message: Too many requests for this operation, rate limit reached
+            Rate limit error per IP:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_ip
+                message: Too many requests from the IP, rate limit reached
     Response400KYCLinkGeneration:
       description: Validation errors for Generate KYC Link API
       content:
@@ -157,69 +195,34 @@ components:
               $ref: '#/components/examples/XClientIdMissing'
             Using-Test-Credentials-in-Prod:
               $ref: '#/components/examples/UsingTestCredentialsInProd'
-    Response429:
-      description: Rate limit exceed error.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Rate limit error per operation:
-              value:
-                type: rate_limit_error
-                code: too_many_requests_per_operation
-                message: Too many requests for this operation, rate limit reached
-            Rate limit error per IP:
-              value:
-                type: rate_limit_error
-                code: too_many_requests_per_ip
-                message: Too many requests from the IP, rate limit reached
-  examples:
-    XClientIdMissing:
-      value:
-        type: validation_error
-        code: x-client-id_missing
-        message: x-client-id is missing in the request.
-    UsingTestCredentialsInProd:
-      value:
-        type: validation_error
-        code: x-client-secret_value_invalid
-        message: Client secret belongs to test environment
-    VerificationIdMissing:
-      value:
-        type: validation_error
-        code: verification_id_missing
-        message: verification_id is missing in the request.
-    VerificationIdWithSpecialCharacter:
-      value:
-        type: validation_error
-        code: verification_id_value_invalid
-        message: verification_id can include only alphanum, dot, hyphen and underscores.
-  x-elicitationConfig:
-    VrsGenerateKYCLink:
-      enabled: true
-      fields:
-        phone:
-          required: false
-          message: Please provide the phone number
-          schema:
-            type: string
-            title: Phone Number
-            description: Phone number of the user
-          mapping:
-            target: body.phone
-            transform: string
-        template_name:
-          required: true
-          message: Please provide the template name
-          schema:
-            type: string
-            title: Template Name
-            description: Template Name of the KYC form
-          mapping:
-            target: body.template_name
-            transform: string
   schemas:
+    ErrorResponseSchema:
+      description: Response in case of error.
+      type: object
+      properties:
+        code:
+          type: string
+          example: x-client-id_missing
+        error:
+          type: object
+          example:
+            ref_id: 102
+        message:
+          type: string
+          example: x-client-id is missing in the request.
+          description: It displays the outcome of the error.
+        type:
+          type: string
+          example: validation_error
+          description: It displays the type of error.
+    whatsappString:
+      description: Whatsapp string
+      type: string
+      example: whatsapp
+    emailString:
+      description: Email string
+      type: string
+      example: email
     GenerateKYCLinkRequestSchema:
       description: Request Body Schema for Generate KYC Link
       type: object
@@ -296,41 +299,6 @@ components:
           type: string
           description: It displays the status of the form.
           example: RECEIVED
-    whatsappString:
-      description: Whatsapp string
-      type: string
-      example: whatsapp
-    emailString:
-      description: Email string
-      type: string
-      example: email
-    ErrorResponseSchema:
-      description: Response in case of error.
-      type: object
-      properties:
-        code:
-          type: string
-          example: x-client-id_missing
-        error:
-          type: object
-          example:
-            ref_id: 102
-        message:
-          type: string
-          example: x-client-id is missing in the request.
-          description: It displays the outcome of the error.
-        type:
-          type: string
-          example: validation_error
-          description: It displays the type of error.
-  requestBodies:
-    GenerateKYCLinkRequest:
-      description: Find the request parameters for Generate KYC Link.
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GenerateKYCLinkRequestSchema'
   parameters:
     x_cf_signature:
       description: Send the signature if IP is not whitelisted
@@ -340,6 +308,38 @@ components:
       schema:
         type: string
       example: ''
+  x-elicitationConfig:
+    VrsGenerateKYCLink:
+      enabled: true
+      fields:
+        phone:
+          required: false
+          message: Please provide the phone number
+          schema:
+            type: string
+            title: Phone Number
+            description: Phone number of the user
+          mapping:
+            target: body.phone
+            transform: string
+        template_name:
+          required: true
+          message: Please provide the template name
+          schema:
+            type: string
+            title: Template Name
+            description: Template Name of the KYC form
+          mapping:
+            target: body.template_name
+            transform: string
+  requestBodies:
+    GenerateKYCLinkRequest:
+      description: Find the request parameters for Generate KYC Link.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GenerateKYCLinkRequestSchema'
   securitySchemes:
     bearerAuth:
       type: http

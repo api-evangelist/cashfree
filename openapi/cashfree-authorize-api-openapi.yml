@@ -54,19 +54,25 @@ paths:
       tags:
       - Authorize
 components:
+  parameters:
+    xRequestIDHeader:
+      in: header
+      name: x-request-id
+      description: It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.
+      required: false
+      schema:
+        type: string
+      example: 4dfb9780-46fe-11ee-be56-0242ac120002
+    apiVersionHeader:
+      in: header
+      name: x-api-version
+      description: It is the API version to be used. The accepted format is YYYY-MM-DD.
+      schema:
+        type: string
+        description: It is the API version to be used.
+        default: '2024-01-01'
+      example: '2024-01-01'
   schemas:
-    inline_response_200_10:
-      type: object
-      properties:
-        status:
-          type: string
-          example: SUCCESS
-        subCode:
-          type: string
-          example: '200'
-        message:
-          type: string
-          example: Token is valid
     inline_response_401:
       type: object
       properties:
@@ -79,24 +85,18 @@ components:
         message:
           type: string
           example: Invalid clientId and clientSecret combination
-  parameters:
-    apiVersionHeader:
-      in: header
-      name: x-api-version
-      description: It is the API version to be used. The accepted format is YYYY-MM-DD.
-      schema:
-        type: string
-        description: It is the API version to be used.
-        default: '2024-01-01'
-      example: '2024-01-01'
-    xRequestIDHeader:
-      in: header
-      name: x-request-id
-      description: It is the request ID for the API call. This ID can be used to resolve tech realted issues. Communicate this in your tech related queries to Cashfree Payments.
-      required: false
-      schema:
-        type: string
-      example: 4dfb9780-46fe-11ee-be56-0242ac120002
+    inline_response_200_10:
+      type: object
+      properties:
+        status:
+          type: string
+          example: SUCCESS
+        subCode:
+          type: string
+          example: '200'
+        message:
+          type: string
+          example: Token is valid
   securitySchemes:
     XClientID:
       type: apiKey

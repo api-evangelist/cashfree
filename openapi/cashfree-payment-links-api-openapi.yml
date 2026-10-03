@@ -281,12 +281,35 @@ paths:
           $ref: '#/components/responses/Response500'
 components:
   responses:
-    Response404:
-      description: Resource Not found
+    Response409:
+      description: Resource already present
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ApiError404'
+            $ref: '#/components/schemas/ApiError409'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response422:
+      description: Idempotency error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IdempotencyError'
       headers:
         x-api-version:
           $ref: '#/components/headers/x-api-version'
@@ -373,12 +396,12 @@ components:
           $ref: '#/components/headers/x-idempotency-key'
         x-idempotency-replayed:
           $ref: '#/components/headers/x-idempotency-replayed'
-    Response422:
-      description: Idempotency error
+    Response404:
+      description: Resource Not found
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/IdempotencyError'
+            $ref: '#/components/schemas/ApiError404'
       headers:
         x-api-version:
           $ref: '#/components/headers/x-api-version'
@@ -402,29 +425,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiError502'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response409:
-      description: Resource already present
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiError409'
       headers:
         x-api-version:
           $ref: '#/components/headers/x-api-version'
@@ -466,359 +466,6 @@ components:
         x-idempotency-replayed:
           $ref: '#/components/headers/x-idempotency-replayed'
   schemas:
-    RateLimitError:
-      title: RateLimitError
-      description: Error when rate limit is breached for your api
-      example:
-        message: Too many requests from IP. Check headers
-        code: request_failed
-        type: rate_limit_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          enum:
-          - rate_limit_error
-          description: rate_limit_error
-    IdempotencyError:
-      title: IdempotencyError
-      description: Error when idempotency fails. Different request body with the same idempotent key
-      example:
-        message: something is not found
-        code: request_invalid
-        type: idempotency_error
-      type: object
-      properties:
-        message:
-          type: string
-        help:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          enum:
-          - idempotency_error
-          description: idempotency_error
-    AuthenticationError:
-      title: AuthenticationError
-      description: Error if api keys are wrong
-      example:
-        message: authentication Failed
-        code: request_failed
-        type: authentication_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          description: authentication_error
-    PaymentLinkOrderEntity:
-      title: PaymentLinkOrderEntity
-      type: object
-      description: The complete order entity
-      example:
-        $ref: '#/components/examples/order_entity_list_example/value/0'
-      properties:
-        cf_order_id:
-          type: string
-          description: unique id generated by cashfree for your order
-        link_id:
-          type: string
-          description: link id of the order
-        order_id:
-          type: string
-          description: order_id sent during the api request
-        entity:
-          type: string
-          description: Type of the entity.
-        order_currency:
-          type: string
-          description: Currency of the order. Example INR
-        order_amount:
-          type: number
-        order_status:
-          type: string
-          description: "Possible values are \n- `ACTIVE`: Order does not have a sucessful transaction yet\n- `PAID`: Order is PAID with one successful transaction\n- `EXPIRED`: Order was not PAID and not it has expired. No transaction can be initiated for an EXPIRED order.\n"
-        payment_session_id:
-          type: string
-        order_expiry_time:
-          type: string
-          format: date-time
-        order_note:
-          type: string
-          description: Additional note for order
-        created_at:
-          type: string
-          format: date-time
-          description: When the order was created at cashfree's server
-          example: '2022-08-16T14:45:38+05:30'
-        order_splits:
-          type: array
-          items:
-            $ref: '#/components/schemas/VendorSplit'
-        customer_details:
-          $ref: '#/components/schemas/PaymentLinkCustomerDetails'
-        order_meta:
-          $ref: '#/components/schemas/OrderMeta'
-        order_tags:
-          $ref: '#/components/schemas/OrderTags'
-    ApiError502:
-      title: ApiError502
-      description: Error when there is error at partner bank
-      example:
-        message: something is not found
-        code: bank_processing_failure
-        type: api_error
-      type: object
-      properties:
-        message:
-          type: string
-        help:
-          type: string
-        code:
-          type: string
-          description: '`bank_processing_failure` will be returned here to denote failure at bank.
-
-            '
-        type:
-          type: string
-          enum:
-          - api_error
-          description: api_error
-    VendorSplit:
-      title: VendorSplit
-      description: Use to split order when cashfree's Easy Split is enabled for your account.
-      type: object
-      example:
-        vendor_id: Vendor01
-        amount: 100.12
-        description: order amount should be more than equal to 100.12
-      properties:
-        vendor_id:
-          type: string
-          description: Vendor id created in Cashfree system
-        amount:
-          type: number
-          description: Amount which will be associated with this vendor
-        percentage:
-          type: number
-          description: Percentage of order amount which shall get added to vendor account
-        tags:
-          type: object
-          maxProperties: 15
-          description: Custom Tags in thr form of {"key":"value"} which can be passed for an order. A maximum of 10 tags can be added
-          additionalProperties:
-            type: object
-      required:
-      - vendor_id
-    ApiError404:
-      title: ApiError404
-      description: Error when resource requested is not found
-      example:
-        message: something is not found
-        code: somethind_not_found
-        type: invalid_request_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        help:
-          type: string
-        type:
-          type: string
-          enum:
-          - invalid_request_error
-          description: invalid_request_error
-    OrderTags:
-      type: object
-      maxProperties: 15
-      description: Custom Tags in thr form of {"key":"value"} which can be passed for an order. A maximum of 10 tags can be added
-      additionalProperties:
-        type: string
-        minLength: 1
-        maxLength: 255
-      example:
-        product: Laptop
-        shipping_address: 123 Main St
-    ApiError:
-      title: ApiError
-      description: Error at cashfree's server
-      example:
-        message: internal Server Error
-        code: internal_error
-        type: api_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        help:
-          type: string
-        type:
-          type: string
-          enum:
-          - api_error
-          description: api_error
-    PaymentLinkCustomerDetails:
-      title: PaymentLinkCustomerDetails
-      description: The customer details that are necessary. Note that you can pass dummy details if your use case does not require the customer details.
-      example:
-        customer_id: 7112AAA812234
-        customer_email: john@cashfree.com
-        customer_phone: '9908734801'
-        customer_name: John Doe
-        customer_bank_account_number: '1518121112'
-        customer_bank_ifsc: XITI0000001
-        customer_bank_code: 3333
-      type: object
-      properties:
-        customer_id:
-          type: string
-          description: A unique identifier for the customer. Use alphanumeric values only.
-          minLength: 3
-          maxLength: 50
-        customer_email:
-          type: string
-          description: Customer email address.
-          minLength: 3
-          maxLength: 100
-        customer_phone:
-          type: string
-          description: Customer phone number.
-          minLength: 10
-          maxLength: 10
-        customer_name:
-          type: string
-          description: Name of the customer.
-          minLength: 3
-          maxLength: 100
-        customer_bank_account_number:
-          type: string
-          description: Customer bank account. Required if you want to do a bank account check (TPV)
-          minLength: 3
-          maxLength: 20
-        customer_bank_ifsc:
-          type: string
-          description: Customer bank IFSC. Required if you want to do a bank account check (TPV)
-        customer_bank_code:
-          type: number
-          description: Customer bank code. Required for net banking payments, if you want to do a bank account check (TPV)
-      required:
-      - customer_phone
-    OrderMeta:
-      title: OrderMeta
-      description: Optional meta details to control how the customer pays and how payment journey completes
-      type: object
-      properties:
-        return_url:
-          type: string
-          example: https://www.cashfree.com/devstudio/thankyou
-          description: 'The URL to which user will be redirected to after the payment on bank OTP page. Maximum length: 250. We suggest to keep context of order_id in your return_url so that you can identify the order when customer lands on your page. Example of return_url format could be https://www.cashfree.com/devstudio/thankyou'
-        notify_url:
-          type: string
-          example: https://example.com/cf_notify
-          description: 'Notification URL for server-server communication. Useful when user''s connection drops while re-directing. NotifyUrl should be an https URL. Maximum length: 250.'
-        payment_methods:
-          example: cc,dc,upi
-          description: Allowed payment modes for this order. Pass comma-separated values among following options - "cc", "dc", "ccc", "ppc","nb","upi","paypal","app","paylater","cardlessemi","dcemi","ccemi","banktransfer". Leave it blank to show all available payment methods
-        payment_methods_filters:
-          description: Allowed payment modes for this order. Along with multiple filters for cards can be added to this key. And this filtering will be honoured during transaction creation.
-          type: object
-          properties:
-            methods:
-              description: Allowed payment modes for this order. credit_card, debit_card, netbanking, paylater, etc are the values that can be passed to this parameter.
-              type: object
-              properties:
-                action:
-                  type: string
-                  description: It accepts value of "ALLOW" and allows only those modes present in it's neighbouring parameter "values"
-                values:
-                  type: array
-                  items:
-                    type: string
-                  description: The accepted entries for this paramter are "debit_card, credit_card, prepaid_card, upi, wallet, netbanking, banktransfer, paylater, paypal, debit_card_emi, credit_card_emi, upi_credit_card, upi_ppi, cardless_emi, account_based_payment, corporate_credit_card, sbc_debit_card, sbc_emandate, sbc_upi, sbc_credit_card"
-            filters:
-              description: This object takes details of all the filtering that has to be done for this order. Filters on card bins, card schemes, card issuing bank and card suffixes
-              type: object
-              properties:
-                card_bins:
-                  description: Allowed card bins for the order
-                  type: object
-                  properties:
-                    action:
-                      type: string
-                      description: It accepts value of "ALLOW" and allows only those bins present in it's neighbouring parameter "values"
-                    values:
-                      type: array
-                      items:
-                        type: string
-                      description: List of card bins to be allowed for the order
-                card_schemes:
-                  description: Allowed card schemes for the order
-                  type: object
-                  properties:
-                    action:
-                      type: string
-                      description: It accepts value of "ALLOW" and allows only those schemes present in it's neighbouring parameter "values"
-                    values:
-                      type: array
-                      items:
-                        type: string
-                      description: List of card schemes to be allowed for the order
-                card_suffix:
-                  description: Allowed card suffixes for the order
-                  type: object
-                  properties:
-                    action:
-                      type: string
-                      description: It accepts value of "ALLOW" and allows only those suffixes present in it's neighbouring parameter "values"
-                    values:
-                      type: array
-                      items:
-                        type: string
-                      description: List of card suffixes to be allowed for the order
-                card_issuing_bank:
-                  description: Allowed card issuing bank for the order
-                  type: object
-                  properties:
-                    action:
-                      type: string
-                      description: It accepts value of "ALLOW" and allows only those issuing bank present in it's neighbouring parameter "values"
-                    values:
-                      type: array
-                      description: List of card issuing bank to be allowed for the order
-                      items:
-                        type: string
-    BadRequestError:
-      title: BadRequestError
-      description: Invalid request received from client
-      example:
-        message: bad URL, please check API documentation
-        code: request_failed
-        type: invalid_request_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        help:
-          type: string
-        type:
-          type: string
-          enum:
-          - invalid_request_error
     CreateLinkRequest:
       title: CreateLinkRequest
       description: Request paramenters for link creation
@@ -907,85 +554,13 @@ components:
       - link_amount
       - customer_details
       - link_purpose
-    LinkCustomerDetailsEntity:
-      title: customer_details
-      description: Payment link customer entity
-      type: object
+    ApiError502:
+      title: ApiError502
+      description: Error when there is error at partner bank
       example:
-        customer_name: John Doe
-        customer_phone: '9999999999'
-        customer_email: john@cashfree.com
-        customer_bank_account_number: 11111111111
-        customer_bank_ifsc: SBIN0001882
-        customer_bank_code: 7001
-      properties:
-        customer_phone:
-          type: string
-          description: Customer phone number
-        customer_email:
-          type: string
-          description: Customer email address
-        customer_name:
-          type: string
-          description: Customer name
-        customer_bank_account_number:
-          type: string
-          description: Customer Bank Account Number
-        customer_bank_ifsc:
-          type: string
-          description: Customer Bank Ifsc
-        customer_bank_code:
-          type: integer
-          enum:
-          - 3003
-          - 3005
-          - 3006
-          - 3010
-          - 3012
-          - 3016
-          - 3019
-          - 3020
-          - 3021
-          - 3022
-          - 3023
-          - 3024
-          - 3026
-          - 3027
-          - 3028
-          - 3029
-          - 3030
-          - 3031
-          - 3032
-          - 3033
-          - 3038
-          - 3039
-          - 3040
-          - 3042
-          - 3044
-          - 3054
-          - 3055
-          - 3058
-          - 3086
-          - 3087
-          - 3088
-          - 3089
-          - 3090
-          - 3091
-          - 3092
-          - 3098
-          - 3115
-          - 3117
-          - 7001
-          description: Customer Bank Code
-      required:
-      - customer_phone
-    ApiError409:
-      title: ApiError409
-      description: duplicate request
-      example:
-        message: order with same id is already present
-        code: order_already_exists
-        type: invalid_request_error
+        message: something is not found
+        code: bank_processing_failure
+        type: api_error
       type: object
       properties:
         message:
@@ -994,11 +569,103 @@ components:
           type: string
         code:
           type: string
+          description: '`bank_processing_failure` will be returned here to denote failure at bank.
+
+            '
         type:
           type: string
           enum:
-          - invalid_request_error
-          description: invalid_request_error
+          - api_error
+          description: api_error
+    RateLimitError:
+      title: RateLimitError
+      description: Error when rate limit is breached for your api
+      example:
+        message: Too many requests from IP. Check headers
+        code: request_failed
+        type: rate_limit_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - rate_limit_error
+          description: rate_limit_error
+    PaymentLinkOrderEntity:
+      title: PaymentLinkOrderEntity
+      type: object
+      description: The complete order entity
+      example:
+        $ref: '#/components/examples/order_entity_list_example/value/0'
+      properties:
+        cf_order_id:
+          type: string
+          description: unique id generated by cashfree for your order
+        link_id:
+          type: string
+          description: link id of the order
+        order_id:
+          type: string
+          description: order_id sent during the api request
+        entity:
+          type: string
+          description: Type of the entity.
+        order_currency:
+          type: string
+          description: Currency of the order. Example INR
+        order_amount:
+          type: number
+        order_status:
+          type: string
+          description: "Possible values are \n- `ACTIVE`: Order does not have a sucessful transaction yet\n- `PAID`: Order is PAID with one successful transaction\n- `EXPIRED`: Order was not PAID and not it has expired. No transaction can be initiated for an EXPIRED order.\n"
+        payment_session_id:
+          type: string
+        order_expiry_time:
+          type: string
+          format: date-time
+        order_note:
+          type: string
+          description: Additional note for order
+        created_at:
+          type: string
+          format: date-time
+          description: When the order was created at cashfree's server
+          example: '2022-08-16T14:45:38+05:30'
+        order_splits:
+          type: array
+          items:
+            $ref: '#/components/schemas/VendorSplit'
+        customer_details:
+          $ref: '#/components/schemas/PaymentLinkCustomerDetails'
+        order_meta:
+          $ref: '#/components/schemas/OrderMeta'
+        order_tags:
+          $ref: '#/components/schemas/OrderTags'
+    LinkMetaResponseEntity:
+      title: link_meta
+      description: Payment link meta information object
+      type: object
+      example:
+        notify_url: https://ee08e626ecd88c61c85f5c69c0418cb5.m.pipedream.net
+        upi_intent: 'false'
+        return_url: https://www.cashfree.com/devstudio/thankyou
+      properties:
+        notify_url:
+          type: string
+          description: Notification URL for server-server communication. It should be an https URL.
+        upi_intent:
+          type: string
+          description: If "true", link will directly open UPI Intent flow on mobile, and normal link flow elsewhere
+        return_url:
+          type: string
+          description: 'The URL to which user will be redirected to after the payment is done on the link. Maximum length: 250.'
+        payment_methods:
+          type: string
+          description: Allowed payment modes for this link. Pass comma-separated values among following options - "cc", "dc", "ccc", "ppc", "nb", "upi", "paypal", "app". Leave it blank to show all available payment methods
     LinkEntity:
       title: LinkEntity
       description: Payment link success creation response object
@@ -1083,6 +750,121 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/VendorSplit'
+    OrderMeta:
+      title: OrderMeta
+      description: Optional meta details to control how the customer pays and how payment journey completes
+      type: object
+      properties:
+        return_url:
+          type: string
+          example: https://www.cashfree.com/devstudio/thankyou
+          description: 'The URL to which user will be redirected to after the payment on bank OTP page. Maximum length: 250. We suggest to keep context of order_id in your return_url so that you can identify the order when customer lands on your page. Example of return_url format could be https://www.cashfree.com/devstudio/thankyou'
+        notify_url:
+          type: string
+          example: https://example.com/cf_notify
+          description: 'Notification URL for server-server communication. Useful when user''s connection drops while re-directing. NotifyUrl should be an https URL. Maximum length: 250.'
+        payment_methods:
+          example: cc,dc,upi
+          description: Allowed payment modes for this order. Pass comma-separated values among following options - "cc", "dc", "ccc", "ppc","nb","upi","paypal","app","paylater","cardlessemi","dcemi","ccemi","banktransfer". Leave it blank to show all available payment methods
+        payment_methods_filters:
+          description: Allowed payment modes for this order. Along with multiple filters for cards can be added to this key. And this filtering will be honoured during transaction creation.
+          type: object
+          properties:
+            methods:
+              description: Allowed payment modes for this order. credit_card, debit_card, netbanking, paylater, etc are the values that can be passed to this parameter.
+              type: object
+              properties:
+                action:
+                  type: string
+                  description: It accepts value of "ALLOW" and allows only those modes present in it's neighbouring parameter "values"
+                values:
+                  type: array
+                  items:
+                    type: string
+                  description: The accepted entries for this paramter are "debit_card, credit_card, prepaid_card, upi, wallet, netbanking, banktransfer, paylater, paypal, debit_card_emi, credit_card_emi, upi_credit_card, upi_ppi, cardless_emi, account_based_payment, corporate_credit_card, sbc_debit_card, sbc_emandate, sbc_upi, sbc_credit_card"
+            filters:
+              description: This object takes details of all the filtering that has to be done for this order. Filters on card bins, card schemes, card issuing bank and card suffixes
+              type: object
+              properties:
+                card_bins:
+                  description: Allowed card bins for the order
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                      description: It accepts value of "ALLOW" and allows only those bins present in it's neighbouring parameter "values"
+                    values:
+                      type: array
+                      items:
+                        type: string
+                      description: List of card bins to be allowed for the order
+                card_schemes:
+                  description: Allowed card schemes for the order
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                      description: It accepts value of "ALLOW" and allows only those schemes present in it's neighbouring parameter "values"
+                    values:
+                      type: array
+                      items:
+                        type: string
+                      description: List of card schemes to be allowed for the order
+                card_suffix:
+                  description: Allowed card suffixes for the order
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                      description: It accepts value of "ALLOW" and allows only those suffixes present in it's neighbouring parameter "values"
+                    values:
+                      type: array
+                      items:
+                        type: string
+                      description: List of card suffixes to be allowed for the order
+                card_issuing_bank:
+                  description: Allowed card issuing bank for the order
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                      description: It accepts value of "ALLOW" and allows only those issuing bank present in it's neighbouring parameter "values"
+                    values:
+                      type: array
+                      description: List of card issuing bank to be allowed for the order
+                      items:
+                        type: string
+    ApiError404:
+      title: ApiError404
+      description: Error when resource requested is not found
+      example:
+        message: something is not found
+        code: somethind_not_found
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+          description: invalid_request_error
+    OrderTags:
+      type: object
+      maxProperties: 15
+      description: Custom Tags in thr form of {"key":"value"} which can be passed for an order. A maximum of 10 tags can be added
+      additionalProperties:
+        type: string
+        minLength: 1
+        maxLength: 255
+      example:
+        product: Laptop
+        shipping_address: 123 Main St
     LinkNotifyEntity:
       title: link_notify
       type: object
@@ -1097,6 +879,48 @@ components:
         send_email:
           type: boolean
           description: If "true", Cashfree will send email on customer_email
+    VendorSplit:
+      title: VendorSplit
+      description: Use to split order when cashfree's Easy Split is enabled for your account.
+      type: object
+      example:
+        vendor_id: Vendor01
+        amount: 100.12
+        description: order amount should be more than equal to 100.12
+      properties:
+        vendor_id:
+          type: string
+          description: Vendor id created in Cashfree system
+        amount:
+          type: number
+          description: Amount which will be associated with this vendor
+        percentage:
+          type: number
+          description: Percentage of order amount which shall get added to vendor account
+        tags:
+          type: object
+          maxProperties: 15
+          description: Custom Tags in thr form of {"key":"value"} which can be passed for an order. A maximum of 10 tags can be added
+          additionalProperties:
+            type: object
+      required:
+      - vendor_id
+    AuthenticationError:
+      title: AuthenticationError
+      description: Error if api keys are wrong
+      example:
+        message: authentication Failed
+        code: request_failed
+        type: authentication_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          description: authentication_error
     LinkNotesEntity:
       title: link_notes
       type: object
@@ -1106,28 +930,236 @@ components:
         key_2: value_2
       additionalProperties:
         type: string
-    LinkMetaResponseEntity:
-      title: link_meta
-      description: Payment link meta information object
+    BadRequestError:
+      title: BadRequestError
+      description: Invalid request received from client
+      example:
+        message: bad URL, please check API documentation
+        code: request_failed
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+    LinkCustomerDetailsEntity:
+      title: customer_details
+      description: Payment link customer entity
       type: object
       example:
-        notify_url: https://ee08e626ecd88c61c85f5c69c0418cb5.m.pipedream.net
-        upi_intent: 'false'
-        return_url: https://www.cashfree.com/devstudio/thankyou
+        customer_name: John Doe
+        customer_phone: '9999999999'
+        customer_email: john@cashfree.com
+        customer_bank_account_number: 11111111111
+        customer_bank_ifsc: SBIN0001882
+        customer_bank_code: 7001
       properties:
-        notify_url:
+        customer_phone:
           type: string
-          description: Notification URL for server-server communication. It should be an https URL.
-        upi_intent:
+          description: Customer phone number
+        customer_email:
           type: string
-          description: If "true", link will directly open UPI Intent flow on mobile, and normal link flow elsewhere
-        return_url:
+          description: Customer email address
+        customer_name:
           type: string
-          description: 'The URL to which user will be redirected to after the payment is done on the link. Maximum length: 250.'
-        payment_methods:
+          description: Customer name
+        customer_bank_account_number:
           type: string
-          description: Allowed payment modes for this link. Pass comma-separated values among following options - "cc", "dc", "ccc", "ppc", "nb", "upi", "paypal", "app". Leave it blank to show all available payment methods
+          description: Customer Bank Account Number
+        customer_bank_ifsc:
+          type: string
+          description: Customer Bank Ifsc
+        customer_bank_code:
+          type: integer
+          enum:
+          - 3003
+          - 3005
+          - 3006
+          - 3010
+          - 3012
+          - 3016
+          - 3019
+          - 3020
+          - 3021
+          - 3022
+          - 3023
+          - 3024
+          - 3026
+          - 3027
+          - 3028
+          - 3029
+          - 3030
+          - 3031
+          - 3032
+          - 3033
+          - 3038
+          - 3039
+          - 3040
+          - 3042
+          - 3044
+          - 3054
+          - 3055
+          - 3058
+          - 3086
+          - 3087
+          - 3088
+          - 3089
+          - 3090
+          - 3091
+          - 3092
+          - 3098
+          - 3115
+          - 3117
+          - 7001
+          description: Customer Bank Code
+      required:
+      - customer_phone
+    IdempotencyError:
+      title: IdempotencyError
+      description: Error when idempotency fails. Different request body with the same idempotent key
+      example:
+        message: something is not found
+        code: request_invalid
+        type: idempotency_error
+      type: object
+      properties:
+        message:
+          type: string
+        help:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - idempotency_error
+          description: idempotency_error
+    ApiError:
+      title: ApiError
+      description: Error at cashfree's server
+      example:
+        message: internal Server Error
+        code: internal_error
+        type: api_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - api_error
+          description: api_error
+    PaymentLinkCustomerDetails:
+      title: PaymentLinkCustomerDetails
+      description: The customer details that are necessary. Note that you can pass dummy details if your use case does not require the customer details.
+      example:
+        customer_id: 7112AAA812234
+        customer_email: john@cashfree.com
+        customer_phone: '9908734801'
+        customer_name: John Doe
+        customer_bank_account_number: '1518121112'
+        customer_bank_ifsc: XITI0000001
+        customer_bank_code: 3333
+      type: object
+      properties:
+        customer_id:
+          type: string
+          description: A unique identifier for the customer. Use alphanumeric values only.
+          minLength: 3
+          maxLength: 50
+        customer_email:
+          type: string
+          description: Customer email address.
+          minLength: 3
+          maxLength: 100
+        customer_phone:
+          type: string
+          description: Customer phone number.
+          minLength: 10
+          maxLength: 10
+        customer_name:
+          type: string
+          description: Name of the customer.
+          minLength: 3
+          maxLength: 100
+        customer_bank_account_number:
+          type: string
+          description: Customer bank account. Required if you want to do a bank account check (TPV)
+          minLength: 3
+          maxLength: 20
+        customer_bank_ifsc:
+          type: string
+          description: Customer bank IFSC. Required if you want to do a bank account check (TPV)
+        customer_bank_code:
+          type: number
+          description: Customer bank code. Required for net banking payments, if you want to do a bank account check (TPV)
+      required:
+      - customer_phone
+    ApiError409:
+      title: ApiError409
+      description: duplicate request
+      example:
+        message: order with same id is already present
+        code: order_already_exists
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        help:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+          description: invalid_request_error
   headers:
+    x-idempotency-replayed:
+      schema:
+        type: string
+        format: boolean
+      example: 'true'
+      description: 'In conjunction with `x-idempotency-key` this means
+
+        - `true` if the response was replayed
+
+        - `false` if the response has not been replayed'
+    x-api-version:
+      schema:
+        type: string
+        format: YYYY-MM-DD
+        enum:
+        - '2022-09-01'
+      description: This header has the version of the API. The current version is `2022-09-01`.
+    x-idempotency-key:
+      schema:
+        type: string
+      example: some-idem-id
+      description: An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.
+    x-request-id:
+      schema:
+        type: string
+      example: some-req-id
+      description: Request id for your api call. Is blank or null if no `x-request-id` is sent during the request
+    x-ratelimit-remaining:
+      schema:
+        type: integer
+      example: 2
+      description: Rate limit remaning for your account for this API in the next minute. Uses sliding window
     x-ratelimit-retry:
       schema:
         type: integer
@@ -1139,16 +1171,6 @@ components:
         - Is between 1 and 59 if breached
 
         '
-    x-ratelimit-remaining:
-      schema:
-        type: integer
-      example: 2
-      description: Rate limit remaning for your account for this API in the next minute. Uses sliding window
-    x-idempotency-key:
-      schema:
-        type: string
-      example: some-idem-id
-      description: An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.
     x-ratelimit-type:
       schema:
         type: string
@@ -1163,53 +1185,12 @@ components:
         - `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`
 
         '
-    x-request-id:
-      schema:
-        type: string
-      example: some-req-id
-      description: Request id for your api call. Is blank or null if no `x-request-id` is sent during the request
-    x-idempotency-replayed:
-      schema:
-        type: string
-        format: boolean
-      example: 'true'
-      description: 'In conjunction with `x-idempotency-key` this means
-
-        - `true` if the response was replayed
-
-        - `false` if the response has not been replayed'
     x-ratelimit-limit:
       schema:
         type: integer
       example: 200
       description: Ratelimit set for your account for this API per minute
-    x-api-version:
-      schema:
-        type: string
-        format: YYYY-MM-DD
-        enum:
-        - '2022-09-01'
-      description: This header has the version of the API. The current version is `2022-09-01`.
   parameters:
-    xIdempotencyKeyHeader:
-      in: header
-      name: x-idempotency-key
-      required: false
-      description: 'An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.
-
-        '
-      schema:
-        type: string
-        format: UUID
-      example: 47bf8872-46fe-11ee-be56-0242ac120002
-    xRequestIDHeader:
-      in: header
-      name: x-request-id
-      description: Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.
-      required: false
-      schema:
-        type: string
-      example: 4dfb9780-46fe-11ee-be56-0242ac120002
     statusQueryParam:
       name: status
       in: query
@@ -1228,6 +1209,17 @@ components:
         default: '2025-01-01'
       example: '2025-01-01'
       x-ignore: true
+    xIdempotencyKeyHeader:
+      in: header
+      name: x-idempotency-key
+      required: false
+      description: 'An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.
+
+        '
+      schema:
+        type: string
+        format: UUID
+      example: 47bf8872-46fe-11ee-be56-0242ac120002
     linkIDParam:
       name: link_id
       in: path
@@ -1236,6 +1228,40 @@ components:
       schema:
         type: string
       example: your-link-id
+    xRequestIDHeader:
+      in: header
+      name: x-request-id
+      description: Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.
+      required: false
+      schema:
+        type: string
+      example: 4dfb9780-46fe-11ee-be56-0242ac120002
+  x-elicitationConfig:
+    createPaymentLink:
+      enabled: true
+      fields:
+        link_amount:
+          required: true
+          message: Please provide the amount to be collected through this payment link
+          schema:
+            type: number
+            title: Link Amount
+            description: Amount to be collected using this link (minimum 1 INR)
+            minimum: 1
+          mapping:
+            target: body.link_amount
+            transform: number
+        customer_phone:
+          required: true
+          message: Please provide the customer's phone number
+          schema:
+            type: string
+            title: Customer Phone
+            description: Phone number of the customer in international format without '+' sign
+            pattern: ^[1-9][0-9]{7,14}$
+          mapping:
+            target: body.customer_details.customer_phone
+            transform: string
   examples:
     order_entity_list_example:
       description: OrderEntityListExample
@@ -1268,32 +1294,6 @@ components:
         terminal_data: null
         cart_details:
           cart_id: '1'
-  x-elicitationConfig:
-    createPaymentLink:
-      enabled: true
-      fields:
-        link_amount:
-          required: true
-          message: Please provide the amount to be collected through this payment link
-          schema:
-            type: number
-            title: Link Amount
-            description: Amount to be collected using this link (minimum 1 INR)
-            minimum: 1
-          mapping:
-            target: body.link_amount
-            transform: number
-        customer_phone:
-          required: true
-          message: Please provide the customer's phone number
-          schema:
-            type: string
-            title: Customer Phone
-            description: Phone number of the customer in international format without '+' sign
-            pattern: ^[1-9][0-9]{7,14}$
-          mapping:
-            target: body.customer_details.customer_phone
-            transform: string
   requestBodies:
     CreateLinkRequest:
       description: Request Body to Create Payment Links

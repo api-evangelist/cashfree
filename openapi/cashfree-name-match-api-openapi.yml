@@ -58,7 +58,131 @@ paths:
         '502':
           $ref: '#/components/responses/Response502V2'
 components:
+  examples:
+    Name1Empty:
+      value:
+        type: validation_error
+        code: name_1_value_invalid
+        message: name_1 is not allowed to be empty.
+    VerificationIdMissing:
+      value:
+        type: validation_error
+        code: verification_id_missing
+        message: verification_id is missing in the request.
+    Name2Empty:
+      value:
+        type: validation_error
+        code: name_2_value_invalid
+        message: name_2 is not allowed to be empty.
+    UsingTestCredentialsInProd:
+      value:
+        type: validation_error
+        code: x-client-secret_value_invalid
+        message: Client secret belongs to test environment
+    Name1Missing:
+      value:
+        type: validation_error
+        code: name_1_missing
+        message: name_1 is missing in the request.
+    VerificationIdWithSpecialCharacter:
+      value:
+        type: validation_error
+        code: verification_id_value_invalid
+        message: verification_id can include only alphanum, dot, hyphen and underscores.
+    XClientIdMissing:
+      value:
+        type: validation_error
+        code: x-client-id_missing
+        message: x-client-id is missing in the request.
+    Name2Missing:
+      value:
+        type: validation_error
+        code: name_2_missing
+        message: name_2 is missing in the request.
   responses:
+    Response500V2:
+      description: Internal error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Internal Server Error:
+              value:
+                type: internal_error
+                code: verification_failed
+                message: something went wrong
+    Response422:
+      description: Validation error because of insufficient balance to process this request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Insufficient balance:
+              value:
+                type: validation_error
+                code: insufficient_balance
+                message: Insufficient balance to process this request
+    Response400NameMatch:
+      description: Validation errors for Name Match API
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Verification ID Missing:
+              $ref: '#/components/examples/VerificationIdMissing'
+            Verification ID With Special Chars:
+              $ref: '#/components/examples/VerificationIdWithSpecialCharacter'
+            Name 1 Missing:
+              $ref: '#/components/examples/Name1Missing'
+            Name 2 Missing:
+              $ref: '#/components/examples/Name2Missing'
+            Name 1 Empty:
+              $ref: '#/components/examples/Name1Empty'
+            Name 2 Empty:
+              $ref: '#/components/examples/Name2Empty'
+            Client ID/Client Secret in Missing:
+              $ref: '#/components/examples/XClientIdMissing'
+            Using-Test-Credentials-in-Prod:
+              $ref: '#/components/examples/UsingTestCredentialsInProd'
+    Response401:
+      description: Invalid client ID and client secret combination
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Invalid client ID and client secret combination:
+              value:
+                type: authentication_error
+                code: authentication_failed
+                message: Invalid clientId and clientSecret combination
+    Response502V2:
+      description: Gateway error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Bad Gateway:
+              value:
+                type: internal_error
+                code: verification_failed
+                message: verification attempt failed
+    Response409DuplicateId:
+      description: Conflict error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Conflict Error:
+              value:
+                type: validation_error
+                code: verification_id_already_exists
+                message: verification id already exists
     Response403:
       description: Authentication error (IP not whitelisted)
       content:
@@ -123,89 +247,6 @@ components:
                 status: SUCCESS
                 score: 0.14
                 reason: The given names are different
-    Response409DuplicateId:
-      description: Conflict error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Conflict Error:
-              value:
-                type: validation_error
-                code: verification_id_already_exists
-                message: verification id already exists
-    Response500V2:
-      description: Internal error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Internal Server Error:
-              value:
-                type: internal_error
-                code: verification_failed
-                message: something went wrong
-    Response401:
-      description: Invalid client ID and client secret combination
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Invalid client ID and client secret combination:
-              value:
-                type: authentication_error
-                code: authentication_failed
-                message: Invalid clientId and clientSecret combination
-    Response422:
-      description: Validation error because of insufficient balance to process this request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Insufficient balance:
-              value:
-                type: validation_error
-                code: insufficient_balance
-                message: Insufficient balance to process this request
-    Response502V2:
-      description: Gateway error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Bad Gateway:
-              value:
-                type: internal_error
-                code: verification_failed
-                message: verification attempt failed
-    Response400NameMatch:
-      description: Validation errors for Name Match API
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Verification ID Missing:
-              $ref: '#/components/examples/VerificationIdMissing'
-            Verification ID With Special Chars:
-              $ref: '#/components/examples/VerificationIdWithSpecialCharacter'
-            Name 1 Missing:
-              $ref: '#/components/examples/Name1Missing'
-            Name 2 Missing:
-              $ref: '#/components/examples/Name2Missing'
-            Name 1 Empty:
-              $ref: '#/components/examples/Name1Empty'
-            Name 2 Empty:
-              $ref: '#/components/examples/Name2Empty'
-            Client ID/Client Secret in Missing:
-              $ref: '#/components/examples/XClientIdMissing'
-            Using-Test-Credentials-in-Prod:
-              $ref: '#/components/examples/UsingTestCredentialsInProd'
     Response429:
       description: Rate limit exceed error.
       content:
@@ -223,48 +264,26 @@ components:
                 type: rate_limit_error
                 code: too_many_requests_per_ip
                 message: Too many requests from the IP, rate limit reached
-  examples:
-    XClientIdMissing:
-      value:
-        type: validation_error
-        code: x-client-id_missing
-        message: x-client-id is missing in the request.
-    Name2Missing:
-      value:
-        type: validation_error
-        code: name_2_missing
-        message: name_2 is missing in the request.
-    Name1Empty:
-      value:
-        type: validation_error
-        code: name_1_value_invalid
-        message: name_1 is not allowed to be empty.
-    UsingTestCredentialsInProd:
-      value:
-        type: validation_error
-        code: x-client-secret_value_invalid
-        message: Client secret belongs to test environment
-    Name1Missing:
-      value:
-        type: validation_error
-        code: name_1_missing
-        message: name_1 is missing in the request.
-    VerificationIdMissing:
-      value:
-        type: validation_error
-        code: verification_id_missing
-        message: verification_id is missing in the request.
-    VerificationIdWithSpecialCharacter:
-      value:
-        type: validation_error
-        code: verification_id_value_invalid
-        message: verification_id can include only alphanum, dot, hyphen and underscores.
-    Name2Empty:
-      value:
-        type: validation_error
-        code: name_2_value_invalid
-        message: name_2 is not allowed to be empty.
   schemas:
+    ErrorResponseSchema:
+      description: Response in case of error.
+      type: object
+      properties:
+        code:
+          type: string
+          example: x-client-id_missing
+        error:
+          type: object
+          example:
+            ref_id: 102
+        message:
+          type: string
+          example: x-client-id is missing in the request.
+          description: It displays the outcome of the error.
+        type:
+          type: string
+          example: validation_error
+          description: It displays the type of error.
     NameMatchResponseSchema:
       description: Success response for Name Match API
       type: object
@@ -309,25 +328,6 @@ components:
           type: string
           description: It justifies the match score for the API request.
           example: The given names are identical
-    ErrorResponseSchema:
-      description: Response in case of error.
-      type: object
-      properties:
-        code:
-          type: string
-          example: x-client-id_missing
-        error:
-          type: object
-          example:
-            ref_id: 102
-        message:
-          type: string
-          example: x-client-id is missing in the request.
-          description: It displays the outcome of the error.
-        type:
-          type: string
-          example: validation_error
-          description: It displays the type of error.
     NameMatchRequestSchema:
       description: Find the request parameters for the Name Match API
       type: object
@@ -355,15 +355,6 @@ components:
           type: string
           example: JOHN DOE
           default: JOHN DOE
-  parameters:
-    x_cf_signature:
-      description: Send the signature if IP is not whitelisted
-      name: x-cf-signature
-      in: header
-      required: false
-      schema:
-        type: string
-      example: ''
   x-elicitationConfig:
     VrsNameMatchVerification:
       enabled: true
@@ -396,6 +387,15 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/NameMatchRequestSchema'
+  parameters:
+    x_cf_signature:
+      description: Send the signature if IP is not whitelisted
+      name: x-cf-signature
+      in: header
+      required: false
+      schema:
+        type: string
+      example: ''
   securitySchemes:
     bearerAuth:
       type: http

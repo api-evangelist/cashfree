@@ -80,15 +80,21 @@ paths:
       tags:
       - DeactivateCashgram
 components:
+  x-elicitationConfig:
+    deactivateCashgram:
+      enabled: true
+      fields:
+        cashgram_id:
+          required: true
+          message: Please provide the Cashgram ID to be deactivated
+          schema:
+            type: string
+            title: Cashgram ID
+            description: The unique identifier of the Cashgram to be deactivated
+          mapping:
+            target: path.cashgram_id
+            transform: string
   schemas:
-    v1_deactivateCashgram_body:
-      required:
-      - cashgramId
-      type: object
-      properties:
-        cashgramId:
-          type: string
-          description: ID of the Cashgram to be deactivated. Alphanumeric and underscore (_) allowed (35 character limit)
     inline_response_200_9:
       type: object
       properties:
@@ -113,20 +119,14 @@ components:
         message:
           type: string
           example: Cashgram with id JOHaN10 does not exists
-  x-elicitationConfig:
-    deactivateCashgram:
-      enabled: true
-      fields:
-        cashgram_id:
-          required: true
-          message: Please provide the Cashgram ID to be deactivated
-          schema:
-            type: string
-            title: Cashgram ID
-            description: The unique identifier of the Cashgram to be deactivated
-          mapping:
-            target: path.cashgram_id
-            transform: string
+    v1_deactivateCashgram_body:
+      required:
+      - cashgramId
+      type: object
+      properties:
+        cashgramId:
+          type: string
+          description: ID of the Cashgram to be deactivated. Alphanumeric and underscore (_) allowed (35 character limit)
   securitySchemes:
     XClientID:
       type: apiKey

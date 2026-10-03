@@ -57,18 +57,6 @@ paths:
           $ref: '#/components/responses/Response500'
 components:
   responses:
-    Response403:
-      description: Authentication error (IP not whitelisted)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            IP not whitelisted:
-              value:
-                type: authentication_error
-                code: ip_validation_failed
-                message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
     Response422:
       description: Validation error because of insufficient balance to process this request
       content:
@@ -93,6 +81,48 @@ components:
                 type: validation_error
                 code: template_name_not_found
                 message: template_name does not exist
+    DeactivateStaticKYCLinkResponse:
+      description: Response Body for Generate Static KYC Link API
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DeactivateStaticKYCLinkResponseSchema'
+          examples:
+            Success:
+              value:
+                message: Successfully Deactivated
+                template_name: Aadhaar_verification
+                static_link: https://verification.cashfree.com/forms?shortCode=m2bjk9uakkcg
+                status: INACTIVE
+    Response401:
+      description: Invalid client ID and client secret combination
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Invalid client ID and client secret combination:
+              value:
+                type: authentication_error
+                code: authentication_failed
+                message: Invalid clientId and clientSecret combination
+    Response429:
+      description: Rate limit exceed error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Rate limit error per operation:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_operation
+                message: Too many requests for this operation, rate limit reached
+            Rate limit error per IP:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_ip
+                message: Too many requests from the IP, rate limit reached
     Response400DeactivateStaticKYCLink:
       description: Validation error in deactivate Static KYC Link
       content:
@@ -115,19 +145,18 @@ components:
                 type: validation_error
                 code: static_link_not_linked
                 message: no active static link linked to provided template.
-    DeactivateStaticKYCLinkResponse:
-      description: Response Body for Generate Static KYC Link API
+    Response403:
+      description: Authentication error (IP not whitelisted)
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/DeactivateStaticKYCLinkResponseSchema'
+            $ref: '#/components/schemas/ErrorResponseSchema'
           examples:
-            Success:
+            IP not whitelisted:
               value:
-                message: Successfully Deactivated
-                template_name: Aadhaar_verification
-                static_link: https://verification.cashfree.com/forms?shortCode=m2bjk9uakkcg
-                status: INACTIVE
+                type: authentication_error
+                code: ip_validation_failed
+                message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
     Response500:
       description: Internal error
       content:
@@ -140,35 +169,15 @@ components:
                 type: internal_error
                 code: request_failed
                 message: Unable to process your request. Try again after some time
-    Response429:
-      description: Rate limit exceed error.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Rate limit error per operation:
-              value:
-                type: rate_limit_error
-                code: too_many_requests_per_operation
-                message: Too many requests for this operation, rate limit reached
-            Rate limit error per IP:
-              value:
-                type: rate_limit_error
-                code: too_many_requests_per_ip
-                message: Too many requests from the IP, rate limit reached
-    Response401:
-      description: Invalid client ID and client secret combination
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Invalid client ID and client secret combination:
-              value:
-                type: authentication_error
-                code: authentication_failed
-                message: Invalid clientId and clientSecret combination
+  parameters:
+    x_cf_signature:
+      description: Send the signature if IP is not whitelisted
+      name: x-cf-signature
+      in: header
+      required: false
+      schema:
+        type: string
+      example: ''
   schemas:
     ErrorResponseSchema:
       description: Response in case of error.
@@ -213,15 +222,6 @@ components:
 
             - `INACTIVE`'
           example: INACTIVE
-  parameters:
-    x_cf_signature:
-      description: Send the signature if IP is not whitelisted
-      name: x-cf-signature
-      in: header
-      required: false
-      schema:
-        type: string
-      example: ''
   securitySchemes:
     bearerAuth:
       type: http

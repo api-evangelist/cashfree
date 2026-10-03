@@ -294,221 +294,100 @@ paths:
           $ref: '#/components/responses/Response500'
 components:
   schemas:
-    RateLimitError:
-      title: RateLimitError
-      description: Error when rate limit is breached for your api
-      example:
-        message: Too many requests from IP. Check headers
-        code: request_failed
-        type: rate_limit_error
+    OfferTnc:
+      title: OfferMeta
       type: object
+      description: Offer terms and condition object
+      example:
+        offer_tnc_type: text
+        offer_tnc_value: TnC for the Offer.
       properties:
-        message:
+        offer_tnc_type:
           type: string
-        code:
-          type: string
-        type:
-          type: string
+          description: TnC Type for the Offer. It can be either `text` or `link`
           enum:
-          - rate_limit_error
-          description: rate_limit_error
-    AuthenticationError:
-      title: AuthenticationError
-      description: Error if api keys are wrong
+          - text
+          - link
+          minLength: 3
+          maxLength: 50
+          example: text
+        offer_tnc_value:
+          type: string
+          description: TnC for the Offer.
+          minLength: 3
+          maxLength: 100
+          example: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+      required:
+      - offer_tnc_type
+      - offer_tnc_value
+    OfferWallet:
+      title: Wallet Offer
+      description: Offer object for wallet payment method
       example:
-        message: authentication Failed
-        code: request_failed
-        type: authentication_error
+        app:
+          issuer: paytm
       type: object
       properties:
-        message:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          description: authentication_error
-    ProductDetailsEntity:
+        app:
+          title: Wallet Offer
+          type: object
+          properties:
+            provider:
+              type: string
+              example: paytm
+      required:
+      - app
+    ChargesEntity:
+      title: ChargesEntity
+      description: Charges accociated with the order
       type: object
-      description: Configurations for this feature
+      example:
+        shipping_charges: 5
+        cod_handling_charges: 10
+      properties:
+        shipping_charges:
+          type: number
+          description: Shipping charge of the order
+        cod_handling_charges:
+          type: number
+          description: COD handling fee for order
+    ProductDetails:
+      type: object
+      description: Specify the required configurations for this feature
       properties:
         enabled:
           type: boolean
-          description: Whether the feature has been enabled for this order
+          description: Option to enable or disable the feature
         conditions:
           type: array
-          description: Configured condtions for the feature
+          description: The conditions array allows to configure rules by adding condition objects with specific parameters for feature configurations.
           items:
-            $ref: '#/components/schemas/ProductConditionsEntity'
-    ExtendedCustomerDetails:
-      title: CustomerDetails
-      description: Recent Customer details associated with the order.
+            $ref: '#/components/schemas/ProductConditions'
+    SchemeArray:
+      title: Scheme array
+      type: string
+      example: visa
+      description: array of card schemes like visa, master etc
+    ApiError404:
+      title: ApiError404
+      description: Error when resource requested is not found
       example:
-        customer_id: 7112AAA812234
-        customer_email: john@cashfree.com
-        customer_phone: '9908734801'
-        customer_name: John Doe
-        customer_uid: 54deabb4-ba45-4a60-9e6a-9c016fe7ab10
+        message: something is not found
+        code: somethind_not_found
+        type: invalid_request_error
       type: object
       properties:
-        customer_id:
+        message:
           type: string
-          description: A unique identifier for the customer. Use alphanumeric values only.
-          minLength: 3
-          maxLength: 50
-        customer_email:
+        code:
           type: string
-          description: Customer email address.
-          minLength: 3
-          maxLength: 100
-        customer_phone:
+        help:
           type: string
-          description: Customer phone number.
-          minLength: 10
-          maxLength: 10
-        customer_name:
+        type:
           type: string
-          description: Name of the customer.
-          minLength: 3
-          maxLength: 100
-        customer_uid:
-          type: string
-          description: Customer identifier at Cashfree. You will get this when you create/get customer
-    OrderTags:
-      type: object
-      maxProperties: 15
-      description: Custom Tags in thr form of {"key":"value"} which can be passed for an order. A maximum of 10 tags can be added
-      additionalProperties:
-        type: string
-        minLength: 1
-        maxLength: 255
-      example:
-        product: Laptop
-        shipping_address: 123 Main St
-    CartItem:
-      title: CartItem
-      description: Each item in the cart.
-      properties:
-        item_id:
-          type: string
-          description: Unique identifier of the item
-        item_name:
-          type: string
-          description: Name of the item
-        item_description:
-          type: string
-          description: Description of the item
-        item_tags:
-          type: array
-          items:
-            type: string
-          description: Tags attached to that item
-        item_details_url:
-          type: string
-          description: Item details url
-        item_image_url:
-          type: string
-          description: Item image url
-        item_original_unit_price:
-          type: number
-          format: double
-          description: Original price
-        item_discounted_unit_price:
-          type: number
-          format: double
-          description: Discounted Price
-        item_currency:
-          type: string
-          description: Currency of the item.
-        item_quantity:
-          type: number
-          format: int32
-          description: Quantity if that item
-    OfferDetails:
-      title: OfferDetails
-      description: Offer details and type
-      type: object
-      example:
-        offer_type: DISCOUNT_AND_CASHBACK
-        discount_details:
-          discount_type: flat
-          discount_value: '10'
-          max_discount_amount: '10'
-        cashback_details:
-          cashback_type: percentage
-          cashback_value: '20'
-          max_cashback_amount: '150'
-      properties:
-        offer_type:
-          type: string
-          description: Offer Type for the Offer.
           enum:
-          - DISCOUNT
-          - CASHBACK
-          - DISCOUNT_AND_CASHBACK
-          - NO_COST_EMI
-          minLength: 3
-          maxLength: 50
-          example: DISCOUNT_AND_CASHBACK
-        discount_details:
-          $ref: '#/components/schemas/DiscountDetails'
-        cashback_details:
-          $ref: '#/components/schemas/CashbackDetails'
-      required:
-      - offer_type
-    OrderExtendedDataEntity:
-      title: OrderExtendedDataEntity
-      type: object
-      description: The complete order extended data entity
-      example:
-        $ref: '#/components/examples/order_extended_data_entity_list_example/value/0'
-      properties:
-        cf_order_id:
-          type: string
-          description: unique id generated by cashfree for your order
-        order_id:
-          type: string
-          description: order_id sent during the api request
-        order_amount:
-          type: number
-        order_currency:
-          type: string
-          description: Currency of the order. Example INR
-        created_at:
-          type: string
-          format: date-time
-          description: When the order was created at cashfree's server
-          example: '2022-08-16T14:45:38+05:30'
-        charges:
-          $ref: '#/components/schemas/ChargesEntity'
-        customer_details:
-          $ref: '#/components/schemas/ExtendedCustomerDetails'
-        shipping_address:
-          $ref: '#/components/schemas/AddressDetails'
-        billing_address:
-          $ref: '#/components/schemas/AddressDetails'
-        cart:
-          $ref: '#/components/schemas/ExtendedCartDetails'
-        offer:
-          $ref: '#/components/schemas/OfferExtendedDetails'
-    CartAddress:
-      title: CartAddress
-      description: Address given for cart details.
-      properties:
-        full_name:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        pincode:
-          type: string
-        address_1:
-          type: string
-        address_2:
-          type: string
+          - invalid_request_error
+          description: invalid_request_error
     CartDetails:
       title: CartDetails
       description: The cart details that are necessary like shipping address, billing address and more.
@@ -530,91 +409,28 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CartItem'
-    OfferWallet:
-      title: Wallet Offer
-      description: Offer object for wallet payment method
+    TerminalData:
+      description: Terminal Data in the create order response
       example:
-        app:
-          issuer: paytm
-      type: object
+        agent_mobile_number: '9876543214'
+        cf_terminal_id: 1838
+        merchant_terminal_id: ahdsgadjhgfaj7137e
+        terminal_type: STOREFRONT
       properties:
-        app:
-          title: Wallet Offer
-          type: object
-          properties:
-            provider:
-              type: string
-              example: paytm
-      required:
-      - app
+        agent_mobile_number:
+          type: string
+        cf_terminal_id:
+          type: integer
+        merchant_terminal_id:
+          type: string
+        terminal_type:
+          type: string
+      title: TerminalData
+      type: object
     AllOffers:
       title: All Offers
       type: object
       description: All offers applicable
-    TerminalDetails:
-      description: Use this if you are creating an order for cashfree's softPOS
-      example:
-        added_on: '2023-08-04T13:12:58+05:30'
-        cf_terminal_id: '31051123'
-        last_updated_on: '2023-09-06T14:07:00+05:30'
-        terminal_address: Banglore
-        terminal_id: terminal-123
-        terminal_name: test
-        terminal_note: POS vertical
-        terminal_phone_no: '6309291183'
-        terminal_status: ACTIVE
-        terminal_type: SPOS
-      properties:
-        added_on:
-          description: date time at which terminal is added
-          type: string
-        cf_terminal_id:
-          description: Cashfree terminal id, this is a required parameter when you do not provide the terminal phone number.
-          type: string
-        last_updated_on:
-          description: last instant when this terminal was updated
-          type: string
-        terminal_address:
-          description: location of terminal
-          type: string
-        terminal_id:
-          description: terminal id for merchant reference
-          maxLength: 100
-          minLength: 3
-          type: string
-        terminal_name:
-          description: name of terminal/agent/storefront
-          type: string
-        terminal_note:
-          description: note given by merchant while creating the terminal
-          type: string
-        terminal_phone_no:
-          description: mobile num of the terminal/agent/storefront,This is a required parameter when you do not provide the cf_terminal_id.
-          type: string
-        terminal_status:
-          description: status of terminal active/inactive
-          type: string
-        terminal_type:
-          description: To identify the type of terminal product in use, in this case it is SPOS.
-          maxLength: 10
-          minLength: 4
-          type: string
-      required:
-      - terminal_type
-      title: Terminal
-      type: object
-    ExtendedCartDetails:
-      title: CartDetails
-      description: The cart details that are necessary like shipping address, billing address and more.
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the cart.
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CartItem'
     OfferMeta:
       title: OfferMeta
       type: object
@@ -660,117 +476,74 @@ components:
       - offer_code
       - offer_start_time
       - offer_end_time
-    OfferAll:
-      title: All Offers
-      description: returns all offers
+    CustomerDetailsResponse:
+      title: CustomerDetailsResponse
+      description: The customer details that are necessary. Note that you can pass dummy details if your use case does not require the customer details.
       example:
-        all: {}
+        customer_id: 7112AAA812234
+        customer_email: john@cashfree.com
+        customer_phone: '9908734801'
+        customer_name: John Doe
+        customer_bank_account_number: '1518121112'
+        customer_bank_ifsc: XITI0000001
+        customer_bank_code: 3333
+        customer_uid: 54deabb4-ba45-4a60-9e6a-9c016fe7ab10
       type: object
       properties:
-        all:
-          $ref: '#/components/schemas/AllOffers'
-      required:
-      - all
-    OfferTnc:
-      title: OfferMeta
-      type: object
-      description: Offer terms and condition object
-      example:
-        offer_tnc_type: text
-        offer_tnc_value: TnC for the Offer.
-      properties:
-        offer_tnc_type:
+        customer_id:
           type: string
-          description: TnC Type for the Offer. It can be either `text` or `link`
-          enum:
-          - text
-          - link
+          description: A unique identifier for the customer. Use alphanumeric values only.
           minLength: 3
           maxLength: 50
-          example: text
-        offer_tnc_value:
+        customer_email:
           type: string
-          description: TnC for the Offer.
+          description: Customer email address.
           minLength: 3
           maxLength: 100
-          example: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-      required:
-      - offer_tnc_type
-      - offer_tnc_value
-    ApiError404:
-      title: ApiError404
-      description: Error when resource requested is not found
+        customer_phone:
+          type: string
+          description: Customer phone number.
+          minLength: 10
+          maxLength: 10
+        customer_name:
+          type: string
+          description: Name of the customer.
+          minLength: 3
+          maxLength: 100
+        customer_bank_account_number:
+          type: string
+          description: Customer bank account. Required if you want to do a bank account check (TPV)
+          minLength: 3
+          maxLength: 20
+        customer_bank_ifsc:
+          type: string
+          description: Customer bank IFSC. Required if you want to do a bank account check (TPV)
+        customer_bank_code:
+          type: number
+          description: Customer bank code. Required for net banking payments, if you want to do a bank account check (TPV)
+        customer_uid:
+          type: string
+          description: Customer identifier at Cashfree. You will get this when you create/get customer
+    ApiError409:
+      title: ApiError409
+      description: duplicate request
       example:
-        message: something is not found
-        code: somethind_not_found
+        message: order with same id is already present
+        code: order_already_exists
         type: invalid_request_error
       type: object
       properties:
         message:
           type: string
-        code:
-          type: string
         help:
+          type: string
+        code:
           type: string
         type:
           type: string
           enum:
           - invalid_request_error
           description: invalid_request_error
-    ChargesEntity:
-      title: ChargesEntity
-      description: Charges accociated with the order
-      type: object
-      example:
-        shipping_charges: 5
-        cod_handling_charges: 10
-      properties:
-        shipping_charges:
-          type: number
-          description: Shipping charge of the order
-        cod_handling_charges:
-          type: number
-          description: COD handling fee for order
-    TerminateOrderRequest:
-      title: TerminateOrderRequest
-      description: Request to terminate an active order at Cashfree
-      example:
-        order_status: TERMINATED
-      type: object
-      properties:
-        order_status:
-          type: string
-          description: To terminate an order, pass order_status as "TERMINATED". Please note, order might not be terminated - confirm with the order_status in response. "TERMINATION_REQUESTED" states that the request is recieved and we are working on it. If the order terminates successfully, status will change to "TERMINATED". Incase there's any active transaction which moved to success - order might not get terminated.
-      required:
-      - order_status
-    OfferUPI:
-      title: UPI Offer
-      description: Offer object for UPI
-      example:
-        upi: {}
-      type: object
-      properties:
-        upi:
-          title: UPI Offer
-          type: object
-      required:
-      - upi
-    ProductConditions:
-      type: object
-      properties:
-        action:
-          type: string
-          description: The Action key in the conditions array specifies whether a condition should "ALLOW" or "DENY" the specified rule or feature
-        key:
-          type: string
-          description: Specify what you're trying to configure, such as "features"
-          maxLength: 50
-        values:
-          type: array
-          description: Define the values you need to set within the conditions in this array, such as "checkoutCollectAddress", "checkoutAuthenticate"
-          maxItems: 10
-          items:
-            type: string
     OrderEntity:
       title: OrderEntity
       type: object
@@ -830,123 +603,65 @@ components:
               $ref: '#/components/schemas/ProductDetailsEntity'
             verify_pay:
               $ref: '#/components/schemas/ProductDetailsEntity'
-    OfferValidations:
-      title: OfferValidations
-      description: Offer validation object
-      type: object
+    TerminateOrderRequest:
+      title: TerminateOrderRequest
+      description: Request to terminate an active order at Cashfree
       example:
-        min_amount: 10
-        payment_method:
-          wallet:
-            issuer: paytm
-        max_allowed: 2
+        order_status: TERMINATED
+      type: object
       properties:
-        min_amount:
-          type: number
-          description: Minimum Amount for Offer to be Applicable
-          minimum: 1
-          example: 1
-        max_allowed:
-          type: number
-          description: Maximum Amount for Offer to be Applicable
-          minimum: 1
-          example: 1
-        payment_method:
-          example:
-            wallet:
-              issuer: paytm
-          oneOf:
-          - $ref: '#/components/schemas/OfferAll'
-          - $ref: '#/components/schemas/OfferCard'
-          - $ref: '#/components/schemas/OfferNB'
-          - $ref: '#/components/schemas/OfferWallet'
-          - $ref: '#/components/schemas/OfferUPI'
-          - $ref: '#/components/schemas/OfferPaylater'
-          - $ref: '#/components/schemas/OfferEMI'
+        order_status:
+          type: string
+          description: To terminate an order, pass order_status as "TERMINATED". Please note, order might not be terminated - confirm with the order_status in response. "TERMINATION_REQUESTED" states that the request is recieved and we are working on it. If the order terminates successfully, status will change to "TERMINATED". Incase there's any active transaction which moved to success - order might not get terminated.
       required:
-      - max_allowed
-      - payment_method
-    AddressDetails:
-      title: AddressDetails
-      description: Address associated with the customer.
+      - order_status
+    OrderExtendedDataEntity:
+      title: OrderExtendedDataEntity
       type: object
+      description: The complete order extended data entity
       example:
-        name: Aditya Keshri
-        address_line_one: MK Building
-        address_line_two: Test Address
-        country: India
-        country_code: IN
-        state: Karnataka
-        state_code: KA
-        city: Bangalore
-        pin_code: '560034'
-        phone: +91 1118911189
-        email: test@cashfree.com
+        $ref: '#/components/examples/order_extended_data_entity_list_example/value/0'
+      properties:
+        cf_order_id:
+          type: string
+          description: unique id generated by cashfree for your order
+        order_id:
+          type: string
+          description: order_id sent during the api request
+        order_amount:
+          type: number
+        order_currency:
+          type: string
+          description: Currency of the order. Example INR
+        created_at:
+          type: string
+          format: date-time
+          description: When the order was created at cashfree's server
+          example: '2022-08-16T14:45:38+05:30'
+        charges:
+          $ref: '#/components/schemas/ChargesEntity'
+        customer_details:
+          $ref: '#/components/schemas/ExtendedCustomerDetails'
+        shipping_address:
+          $ref: '#/components/schemas/AddressDetails'
+        billing_address:
+          $ref: '#/components/schemas/AddressDetails'
+        cart:
+          $ref: '#/components/schemas/ExtendedCartDetails'
+        offer:
+          $ref: '#/components/schemas/OfferExtendedDetails'
+    ExtendedCartDetails:
+      title: CartDetails
+      description: The cart details that are necessary like shipping address, billing address and more.
+      type: object
       properties:
         name:
           type: string
-          description: Full Name of the customer associated with the address.
-        address_line_one:
-          type: string
-          description: First line of the address.
-        address_line_two:
-          type: string
-          description: Second line of the address.
-        country:
-          type: string
-          description: Country Name.
-        country_code:
-          type: string
-          description: Country Code.
-        state:
-          type: string
-          description: State Name.
-        state_code:
-          type: string
-          description: State Code.
-        city:
-          type: string
-          description: City Name.
-        pin_code:
-          type: string
-          description: Pin Code/Zip Code.
-        phone:
-          type: string
-          description: Customer Phone Number.
-        email:
-          type: string
-          description: Cutomer Email Address.
-    SchemeArray:
-      title: Scheme array
-      type: string
-      example: visa
-      description: array of card schemes like visa, master etc
-    VendorSplit:
-      title: VendorSplit
-      description: Use to split order when cashfree's Easy Split is enabled for your account.
-      type: object
-      example:
-        vendor_id: Vendor01
-        amount: 100.12
-        description: order amount should be more than equal to 100.12
-      properties:
-        vendor_id:
-          type: string
-          description: Vendor id created in Cashfree system
-        amount:
-          type: number
-          description: Amount which will be associated with this vendor
-        percentage:
-          type: number
-          description: Percentage of order amount which shall get added to vendor account
-        tags:
-          type: object
-          maxProperties: 15
-          description: Custom Tags in thr form of {"key":"value"} which can be passed for an order. A maximum of 10 tags can be added
-          additionalProperties:
-            type: object
-      required:
-      - vendor_id
+          description: Name of the cart.
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CartItem'
     OfferCard:
       title: Card Offer
       description: Offers related to cards
@@ -983,71 +698,64 @@ components:
           - scheme_name
       required:
       - card
-    OfferNB:
-      title: Net Banking Offer
-      description: Offer object ofr NetBanking
-      example:
-        netbanking:
-          bank_name: hdfc bank
+    OrderTags:
       type: object
-      properties:
-        netbanking:
-          type: object
-          properties:
-            bank_name:
-              type: string
-              example: all
-      required:
-      - netbanking
-    OfferPaylater:
-      title: Paylater Offer
-      description: Offer object for paylater
+      maxProperties: 15
+      description: Custom Tags in thr form of {"key":"value"} which can be passed for an order. A maximum of 10 tags can be added
+      additionalProperties:
+        type: string
+        minLength: 1
+        maxLength: 255
       example:
-        paylater:
-          issuer: lazypay
-      type: object
-      properties:
-        paylater:
-          title: Paylater Offer
-          type: object
-          properties:
-            provider:
-              type: string
-              example: simpl
-      required:
-      - paylater
-    ApiError409:
-      title: ApiError409
-      description: duplicate request
+        product: Laptop
+        shipping_address: 123 Main St
+    AuthenticationError:
+      title: AuthenticationError
+      description: Error if api keys are wrong
       example:
-        message: order with same id is already present
-        code: order_already_exists
-        type: invalid_request_error
+        message: authentication Failed
+        code: request_failed
+        type: authentication_error
       type: object
       properties:
         message:
-          type: string
-        help:
           type: string
         code:
           type: string
         type:
           type: string
+          description: authentication_error
+    BadRequestError:
+      title: BadRequestError
+      description: Invalid request received from client
+      example:
+        message: bad URL, please check API documentation
+        code: request_failed
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
           enum:
           - invalid_request_error
-          description: invalid_request_error
-    ProductDetails:
+    ProductDetailsEntity:
       type: object
-      description: Specify the required configurations for this feature
+      description: Configurations for this feature
       properties:
         enabled:
           type: boolean
-          description: Option to enable or disable the feature
+          description: Whether the feature has been enabled for this order
         conditions:
           type: array
-          description: The conditions array allows to configure rules by adding condition objects with specific parameters for feature configurations.
+          description: Configured condtions for the feature
           items:
-            $ref: '#/components/schemas/ProductConditions'
+            $ref: '#/components/schemas/ProductConditionsEntity'
     OfferExtendedDetails:
       title: OfferEntity
       type: object
@@ -1079,6 +787,315 @@ components:
           - $ref: '#/components/schemas/OfferValidations'
           example:
             $ref: '#/components/schemas/OfferValidations/example'
+    CashbackDetails:
+      title: CashbackDetails
+      description: Cashback detail boject
+      example:
+        cashback_type: percentage
+        cashback_value: '20'
+        max_cashback_amount: '150'
+      type: object
+      properties:
+        cashback_type:
+          type: string
+          description: Type of discount
+          enum:
+          - flat
+          - percentage
+          minLength: 1
+          maxLength: 50
+        cashback_value:
+          type: number
+          format: float64
+          description: Value of Discount.
+        max_cashback_amount:
+          type: number
+          format: float64
+          description: Maximum Value of Cashback allowed.
+      required:
+      - cashback_type
+      - cashback_value
+      - max_cashback_amount
+    TerminalDetails:
+      description: Use this if you are creating an order for cashfree's softPOS
+      example:
+        added_on: '2023-08-04T13:12:58+05:30'
+        cf_terminal_id: '31051123'
+        last_updated_on: '2023-09-06T14:07:00+05:30'
+        terminal_address: Banglore
+        terminal_id: terminal-123
+        terminal_name: test
+        terminal_note: POS vertical
+        terminal_phone_no: '6309291183'
+        terminal_status: ACTIVE
+        terminal_type: SPOS
+      properties:
+        added_on:
+          description: date time at which terminal is added
+          type: string
+        cf_terminal_id:
+          description: Cashfree terminal id, this is a required parameter when you do not provide the terminal phone number.
+          type: string
+        last_updated_on:
+          description: last instant when this terminal was updated
+          type: string
+        terminal_address:
+          description: location of terminal
+          type: string
+        terminal_id:
+          description: terminal id for merchant reference
+          maxLength: 100
+          minLength: 3
+          type: string
+        terminal_name:
+          description: name of terminal/agent/storefront
+          type: string
+        terminal_note:
+          description: note given by merchant while creating the terminal
+          type: string
+        terminal_phone_no:
+          description: mobile num of the terminal/agent/storefront,This is a required parameter when you do not provide the cf_terminal_id.
+          type: string
+        terminal_status:
+          description: status of terminal active/inactive
+          type: string
+        terminal_type:
+          description: To identify the type of terminal product in use, in this case it is SPOS.
+          maxLength: 10
+          minLength: 4
+          type: string
+      required:
+      - terminal_type
+      title: Terminal
+      type: object
+    OfferValidations:
+      title: OfferValidations
+      description: Offer validation object
+      type: object
+      example:
+        min_amount: 10
+        payment_method:
+          wallet:
+            issuer: paytm
+        max_allowed: 2
+      properties:
+        min_amount:
+          type: number
+          description: Minimum Amount for Offer to be Applicable
+          minimum: 1
+          example: 1
+        max_allowed:
+          type: number
+          description: Maximum Amount for Offer to be Applicable
+          minimum: 1
+          example: 1
+        payment_method:
+          example:
+            wallet:
+              issuer: paytm
+          oneOf:
+          - $ref: '#/components/schemas/OfferAll'
+          - $ref: '#/components/schemas/OfferCard'
+          - $ref: '#/components/schemas/OfferNB'
+          - $ref: '#/components/schemas/OfferWallet'
+          - $ref: '#/components/schemas/OfferUPI'
+          - $ref: '#/components/schemas/OfferPaylater'
+          - $ref: '#/components/schemas/OfferEMI'
+      required:
+      - max_allowed
+      - payment_method
+    ProductConditionsEntity:
+      type: object
+      properties:
+        action:
+          type: string
+          description: The Action key in the conditions array specifies whether a condition is allowed or denied for the specified rule or feature
+        key:
+          type: string
+          description: key of the condition
+          maxLength: 50
+        values:
+          type: array
+          description: Values set for the condition
+          maxItems: 10
+          items:
+            type: string
+    ExtendedCustomerDetails:
+      title: CustomerDetails
+      description: Recent Customer details associated with the order.
+      example:
+        customer_id: 7112AAA812234
+        customer_email: john@cashfree.com
+        customer_phone: '9908734801'
+        customer_name: John Doe
+        customer_uid: 54deabb4-ba45-4a60-9e6a-9c016fe7ab10
+      type: object
+      properties:
+        customer_id:
+          type: string
+          description: A unique identifier for the customer. Use alphanumeric values only.
+          minLength: 3
+          maxLength: 50
+        customer_email:
+          type: string
+          description: Customer email address.
+          minLength: 3
+          maxLength: 100
+        customer_phone:
+          type: string
+          description: Customer phone number.
+          minLength: 10
+          maxLength: 10
+        customer_name:
+          type: string
+          description: Name of the customer.
+          minLength: 3
+          maxLength: 100
+        customer_uid:
+          type: string
+          description: Customer identifier at Cashfree. You will get this when you create/get customer
+    OfferAll:
+      title: All Offers
+      description: returns all offers
+      example:
+        all: {}
+      type: object
+      properties:
+        all:
+          $ref: '#/components/schemas/AllOffers'
+      required:
+      - all
+    CardArray:
+      title: card array
+      description: short code for credit card, debit card, prepaid card
+      type: string
+      example: dc
+    IdempotencyError:
+      title: IdempotencyError
+      description: Error when idempotency fails. Different request body with the same idempotent key
+      example:
+        message: something is not found
+        code: request_invalid
+        type: idempotency_error
+      type: object
+      properties:
+        message:
+          type: string
+        help:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - idempotency_error
+          description: idempotency_error
+    OfferDetails:
+      title: OfferDetails
+      description: Offer details and type
+      type: object
+      example:
+        offer_type: DISCOUNT_AND_CASHBACK
+        discount_details:
+          discount_type: flat
+          discount_value: '10'
+          max_discount_amount: '10'
+        cashback_details:
+          cashback_type: percentage
+          cashback_value: '20'
+          max_cashback_amount: '150'
+      properties:
+        offer_type:
+          type: string
+          description: Offer Type for the Offer.
+          enum:
+          - DISCOUNT
+          - CASHBACK
+          - DISCOUNT_AND_CASHBACK
+          - NO_COST_EMI
+          minLength: 3
+          maxLength: 50
+          example: DISCOUNT_AND_CASHBACK
+        discount_details:
+          $ref: '#/components/schemas/DiscountDetails'
+        cashback_details:
+          $ref: '#/components/schemas/CashbackDetails'
+      required:
+      - offer_type
+    OfferPaylater:
+      title: Paylater Offer
+      description: Offer object for paylater
+      example:
+        paylater:
+          issuer: lazypay
+      type: object
+      properties:
+        paylater:
+          title: Paylater Offer
+          type: object
+          properties:
+            provider:
+              type: string
+              example: simpl
+      required:
+      - paylater
+    RateLimitError:
+      title: RateLimitError
+      description: Error when rate limit is breached for your api
+      example:
+        message: Too many requests from IP. Check headers
+        code: request_failed
+        type: rate_limit_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - rate_limit_error
+          description: rate_limit_error
+    CartItem:
+      title: CartItem
+      description: Each item in the cart.
+      properties:
+        item_id:
+          type: string
+          description: Unique identifier of the item
+        item_name:
+          type: string
+          description: Name of the item
+        item_description:
+          type: string
+          description: Description of the item
+        item_tags:
+          type: array
+          items:
+            type: string
+          description: Tags attached to that item
+        item_details_url:
+          type: string
+          description: Item details url
+        item_image_url:
+          type: string
+          description: Item image url
+        item_original_unit_price:
+          type: number
+          format: double
+          description: Original price
+        item_discounted_unit_price:
+          type: number
+          format: double
+          description: Discounted Price
+        item_currency:
+          type: string
+          description: Currency of the item.
+        item_quantity:
+          type: number
+          format: int32
+          description: Quantity if that item
     CreateOrderRequest:
       title: CreateOrderRequest
       description: Request body to create an order at cashfree
@@ -1163,197 +1180,18 @@ components:
       - order_amount
       - order_currency
       - customer_details
-    TerminalData:
-      description: Terminal Data in the create order response
+    OfferUPI:
+      title: UPI Offer
+      description: Offer object for UPI
       example:
-        agent_mobile_number: '9876543214'
-        cf_terminal_id: 1838
-        merchant_terminal_id: ahdsgadjhgfaj7137e
-        terminal_type: STOREFRONT
-      properties:
-        agent_mobile_number:
-          type: string
-        cf_terminal_id:
-          type: integer
-        merchant_terminal_id:
-          type: string
-        terminal_type:
-          type: string
-      title: TerminalData
-      type: object
-    CustomerDetailsResponse:
-      title: CustomerDetailsResponse
-      description: The customer details that are necessary. Note that you can pass dummy details if your use case does not require the customer details.
-      example:
-        customer_id: 7112AAA812234
-        customer_email: john@cashfree.com
-        customer_phone: '9908734801'
-        customer_name: John Doe
-        customer_bank_account_number: '1518121112'
-        customer_bank_ifsc: XITI0000001
-        customer_bank_code: 3333
-        customer_uid: 54deabb4-ba45-4a60-9e6a-9c016fe7ab10
+        upi: {}
       type: object
       properties:
-        customer_id:
-          type: string
-          description: A unique identifier for the customer. Use alphanumeric values only.
-          minLength: 3
-          maxLength: 50
-        customer_email:
-          type: string
-          description: Customer email address.
-          minLength: 3
-          maxLength: 100
-        customer_phone:
-          type: string
-          description: Customer phone number.
-          minLength: 10
-          maxLength: 10
-        customer_name:
-          type: string
-          description: Name of the customer.
-          minLength: 3
-          maxLength: 100
-        customer_bank_account_number:
-          type: string
-          description: Customer bank account. Required if you want to do a bank account check (TPV)
-          minLength: 3
-          maxLength: 20
-        customer_bank_ifsc:
-          type: string
-          description: Customer bank IFSC. Required if you want to do a bank account check (TPV)
-        customer_bank_code:
-          type: number
-          description: Customer bank code. Required for net banking payments, if you want to do a bank account check (TPV)
-        customer_uid:
-          type: string
-          description: Customer identifier at Cashfree. You will get this when you create/get customer
-    IdempotencyError:
-      title: IdempotencyError
-      description: Error when idempotency fails. Different request body with the same idempotent key
-      example:
-        message: something is not found
-        code: request_invalid
-        type: idempotency_error
-      type: object
-      properties:
-        message:
-          type: string
-        help:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          enum:
-          - idempotency_error
-          description: idempotency_error
-    CashbackDetails:
-      title: CashbackDetails
-      description: Cashback detail boject
-      example:
-        cashback_type: percentage
-        cashback_value: '20'
-        max_cashback_amount: '150'
-      type: object
-      properties:
-        cashback_type:
-          type: string
-          description: Type of discount
-          enum:
-          - flat
-          - percentage
-          minLength: 1
-          maxLength: 50
-        cashback_value:
-          type: number
-          format: float64
-          description: Value of Discount.
-        max_cashback_amount:
-          type: number
-          format: float64
-          description: Maximum Value of Cashback allowed.
+        upi:
+          title: UPI Offer
+          type: object
       required:
-      - cashback_type
-      - cashback_value
-      - max_cashback_amount
-    CustomerDetails:
-      title: CustomerDetails
-      description: The customer details that are necessary. Note that you can pass dummy details if your use case does not require the customer details.
-      example:
-        customer_id: 7112AAA812234
-        customer_email: john@cashfree.com
-        customer_phone: '9908734801'
-        customer_name: John Doe
-        customer_bank_account_number: '1518121112'
-        customer_bank_ifsc: XITI0000001
-        customer_bank_code: 3333
-        customer_uid: 54deabb4-ba45-4a60-9e6a-9c016fe7ab10
-      type: object
-      properties:
-        customer_id:
-          type: string
-          description: A unique identifier for the customer. Use alphanumeric values only.
-          minLength: 3
-          maxLength: 50
-        customer_email:
-          type: string
-          description: Customer email address.
-          minLength: 3
-          maxLength: 100
-        customer_phone:
-          type: string
-          description: Customer phone number.
-          minLength: 10
-          maxLength: 10
-        customer_name:
-          type: string
-          description: Name of the customer.
-          minLength: 3
-          maxLength: 100
-        customer_bank_account_number:
-          type: string
-          description: Customer bank account. Required if you want to do a bank account check (TPV)
-          minLength: 3
-          maxLength: 20
-        customer_bank_ifsc:
-          type: string
-          description: Customer bank IFSC. Required if you want to do a bank account check (TPV)
-        customer_bank_code:
-          type: number
-          description: Customer bank code. Required for net banking payments, if you want to do a bank account check (TPV)
-        customer_uid:
-          type: string
-          description: Customer identifier at Cashfree. You will get this when you create/get customer
-      required:
-      - customer_id
-      - customer_phone
-    CardArray:
-      title: card array
-      description: short code for credit card, debit card, prepaid card
-      type: string
-      example: dc
-    ApiError:
-      title: ApiError
-      description: Error at cashfree's server
-      example:
-        message: internal Server Error
-        code: internal_error
-        type: api_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        help:
-          type: string
-        type:
-          type: string
-          enum:
-          - api_error
-          description: api_error
+      - upi
     OrderMeta:
       title: OrderMeta
       description: Optional meta details to control how the customer pays and how payment journey completes
@@ -1438,35 +1276,56 @@ components:
                       description: List of card issuing bank to be allowed for the order
                       items:
                         type: string
-    DiscountDetails:
-      title: DiscountDetails
-      description: detils of the discount object of offer
-      example:
-        discount_type: flat
-        discount_value: '10'
-        max_discount_amount: '10'
+    AddressDetails:
+      title: AddressDetails
+      description: Address associated with the customer.
       type: object
+      example:
+        name: Aditya Keshri
+        address_line_one: MK Building
+        address_line_two: Test Address
+        country: India
+        country_code: IN
+        state: Karnataka
+        state_code: KA
+        city: Bangalore
+        pin_code: '560034'
+        phone: +91 1118911189
+        email: test@cashfree.com
       properties:
-        discount_type:
+        name:
           type: string
-          description: Type of discount
-          enum:
-          - flat
-          - percentage
-          minLength: 3
-          maxLength: 50
-        discount_value:
-          type: number
-          format: float64
-          description: Value of Discount.
-        max_discount_amount:
-          type: number
-          format: float64
-          description: Maximum Value of Discount allowed.
-      required:
-      - discount_type
-      - discount_value
-      - max_discount_amount
+          description: Full Name of the customer associated with the address.
+        address_line_one:
+          type: string
+          description: First line of the address.
+        address_line_two:
+          type: string
+          description: Second line of the address.
+        country:
+          type: string
+          description: Country Name.
+        country_code:
+          type: string
+          description: Country Code.
+        state:
+          type: string
+          description: State Name.
+        state_code:
+          type: string
+          description: State Code.
+        city:
+          type: string
+          description: City Name.
+        pin_code:
+          type: string
+          description: Pin Code/Zip Code.
+        phone:
+          type: string
+          description: Customer Phone Number.
+        email:
+          type: string
+          description: Cutomer Email Address.
     OfferEMI:
       title: EMI Offer
       description: EMI offer object
@@ -1507,13 +1366,148 @@ components:
           - tenures
       required:
       - emi
-    BadRequestError:
-      title: BadRequestError
-      description: Invalid request received from client
+    VendorSplit:
+      title: VendorSplit
+      description: Use to split order when cashfree's Easy Split is enabled for your account.
+      type: object
       example:
-        message: bad URL, please check API documentation
-        code: request_failed
-        type: invalid_request_error
+        vendor_id: Vendor01
+        amount: 100.12
+        description: order amount should be more than equal to 100.12
+      properties:
+        vendor_id:
+          type: string
+          description: Vendor id created in Cashfree system
+        amount:
+          type: number
+          description: Amount which will be associated with this vendor
+        percentage:
+          type: number
+          description: Percentage of order amount which shall get added to vendor account
+        tags:
+          type: object
+          maxProperties: 15
+          description: Custom Tags in thr form of {"key":"value"} which can be passed for an order. A maximum of 10 tags can be added
+          additionalProperties:
+            type: object
+      required:
+      - vendor_id
+    CustomerDetails:
+      title: CustomerDetails
+      description: The customer details that are necessary. Note that you can pass dummy details if your use case does not require the customer details.
+      example:
+        customer_id: 7112AAA812234
+        customer_email: john@cashfree.com
+        customer_phone: '9908734801'
+        customer_name: John Doe
+        customer_bank_account_number: '1518121112'
+        customer_bank_ifsc: XITI0000001
+        customer_bank_code: 3333
+        customer_uid: 54deabb4-ba45-4a60-9e6a-9c016fe7ab10
+      type: object
+      properties:
+        customer_id:
+          type: string
+          description: A unique identifier for the customer. Use alphanumeric values only.
+          minLength: 3
+          maxLength: 50
+        customer_email:
+          type: string
+          description: Customer email address.
+          minLength: 3
+          maxLength: 100
+        customer_phone:
+          type: string
+          description: Customer phone number.
+          minLength: 10
+          maxLength: 10
+        customer_name:
+          type: string
+          description: Name of the customer.
+          minLength: 3
+          maxLength: 100
+        customer_bank_account_number:
+          type: string
+          description: Customer bank account. Required if you want to do a bank account check (TPV)
+          minLength: 3
+          maxLength: 20
+        customer_bank_ifsc:
+          type: string
+          description: Customer bank IFSC. Required if you want to do a bank account check (TPV)
+        customer_bank_code:
+          type: number
+          description: Customer bank code. Required for net banking payments, if you want to do a bank account check (TPV)
+        customer_uid:
+          type: string
+          description: Customer identifier at Cashfree. You will get this when you create/get customer
+      required:
+      - customer_id
+      - customer_phone
+    ProductConditions:
+      type: object
+      properties:
+        action:
+          type: string
+          description: The Action key in the conditions array specifies whether a condition should "ALLOW" or "DENY" the specified rule or feature
+        key:
+          type: string
+          description: Specify what you're trying to configure, such as "features"
+          maxLength: 50
+        values:
+          type: array
+          description: Define the values you need to set within the conditions in this array, such as "checkoutCollectAddress", "checkoutAuthenticate"
+          maxItems: 10
+          items:
+            type: string
+    CartDetailsEntity:
+      title: CartDetailsEntity
+      description: Cart Details in the Order Entity Response
+      type: object
+      properties:
+        cart_id:
+          type: string
+          description: ID of the cart that was created
+    OfferNB:
+      title: Net Banking Offer
+      description: Offer object ofr NetBanking
+      example:
+        netbanking:
+          bank_name: hdfc bank
+      type: object
+      properties:
+        netbanking:
+          type: object
+          properties:
+            bank_name:
+              type: string
+              example: all
+      required:
+      - netbanking
+    CartAddress:
+      title: CartAddress
+      description: Address given for cart details.
+      properties:
+        full_name:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        pincode:
+          type: string
+        address_1:
+          type: string
+        address_2:
+          type: string
+    ApiError:
+      title: ApiError
+      description: Error at cashfree's server
+      example:
+        message: internal Server Error
+        code: internal_error
+        type: api_error
       type: object
       properties:
         message:
@@ -1525,32 +1519,50 @@ components:
         type:
           type: string
           enum:
-          - invalid_request_error
-    CartDetailsEntity:
-      title: CartDetailsEntity
-      description: Cart Details in the Order Entity Response
+          - api_error
+          description: api_error
+    DiscountDetails:
+      title: DiscountDetails
+      description: detils of the discount object of offer
+      example:
+        discount_type: flat
+        discount_value: '10'
+        max_discount_amount: '10'
       type: object
       properties:
-        cart_id:
+        discount_type:
           type: string
-          description: ID of the cart that was created
-    ProductConditionsEntity:
-      type: object
-      properties:
-        action:
-          type: string
-          description: The Action key in the conditions array specifies whether a condition is allowed or denied for the specified rule or feature
-        key:
-          type: string
-          description: key of the condition
+          description: Type of discount
+          enum:
+          - flat
+          - percentage
+          minLength: 3
           maxLength: 50
-        values:
-          type: array
-          description: Values set for the condition
-          maxItems: 10
-          items:
-            type: string
+        discount_value:
+          type: number
+          format: float64
+          description: Value of Discount.
+        max_discount_amount:
+          type: number
+          format: float64
+          description: Maximum Value of Discount allowed.
+      required:
+      - discount_type
+      - discount_value
+      - max_discount_amount
   headers:
+    x-api-version:
+      schema:
+        type: string
+        format: YYYY-MM-DD
+        enum:
+        - '2022-09-01'
+      description: This header has the version of the API. The current version is `2022-09-01`.
+    x-idempotency-key:
+      schema:
+        type: string
+      example: some-idem-id
+      description: An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.
     x-ratelimit-retry:
       schema:
         type: integer
@@ -1562,21 +1574,21 @@ components:
         - Is between 1 and 59 if breached
 
         '
-    x-ratelimit-remaining:
-      schema:
-        type: integer
-      example: 2
-      description: Rate limit remaning for your account for this API in the next minute. Uses sliding window
-    x-idempotency-key:
-      schema:
-        type: string
-      example: some-idem-id
-      description: An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.
     x-request-id:
       schema:
         type: string
       example: some-req-id
       description: Request id for your api call. Is blank or null if no `x-request-id` is sent during the request
+    x-ratelimit-limit:
+      schema:
+        type: integer
+      example: 200
+      description: Ratelimit set for your account for this API per minute
+    x-ratelimit-remaining:
+      schema:
+        type: integer
+      example: 2
+      description: Rate limit remaning for your account for this API in the next minute. Uses sliding window
     x-idempotency-replayed:
       schema:
         type: string
@@ -1587,11 +1599,6 @@ components:
         - `true` if the response was replayed
 
         - `false` if the response has not been replayed'
-    x-ratelimit-limit:
-      schema:
-        type: integer
-      example: 200
-      description: Ratelimit set for your account for this API per minute
     x-ratelimit-type:
       schema:
         type: string
@@ -1606,175 +1613,6 @@ components:
         - `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`
 
         '
-    x-api-version:
-      schema:
-        type: string
-        format: YYYY-MM-DD
-        enum:
-        - '2022-09-01'
-      description: This header has the version of the API. The current version is `2022-09-01`.
-  responses:
-    Response500:
-      description: API related Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiError'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response401:
-      description: Authentication Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/AuthenticationError'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response409:
-      description: Resource already present
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiError409'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response404:
-      description: Resource Not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiError404'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response429:
-      description: Rate Limit Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RateLimitError'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response400:
-      description: Bad request error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/BadRequestError'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response422:
-      description: Idempotency error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/IdempotencyError'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
   parameters:
     orderIDParam:
       name: order_id
@@ -1784,6 +1622,17 @@ components:
       schema:
         type: string
       example: your-order-id
+    xIdempotencyKeyHeader:
+      in: header
+      name: x-idempotency-key
+      required: false
+      description: 'An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.
+
+        '
+      schema:
+        type: string
+        format: UUID
+      example: 47bf8872-46fe-11ee-be56-0242ac120002
     xRequestIDHeader:
       in: header
       name: x-request-id
@@ -1802,88 +1651,7 @@ components:
         default: '2025-01-01'
       example: '2025-01-01'
       x-ignore: true
-    xIdempotencyKeyHeader:
-      in: header
-      name: x-idempotency-key
-      required: false
-      description: 'An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.
-
-        '
-      schema:
-        type: string
-        format: UUID
-      example: 47bf8872-46fe-11ee-be56-0242ac120002
   examples:
-    order_splits_cent:
-      summary: With order split Percentage
-      description: "Create an order where the amount received will be split between vendors and merchant based on percentage.\nIn the below example order amount, let us say INR 200 will be divided like this\n- 33% to merchant becomes INR 66 \n- 20% to Jane becomes INR 40\n- 47% to Barbie becomes INR 94\n"
-      value:
-        order_id: playstation_purchase_8
-        order_currency: INR
-        order_amount: 10.34
-        customer_details:
-          customer_id: 7112AAA812234
-          customer_phone: '9898989898'
-        order_splits:
-        - vendor_id: Jane
-          percentage: 20
-        - vendor_id: Barbie
-          percentage: 47
-    order_note:
-      summary: With additonal note
-      description: Add an additional note for your order which you can later use. It has to be string. For more detailed data use `order_tags`
-      value:
-        order_id: playstation_purchase_6
-        order_currency: INR
-        order_amount: 10.34
-        order_note: John buying playstation
-        customer_details:
-          customer_id: 7112AAA812234
-          customer_phone: '9898989898'
-    order_splits_amount:
-      summary: With order split Amount
-      description: Create an order where the amount received will be split between vendor and merchant based on absolute amount.
-      value:
-        order_id: playstation_purchase_8
-        order_currency: INR
-        order_amount: 10.34
-        customer_details:
-          customer_id: 7112AAA812234
-          customer_phone: '9898989898'
-        order_splits:
-        - vendor_id: Jane
-          amount: 1.45
-          tags:
-            address: Hyderabad
-        - vendor_id: Barbie
-          amount: 3.45
-          tags:
-            address: Bengaluru, India
-    order_invoice:
-      summary: With order invoice
-      description: Add invoice details for your order
-      value:
-        order_id: playstation_purchase_6
-        order_currency: INR
-        order_amount: 10.34
-        customer_details:
-          customer_id: 7112AAA812234
-          customer_phone: '9898989898'
-        order_tags:
-          gst: '1'
-          gstin: 27AAFCN5072P1ZV
-          invoice_date: '2023-06-20T04:35:16.748Z'
-          invoice_number: inv1687149916474
-          invoice_link: https://example.com/cf/nextgen.php#section-2
-          invoice_name: Walters Invoice
-          cgst: '1'
-          sgst: '1'
-          igst: '1'
-          cess: '1'
-          gst_incentive: '1'
-          gst_percentage: '1'
-          pincode: '560034'
-          city_tier: TIER1
     order_entity_list_example:
       description: OrderEntityListExample
       summary: OrderEntityListExample
@@ -1915,31 +1683,6 @@ components:
         terminal_data: null
         cart_details:
           cart_id: '1'
-    order_with_payment_methods:
-      summary: With Payment Methods URL
-      description: add payment methods, customer can pnly pay using these payment methods only
-      value:
-        order_id: playstation_purchase_4
-        order_currency: INR
-        order_amount: 10.34
-        customer_details:
-          customer_id: 7112AAA812234
-          customer_phone: '9898989898'
-        order_meta:
-          return_url: https://www.cashfree.com/devstudio/thankyou
-          payment_methods: cc,dc,upi
-    order_with_return_url:
-      summary: With return/callback URL
-      description: add a return url to your order
-      value:
-        order_id: playstation_purchase_2
-        order_currency: INR
-        order_amount: 10.34
-        customer_details:
-          customer_id: 7112AAA812234
-          customer_phone: '9898989898'
-        order_meta:
-          return_url: https://www.cashfree.com/devstudio/thankyou
     order_customer:
       summary: Customer Details
       description: Complete customer details
@@ -1962,6 +1705,26 @@ components:
         customer_details:
           customer_id: 7112AAA812234
           customer_phone: '9908734801'
+    order_note:
+      summary: With additonal note
+      description: Add an additional note for your order which you can later use. It has to be string. For more detailed data use `order_tags`
+      value:
+        order_id: playstation_purchase_6
+        order_currency: INR
+        order_amount: 10.34
+        order_note: John buying playstation
+        customer_details:
+          customer_id: 7112AAA812234
+          customer_phone: '9898989898'
+    order_minimum:
+      summary: Minimun required details
+      description: Minimum set of parameters needed to create an order at cashfree
+      value:
+        order_currency: INR
+        order_amount: 10.34
+        customer_details:
+          customer_id: 7112AAA812234
+          customer_phone: '9898989898'
     order_expiry:
       summary: With future expiry time for order
       description: Add an exipry time for your order. No transactions would be accepted after the order has expired
@@ -1973,19 +1736,6 @@ components:
         customer_details:
           customer_id: 7112AAA812234
           customer_phone: '9898989898'
-    order_tags:
-      summary: With order tags
-      description: Add key value pairs to your order. Can be used later in your workflow
-      value:
-        order_id: playstation_purchase_6
-        order_currency: INR
-        order_amount: 10.34
-        customer_details:
-          customer_id: 7112AAA812234
-          customer_phone: '9898989898'
-        order_tags:
-          address: Bengaluru, India
-          pincode: '560034'
     order_customer_tpv:
       summary: Customer TPV
       description: Customer with bank details if provided he or she can pay by only that bank account
@@ -2001,15 +1751,63 @@ components:
           customer_bank_ifsc: XDFC0000045
           customer_bank_account_number: '123124123123123'
           customer_bank_code: 3021
-    order_minimum:
-      summary: Minimun required details
-      description: Minimum set of parameters needed to create an order at cashfree
+    order_with_return_url:
+      summary: With return/callback URL
+      description: add a return url to your order
       value:
+        order_id: playstation_purchase_2
         order_currency: INR
         order_amount: 10.34
         customer_details:
           customer_id: 7112AAA812234
           customer_phone: '9898989898'
+        order_meta:
+          return_url: https://www.cashfree.com/devstudio/thankyou
+    order_tags:
+      summary: With order tags
+      description: Add key value pairs to your order. Can be used later in your workflow
+      value:
+        order_id: playstation_purchase_6
+        order_currency: INR
+        order_amount: 10.34
+        customer_details:
+          customer_id: 7112AAA812234
+          customer_phone: '9898989898'
+        order_tags:
+          address: Bengaluru, India
+          pincode: '560034'
+    order_with_payment_methods:
+      summary: With Payment Methods URL
+      description: add payment methods, customer can pnly pay using these payment methods only
+      value:
+        order_id: playstation_purchase_4
+        order_currency: INR
+        order_amount: 10.34
+        customer_details:
+          customer_id: 7112AAA812234
+          customer_phone: '9898989898'
+        order_meta:
+          return_url: https://www.cashfree.com/devstudio/thankyou
+          payment_methods: cc,dc,upi
+    order_splits_amount:
+      summary: With order split Amount
+      description: Create an order where the amount received will be split between vendor and merchant based on absolute amount.
+      value:
+        order_id: playstation_purchase_8
+        order_currency: INR
+        order_amount: 10.34
+        customer_details:
+          customer_id: 7112AAA812234
+          customer_phone: '9898989898'
+        order_splits:
+        - vendor_id: Jane
+          amount: 1.45
+          tags:
+            address: Hyderabad
+        - vendor_id: Barbie
+          amount: 3.45
+          tags:
+            address: Bengaluru, India
     order_extended_data_entity_list_example:
       description: OrderExtendedEntityDataExample
       summary: OrderExtendedEntityDataExample
@@ -2107,6 +1905,208 @@ components:
               wallet:
                 issuer: paytm
             max_allowed: 2
+    order_invoice:
+      summary: With order invoice
+      description: Add invoice details for your order
+      value:
+        order_id: playstation_purchase_6
+        order_currency: INR
+        order_amount: 10.34
+        customer_details:
+          customer_id: 7112AAA812234
+          customer_phone: '9898989898'
+        order_tags:
+          gst: '1'
+          gstin: 27AAFCN5072P1ZV
+          invoice_date: '2023-06-20T04:35:16.748Z'
+          invoice_number: inv1687149916474
+          invoice_link: https://example.com/cf/nextgen.php#section-2
+          invoice_name: Walters Invoice
+          cgst: '1'
+          sgst: '1'
+          igst: '1'
+          cess: '1'
+          gst_incentive: '1'
+          gst_percentage: '1'
+          pincode: '560034'
+          city_tier: TIER1
+    order_splits_cent:
+      summary: With order split Percentage
+      description: "Create an order where the amount received will be split between vendors and merchant based on percentage.\nIn the below example order amount, let us say INR 200 will be divided like this\n- 33% to merchant becomes INR 66 \n- 20% to Jane becomes INR 40\n- 47% to Barbie becomes INR 94\n"
+      value:
+        order_id: playstation_purchase_8
+        order_currency: INR
+        order_amount: 10.34
+        customer_details:
+          customer_id: 7112AAA812234
+          customer_phone: '9898989898'
+        order_splits:
+        - vendor_id: Jane
+          percentage: 20
+        - vendor_id: Barbie
+          percentage: 47
+  responses:
+    Response429:
+      description: Rate Limit Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response400:
+      description: Bad request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response404:
+      description: Resource Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError404'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response409:
+      description: Resource already present
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError409'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response500:
+      description: API related Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response401:
+      description: Authentication Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AuthenticationError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response422:
+      description: Idempotency error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IdempotencyError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
   x-elicitationConfig:
     createOrder:
       enabled: true
@@ -2134,13 +2134,6 @@ components:
             target: body.customer_details.customer_phone
             transform: string
   requestBodies:
-    TerminateOrderRequest:
-      description: Request body to terminate an order at cashfree
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/TerminateOrderRequest'
     CreateOrderRequest:
       description: Request body to create an order at cashfree
       required: true
@@ -2173,6 +2166,13 @@ components:
               $ref: '#/components/examples/order_invoice'
             order_customer_tpv:
               $ref: '#/components/examples/order_customer_tpv'
+    TerminateOrderRequest:
+      description: Request body to terminate an order at cashfree
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TerminateOrderRequest'
   securitySchemes:
     XClientID:
       type: apiKey

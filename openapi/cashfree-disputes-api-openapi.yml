@@ -374,12 +374,35 @@ paths:
           $ref: '#/components/responses/Response500'
 components:
   responses:
-    Response404:
-      description: Resource Not found
+    Response409:
+      description: Resource already present
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ApiError404'
+            $ref: '#/components/schemas/ApiError409'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response422:
+      description: Idempotency error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IdempotencyError'
       headers:
         x-api-version:
           $ref: '#/components/headers/x-api-version'
@@ -466,35 +489,12 @@ components:
           $ref: '#/components/headers/x-idempotency-key'
         x-idempotency-replayed:
           $ref: '#/components/headers/x-idempotency-replayed'
-    Response422:
-      description: Idempotency error
+    Response404:
+      description: Resource Not found
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/IdempotencyError'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response409:
-      description: Resource already present
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiError409'
+            $ref: '#/components/schemas/ApiError404'
       headers:
         x-api-version:
           $ref: '#/components/headers/x-api-version'
@@ -536,319 +536,17 @@ components:
         x-idempotency-replayed:
           $ref: '#/components/headers/x-idempotency-replayed'
   schemas:
-    RateLimitError:
-      title: RateLimitError
-      description: Error when rate limit is breached for your api
-      example:
-        message: Too many requests from IP. Check headers
-        code: request_failed
-        type: rate_limit_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          enum:
-          - rate_limit_error
-          description: rate_limit_error
-    IdempotencyError:
-      title: IdempotencyError
-      description: Error when idempotency fails. Different request body with the same idempotent key
-      example:
-        message: something is not found
-        code: request_invalid
-        type: idempotency_error
-      type: object
-      properties:
-        message:
-          type: string
-        help:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          enum:
-          - idempotency_error
-          description: idempotency_error
-    Evidence:
-      title: Evidence
-      example:
-        document_id: 18150
-        document_name: disputeSampleFile.pdf
-        document_type: DeliveryProof
-      type: object
-      properties:
-        document_id:
-          type: integer
-        document_name:
-          type: string
-        document_type:
-          type: string
-    AuthenticationError:
-      title: AuthenticationError
-      description: Error if api keys are wrong
-      example:
-        message: authentication Failed
-        code: request_failed
-        type: authentication_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          description: authentication_error
-    CustomerDetailsInDisputesEntity:
-      title: CustomerDetailsInDisputesEntity
-      example:
-        customer_name: Manideep Ellur
-        customer_phone: 8281554863
-        customer_email: manideep.ellur@cashfree.com
-      type: object
-      properties:
-        customer_name:
-          type: string
-        customer_phone:
-          type: string
-        customer_email:
-          type: string
-    DisputeEvidence:
-      title: DisputeEvidence
-      example:
-      - document_id: 18150
-        document_name: disputeSampleFile.pdf
-        document_type: DeliveryProof
-      type: array
-      items:
-        $ref: '#/components/schemas/Evidence'
-    ApiError404:
-      title: ApiError404
-      description: Error when resource requested is not found
-      example:
-        message: something is not found
-        code: somethind_not_found
-        type: invalid_request_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        help:
-          type: string
-        type:
-          type: string
-          enum:
-          - invalid_request_error
-          description: invalid_request_error
-    EvidencesToContestDispute:
+    PreferredEvidence:
       title: EvidencesToContestDispute
+      type: array
       example:
         preferred_evidence:
         - document_type: Delivery/Service Proof
           document_description: Proof that the cardholder/customer received the goods or services.
         - document_type: Statement of Service
           document_description: Account Statement of wallet where funds were loaded by customer.
-      type: object
-      properties:
-        document_type:
-          type: string
-        document_description:
-          type: string
-    ApiError:
-      title: ApiError
-      description: Error at cashfree's server
-      example:
-        message: internal Server Error
-        code: internal_error
-        type: api_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        help:
-          type: string
-        type:
-          type: string
-          enum:
-          - api_error
-          description: api_error
-    OrderDetailsInDisputesEntity:
-      title: OrderDetailsInDisputesEntity
-      example:
-        order_id: Load_test_0103_FGA4HF12AC
-        order_currency: INR
-        order_amount: 10
-        cf_payment_id: 1489901523
-        payment_currency: INR
-        payment_amount: 10
-      type: object
-      properties:
-        order_id:
-          type: string
-        order_currency:
-          type: string
-        order_amount:
-          type: number
-        cf_payment_id:
-          type: string
-        payment_currency:
-          type: string
-        payment_amount:
-          type: number
-    BadRequestError:
-      title: BadRequestError
-      description: Invalid request received from client
-      example:
-        message: bad URL, please check API documentation
-        code: request_failed
-        type: invalid_request_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        help:
-          type: string
-        type:
-          type: string
-          enum:
-          - invalid_request_error
-    ApiError409:
-      title: ApiError409
-      description: duplicate request
-      example:
-        message: order with same id is already present
-        code: order_already_exists
-        type: invalid_request_error
-      type: object
-      properties:
-        message:
-          type: string
-        help:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          enum:
-          - invalid_request_error
-          description: invalid_request_error
-    DisputesEntityMerchantAccepted:
-      title: DisputesEntityMerchantAccepted
-      type: object
-      example:
-        dispute_id: 433447817
-        dispute_type: DISPUTE
-        reason_code: 1401
-        reason_description: Fraud Transaction
-        dispute_amount: 10
-        created_at: '2023-01-18T11:26:58'
-        respond_by: '2023-01-19T00:00:00'
-        updated_at: '2023-01-18T11:26:58'
-        resolved_at: '2023-01-18T11:26:58'
-        dispute_status: DISPUTE_MERCHANT_ACCEPTED
-        cf_dispute_remarks: Load Testing
-        preferred_evidence: []
-        dispute_evidence: []
-        order_details:
-          order_id: Load_test_0103_FGA4HF12AC
-          order_currency: INR
-          order_amount: 10
-          cf_payment_id: 1489901523
-          payment_currency: INR
-          payment_amount: 10
-        customer_details:
-          customer_name: John Ellur
-          customer_phone: 8281554863
-          customer_email: john@cashfree.com
-      properties:
-        dispute_id:
-          type: integer
-        dispute_type:
-          type: string
-          enum:
-          - DISPUTE
-          - CHARGEBACK
-          - RETRIEVAL
-          - PRE_ARBITRATION
-          - ARBITRATION
-        reason_code:
-          type: string
-        reason_description:
-          type: string
-        dispute_amount:
-          type: number
-          description: Dispute amount may differ from transaction amount for partial cases.
-        created_at:
-          type: string
-          description: This is the time when the dispute was created.
-        respond_by:
-          type: string
-          description: This is the time by which evidence should be submitted to contest the dispute.
-        updated_at:
-          type: string
-          description: This is the time when the dispute case was updated.
-        resolved_at:
-          type: string
-          description: This is the time when the dispute case was closed.
-        dispute_status:
-          type: string
-          enum:
-          - DISPUTE_CREATED
-          - DISPUTE_DOCS_RECEIVED
-          - DISPUTE_UNDER_REVIEW
-          - DISPUTE_MERCHANT_WON
-          - DISPUTE_MERCHANT_LOST
-          - DISPUTE_MERCHANT_ACCEPTED
-          - DISPUTE_INSUFFICIENT_EVIDENCE
-          - CHARGEBACK_CREATED
-          - CHARGEBACK_DOCS_RECEIVED
-          - CHARGEBACK_UNDER_REVIEW
-          - CHARGEBACK_MERCHANT_WON
-          - CHARGEBACK_MERCHANT_LOST
-          - CHARGEBACK_MERCHANT_ACCEPTED
-          - CHARGEBACK_INSUFFICIENT_EVIDENCE
-          - RETRIEVAL_CREATED
-          - RETRIEVAL_DOCS_RECEIVED
-          - RETRIEVAL_UNDER_REVIEW
-          - RETRIEVAL_MERCHANT_WON
-          - RETRIEVAL_MERCHANT_LOST
-          - RETRIEVAL_MERCHANT_ACCEPTED
-          - RETRIEVAL_INSUFFICIENT_EVIDENCE
-          - PRE_ARBITRATION_CREATED
-          - PRE_ARBITRATION_DOCS_RECEIVED
-          - PRE_ARBITRATION_UNDER_REVIEW
-          - PRE_ARBITRATION_MERCHANT_WON
-          - PRE_ARBITRATION_MERCHANT_LOST
-          - PRE_ARBITRATION_MERCHANT_ACCEPTED
-          - PRE_ARBITRATION_INSUFFICIENT_EVIDENCE
-          - ARBITRATION_CREATED
-          - ARBITRATION_DOCS_RECEIVED
-          - ARBITRATION_UNDER_REVIEW
-          - ARBITRATION_MERCHANT_WON
-          - ARBITRATION_MERCHANT_LOST
-          - ARBITRATION_MERCHANT_ACCEPTED
-          - ARBITRATION_INSUFFICIENT_EVIDENCE
-        cf_dispute_remarks:
-          type: string
-        preferred_evidence:
-          $ref: '#/components/schemas/PreferredEvidence'
-        dispute_evidence:
-          $ref: '#/components/schemas/DisputeEvidence'
-        order_details:
-          $ref: '#/components/schemas/OrderDetailsInDisputesEntity'
-        customer_details:
-          $ref: '#/components/schemas/CustomerDetailsInDisputesEntity'
+      items:
+        $ref: '#/components/schemas/EvidencesToContestDispute'
     DisputesEntity:
       title: DisputesEntity
       type: object
@@ -964,18 +662,352 @@ components:
           $ref: '#/components/schemas/OrderDetailsInDisputesEntity'
         customer_details:
           $ref: '#/components/schemas/CustomerDetailsInDisputesEntity'
-    PreferredEvidence:
+    CustomerDetailsInDisputesEntity:
+      title: CustomerDetailsInDisputesEntity
+      example:
+        customer_name: Manideep Ellur
+        customer_phone: 8281554863
+        customer_email: manideep.ellur@cashfree.com
+      type: object
+      properties:
+        customer_name:
+          type: string
+        customer_phone:
+          type: string
+        customer_email:
+          type: string
+    RateLimitError:
+      title: RateLimitError
+      description: Error when rate limit is breached for your api
+      example:
+        message: Too many requests from IP. Check headers
+        code: request_failed
+        type: rate_limit_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - rate_limit_error
+          description: rate_limit_error
+    DisputesEntityMerchantAccepted:
+      title: DisputesEntityMerchantAccepted
+      type: object
+      example:
+        dispute_id: 433447817
+        dispute_type: DISPUTE
+        reason_code: 1401
+        reason_description: Fraud Transaction
+        dispute_amount: 10
+        created_at: '2023-01-18T11:26:58'
+        respond_by: '2023-01-19T00:00:00'
+        updated_at: '2023-01-18T11:26:58'
+        resolved_at: '2023-01-18T11:26:58'
+        dispute_status: DISPUTE_MERCHANT_ACCEPTED
+        cf_dispute_remarks: Load Testing
+        preferred_evidence: []
+        dispute_evidence: []
+        order_details:
+          order_id: Load_test_0103_FGA4HF12AC
+          order_currency: INR
+          order_amount: 10
+          cf_payment_id: 1489901523
+          payment_currency: INR
+          payment_amount: 10
+        customer_details:
+          customer_name: John Ellur
+          customer_phone: 8281554863
+          customer_email: john@cashfree.com
+      properties:
+        dispute_id:
+          type: integer
+        dispute_type:
+          type: string
+          enum:
+          - DISPUTE
+          - CHARGEBACK
+          - RETRIEVAL
+          - PRE_ARBITRATION
+          - ARBITRATION
+        reason_code:
+          type: string
+        reason_description:
+          type: string
+        dispute_amount:
+          type: number
+          description: Dispute amount may differ from transaction amount for partial cases.
+        created_at:
+          type: string
+          description: This is the time when the dispute was created.
+        respond_by:
+          type: string
+          description: This is the time by which evidence should be submitted to contest the dispute.
+        updated_at:
+          type: string
+          description: This is the time when the dispute case was updated.
+        resolved_at:
+          type: string
+          description: This is the time when the dispute case was closed.
+        dispute_status:
+          type: string
+          enum:
+          - DISPUTE_CREATED
+          - DISPUTE_DOCS_RECEIVED
+          - DISPUTE_UNDER_REVIEW
+          - DISPUTE_MERCHANT_WON
+          - DISPUTE_MERCHANT_LOST
+          - DISPUTE_MERCHANT_ACCEPTED
+          - DISPUTE_INSUFFICIENT_EVIDENCE
+          - CHARGEBACK_CREATED
+          - CHARGEBACK_DOCS_RECEIVED
+          - CHARGEBACK_UNDER_REVIEW
+          - CHARGEBACK_MERCHANT_WON
+          - CHARGEBACK_MERCHANT_LOST
+          - CHARGEBACK_MERCHANT_ACCEPTED
+          - CHARGEBACK_INSUFFICIENT_EVIDENCE
+          - RETRIEVAL_CREATED
+          - RETRIEVAL_DOCS_RECEIVED
+          - RETRIEVAL_UNDER_REVIEW
+          - RETRIEVAL_MERCHANT_WON
+          - RETRIEVAL_MERCHANT_LOST
+          - RETRIEVAL_MERCHANT_ACCEPTED
+          - RETRIEVAL_INSUFFICIENT_EVIDENCE
+          - PRE_ARBITRATION_CREATED
+          - PRE_ARBITRATION_DOCS_RECEIVED
+          - PRE_ARBITRATION_UNDER_REVIEW
+          - PRE_ARBITRATION_MERCHANT_WON
+          - PRE_ARBITRATION_MERCHANT_LOST
+          - PRE_ARBITRATION_MERCHANT_ACCEPTED
+          - PRE_ARBITRATION_INSUFFICIENT_EVIDENCE
+          - ARBITRATION_CREATED
+          - ARBITRATION_DOCS_RECEIVED
+          - ARBITRATION_UNDER_REVIEW
+          - ARBITRATION_MERCHANT_WON
+          - ARBITRATION_MERCHANT_LOST
+          - ARBITRATION_MERCHANT_ACCEPTED
+          - ARBITRATION_INSUFFICIENT_EVIDENCE
+        cf_dispute_remarks:
+          type: string
+        preferred_evidence:
+          $ref: '#/components/schemas/PreferredEvidence'
+        dispute_evidence:
+          $ref: '#/components/schemas/DisputeEvidence'
+        order_details:
+          $ref: '#/components/schemas/OrderDetailsInDisputesEntity'
+        customer_details:
+          $ref: '#/components/schemas/CustomerDetailsInDisputesEntity'
+    EvidencesToContestDispute:
       title: EvidencesToContestDispute
-      type: array
       example:
         preferred_evidence:
         - document_type: Delivery/Service Proof
           document_description: Proof that the cardholder/customer received the goods or services.
         - document_type: Statement of Service
           document_description: Account Statement of wallet where funds were loaded by customer.
+      type: object
+      properties:
+        document_type:
+          type: string
+        document_description:
+          type: string
+    ApiError404:
+      title: ApiError404
+      description: Error when resource requested is not found
+      example:
+        message: something is not found
+        code: somethind_not_found
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+          description: invalid_request_error
+    OrderDetailsInDisputesEntity:
+      title: OrderDetailsInDisputesEntity
+      example:
+        order_id: Load_test_0103_FGA4HF12AC
+        order_currency: INR
+        order_amount: 10
+        cf_payment_id: 1489901523
+        payment_currency: INR
+        payment_amount: 10
+      type: object
+      properties:
+        order_id:
+          type: string
+        order_currency:
+          type: string
+        order_amount:
+          type: number
+        cf_payment_id:
+          type: string
+        payment_currency:
+          type: string
+        payment_amount:
+          type: number
+    AuthenticationError:
+      title: AuthenticationError
+      description: Error if api keys are wrong
+      example:
+        message: authentication Failed
+        code: request_failed
+        type: authentication_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          description: authentication_error
+    DisputeEvidence:
+      title: DisputeEvidence
+      example:
+      - document_id: 18150
+        document_name: disputeSampleFile.pdf
+        document_type: DeliveryProof
+      type: array
       items:
-        $ref: '#/components/schemas/EvidencesToContestDispute'
+        $ref: '#/components/schemas/Evidence'
+    BadRequestError:
+      title: BadRequestError
+      description: Invalid request received from client
+      example:
+        message: bad URL, please check API documentation
+        code: request_failed
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+    IdempotencyError:
+      title: IdempotencyError
+      description: Error when idempotency fails. Different request body with the same idempotent key
+      example:
+        message: something is not found
+        code: request_invalid
+        type: idempotency_error
+      type: object
+      properties:
+        message:
+          type: string
+        help:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - idempotency_error
+          description: idempotency_error
+    Evidence:
+      title: Evidence
+      example:
+        document_id: 18150
+        document_name: disputeSampleFile.pdf
+        document_type: DeliveryProof
+      type: object
+      properties:
+        document_id:
+          type: integer
+        document_name:
+          type: string
+        document_type:
+          type: string
+    ApiError:
+      title: ApiError
+      description: Error at cashfree's server
+      example:
+        message: internal Server Error
+        code: internal_error
+        type: api_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - api_error
+          description: api_error
+    ApiError409:
+      title: ApiError409
+      description: duplicate request
+      example:
+        message: order with same id is already present
+        code: order_already_exists
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        help:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+          description: invalid_request_error
   headers:
+    x-idempotency-replayed:
+      schema:
+        type: string
+        format: boolean
+      example: 'true'
+      description: 'In conjunction with `x-idempotency-key` this means
+
+        - `true` if the response was replayed
+
+        - `false` if the response has not been replayed'
+    x-api-version:
+      schema:
+        type: string
+        format: YYYY-MM-DD
+        enum:
+        - '2022-09-01'
+      description: This header has the version of the API. The current version is `2022-09-01`.
+    x-idempotency-key:
+      schema:
+        type: string
+      example: some-idem-id
+      description: An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.
+    x-request-id:
+      schema:
+        type: string
+      example: some-req-id
+      description: Request id for your api call. Is blank or null if no `x-request-id` is sent during the request
+    x-ratelimit-remaining:
+      schema:
+        type: integer
+      example: 2
+      description: Rate limit remaning for your account for this API in the next minute. Uses sliding window
     x-ratelimit-retry:
       schema:
         type: integer
@@ -987,16 +1019,6 @@ components:
         - Is between 1 and 59 if breached
 
         '
-    x-ratelimit-remaining:
-      schema:
-        type: integer
-      example: 2
-      description: Rate limit remaning for your account for this API in the next minute. Uses sliding window
-    x-idempotency-key:
-      schema:
-        type: string
-      example: some-idem-id
-      description: An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.
     x-ratelimit-type:
       schema:
         type: string
@@ -1011,34 +1033,22 @@ components:
         - `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`
 
         '
-    x-request-id:
-      schema:
-        type: string
-      example: some-req-id
-      description: Request id for your api call. Is blank or null if no `x-request-id` is sent during the request
-    x-idempotency-replayed:
-      schema:
-        type: string
-        format: boolean
-      example: 'true'
-      description: 'In conjunction with `x-idempotency-key` this means
-
-        - `true` if the response was replayed
-
-        - `false` if the response has not been replayed'
     x-ratelimit-limit:
       schema:
         type: integer
       example: 200
       description: Ratelimit set for your account for this API per minute
-    x-api-version:
+  parameters:
+    apiVersionHeader:
+      in: header
+      name: x-api-version
+      description: API version to be used. Format is in YYYY-MM-DD
       schema:
         type: string
-        format: YYYY-MM-DD
-        enum:
-        - '2022-09-01'
-      description: This header has the version of the API. The current version is `2022-09-01`.
-  parameters:
+        description: API version to be used
+        default: '2025-01-01'
+      example: '2025-01-01'
+      x-ignore: true
     xIdempotencyKeyHeader:
       in: header
       name: x-idempotency-key
@@ -1058,16 +1068,6 @@ components:
       schema:
         type: string
       example: 4dfb9780-46fe-11ee-be56-0242ac120002
-    apiVersionHeader:
-      in: header
-      name: x-api-version
-      description: API version to be used. Format is in YYYY-MM-DD
-      schema:
-        type: string
-        description: API version to be used
-        default: '2025-01-01'
-      example: '2025-01-01'
-      x-ignore: true
   securitySchemes:
     XClientID:
       type: apiKey

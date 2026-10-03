@@ -155,12 +155,35 @@ paths:
           $ref: '#/components/responses/Response502'
 components:
   responses:
-    Response404:
-      description: Resource Not found
+    Response409:
+      description: Resource already present
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ApiError404'
+            $ref: '#/components/schemas/ApiError409'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response422:
+      description: Idempotency error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IdempotencyError'
       headers:
         x-api-version:
           $ref: '#/components/headers/x-api-version'
@@ -247,12 +270,12 @@ components:
           $ref: '#/components/headers/x-idempotency-key'
         x-idempotency-replayed:
           $ref: '#/components/headers/x-idempotency-replayed'
-    Response422:
-      description: Idempotency error
+    Response404:
+      description: Resource Not found
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/IdempotencyError'
+            $ref: '#/components/schemas/ApiError404'
       headers:
         x-api-version:
           $ref: '#/components/headers/x-api-version'
@@ -276,29 +299,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiError502'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response409:
-      description: Resource already present
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiError409'
       headers:
         x-api-version:
           $ref: '#/components/headers/x-api-version'
@@ -340,164 +340,6 @@ components:
         x-idempotency-replayed:
           $ref: '#/components/headers/x-idempotency-replayed'
   schemas:
-    RateLimitError:
-      title: RateLimitError
-      description: Error when rate limit is breached for your api
-      example:
-        message: Too many requests from IP. Check headers
-        code: request_failed
-        type: rate_limit_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          enum:
-          - rate_limit_error
-          description: rate_limit_error
-    ErrorDetailsInPaymentsEntity:
-      title: ErrorDetailsInPayments
-      description: The error details are present only for failed payments
-      example:
-        error_code: TRANSACTION_DECLINED
-        error_description: issuer bank or payment service provider declined the transaction
-        error_reason: auth_declined
-        error_source: customer
-        error_code_raw: ZM
-        error_description_raw: INVALID / INCORRECT MPIN
-        error_subcode_raw: ''
-      type: object
-      properties:
-        error_code:
-          type: string
-        error_description:
-          type: string
-        error_reason:
-          type: string
-        error_source:
-          type: string
-        error_code_raw:
-          type: string
-        error_description_raw:
-          type: string
-        error_subcode_raw:
-          type: string
-    PaymentEntity:
-      title: PaymentEntity
-      type: object
-      description: payment entity full object
-      example:
-        $ref: '#/components/examples/payments_entity_list_example/value/0'
-      properties:
-        cf_payment_id:
-          type: string
-        order_id:
-          type: string
-        entity:
-          type: string
-        error_details:
-          $ref: '#/components/schemas/ErrorDetailsInPaymentsEntity'
-        is_captured:
-          type: boolean
-        order_amount:
-          type: number
-          description: Order amount can be different from payment amount if you collect service fee from the customer
-        payment_group:
-          type: string
-          description: Type of payment group. One of ['prepaid_card', 'upi_ppi_offline', 'cash', 'upi_credit_card', 'paypal', 'net_banking', 'cardless_emi', 'credit_card', 'bank_transfer', 'pay_later', 'debit_card_emi', 'debit_card', 'wallet', 'upi_ppi', 'upi', 'credit_card_emi']
-        payment_currency:
-          type: string
-        payment_amount:
-          type: number
-        payment_time:
-          type: string
-          description: This is the time when the payment was initiated
-        payment_completion_time:
-          type: string
-          description: This is the time when the payment reaches its terminal state
-        payment_status:
-          type: string
-          enum:
-          - SUCCESS
-          - NOT_ATTEMPTED
-          - FAILED
-          - USER_DROPPED
-          - VOID
-          - CANCELLED
-          - PENDING
-          description: The transaction status can be one of  ["SUCCESS", "NOT_ATTEMPTED", "FAILED", "USER_DROPPED", "VOID", "CANCELLED", "PENDING"]
-        payment_message:
-          type: string
-        bank_reference:
-          type: string
-        auth_id:
-          type: string
-        order_currency:
-          type: string
-        authorization:
-          $ref: '#/components/schemas/AuthorizationInPaymentsEntity'
-        payment_method:
-          oneOf:
-          - $ref: '#/components/schemas/PaymentMethodCardInPaymentsEntity'
-          - $ref: '#/components/schemas/PaymentMethodNetBankingInPaymentsEntity'
-          - $ref: '#/components/schemas/PaymentMethodUPIInPaymentsEntity'
-          - $ref: '#/components/schemas/PaymentMethodAppInPaymentsEntity'
-          - $ref: '#/components/schemas/PaymentMethodCardlessEMIInPaymentsEntity'
-          - $ref: '#/components/schemas/PaymentMethodPaylaterInPaymentsEntity'
-          - $ref: '#/components/schemas/PaymentMethodCardEMIInPaymentsEntity'
-          - $ref: '#/components/schemas/PaymentMethodBankTransferInPaymentsEntity'
-        international_payment:
-          $ref: '#/components/schemas/InternationalPaymentEntity'
-        payment_gateway_details:
-          $ref: '#/components/schemas/PaymentGatewayDetails'
-        payment_surcharge:
-          type: object
-          properties:
-            payment_surcharge_service_charge:
-              type: number
-              format: float64
-            payment_surcharge_service_tax:
-              type: number
-              format: float64
-    IdempotencyError:
-      title: IdempotencyError
-      description: Error when idempotency fails. Different request body with the same idempotent key
-      example:
-        message: something is not found
-        code: request_invalid
-        type: idempotency_error
-      type: object
-      properties:
-        message:
-          type: string
-        help:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          enum:
-          - idempotency_error
-          description: idempotency_error
-    AuthenticationError:
-      title: AuthenticationError
-      description: Error if api keys are wrong
-      example:
-        message: authentication Failed
-        code: request_failed
-        type: authentication_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          description: authentication_error
     PaymentMethodCardlessEMIInPaymentsEntity:
       title: PaymentMethodCardlessEMIInPaymentsEntity
       description: payment method carless object in payment entity
@@ -580,6 +422,87 @@ components:
           enum:
           - api_error
           description: api_error
+    PaymentMethodPaylaterInPaymentsEntity:
+      title: PaymentMethodPaylaterInPaymentsEntity
+      description: paylater payment method object for pay api
+      example:
+        channel: link
+        provider: lazypay
+        phone: '9908761211'
+      type: object
+      properties:
+        paylater:
+          type: object
+          properties:
+            channel:
+              type: string
+            provider:
+              type: string
+            phone:
+              type: string
+    RateLimitError:
+      title: RateLimitError
+      description: Error when rate limit is breached for your api
+      example:
+        message: Too many requests from IP. Check headers
+        code: request_failed
+        type: rate_limit_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - rate_limit_error
+          description: rate_limit_error
+    PaymentMethodAppInPaymentsEntity:
+      title: PaymentMethodAppInPaymentsEntity
+      description: payment method app object in payment entity
+      example:
+        channel: link
+        provider: paytm
+        phone: '1234512345'
+      type: object
+      properties:
+        app:
+          type: object
+          properties:
+            channel:
+              type: string
+            provider:
+              type: string
+            phone:
+              type: string
+    ErrorDetailsInPaymentsEntity:
+      title: ErrorDetailsInPayments
+      description: The error details are present only for failed payments
+      example:
+        error_code: TRANSACTION_DECLINED
+        error_description: issuer bank or payment service provider declined the transaction
+        error_reason: auth_declined
+        error_source: customer
+        error_code_raw: ZM
+        error_description_raw: INVALID / INCORRECT MPIN
+        error_subcode_raw: ''
+      type: object
+      properties:
+        error_code:
+          type: string
+        error_description:
+          type: string
+        error_reason:
+          type: string
+        error_source:
+          type: string
+        error_code_raw:
+          type: string
+        error_description_raw:
+          type: string
+        error_subcode_raw:
+          type: string
     PaymentMethodBankTransferInPaymentsEntity:
       title: PaymentMethodBankTransferInPaymentsEntity
       description: payment method bank transfer object in payment entity
@@ -601,6 +524,29 @@ components:
               type: string
             banktransfer_account_number:
               type: string
+    PaymentMethodUPIInPaymentsEntity:
+      title: PaymentMethodUPIInPaymentsEntity
+      description: UPI payment method for pay api
+      example:
+        channel: collect
+        upi_id: 980123781@upi
+        upi_payer_ifsc: AXL1234
+        upi_payer_account_number: XXXXXXX6024
+      type: object
+      properties:
+        upi:
+          type: object
+          properties:
+            channel:
+              type: string
+            upi_id:
+              type: string
+            upi_payer_ifsc:
+              type: string
+            upi_payer_account_number:
+              type: string
+      required:
+      - channel
     ApiError404:
       title: ApiError404
       description: Error when resource requested is not found
@@ -621,13 +567,106 @@ components:
           enum:
           - invalid_request_error
           description: invalid_request_error
-    ApiError:
-      title: ApiError
-      description: Error at cashfree's server
+    PaymentEntity:
+      title: PaymentEntity
+      type: object
+      description: payment entity full object
       example:
-        message: internal Server Error
-        code: internal_error
-        type: api_error
+        $ref: '#/components/examples/payments_entity_list_example/value/0'
+      properties:
+        cf_payment_id:
+          type: string
+        order_id:
+          type: string
+        entity:
+          type: string
+        error_details:
+          $ref: '#/components/schemas/ErrorDetailsInPaymentsEntity'
+        is_captured:
+          type: boolean
+        order_amount:
+          type: number
+          description: Order amount can be different from payment amount if you collect service fee from the customer
+        payment_group:
+          type: string
+          description: Type of payment group. One of ['prepaid_card', 'upi_ppi_offline', 'cash', 'upi_credit_card', 'paypal', 'net_banking', 'cardless_emi', 'credit_card', 'bank_transfer', 'pay_later', 'debit_card_emi', 'debit_card', 'wallet', 'upi_ppi', 'upi', 'credit_card_emi']
+        payment_currency:
+          type: string
+        payment_amount:
+          type: number
+        payment_time:
+          type: string
+          description: This is the time when the payment was initiated
+        payment_completion_time:
+          type: string
+          description: This is the time when the payment reaches its terminal state
+        payment_status:
+          type: string
+          enum:
+          - SUCCESS
+          - NOT_ATTEMPTED
+          - FAILED
+          - USER_DROPPED
+          - VOID
+          - CANCELLED
+          - PENDING
+          description: The transaction status can be one of  ["SUCCESS", "NOT_ATTEMPTED", "FAILED", "USER_DROPPED", "VOID", "CANCELLED", "PENDING"]
+        payment_message:
+          type: string
+        bank_reference:
+          type: string
+        auth_id:
+          type: string
+        order_currency:
+          type: string
+        authorization:
+          $ref: '#/components/schemas/AuthorizationInPaymentsEntity'
+        payment_method:
+          oneOf:
+          - $ref: '#/components/schemas/PaymentMethodCardInPaymentsEntity'
+          - $ref: '#/components/schemas/PaymentMethodNetBankingInPaymentsEntity'
+          - $ref: '#/components/schemas/PaymentMethodUPIInPaymentsEntity'
+          - $ref: '#/components/schemas/PaymentMethodAppInPaymentsEntity'
+          - $ref: '#/components/schemas/PaymentMethodCardlessEMIInPaymentsEntity'
+          - $ref: '#/components/schemas/PaymentMethodPaylaterInPaymentsEntity'
+          - $ref: '#/components/schemas/PaymentMethodCardEMIInPaymentsEntity'
+          - $ref: '#/components/schemas/PaymentMethodBankTransferInPaymentsEntity'
+        international_payment:
+          $ref: '#/components/schemas/InternationalPaymentEntity'
+        payment_gateway_details:
+          $ref: '#/components/schemas/PaymentGatewayDetails'
+        payment_surcharge:
+          type: object
+          properties:
+            payment_surcharge_service_charge:
+              type: number
+              format: float64
+            payment_surcharge_service_tax:
+              type: number
+              format: float64
+    AuthenticationError:
+      title: AuthenticationError
+      description: Error if api keys are wrong
+      example:
+        message: authentication Failed
+        code: request_failed
+        type: authentication_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          description: authentication_error
+    BadRequestError:
+      title: BadRequestError
+      description: Invalid request received from client
+      example:
+        message: bad URL, please check API documentation
+        code: request_failed
+        type: invalid_request_error
       type: object
       properties:
         message:
@@ -639,8 +678,7 @@ components:
         type:
           type: string
           enum:
-          - api_error
-          description: api_error
+          - invalid_request_error
     PaymentMethodNetBankingInPaymentsEntity:
       title: PaymentMethodNetBankingInPaymentsEntity
       description: netbanking payment method object for pay
@@ -667,25 +705,26 @@ components:
       - channel
       - netbanking_bank_name
       - netbanking_bank_code
-    BadRequestError:
-      title: BadRequestError
-      description: Invalid request received from client
+    IdempotencyError:
+      title: IdempotencyError
+      description: Error when idempotency fails. Different request body with the same idempotent key
       example:
-        message: bad URL, please check API documentation
-        code: request_failed
-        type: invalid_request_error
+        message: something is not found
+        code: request_invalid
+        type: idempotency_error
       type: object
       properties:
         message:
           type: string
-        code:
-          type: string
         help:
+          type: string
+        code:
           type: string
         type:
           type: string
           enum:
-          - invalid_request_error
+          - idempotency_error
+          description: idempotency_error
     PaymentMethodCardInPaymentsEntity:
       title: PaymentMethodCardInPaymentsEntity
       description: payment method card object in payment entity
@@ -719,6 +758,26 @@ components:
               type: string
             instrument_id:
               type: string
+    ApiError:
+      title: ApiError
+      description: Error at cashfree's server
+      example:
+        message: internal Server Error
+        code: internal_error
+        type: api_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - api_error
+          description: api_error
     AuthorizationInPaymentsEntity:
       title: AuthorizationInPayments
       description: If preauth enabled for account you will get this body
@@ -763,67 +822,6 @@ components:
         action_time:
           type: string
           description: Time of action (CAPTURE or VOID)
-    PaymentMethodUPIInPaymentsEntity:
-      title: PaymentMethodUPIInPaymentsEntity
-      description: UPI payment method for pay api
-      example:
-        channel: collect
-        upi_id: 980123781@upi
-        upi_payer_ifsc: AXL1234
-        upi_payer_account_number: XXXXXXX6024
-      type: object
-      properties:
-        upi:
-          type: object
-          properties:
-            channel:
-              type: string
-            upi_id:
-              type: string
-            upi_payer_ifsc:
-              type: string
-            upi_payer_account_number:
-              type: string
-      required:
-      - channel
-    ApiError409:
-      title: ApiError409
-      description: duplicate request
-      example:
-        message: order with same id is already present
-        code: order_already_exists
-        type: invalid_request_error
-      type: object
-      properties:
-        message:
-          type: string
-        help:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          enum:
-          - invalid_request_error
-          description: invalid_request_error
-    PaymentMethodPaylaterInPaymentsEntity:
-      title: PaymentMethodPaylaterInPaymentsEntity
-      description: paylater payment method object for pay api
-      example:
-        channel: link
-        provider: lazypay
-        phone: '9908761211'
-      type: object
-      properties:
-        paylater:
-          type: object
-          properties:
-            channel:
-              type: string
-            provider:
-              type: string
-            phone:
-              type: string
     PaymentGatewayDetails:
       title: PaymentGatewayDetails
       type: object
@@ -850,25 +848,59 @@ components:
       properties:
         international:
           type: boolean
-    PaymentMethodAppInPaymentsEntity:
-      title: PaymentMethodAppInPaymentsEntity
-      description: payment method app object in payment entity
+    ApiError409:
+      title: ApiError409
+      description: duplicate request
       example:
-        channel: link
-        provider: paytm
-        phone: '1234512345'
+        message: order with same id is already present
+        code: order_already_exists
+        type: invalid_request_error
       type: object
       properties:
-        app:
-          type: object
-          properties:
-            channel:
-              type: string
-            provider:
-              type: string
-            phone:
-              type: string
+        message:
+          type: string
+        help:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+          description: invalid_request_error
   headers:
+    x-idempotency-replayed:
+      schema:
+        type: string
+        format: boolean
+      example: 'true'
+      description: 'In conjunction with `x-idempotency-key` this means
+
+        - `true` if the response was replayed
+
+        - `false` if the response has not been replayed'
+    x-api-version:
+      schema:
+        type: string
+        format: YYYY-MM-DD
+        enum:
+        - '2022-09-01'
+      description: This header has the version of the API. The current version is `2022-09-01`.
+    x-idempotency-key:
+      schema:
+        type: string
+      example: some-idem-id
+      description: An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.
+    x-request-id:
+      schema:
+        type: string
+      example: some-req-id
+      description: Request id for your api call. Is blank or null if no `x-request-id` is sent during the request
+    x-ratelimit-remaining:
+      schema:
+        type: integer
+      example: 2
+      description: Rate limit remaning for your account for this API in the next minute. Uses sliding window
     x-ratelimit-retry:
       schema:
         type: integer
@@ -880,16 +912,6 @@ components:
         - Is between 1 and 59 if breached
 
         '
-    x-ratelimit-remaining:
-      schema:
-        type: integer
-      example: 2
-      description: Rate limit remaning for your account for this API in the next minute. Uses sliding window
-    x-idempotency-key:
-      schema:
-        type: string
-      example: some-idem-id
-      description: An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.
     x-ratelimit-type:
       schema:
         type: string
@@ -904,34 +926,38 @@ components:
         - `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`
 
         '
-    x-request-id:
-      schema:
-        type: string
-      example: some-req-id
-      description: Request id for your api call. Is blank or null if no `x-request-id` is sent during the request
-    x-idempotency-replayed:
-      schema:
-        type: string
-        format: boolean
-      example: 'true'
-      description: 'In conjunction with `x-idempotency-key` this means
-
-        - `true` if the response was replayed
-
-        - `false` if the response has not been replayed'
     x-ratelimit-limit:
       schema:
         type: integer
       example: 200
       description: Ratelimit set for your account for this API per minute
-    x-api-version:
+  parameters:
+    cfPaymentIDParam:
+      name: cf_payment_id
+      in: path
+      required: true
+      description: The Cashfree payment or transaction ID.
       schema:
         type: string
-        format: YYYY-MM-DD
-        enum:
-        - '2022-09-01'
-      description: This header has the version of the API. The current version is `2022-09-01`.
-  parameters:
+      example: '121224562'
+    orderIDParam:
+      name: order_id
+      in: path
+      required: true
+      description: The id which uniquely identifies your order
+      schema:
+        type: string
+      example: your-order-id
+    apiVersionHeader:
+      in: header
+      name: x-api-version
+      description: API version to be used. Format is in YYYY-MM-DD
+      schema:
+        type: string
+        description: API version to be used
+        default: '2025-01-01'
+      example: '2025-01-01'
+      x-ignore: true
     xIdempotencyKeyHeader:
       in: header
       name: x-idempotency-key
@@ -943,14 +969,6 @@ components:
         type: string
         format: UUID
       example: 47bf8872-46fe-11ee-be56-0242ac120002
-    orderIDParam:
-      name: order_id
-      in: path
-      required: true
-      description: The id which uniquely identifies your order
-      schema:
-        type: string
-      example: your-order-id
     xRequestIDHeader:
       in: header
       name: x-request-id
@@ -959,24 +977,6 @@ components:
       schema:
         type: string
       example: 4dfb9780-46fe-11ee-be56-0242ac120002
-    cfPaymentIDParam:
-      name: cf_payment_id
-      in: path
-      required: true
-      description: The Cashfree payment or transaction ID.
-      schema:
-        type: string
-      example: '121224562'
-    apiVersionHeader:
-      in: header
-      name: x-api-version
-      description: API version to be used. Format is in YYYY-MM-DD
-      schema:
-        type: string
-        description: API version to be used
-        default: '2025-01-01'
-      example: '2025-01-01'
-      x-ignore: true
   examples:
     payments_entity_list_example:
       description: Payments Entity List Example
