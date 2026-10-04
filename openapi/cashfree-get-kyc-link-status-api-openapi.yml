@@ -64,108 +64,49 @@ paths:
         '500':
           $ref: '#/components/responses/Response500'
 components:
-  responses:
-    Response404GetFormStatus:
-      description: Not found error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          example:
-            type: not_found_error
-            code: Resource not found
-            message: No data found
-    Response401:
-      description: Invalid client ID and client secret combination
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Invalid client ID and client secret combination:
-              value:
-                type: authentication_error
-                code: authentication_failed
-                message: Invalid clientId and clientSecret combination
-    400GetFormStatus:
-      description: Get Form Status responses for 400
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Reference ID or Verification ID Missing:
-              value:
-                type: validation_error
-                code: invalid_request
-                message: Provide verificationID or referenceID
-            Client ID in Missing:
-              value:
-                type: validation_error
-                code: x-client-id_missing
-                message: x-client-id is missing in the request.
-            Client Secret in Missing:
-              value:
-                type: validation_error
-                code: x-client-secret_missing
-                message: x-client-secret is missing in the request.
-    Response429:
-      description: Rate limit exceed error.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Rate limit error per operation:
-              value:
-                type: rate_limit_error
-                code: too_many_requests_per_operation
-                message: Too many requests for this operation, rate limit reached
-            Rate limit error per IP:
-              value:
-                type: rate_limit_error
-                code: too_many_requests_per_ip
-                message: Too many requests from the IP, rate limit reached
-    Response403:
-      description: Authentication error (IP not whitelisted)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            IP not whitelisted:
-              value:
-                type: authentication_error
-                code: ip_validation_failed
-                message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
-    Response500:
-      description: Internal error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Internal Server Error:
-              value:
-                type: internal_error
-                code: request_failed
-                message: Unable to process your request. Try again after some time
-    getFormStatusResponse:
-      description: Response Body of VRS GetFormStatus API
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/getFormStatusResponseSchema'
-  parameters:
-    x_cf_signature:
-      description: Send the signature if IP is not whitelisted
-      name: x-cf-signature
-      in: header
-      required: false
-      schema:
-        type: string
-      example: ''
   schemas:
+    upiFormStatusResponseSchema:
+      description: Upi Verification Product Status
+      type: object
+      properties:
+        reference_id:
+          type: integer
+          example: 237
+        type:
+          type: string
+          example: UPIDETAILS_VALIDATION
+        status:
+          type: string
+          example: FAILED
+    panFormStatusResponseSchema:
+      description: PAN Verification Product Status
+      type: object
+      properties:
+        reference_id:
+          type: integer
+          example: 0
+        type:
+          type: string
+          example: PANDETAILS_VERIFICATION
+        status:
+          type: string
+          example: PENDING
+    aadhaarFormStatusResponseSchema:
+      description: It displays the status of aadhaar verification
+      type: object
+      properties:
+        reference_id:
+          type: integer
+          description: It displays the unique ID created by Cashfree Payments for reference purposes.
+          example: 234
+        type:
+          type: string
+          description: It displays the verification type.
+          example: OFFLINE_AADHAAR_VERIFICATION
+        status:
+          type: string
+          description: It displays the verification status.
+          example: SUCCESS
     ErrorResponseSchema:
       description: Response in case of error.
       type: object
@@ -185,48 +126,6 @@ components:
           type: string
           example: validation_error
           description: It displays the type of error.
-    panFormStatusResponseSchema:
-      description: PAN Verification Product Status
-      type: object
-      properties:
-        reference_id:
-          type: integer
-          example: 0
-        type:
-          type: string
-          example: PANDETAILS_VERIFICATION
-        status:
-          type: string
-          example: PENDING
-    upiFormStatusResponseSchema:
-      description: Upi Verification Product Status
-      type: object
-      properties:
-        reference_id:
-          type: integer
-          example: 237
-        type:
-          type: string
-          example: UPIDETAILS_VALIDATION
-        status:
-          type: string
-          example: FAILED
-    aadhaarFormStatusResponseSchema:
-      description: It displays the status of aadhaar verification
-      type: object
-      properties:
-        reference_id:
-          type: integer
-          description: It displays the unique ID created by Cashfree Payments for reference purposes.
-          example: 234
-        type:
-          type: string
-          description: It displays the verification type.
-          example: OFFLINE_AADHAAR_VERIFICATION
-        status:
-          type: string
-          description: It displays the verification status.
-          example: SUCCESS
     bavFormStatusResponseSchema:
       description: Bank Details Validation Product Status
       type: object
@@ -284,6 +183,107 @@ components:
             - $ref: '#/components/schemas/panFormStatusResponseSchema'
             - $ref: '#/components/schemas/bavFormStatusResponseSchema'
             - $ref: '#/components/schemas/upiFormStatusResponseSchema'
+  responses:
+    Response500:
+      description: Internal error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Internal Server Error:
+              value:
+                type: internal_error
+                code: request_failed
+                message: Unable to process your request. Try again after some time
+    Response404GetFormStatus:
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          example:
+            type: not_found_error
+            code: Resource not found
+            message: No data found
+    400GetFormStatus:
+      description: Get Form Status responses for 400
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Reference ID or Verification ID Missing:
+              value:
+                type: validation_error
+                code: invalid_request
+                message: Provide verificationID or referenceID
+            Client ID in Missing:
+              value:
+                type: validation_error
+                code: x-client-id_missing
+                message: x-client-id is missing in the request.
+            Client Secret in Missing:
+              value:
+                type: validation_error
+                code: x-client-secret_missing
+                message: x-client-secret is missing in the request.
+    Response429:
+      description: Rate limit exceed error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Rate limit error per operation:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_operation
+                message: Too many requests for this operation, rate limit reached
+            Rate limit error per IP:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_ip
+                message: Too many requests from the IP, rate limit reached
+    Response403:
+      description: Authentication error (IP not whitelisted)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            IP not whitelisted:
+              value:
+                type: authentication_error
+                code: ip_validation_failed
+                message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
+    getFormStatusResponse:
+      description: Response Body of VRS GetFormStatus API
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/getFormStatusResponseSchema'
+    Response401:
+      description: Invalid client ID and client secret combination
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Invalid client ID and client secret combination:
+              value:
+                type: authentication_error
+                code: authentication_failed
+                message: Invalid clientId and clientSecret combination
+  parameters:
+    x_cf_signature:
+      description: Send the signature if IP is not whitelisted
+      name: x-cf-signature
+      in: header
+      required: false
+      schema:
+        type: string
+      example: ''
   securitySchemes:
     bearerAuth:
       type: http

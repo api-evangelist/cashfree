@@ -56,148 +56,7 @@ paths:
         '500':
           $ref: '#/components/responses/Response500'
 components:
-  responses:
-    Response422:
-      description: Validation error because of insufficient balance to process this request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Insufficient balance:
-              value:
-                type: validation_error
-                code: insufficient_balance
-                message: Insufficient balance to process this request
-    Response404StaticKYCLink:
-      description: Not found errors in Static KYC Link
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Template Name not Found:
-              value:
-                type: validation_error
-                code: template_name_not_found
-                message: template_name does not exist
-    DeactivateStaticKYCLinkResponse:
-      description: Response Body for Generate Static KYC Link API
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/DeactivateStaticKYCLinkResponseSchema'
-          examples:
-            Success:
-              value:
-                message: Successfully Deactivated
-                template_name: Aadhaar_verification
-                static_link: https://verification.cashfree.com/forms?shortCode=m2bjk9uakkcg
-                status: INACTIVE
-    Response401:
-      description: Invalid client ID and client secret combination
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Invalid client ID and client secret combination:
-              value:
-                type: authentication_error
-                code: authentication_failed
-                message: Invalid clientId and clientSecret combination
-    Response429:
-      description: Rate limit exceed error.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Rate limit error per operation:
-              value:
-                type: rate_limit_error
-                code: too_many_requests_per_operation
-                message: Too many requests for this operation, rate limit reached
-            Rate limit error per IP:
-              value:
-                type: rate_limit_error
-                code: too_many_requests_per_ip
-                message: Too many requests from the IP, rate limit reached
-    Response400DeactivateStaticKYCLink:
-      description: Validation error in deactivate Static KYC Link
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Template Name Missing:
-              value:
-                type: validation_error
-                code: template_name_missing
-                message: template_name is missing in the request.
-            Template Name Invalid:
-              value:
-                type: validation_error
-                code: template_name_value_invalid
-                message: template_name should only contains alphanumeric, dot, underscore and hyphen.
-            No Static Link Linked To Template:
-              value:
-                type: validation_error
-                code: static_link_not_linked
-                message: no active static link linked to provided template.
-    Response403:
-      description: Authentication error (IP not whitelisted)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            IP not whitelisted:
-              value:
-                type: authentication_error
-                code: ip_validation_failed
-                message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
-    Response500:
-      description: Internal error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Internal Server Error:
-              value:
-                type: internal_error
-                code: request_failed
-                message: Unable to process your request. Try again after some time
-  parameters:
-    x_cf_signature:
-      description: Send the signature if IP is not whitelisted
-      name: x-cf-signature
-      in: header
-      required: false
-      schema:
-        type: string
-      example: ''
   schemas:
-    ErrorResponseSchema:
-      description: Response in case of error.
-      type: object
-      properties:
-        code:
-          type: string
-          example: x-client-id_missing
-        error:
-          type: object
-          example:
-            ref_id: 102
-        message:
-          type: string
-          example: x-client-id is missing in the request.
-          description: It displays the outcome of the error.
-        type:
-          type: string
-          example: validation_error
-          description: It displays the type of error.
     DeactivateStaticKYCLinkResponseSchema:
       description: Find the success response of Deactivate Static KYC Link
       type: object
@@ -222,6 +81,147 @@ components:
 
             - `INACTIVE`'
           example: INACTIVE
+    ErrorResponseSchema:
+      description: Response in case of error.
+      type: object
+      properties:
+        code:
+          type: string
+          example: x-client-id_missing
+        error:
+          type: object
+          example:
+            ref_id: 102
+        message:
+          type: string
+          example: x-client-id is missing in the request.
+          description: It displays the outcome of the error.
+        type:
+          type: string
+          example: validation_error
+          description: It displays the type of error.
+  parameters:
+    x_cf_signature:
+      description: Send the signature if IP is not whitelisted
+      name: x-cf-signature
+      in: header
+      required: false
+      schema:
+        type: string
+      example: ''
+  responses:
+    Response500:
+      description: Internal error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Internal Server Error:
+              value:
+                type: internal_error
+                code: request_failed
+                message: Unable to process your request. Try again after some time
+    Response400DeactivateStaticKYCLink:
+      description: Validation error in deactivate Static KYC Link
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Template Name Missing:
+              value:
+                type: validation_error
+                code: template_name_missing
+                message: template_name is missing in the request.
+            Template Name Invalid:
+              value:
+                type: validation_error
+                code: template_name_value_invalid
+                message: template_name should only contains alphanumeric, dot, underscore and hyphen.
+            No Static Link Linked To Template:
+              value:
+                type: validation_error
+                code: static_link_not_linked
+                message: no active static link linked to provided template.
+    Response429:
+      description: Rate limit exceed error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Rate limit error per operation:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_operation
+                message: Too many requests for this operation, rate limit reached
+            Rate limit error per IP:
+              value:
+                type: rate_limit_error
+                code: too_many_requests_per_ip
+                message: Too many requests from the IP, rate limit reached
+    Response403:
+      description: Authentication error (IP not whitelisted)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            IP not whitelisted:
+              value:
+                type: authentication_error
+                code: ip_validation_failed
+                message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
+    DeactivateStaticKYCLinkResponse:
+      description: Response Body for Generate Static KYC Link API
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DeactivateStaticKYCLinkResponseSchema'
+          examples:
+            Success:
+              value:
+                message: Successfully Deactivated
+                template_name: Aadhaar_verification
+                static_link: https://verification.cashfree.com/forms?shortCode=m2bjk9uakkcg
+                status: INACTIVE
+    Response422:
+      description: Validation error because of insufficient balance to process this request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Insufficient balance:
+              value:
+                type: validation_error
+                code: insufficient_balance
+                message: Insufficient balance to process this request
+    Response404StaticKYCLink:
+      description: Not found errors in Static KYC Link
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Template Name not Found:
+              value:
+                type: validation_error
+                code: template_name_not_found
+                message: template_name does not exist
+    Response401:
+      description: Invalid client ID and client secret combination
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Invalid client ID and client secret combination:
+              value:
+                type: authentication_error
+                code: authentication_failed
+                message: Invalid clientId and clientSecret combination
   securitySchemes:
     bearerAuth:
       type: http

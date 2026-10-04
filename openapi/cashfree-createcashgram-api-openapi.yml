@@ -77,6 +77,16 @@ paths:
       - CreateCashgram
 components:
   schemas:
+    inline_response_200_8_data:
+      type: object
+      properties:
+        referenceId:
+          type: integer
+          example: 123456
+          default: 0
+        cashgramLink:
+          type: string
+          example: http://csgr.am/abcdefg
     inline_response_200_8:
       type: object
       properties:
@@ -91,16 +101,6 @@ components:
           example: Cashgram Created
         data:
           $ref: '#/components/schemas/inline_response_200_8_data'
-    inline_response_200_8_data:
-      type: object
-      properties:
-        referenceId:
-          type: integer
-          example: 123456
-          default: 0
-        cashgramLink:
-          type: string
-          example: http://csgr.am/abcdefg
     v1_createCashgram_body:
       required:
       - amount

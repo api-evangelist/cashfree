@@ -154,251 +154,7 @@ paths:
         '502':
           $ref: '#/components/responses/Response502'
 components:
-  responses:
-    Response409:
-      description: Resource already present
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiError409'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response422:
-      description: Idempotency error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/IdempotencyError'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response500:
-      description: API related Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiError'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response400:
-      description: Bad request error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/BadRequestError'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response401:
-      description: Authentication Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/AuthenticationError'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response404:
-      description: Resource Not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiError404'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response502:
-      description: Bank related Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiError502'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
-    Response429:
-      description: Rate Limit Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RateLimitError'
-      headers:
-        x-api-version:
-          $ref: '#/components/headers/x-api-version'
-        x-ratelimit-limit:
-          $ref: '#/components/headers/x-ratelimit-limit'
-        x-ratelimit-remaining:
-          $ref: '#/components/headers/x-ratelimit-remaining'
-        x-ratelimit-retry:
-          $ref: '#/components/headers/x-ratelimit-retry'
-        x-ratelimit-type:
-          $ref: '#/components/headers/x-ratelimit-type'
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-idempotency-key:
-          $ref: '#/components/headers/x-idempotency-key'
-        x-idempotency-replayed:
-          $ref: '#/components/headers/x-idempotency-replayed'
   schemas:
-    PaymentMethodCardlessEMIInPaymentsEntity:
-      title: PaymentMethodCardlessEMIInPaymentsEntity
-      description: payment method carless object in payment entity
-      example:
-        channel: link
-        provider: flexmoney
-        phone: '9908761211'
-      type: object
-      properties:
-        cardless_emi:
-          type: object
-          properties:
-            channel:
-              type: string
-            provider:
-              type: string
-            phone:
-              type: string
-    PaymentMethodCardEMIInPaymentsEntity:
-      title: PaymentMethodCardEMIInPaymentsEntity
-      description: payment method card emi object in payment entity
-      example:
-        channel: link
-        card_number: 41111xxxxxx111
-        card_network: visa
-        card_type: credit_card
-        card_country: IN
-        card_bank_name: HDFC Bank
-        card_network_reference_id: '100212023061229'
-      type: object
-      properties:
-        emi:
-          type: object
-          properties:
-            channel:
-              type: string
-            card_number:
-              type: string
-            card_network:
-              type: string
-            card_type:
-              type: string
-            card_country:
-              type: string
-            card_bank_name:
-              type: string
-            card_network_reference_id:
-              type: string
-            emi_tenure:
-              type: number
-            emi_details:
-              type: object
-              properties:
-                emi_amount:
-                  type: number
-                emi_tenure:
-                  type: number
-                emi_interest:
-                  type: number
     ApiError502:
       title: ApiError502
       description: Error when there is error at partner bank
@@ -422,60 +178,6 @@ components:
           enum:
           - api_error
           description: api_error
-    PaymentMethodPaylaterInPaymentsEntity:
-      title: PaymentMethodPaylaterInPaymentsEntity
-      description: paylater payment method object for pay api
-      example:
-        channel: link
-        provider: lazypay
-        phone: '9908761211'
-      type: object
-      properties:
-        paylater:
-          type: object
-          properties:
-            channel:
-              type: string
-            provider:
-              type: string
-            phone:
-              type: string
-    RateLimitError:
-      title: RateLimitError
-      description: Error when rate limit is breached for your api
-      example:
-        message: Too many requests from IP. Check headers
-        code: request_failed
-        type: rate_limit_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          enum:
-          - rate_limit_error
-          description: rate_limit_error
-    PaymentMethodAppInPaymentsEntity:
-      title: PaymentMethodAppInPaymentsEntity
-      description: payment method app object in payment entity
-      example:
-        channel: link
-        provider: paytm
-        phone: '1234512345'
-      type: object
-      properties:
-        app:
-          type: object
-          properties:
-            channel:
-              type: string
-            provider:
-              type: string
-            phone:
-              type: string
     ErrorDetailsInPaymentsEntity:
       title: ErrorDetailsInPayments
       description: The error details are present only for failed payments
@@ -503,27 +205,90 @@ components:
           type: string
         error_subcode_raw:
           type: string
-    PaymentMethodBankTransferInPaymentsEntity:
-      title: PaymentMethodBankTransferInPaymentsEntity
-      description: payment method bank transfer object in payment entity
+    ApiError409:
+      title: ApiError409
+      description: duplicate request
       example:
-        channel: link
-        banktransfer_bank_name: BANK_TRANSFER
-        banktransfer_ifsc: ''
-        banktransfer_account_number: ''
+        message: order with same id is already present
+        code: order_already_exists
+        type: invalid_request_error
       type: object
       properties:
-        banktransfer:
+        message:
+          type: string
+        help:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+          description: invalid_request_error
+    PaymentMethodPaylaterInPaymentsEntity:
+      title: PaymentMethodPaylaterInPaymentsEntity
+      description: paylater payment method object for pay api
+      example:
+        channel: link
+        provider: lazypay
+        phone: '9908761211'
+      type: object
+      properties:
+        paylater:
           type: object
           properties:
             channel:
               type: string
-            banktransfer_bank_name:
+            provider:
               type: string
-            banktransfer_ifsc:
+            phone:
               type: string
-            banktransfer_account_number:
+    ApiError:
+      title: ApiError
+      description: Error at cashfree's server
+      example:
+        message: internal Server Error
+        code: internal_error
+        type: api_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - api_error
+          description: api_error
+    PaymentMethodNetBankingInPaymentsEntity:
+      title: PaymentMethodNetBankingInPaymentsEntity
+      description: netbanking payment method object for pay
+      example:
+        channel: link
+        netbanking_bank_code: 3044
+        netbanking_bank_name: State Bank of India
+      type: object
+      properties:
+        netbanking:
+          type: object
+          properties:
+            channel:
               type: string
+            netbanking_bank_code:
+              type: integer
+            netbanking_bank_name:
+              type: string
+            netbanking_ifsc:
+              type: string
+            netbanking_account_number:
+              type: string
+      required:
+      - channel
+      - netbanking_bank_name
+      - netbanking_bank_code
     PaymentMethodUPIInPaymentsEntity:
       title: PaymentMethodUPIInPaymentsEntity
       description: UPI payment method for pay api
@@ -547,26 +312,112 @@ components:
               type: string
       required:
       - channel
-    ApiError404:
-      title: ApiError404
-      description: Error when resource requested is not found
+    PaymentMethodCardlessEMIInPaymentsEntity:
+      title: PaymentMethodCardlessEMIInPaymentsEntity
+      description: payment method carless object in payment entity
       example:
-        message: something is not found
-        code: somethind_not_found
-        type: invalid_request_error
+        channel: link
+        provider: flexmoney
+        phone: '9908761211'
+      type: object
+      properties:
+        cardless_emi:
+          type: object
+          properties:
+            channel:
+              type: string
+            provider:
+              type: string
+            phone:
+              type: string
+    InternationalPaymentEntity:
+      title: InternationalPayment
+      description: International payment details
+      type: object
+      properties:
+        international:
+          type: boolean
+    AuthorizationInPaymentsEntity:
+      title: AuthorizationInPayments
+      description: If preauth enabled for account you will get this body
+      example:
+        action: CAPTURE
+        status: PENDING
+        captured_amount: 100
+        start_time: '2022-02-09T18:04:34+05:30'
+        end_time: '2022-02-19T18:04:34+05:30'
+        approve_by: '2022-02-09T18:04:34+05:30'
+        action_reference: '6595231908096894505959'
+        action_time: '2022-08-03T16:09:51'
+      type: object
+      properties:
+        action:
+          type: string
+          enum:
+          - CAPTURE
+          - VOID
+          description: One of CAPTURE or VOID
+        status:
+          type: string
+          enum:
+          - SUCCESS
+          - PENDING
+          description: One of SUCCESS or PENDING
+        captured_amount:
+          type: number
+          description: The captured amount for this authorization request
+        start_time:
+          type: string
+          description: Start time of this authorization hold (only for UPI)
+        end_time:
+          type: string
+          description: End time of this authorization hold (only for UPI)
+        approve_by:
+          type: string
+          description: Approve by time as passed in the authorization request (only for UPI)
+        action_reference:
+          type: string
+          description: 'CAPTURE or VOID reference number based on action '
+        action_time:
+          type: string
+          description: Time of action (CAPTURE or VOID)
+    RateLimitError:
+      title: RateLimitError
+      description: Error when rate limit is breached for your api
+      example:
+        message: Too many requests from IP. Check headers
+        code: request_failed
+        type: rate_limit_error
       type: object
       properties:
         message:
           type: string
         code:
           type: string
-        help:
-          type: string
         type:
           type: string
           enum:
-          - invalid_request_error
-          description: invalid_request_error
+          - rate_limit_error
+          description: rate_limit_error
+    PaymentGatewayDetails:
+      title: PaymentGatewayDetails
+      type: object
+      description: payment gateway details present in the webhook response
+      properties:
+        gateway_name:
+          type: string
+        gateway_order_id:
+          type: string
+        gateway_payment_id:
+          type: string
+        gateway_order_reference_id:
+          type: string
+        gateway_status_code:
+          type: string
+        gateway_settlement:
+          type: string
+        gateway_reference_name:
+          type: string
     PaymentEntity:
       title: PaymentEntity
       type: object
@@ -644,6 +495,86 @@ components:
             payment_surcharge_service_tax:
               type: number
               format: float64
+    PaymentMethodBankTransferInPaymentsEntity:
+      title: PaymentMethodBankTransferInPaymentsEntity
+      description: payment method bank transfer object in payment entity
+      example:
+        channel: link
+        banktransfer_bank_name: BANK_TRANSFER
+        banktransfer_ifsc: ''
+        banktransfer_account_number: ''
+      type: object
+      properties:
+        banktransfer:
+          type: object
+          properties:
+            channel:
+              type: string
+            banktransfer_bank_name:
+              type: string
+            banktransfer_ifsc:
+              type: string
+            banktransfer_account_number:
+              type: string
+    PaymentMethodAppInPaymentsEntity:
+      title: PaymentMethodAppInPaymentsEntity
+      description: payment method app object in payment entity
+      example:
+        channel: link
+        provider: paytm
+        phone: '1234512345'
+      type: object
+      properties:
+        app:
+          type: object
+          properties:
+            channel:
+              type: string
+            provider:
+              type: string
+            phone:
+              type: string
+    PaymentMethodCardEMIInPaymentsEntity:
+      title: PaymentMethodCardEMIInPaymentsEntity
+      description: payment method card emi object in payment entity
+      example:
+        channel: link
+        card_number: 41111xxxxxx111
+        card_network: visa
+        card_type: credit_card
+        card_country: IN
+        card_bank_name: HDFC Bank
+        card_network_reference_id: '100212023061229'
+      type: object
+      properties:
+        emi:
+          type: object
+          properties:
+            channel:
+              type: string
+            card_number:
+              type: string
+            card_network:
+              type: string
+            card_type:
+              type: string
+            card_country:
+              type: string
+            card_bank_name:
+              type: string
+            card_network_reference_id:
+              type: string
+            emi_tenure:
+              type: number
+            emi_details:
+              type: object
+              properties:
+                emi_amount:
+                  type: number
+                emi_tenure:
+                  type: number
+                emi_interest:
+                  type: number
     AuthenticationError:
       title: AuthenticationError
       description: Error if api keys are wrong
@@ -660,51 +591,6 @@ components:
         type:
           type: string
           description: authentication_error
-    BadRequestError:
-      title: BadRequestError
-      description: Invalid request received from client
-      example:
-        message: bad URL, please check API documentation
-        code: request_failed
-        type: invalid_request_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        help:
-          type: string
-        type:
-          type: string
-          enum:
-          - invalid_request_error
-    PaymentMethodNetBankingInPaymentsEntity:
-      title: PaymentMethodNetBankingInPaymentsEntity
-      description: netbanking payment method object for pay
-      example:
-        channel: link
-        netbanking_bank_code: 3044
-        netbanking_bank_name: State Bank of India
-      type: object
-      properties:
-        netbanking:
-          type: object
-          properties:
-            channel:
-              type: string
-            netbanking_bank_code:
-              type: integer
-            netbanking_bank_name:
-              type: string
-            netbanking_ifsc:
-              type: string
-            netbanking_account_number:
-              type: string
-      required:
-      - channel
-      - netbanking_bank_name
-      - netbanking_bank_code
     IdempotencyError:
       title: IdempotencyError
       description: Error when idempotency fails. Different request body with the same idempotent key
@@ -725,6 +611,45 @@ components:
           enum:
           - idempotency_error
           description: idempotency_error
+    ApiError404:
+      title: ApiError404
+      description: Error when resource requested is not found
+      example:
+        message: something is not found
+        code: somethind_not_found
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
+          description: invalid_request_error
+    BadRequestError:
+      title: BadRequestError
+      description: Invalid request received from client
+      example:
+        message: bad URL, please check API documentation
+        code: request_failed
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
     PaymentMethodCardInPaymentsEntity:
       title: PaymentMethodCardInPaymentsEntity
       description: payment method card object in payment entity
@@ -758,225 +683,191 @@ components:
               type: string
             instrument_id:
               type: string
-    ApiError:
-      title: ApiError
-      description: Error at cashfree's server
-      example:
-        message: internal Server Error
-        code: internal_error
-        type: api_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        help:
-          type: string
-        type:
-          type: string
-          enum:
-          - api_error
-          description: api_error
-    AuthorizationInPaymentsEntity:
-      title: AuthorizationInPayments
-      description: If preauth enabled for account you will get this body
-      example:
-        action: CAPTURE
-        status: PENDING
-        captured_amount: 100
-        start_time: '2022-02-09T18:04:34+05:30'
-        end_time: '2022-02-19T18:04:34+05:30'
-        approve_by: '2022-02-09T18:04:34+05:30'
-        action_reference: '6595231908096894505959'
-        action_time: '2022-08-03T16:09:51'
-      type: object
-      properties:
-        action:
-          type: string
-          enum:
-          - CAPTURE
-          - VOID
-          description: One of CAPTURE or VOID
-        status:
-          type: string
-          enum:
-          - SUCCESS
-          - PENDING
-          description: One of SUCCESS or PENDING
-        captured_amount:
-          type: number
-          description: The captured amount for this authorization request
-        start_time:
-          type: string
-          description: Start time of this authorization hold (only for UPI)
-        end_time:
-          type: string
-          description: End time of this authorization hold (only for UPI)
-        approve_by:
-          type: string
-          description: Approve by time as passed in the authorization request (only for UPI)
-        action_reference:
-          type: string
-          description: 'CAPTURE or VOID reference number based on action '
-        action_time:
-          type: string
-          description: Time of action (CAPTURE or VOID)
-    PaymentGatewayDetails:
-      title: PaymentGatewayDetails
-      type: object
-      description: payment gateway details present in the webhook response
-      properties:
-        gateway_name:
-          type: string
-        gateway_order_id:
-          type: string
-        gateway_payment_id:
-          type: string
-        gateway_order_reference_id:
-          type: string
-        gateway_status_code:
-          type: string
-        gateway_settlement:
-          type: string
-        gateway_reference_name:
-          type: string
-    InternationalPaymentEntity:
-      title: InternationalPayment
-      description: International payment details
-      type: object
-      properties:
-        international:
-          type: boolean
-    ApiError409:
-      title: ApiError409
-      description: duplicate request
-      example:
-        message: order with same id is already present
-        code: order_already_exists
-        type: invalid_request_error
-      type: object
-      properties:
-        message:
-          type: string
-        help:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-          enum:
-          - invalid_request_error
-          description: invalid_request_error
-  headers:
-    x-idempotency-replayed:
-      schema:
-        type: string
-        format: boolean
-      example: 'true'
-      description: 'In conjunction with `x-idempotency-key` this means
-
-        - `true` if the response was replayed
-
-        - `false` if the response has not been replayed'
-    x-api-version:
-      schema:
-        type: string
-        format: YYYY-MM-DD
-        enum:
-        - '2022-09-01'
-      description: This header has the version of the API. The current version is `2022-09-01`.
-    x-idempotency-key:
-      schema:
-        type: string
-      example: some-idem-id
-      description: An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.
-    x-request-id:
-      schema:
-        type: string
-      example: some-req-id
-      description: Request id for your api call. Is blank or null if no `x-request-id` is sent during the request
-    x-ratelimit-remaining:
-      schema:
-        type: integer
-      example: 2
-      description: Rate limit remaning for your account for this API in the next minute. Uses sliding window
-    x-ratelimit-retry:
-      schema:
-        type: integer
-      example: 4
-      description: 'Contains number of seconds to wait if rate limit is breached
-
-        - Is 0 if withing the limit
-
-        - Is between 1 and 59 if breached
-
-        '
-    x-ratelimit-type:
-      schema:
-        type: string
-        enum:
-        - app_id
-        - ip
-      example: ip
-      description: 'either ip or app_id
-
-        - `ip` if making a call from the browser. True for api where you don''t need `x-client-id` and `x-client-secret`
-
-        - `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`
-
-        '
-    x-ratelimit-limit:
-      schema:
-        type: integer
-      example: 200
-      description: Ratelimit set for your account for this API per minute
-  parameters:
-    cfPaymentIDParam:
-      name: cf_payment_id
-      in: path
-      required: true
-      description: The Cashfree payment or transaction ID.
-      schema:
-        type: string
-      example: '121224562'
-    orderIDParam:
-      name: order_id
-      in: path
-      required: true
-      description: The id which uniquely identifies your order
-      schema:
-        type: string
-      example: your-order-id
-    apiVersionHeader:
-      in: header
-      name: x-api-version
-      description: API version to be used. Format is in YYYY-MM-DD
-      schema:
-        type: string
-        description: API version to be used
-        default: '2025-01-01'
-      example: '2025-01-01'
-      x-ignore: true
-    xIdempotencyKeyHeader:
-      in: header
-      name: x-idempotency-key
-      required: false
-      description: 'An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.
-
-        '
-      schema:
-        type: string
-        format: UUID
-      example: 47bf8872-46fe-11ee-be56-0242ac120002
-    xRequestIDHeader:
-      in: header
-      name: x-request-id
-      description: Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.
-      required: false
-      schema:
-        type: string
-      example: 4dfb9780-46fe-11ee-be56-0242ac120002
+  responses:
+    Response404:
+      description: Resource Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError404'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response401:
+      description: Authentication Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AuthenticationError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response409:
+      description: Resource already present
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError409'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response400:
+      description: Bad request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response500:
+      description: API related Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response502:
+      description: Bank related Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError502'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response429:
+      description: Rate Limit Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
+    Response422:
+      description: Idempotency error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IdempotencyError'
+      headers:
+        x-api-version:
+          $ref: '#/components/headers/x-api-version'
+        x-ratelimit-limit:
+          $ref: '#/components/headers/x-ratelimit-limit'
+        x-ratelimit-remaining:
+          $ref: '#/components/headers/x-ratelimit-remaining'
+        x-ratelimit-retry:
+          $ref: '#/components/headers/x-ratelimit-retry'
+        x-ratelimit-type:
+          $ref: '#/components/headers/x-ratelimit-type'
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-idempotency-key:
+          $ref: '#/components/headers/x-idempotency-key'
+        x-idempotency-replayed:
+          $ref: '#/components/headers/x-idempotency-replayed'
   examples:
     payments_entity_list_example:
       description: Payments Entity List Example
@@ -1090,6 +981,115 @@ components:
           gateway_order_reference_id: ZD5WO253
           gateway_settlement: cashfree
           gateway_reference_name: ''
+  parameters:
+    cfPaymentIDParam:
+      name: cf_payment_id
+      in: path
+      required: true
+      description: The Cashfree payment or transaction ID.
+      schema:
+        type: string
+      example: '121224562'
+    orderIDParam:
+      name: order_id
+      in: path
+      required: true
+      description: The id which uniquely identifies your order
+      schema:
+        type: string
+      example: your-order-id
+    xRequestIDHeader:
+      in: header
+      name: x-request-id
+      description: Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.
+      required: false
+      schema:
+        type: string
+      example: 4dfb9780-46fe-11ee-be56-0242ac120002
+    apiVersionHeader:
+      in: header
+      name: x-api-version
+      description: API version to be used. Format is in YYYY-MM-DD
+      schema:
+        type: string
+        description: API version to be used
+        default: '2025-01-01'
+      example: '2025-01-01'
+      x-ignore: true
+    xIdempotencyKeyHeader:
+      in: header
+      name: x-idempotency-key
+      required: false
+      description: 'An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.
+
+        '
+      schema:
+        type: string
+        format: UUID
+      example: 47bf8872-46fe-11ee-be56-0242ac120002
+  headers:
+    x-ratelimit-retry:
+      schema:
+        type: integer
+      example: 4
+      description: 'Contains number of seconds to wait if rate limit is breached
+
+        - Is 0 if withing the limit
+
+        - Is between 1 and 59 if breached
+
+        '
+    x-ratelimit-limit:
+      schema:
+        type: integer
+      example: 200
+      description: Ratelimit set for your account for this API per minute
+    x-ratelimit-type:
+      schema:
+        type: string
+        enum:
+        - app_id
+        - ip
+      example: ip
+      description: 'either ip or app_id
+
+        - `ip` if making a call from the browser. True for api where you don''t need `x-client-id` and `x-client-secret`
+
+        - `app_id` for authenticated api calls i.e using `x-client-id` and `x-client-secret`
+
+        '
+    x-ratelimit-remaining:
+      schema:
+        type: integer
+      example: 2
+      description: Rate limit remaning for your account for this API in the next minute. Uses sliding window
+    x-api-version:
+      schema:
+        type: string
+        format: YYYY-MM-DD
+        enum:
+        - '2022-09-01'
+      description: This header has the version of the API. The current version is `2022-09-01`.
+    x-idempotency-replayed:
+      schema:
+        type: string
+        format: boolean
+      example: 'true'
+      description: 'In conjunction with `x-idempotency-key` this means
+
+        - `true` if the response was replayed
+
+        - `false` if the response has not been replayed'
+    x-idempotency-key:
+      schema:
+        type: string
+      example: some-idem-id
+      description: An idempotency key is a unique identifier you include with your API call. If the request fails or times out, you can safely retry it using the same key to avoid duplicate actions.
+    x-request-id:
+      schema:
+        type: string
+      example: some-req-id
+      description: Request id for your api call. Is blank or null if no `x-request-id` is sent during the request
   securitySchemes:
     XClientID:
       type: apiKey

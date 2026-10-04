@@ -54,6 +54,31 @@ paths:
       tags:
       - Authorize
 components:
+  schemas:
+    inline_response_200_10:
+      type: object
+      properties:
+        status:
+          type: string
+          example: SUCCESS
+        subCode:
+          type: string
+          example: '200'
+        message:
+          type: string
+          example: Token is valid
+    inline_response_401:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ERROR
+        subCode:
+          type: string
+          example: '401'
+        message:
+          type: string
+          example: Invalid clientId and clientSecret combination
   parameters:
     xRequestIDHeader:
       in: header
@@ -72,31 +97,6 @@ components:
         description: It is the API version to be used.
         default: '2024-01-01'
       example: '2024-01-01'
-  schemas:
-    inline_response_401:
-      type: object
-      properties:
-        status:
-          type: string
-          example: ERROR
-        subCode:
-          type: string
-          example: '401'
-        message:
-          type: string
-          example: Invalid clientId and clientSecret combination
-    inline_response_200_10:
-      type: object
-      properties:
-        status:
-          type: string
-          example: SUCCESS
-        subCode:
-          type: string
-          example: '200'
-        message:
-          type: string
-          example: Token is valid
   securitySchemes:
     XClientID:
       type: apiKey

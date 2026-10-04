@@ -92,6 +92,20 @@ components:
         message:
           type: string
           example: Cashgram with id JOHaN10 does not exists
+    inline_response_200_11:
+      type: object
+      properties:
+        status:
+          type: string
+          example: SUCCESS
+        subCode:
+          type: string
+          example: '200'
+        message:
+          type: string
+          example: Cashgram details retrieved
+        data:
+          $ref: '#/components/schemas/inline_response_200_11_data'
     inline_response_200_11_data:
       type: object
       properties:
@@ -108,20 +122,6 @@ components:
         cashgramLink:
           type: string
           example: http://csgr.am/abcdefg
-    inline_response_200_11:
-      type: object
-      properties:
-        status:
-          type: string
-          example: SUCCESS
-        subCode:
-          type: string
-          example: '200'
-        message:
-          type: string
-          example: Cashgram details retrieved
-        data:
-          $ref: '#/components/schemas/inline_response_200_11_data'
   securitySchemes:
     XClientID:
       type: apiKey

@@ -55,58 +55,48 @@ paths:
         '500':
           $ref: '#/components/responses/Response500'
 components:
-  examples:
-    VerificationIdMissing:
-      value:
-        type: validation_error
-        code: verification_id_missing
-        message: verification_id is missing in the request.
-    UsingTestCredentialsInProd:
-      value:
-        type: validation_error
-        code: x-client-secret_value_invalid
-        message: Client secret belongs to test environment
-    VerificationIdWithSpecialCharacter:
-      value:
-        type: validation_error
-        code: verification_id_value_invalid
-        message: verification_id can include only alphanum, dot, hyphen and underscores.
-    XClientIdMissing:
-      value:
-        type: validation_error
-        code: x-client-id_missing
-        message: x-client-id is missing in the request.
   responses:
-    Response422:
-      description: Validation error because of insufficient balance to process this request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Insufficient balance:
-              value:
-                type: validation_error
-                code: insufficient_balance
-                message: Insufficient balance to process this request
-    Response500:
-      description: Internal error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseSchema'
-          examples:
-            Internal Server Error:
-              value:
-                type: internal_error
-                code: request_failed
-                message: Unable to process your request. Try again after some time
     GenerateFormLinkResponse:
       description: Response Body for Generate KYC Link API
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/GenerateFormLinkResponseSchema'
+    Response400KYCLinkGeneration:
+      description: Validation errors for Generate KYC Link API
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Verification ID Missing:
+              $ref: '#/components/examples/VerificationIdMissing'
+            Verification ID With Special Chars:
+              $ref: '#/components/examples/VerificationIdWithSpecialCharacter'
+            Verification_id Character Limit Exceeded:
+              value:
+                type: validation_error
+                code: verification_id_length_exceeded
+                message: verification_id can include a maximum of 50 characters.
+            Name Invalid:
+              value:
+                type: validation_error
+                code: name_value_invalid
+                message: name should only contains alphanumeric, space, dot and hyphen.
+            Template Name Invalid:
+              value:
+                type: validation_error
+                code: Bad request, please check API documentation
+                message: template name should be valid
+            Expiry Date Invalid:
+              value:
+                type: validation_error
+                code: REQUEST_INVALID
+                message: Please enter valid expiry date
+            Client ID/Client Secret in Missing:
+              $ref: '#/components/examples/XClientIdMissing'
+            Using-Test-Credentials-in-Prod:
+              $ref: '#/components/examples/UsingTestCredentialsInProd'
     Response401:
       description: Invalid client ID and client secret combination
       content:
@@ -143,6 +133,18 @@ components:
                 type: authentication_error
                 code: ip_validation_failed
                 message: IP not whitelisted your current ip is 106.51.91.104.For IP whitelisting assistance, visit our guide at https://www.cashfree.com/docs/secure-id/get-started/integration/ip-whitelisting-verification
+    Response500:
+      description: Internal error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseSchema'
+          examples:
+            Internal Server Error:
+              value:
+                type: internal_error
+                code: request_failed
+                message: Unable to process your request. Try again after some time
     Response429:
       description: Rate limit exceed error.
       content:
@@ -160,69 +162,51 @@ components:
                 type: rate_limit_error
                 code: too_many_requests_per_ip
                 message: Too many requests from the IP, rate limit reached
-    Response400KYCLinkGeneration:
-      description: Validation errors for Generate KYC Link API
+    Response422:
+      description: Validation error because of insufficient balance to process this request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseSchema'
           examples:
-            Verification ID Missing:
-              $ref: '#/components/examples/VerificationIdMissing'
-            Verification ID With Special Chars:
-              $ref: '#/components/examples/VerificationIdWithSpecialCharacter'
-            Verification_id Character Limit Exceeded:
+            Insufficient balance:
               value:
                 type: validation_error
-                code: verification_id_length_exceeded
-                message: verification_id can include a maximum of 50 characters.
-            Name Invalid:
-              value:
-                type: validation_error
-                code: name_value_invalid
-                message: name should only contains alphanumeric, space, dot and hyphen.
-            Template Name Invalid:
-              value:
-                type: validation_error
-                code: Bad request, please check API documentation
-                message: template name should be valid
-            Expiry Date Invalid:
-              value:
-                type: validation_error
-                code: REQUEST_INVALID
-                message: Please enter valid expiry date
-            Client ID/Client Secret in Missing:
-              $ref: '#/components/examples/XClientIdMissing'
-            Using-Test-Credentials-in-Prod:
-              $ref: '#/components/examples/UsingTestCredentialsInProd'
+                code: insufficient_balance
+                message: Insufficient balance to process this request
   schemas:
-    ErrorResponseSchema:
-      description: Response in case of error.
+    GenerateFormLinkResponseSchema:
+      description: Find the success response of Generate KYC Link
       type: object
       properties:
-        code:
+        name:
           type: string
-          example: x-client-id_missing
-        error:
-          type: object
-          example:
-            ref_id: 102
-        message:
+          description: It displays the name of the individual.
+          example: John Doe
+        phone:
           type: string
-          example: x-client-id is missing in the request.
-          description: It displays the outcome of the error.
-        type:
+          description: It displays the phone number of the individual.
+          example: '9999999999'
+        email:
           type: string
-          example: validation_error
-          description: It displays the type of error.
-    whatsappString:
-      description: Whatsapp string
-      type: string
-      example: whatsapp
-    emailString:
-      description: Email string
-      type: string
-      example: email
+          description: It displays the email address of the individual.
+          example: test@cashfree.com
+        verification_id:
+          type: string
+          description: It displays the unique ID you created to identity the form.
+          example: ABC00123
+        reference_id:
+          type: integer
+          description: It displays the unique ID created by Cashfree Payments for reference purposes.
+          example: 235461
+        form_link:
+          type: string
+          description: It displays the URL of the KYC Link.
+          example: https://forms-test.cashfree.com/verification/Y7tpcan5ksm0
+        form_status:
+          type: string
+          description: It displays the status of the form.
+          example: RECEIVED
     GenerateKYCLinkRequestSchema:
       description: Request Body Schema for Generate KYC Link
       type: object
@@ -263,42 +247,37 @@ components:
           type: string
           description: It is the unique ID you created to identify the KYC link.
           example: ABC00123
+    emailString:
+      description: Email string
+      type: string
+      example: email
+    whatsappString:
+      description: Whatsapp string
+      type: string
+      example: whatsapp
+    ErrorResponseSchema:
+      description: Response in case of error.
+      type: object
+      properties:
+        code:
+          type: string
+          example: x-client-id_missing
+        error:
+          type: object
+          example:
+            ref_id: 102
+        message:
+          type: string
+          example: x-client-id is missing in the request.
+          description: It displays the outcome of the error.
+        type:
+          type: string
+          example: validation_error
+          description: It displays the type of error.
     smsString:
       description: SMS string
       type: string
       example: sms
-    GenerateFormLinkResponseSchema:
-      description: Find the success response of Generate KYC Link
-      type: object
-      properties:
-        name:
-          type: string
-          description: It displays the name of the individual.
-          example: John Doe
-        phone:
-          type: string
-          description: It displays the phone number of the individual.
-          example: '9999999999'
-        email:
-          type: string
-          description: It displays the email address of the individual.
-          example: test@cashfree.com
-        verification_id:
-          type: string
-          description: It displays the unique ID you created to identity the form.
-          example: ABC00123
-        reference_id:
-          type: integer
-          description: It displays the unique ID created by Cashfree Payments for reference purposes.
-          example: 235461
-        form_link:
-          type: string
-          description: It displays the URL of the KYC Link.
-          example: https://forms-test.cashfree.com/verification/Y7tpcan5ksm0
-        form_status:
-          type: string
-          description: It displays the status of the form.
-          example: RECEIVED
   parameters:
     x_cf_signature:
       description: Send the signature if IP is not whitelisted
@@ -308,6 +287,27 @@ components:
       schema:
         type: string
       example: ''
+  examples:
+    VerificationIdWithSpecialCharacter:
+      value:
+        type: validation_error
+        code: verification_id_value_invalid
+        message: verification_id can include only alphanum, dot, hyphen and underscores.
+    XClientIdMissing:
+      value:
+        type: validation_error
+        code: x-client-id_missing
+        message: x-client-id is missing in the request.
+    VerificationIdMissing:
+      value:
+        type: validation_error
+        code: verification_id_missing
+        message: verification_id is missing in the request.
+    UsingTestCredentialsInProd:
+      value:
+        type: validation_error
+        code: x-client-secret_value_invalid
+        message: Client secret belongs to test environment
   x-elicitationConfig:
     VrsGenerateKYCLink:
       enabled: true

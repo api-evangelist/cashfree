@@ -54,144 +54,19 @@ paths:
         '409':
           $ref: '#/components/responses/Response409ESOrderRecon'
 components:
-  schemas:
-    ESOrderReconResponse:
-      title: ESOrderReconResponse
-      description: ES Order Recon Response
-      type: object
-      properties:
-        cursor:
-          type: string
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              amount:
-                type: number
-                format: float64
-              settlement_eligibility_time:
-                type: string
-              status:
-                type: string
-              merchant_order_id:
-                type: string
-              tx_time:
-                type: string
-              settled:
-                type: string
-              entity_id:
-                type: string
-              merchant_settlement_utr:
-                type: string
-              currency:
-                type: string
-              sale_type:
-                type: string
-              customer_name:
-                type: string
-              customer_email:
-                type: string
-              customer_phone:
-                type: string
-              merchant_vendor_commission:
-                type: string
-              split_service_charge:
-                type: string
-              split_service_tax:
-                type: string
-              pg_service_tax:
-                type: string
-              pg_service_charge:
-                type: string
-              pg_charge_postpaid:
-                type: string
-              merchant_settlement_id:
-                type: string
-              added_on:
-                type: string
-              tags:
-                type: string
-              entity_type:
-                type: string
-              settlement_initiated_on:
-                type: string
-              settlement_time:
-                type: string
-              order_splits:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    split:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          merchant_vendor_id:
-                            type: string
-                          percentage:
-                            type: number
-                            format: float64
-                          tags:
-                            type: object
-                    created_at:
-                      type: string
-              eligible_split_balance:
-                type: string
-        limit:
-          type: integer
-    ESOrderReconRequest:
-      title: ESOrderReconRequest
-      description: ES Order Recon Request
-      type: object
-      properties:
-        filters:
-          type: object
-          description: Provide the filter object details.
-          properties:
-            start_date:
-              type: string
-              description: Specify the start data from which you want to get the recon data.
-            end_date:
-              type: string
-              description: Specify the end data till which you want to get the recon data.
-            order_ids:
-              type: array
-              description: Please provide list of order ids for which you want to get the recon data.
-              items:
-                type: string
-        pagination:
-          type: object
-          description: Set limit based on your requirement. Pagination limit will fetch a set of orders, next set of orders can be generated using the cursor shared in previous response of the same API.
-          properties:
-            cursor:
-              type: string
-            limit:
-              type: integer
-              description: Set the minimum/maximum limit for number of filtered data. Min value - 10, Max value - 100.
-      required:
-      - filters
-      - pagination
-    BadRequestError:
-      title: BadRequestError
-      description: Invalid request received from client
-      example:
-        message: bad URL, please check API documentation
-        code: request_failed
-        type: invalid_request_error
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        help:
-          type: string
-        type:
-          type: string
-          enum:
-          - invalid_request_error
+  requestBodies:
+    ESOrderReconRequestBody:
+      description: Get Split and Settlement Details by OrderID v2.0
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ESOrderReconRequest'
+          example:
+            filters:
+              start_date: null
+              end_date: null
+              order_ids:
+              - order_1527072afd7Hlp4lpVLiz7dj0P0i84r1X
   responses:
     Response400ESOrderRecon:
       description: ES Order Recon Failure Response.
@@ -331,31 +206,145 @@ components:
                 message: Order not found
                 code: order_not_found
                 type: invalid_request_error
-  requestBodies:
-    ESOrderReconRequestBody:
-      description: Get Split and Settlement Details by OrderID v2.0
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ESOrderReconRequest'
-          example:
-            filters:
-              start_date: null
-              end_date: null
-              order_ids:
-              - order_1527072afd7Hlp4lpVLiz7dj0P0i84r1X
+  schemas:
+    ESOrderReconRequest:
+      title: ESOrderReconRequest
+      description: ES Order Recon Request
+      type: object
+      properties:
+        filters:
+          type: object
+          description: Provide the filter object details.
+          properties:
+            start_date:
+              type: string
+              description: Specify the start data from which you want to get the recon data.
+            end_date:
+              type: string
+              description: Specify the end data till which you want to get the recon data.
+            order_ids:
+              type: array
+              description: Please provide list of order ids for which you want to get the recon data.
+              items:
+                type: string
+        pagination:
+          type: object
+          description: Set limit based on your requirement. Pagination limit will fetch a set of orders, next set of orders can be generated using the cursor shared in previous response of the same API.
+          properties:
+            cursor:
+              type: string
+            limit:
+              type: integer
+              description: Set the minimum/maximum limit for number of filtered data. Min value - 10, Max value - 100.
+      required:
+      - filters
+      - pagination
+    ESOrderReconResponse:
+      title: ESOrderReconResponse
+      description: ES Order Recon Response
+      type: object
+      properties:
+        cursor:
+          type: string
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              amount:
+                type: number
+                format: float64
+              settlement_eligibility_time:
+                type: string
+              status:
+                type: string
+              merchant_order_id:
+                type: string
+              tx_time:
+                type: string
+              settled:
+                type: string
+              entity_id:
+                type: string
+              merchant_settlement_utr:
+                type: string
+              currency:
+                type: string
+              sale_type:
+                type: string
+              customer_name:
+                type: string
+              customer_email:
+                type: string
+              customer_phone:
+                type: string
+              merchant_vendor_commission:
+                type: string
+              split_service_charge:
+                type: string
+              split_service_tax:
+                type: string
+              pg_service_tax:
+                type: string
+              pg_service_charge:
+                type: string
+              pg_charge_postpaid:
+                type: string
+              merchant_settlement_id:
+                type: string
+              added_on:
+                type: string
+              tags:
+                type: string
+              entity_type:
+                type: string
+              settlement_initiated_on:
+                type: string
+              settlement_time:
+                type: string
+              order_splits:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    split:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          merchant_vendor_id:
+                            type: string
+                          percentage:
+                            type: number
+                            format: float64
+                          tags:
+                            type: object
+                    created_at:
+                      type: string
+              eligible_split_balance:
+                type: string
+        limit:
+          type: integer
+    BadRequestError:
+      title: BadRequestError
+      description: Invalid request received from client
+      example:
+        message: bad URL, please check API documentation
+        code: request_failed
+        type: invalid_request_error
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        help:
+          type: string
+        type:
+          type: string
+          enum:
+          - invalid_request_error
   parameters:
-    xIdempotencyKeyHeader:
-      in: header
-      name: x-idempotency-key
-      required: false
-      description: 'An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.
-
-        '
-      schema:
-        type: string
-        format: UUID
-      example: 47bf8872-46fe-11ee-be56-0242ac120002
     xRequestIDHeader:
       in: header
       name: x-request-id
@@ -374,6 +363,17 @@ components:
         default: '2025-01-01'
       example: '2025-01-01'
       x-ignore: true
+    xIdempotencyKeyHeader:
+      in: header
+      name: x-idempotency-key
+      required: false
+      description: 'An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.
+
+        '
+      schema:
+        type: string
+        format: UUID
+      example: 47bf8872-46fe-11ee-be56-0242ac120002
   securitySchemes:
     XClientID:
       type: apiKey
