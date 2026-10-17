@@ -80,6 +80,22 @@ paths:
       - GetCashgramStatus
 components:
   schemas:
+    inline_response_200_11_data:
+      type: object
+      properties:
+        cashgramStatus:
+          type: string
+          example: ACTIVE
+        referenceId:
+          type: integer
+          example: 123456
+          default: 0
+        cashgramId:
+          type: string
+          example: JOHaN10
+        cashgramLink:
+          type: string
+          example: http://csgr.am/abcdefg
     inline_response_404_4:
       type: object
       properties:
@@ -106,22 +122,6 @@ components:
           example: Cashgram details retrieved
         data:
           $ref: '#/components/schemas/inline_response_200_11_data'
-    inline_response_200_11_data:
-      type: object
-      properties:
-        cashgramStatus:
-          type: string
-          example: ACTIVE
-        referenceId:
-          type: integer
-          example: 123456
-          default: 0
-        cashgramId:
-          type: string
-          example: JOHaN10
-        cashgramLink:
-          type: string
-          example: http://csgr.am/abcdefg
   securitySchemes:
     XClientID:
       type: apiKey

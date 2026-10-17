@@ -54,20 +54,49 @@ paths:
         '409':
           $ref: '#/components/responses/Response409ESOrderRecon'
 components:
-  requestBodies:
-    ESOrderReconRequestBody:
-      description: Get Split and Settlement Details by OrderID v2.0
+  parameters:
+    apiVersionHeader:
+      in: header
+      name: x-api-version
+      description: API version to be used. Format is in YYYY-MM-DD
+      schema:
+        type: string
+        description: API version to be used
+        default: '2025-01-01'
+      example: '2025-01-01'
+      x-ignore: true
+    xIdempotencyKeyHeader:
+      in: header
+      name: x-idempotency-key
+      required: false
+      description: 'An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.
+
+        '
+      schema:
+        type: string
+        format: UUID
+      example: 47bf8872-46fe-11ee-be56-0242ac120002
+    xRequestIDHeader:
+      in: header
+      name: x-request-id
+      description: Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.
+      required: false
+      schema:
+        type: string
+      example: 4dfb9780-46fe-11ee-be56-0242ac120002
+  responses:
+    Response409ESOrderRecon:
+      description: ES Order Recon Failure Response.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ESOrderReconRequest'
-          example:
-            filters:
-              start_date: null
-              end_date: null
-              order_ids:
-              - order_1527072afd7Hlp4lpVLiz7dj0P0i84r1X
-  responses:
+            $ref: '#/components/schemas/BadRequestError'
+          examples:
+            Settlement already initiated to merchant:
+              value:
+                message: Transaction already processed, not eligible for split
+                code: api_request_failed
+                type: invalid_request_error
     Response400ESOrderRecon:
       description: ES Order Recon Failure Response.
       content:
@@ -80,17 +109,17 @@ components:
                 message: At least one of the filters needs to be present orderIds or Date
                 code: request_failed
                 type: invalid_request_error
-    Response409ESOrderRecon:
+    Response404ESOrderRecon:
       description: ES Order Recon Failure Response.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/BadRequestError'
           examples:
-            Settlement already initiated to merchant:
+            Order not found:
               value:
-                message: Transaction already processed, not eligible for split
-                code: api_request_failed
+                message: Order not found
+                code: order_not_found
                 type: invalid_request_error
     ESOrderReconSuccessResponse:
       description: ES Order Recon Success Response.
@@ -194,18 +223,6 @@ components:
                   settlementId: 84
                   settlementAmount: 150
                   settlementEligibilityDate: '2022-10-14 15:00:00'
-    Response404ESOrderRecon:
-      description: ES Order Recon Failure Response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/BadRequestError'
-          examples:
-            Order not found:
-              value:
-                message: Order not found
-                code: order_not_found
-                type: invalid_request_error
   schemas:
     ESOrderReconRequest:
       title: ESOrderReconRequest
@@ -344,36 +361,19 @@ components:
           type: string
           enum:
           - invalid_request_error
-  parameters:
-    xRequestIDHeader:
-      in: header
-      name: x-request-id
-      description: Request ID for the API call. It can be used to resolve technical issues. Include this in your tech-related queries to Cashfree.
-      required: false
-      schema:
-        type: string
-      example: 4dfb9780-46fe-11ee-be56-0242ac120002
-    apiVersionHeader:
-      in: header
-      name: x-api-version
-      description: API version to be used. Format is in YYYY-MM-DD
-      schema:
-        type: string
-        description: API version to be used
-        default: '2025-01-01'
-      example: '2025-01-01'
-      x-ignore: true
-    xIdempotencyKeyHeader:
-      in: header
-      name: x-idempotency-key
-      required: false
-      description: 'An idempotency key is a unique identifier in your API call. If the request fails or times out, you can retry it with the same key to prevent duplicate actions.
-
-        '
-      schema:
-        type: string
-        format: UUID
-      example: 47bf8872-46fe-11ee-be56-0242ac120002
+  requestBodies:
+    ESOrderReconRequestBody:
+      description: Get Split and Settlement Details by OrderID v2.0
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ESOrderReconRequest'
+          example:
+            filters:
+              start_date: null
+              end_date: null
+              order_ids:
+              - order_1527072afd7Hlp4lpVLiz7dj0P0i84r1X
   securitySchemes:
     XClientID:
       type: apiKey
