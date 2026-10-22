@@ -83,3 +83,43 @@
     detected: '2026-10-21'
   status: not-a-workflow
   arazzo: null
+- slug: cashfree-rbi-authorised-payment-system-operators-payment-and-settlement-systems-act-2007
+  label: RBI authorised payment system operators (Payment and Settlement Systems Act, 2007)
+  partner_name: RBI authorised payment system operators (Payment and Settlement Systems Act, 2007)
+  category: India RBI-authorised payment system operator (Payment Aggregators, Prepaid Payment Instruments)
+  type: register
+  channel: regulator-register
+  evidence: https://www.rbi.org.in/Scripts/PublicationsView.aspx?id=12043
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: RBI authorised payment system operators (Payment and Settlement Systems Act, 2007)
+    spec_file: null
+    standard: null
+    role: payment-aggregator
+    registrations:
+    - registered_name: Cashfree Payments India Private Limited
+      licences:
+      - Prepaid Payment Instruments known as ‘Cashfree Payments’
+      - PA- O- ‘Cashfree’
+      - PA-P
+      - PA-CB- I & O
+      register_sections:
+      - Prepaid Payment Instruments
+      - Payment Aggregators
+      register_country: IN
+      matched_domain: cashfree.com
+      matched_by: domain
+      brands:
+      - Cashfree Payments
+      - Cashfree
+      matched_name: Cashfree Payments
+      identity: wikidata Q134715663 'Cashfree Payments' P856 https://www.cashfree.com/
+    register_date: '2026-10-16'
+    signal_note: 'participation only: an RBI Certificate of Authorisation under the PSS Act 2007; the register publishes
+      no API conformance'
+    detected_by: sweep-india-rbi-regulated-entities.py
+    detected: '2026-10-22'
+    identity_source: wikidata P856 (labelled provenance step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
