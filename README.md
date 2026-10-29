@@ -1,4 +1,4 @@
-# Cashfree Payments (cashfree)
+# Cashfree Payments
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,149 +66,190 @@
 
 Cashfree Payments is an Indian payment gateway and banking platform providing REST APIs for payment links, subscriptions, payouts, refunds, QR codes, and banking payouts across UPI, credit and debit cards, net banking, and international payment methods. It serves over one million businesses with RBI authorisation as a Payment Aggregator and Prepaid Payment Instrument provider.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/cashfree/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/cashfree/refs/heads/main/apis.yml)
+**Areas:** Payments · Payouts · UPI · India · Payment Gateway · Subscription · Refunds · QR Codes · Net Banking · Identity Verification
 
-## Tags
+## Cashfree Payments on APIs.io
 
-- Payments
-- Payouts
-- UPI
-- India
-- Payment Gateway
-- Subscriptions
-- Refunds
-- QR Codes
-- Net Banking
-- Identity Verification
+Everything profiled for Cashfree Payments is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/cashfree/](https://apis.io/providers/cashfree/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (23)
 
-- **Created:** 2026-06-13
-- **Modified:** 2026-06-13
+- [Cashfree Subscriptions API](https://apis.io/apis/cashfree/subscriptions/) — API for creating and managing recurring payment mandates using UPI AutoPay and eNACH, including subscription plans, customer mandates, and automated billing…
+- [Cashfree Platforms API](https://apis.io/apis/cashfree/platforms/) — API for marketplace and SaaS platform operators to onboard sub-merchants, split payments, manage settlements to multiple vendors, and operate escrow…
+- [Cashfree Payments Authorize API](https://apis.io/apis/cashfree/cashfree-authorize-api/) — The Authorize API from Cashfree Payments — 1 operation(s) for authorize.
+- [Cashfree Payments Beneficiary v2 API](https://apis.io/apis/cashfree/cashfree-beneficiary-v2-api/) — The Beneficiary v2 API from Cashfree Payments — 1 operation(s) for beneficiary v2.
+- [Cashfree Payments CreateCashgram API](https://apis.io/apis/cashfree/cashfree-createcashgram-api/) — The CreateCashgram API from Cashfree Payments — 1 operation(s) for createcashgram.
+- [Cashfree Payments Deactivate Static KYC Link API](https://apis.io/apis/cashfree/cashfree-deactivate-static-kyc-link-api/) — The Deactivate Static KYC Link API from Cashfree Payments — 1 operation(s) for deactivate static kyc link.
+- [Cashfree Payments DeactivateCashgram API](https://apis.io/apis/cashfree/cashfree-deactivatecashgram-api/) — The DeactivateCashgram API from Cashfree Payments — 1 operation(s) for deactivatecashgram.
+- [Cashfree Payments Disputes API](https://apis.io/apis/cashfree/cashfree-disputes-api/) — Collection of APIs to handle disputes.
+- [Cashfree Payments Easy-Split API](https://apis.io/apis/cashfree/cashfree-easy-split-api/) — Collection of APIs to handle Easy-Split.
+- [Cashfree Payments Eligibility API](https://apis.io/apis/cashfree/cashfree-eligibility-api/) — Collection of APIs to check eligible entities - payment methods, offers, affordability
+- [Cashfree Payments Generate KYC Link API](https://apis.io/apis/cashfree/cashfree-generate-kyc-link-api/) — The Generate KYC Link API from Cashfree Payments — 1 operation(s) for generate kyc link.
+- [Cashfree Payments Generate Static KYC Link API](https://apis.io/apis/cashfree/cashfree-generate-static-kyc-link-api/) — The Generate Static KYC Link API from Cashfree Payments — 1 operation(s) for generate static kyc link.
+- [Cashfree Payments Get KYC Link Status API](https://apis.io/apis/cashfree/cashfree-get-kyc-link-status-api/) — The Get KYC Link Status API from Cashfree Payments — 1 operation(s) for get kyc link status.
+- [Cashfree Payments GetCashgramStatus API](https://apis.io/apis/cashfree/cashfree-getcashgramstatus-api/) — The GetCashgramStatus API from Cashfree Payments — 1 operation(s) for getcashgramstatus.
+- [Cashfree Payments Name Match API](https://apis.io/apis/cashfree/cashfree-name-match-api/) — Operation related to Name Match verification.
+- [Cashfree Payments Orders API](https://apis.io/apis/cashfree/cashfree-orders-api/) — Collection of APIs to handle orders.
+- [Cashfree Payments Payment Links API](https://apis.io/apis/cashfree/cashfree-payment-links-api/) — Collection of APIs to handle payment links.
+- [Cashfree Payments API](https://apis.io/apis/cashfree/cashfree-payments-api/) — Collection of APIs to handle payments.
+- [Cashfree Payments Refunds API](https://apis.io/apis/cashfree/cashfree-refunds-api/) — Collection of APIs to handle refunds.
+- [Cashfree Payments Settlement Reconciliation API](https://apis.io/apis/cashfree/cashfree-settlement-reconciliation-api/) — Collection of APIs to handle settlements
+- [Cashfree Payments Settlements API](https://apis.io/apis/cashfree/cashfree-settlements-api/) — Collection of APIs to handle settlements.
+- [Cashfree Payments Simulation API](https://apis.io/apis/cashfree/cashfree-simulation-api/) — Collection of APIs to handle simulation.
+- [Cashfree Payments Transfers v2 API](https://apis.io/apis/cashfree/cashfree-transfers-v2-api/) — The Transfers v2 API from Cashfree Payments — 2 operation(s) for transfers v2.
 
-## APIs
+### Published properties
 
-### Cashfree Payment Gateway API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-REST API for creating and managing payment orders, processing transactions across UPI, cards, net banking, wallets, and international payment methods, and handling refunds, settlements, and disputes.
+#### Agentic access (1)
 
-- **Human URL:** [https://www.cashfree.com/docs/api-reference/overview](https://www.cashfree.com/docs/api-reference/overview)
-- **Base URL:** `https://api.cashfree.com`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Cashfree Agentic Access](https://apis.io/agentic-access/cashfree/cashfree-agentic-access/)
 
-- Payments
-- Orders
-- Refunds
-- Settlements
-- UPI
-- Cards
-- Net Banking
+#### JSON Schema (3)
 
-#### Properties
+The data models the API reads and writes.
 
-- [Documentation](https://www.cashfree.com/docs/api-reference/overview)
-- [Authentication](https://www.cashfree.com/docs)
-- [OpenAPI](openapi/openapi-payment-gateway.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Cashfree Cashfree Payment Gateway APIs Schemas](https://apis.io/schemas/cashfree/cashfree-payment-gateway-schemas/)
+- [Cashfree Cashfree Payout APIs Schemas](https://apis.io/schemas/cashfree/cashfree-payouts-schemas/)
+- [Cashfree Cashfree Verification API's. Schemas](https://apis.io/schemas/cashfree/cashfree-verification-schemas/)
 
-### Cashfree Payouts API
+#### JSON-LD (4)
 
-REST API for automating fund transfers to beneficiaries — vendors, employees, refund recipients, loan disbursements, and insurance claims. Supports batch payouts, beneficiary management, and connected banking.
+Linked-data contexts for the provider's vocabulary.
 
-- **Human URL:** [https://www.cashfree.com/docs](https://www.cashfree.com/docs)
-- **Base URL:** `https://payout-api.cashfree.com`
+- [Cashfree Payment Gateway Context](https://apis.io/jsonld/cashfree/cashfree-payment-gateway/)
+- [Cashfree Payouts Context](https://apis.io/jsonld/cashfree/cashfree-payouts/)
+- [Cashfree Provider Context](https://apis.io/jsonld/cashfree/cashfree-provider/)
+- [Cashfree Verification Context](https://apis.io/jsonld/cashfree/cashfree-verification/)
 
-#### Tags
+#### Examples (3)
 
-- Payouts
-- Transfers
-- Beneficiaries
-- Batch Payouts
+Example requests and responses.
 
-#### Properties
+- [Cashfree Payment Gateway Examples](https://apis.io/examples/cashfree/cashfree-payment-gateway-examples/)
+- [Cashfree Payouts Examples](https://apis.io/examples/cashfree/cashfree-payouts-examples/)
+- [Cashfree Verification Examples](https://apis.io/examples/cashfree/cashfree-verification-examples/)
 
-- [Documentation](https://www.cashfree.com/docs)
-- [OpenAPI](openapi/openapi-payouts.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+#### Collections (21)
 
-### Cashfree Subscriptions API
+Postman and Open Collection request collections.
 
-API for creating and managing recurring payment mandates using UPI AutoPay and eNACH, including subscription plans, customer mandates, and automated billing cycles.
+- [Cashfree Payment Gateway APIs Authorize API](https://apis.io/collections/cashfree/open-cashfree-authorize-api/)
+- [Cashfree Payment Gateway APIs Authorize Beneficiary v2 API](https://apis.io/collections/cashfree/open-cashfree-beneficiary-v2-api/)
+- [Cashfree Payment Gateway APIs Authorize CreateCashgram API](https://apis.io/collections/cashfree/open-cashfree-createcashgram-api/)
+- [Cashfree Payment Gateway APIs Authorize Deactivate Static KYC Link API](https://apis.io/collections/cashfree/open-cashfree-deactivate-static-kyc-link-api/)
+- [Cashfree Payment Gateway APIs Authorize DeactivateCashgram API](https://apis.io/collections/cashfree/open-cashfree-deactivatecashgram-api/)
+- [Cashfree Payment Gateway APIs Authorize Disputes API](https://apis.io/collections/cashfree/open-cashfree-disputes-api/)
+- [Cashfree Payment Gateway APIs Authorize Easy-Split API](https://apis.io/collections/cashfree/open-cashfree-easy-split-api/)
+- [Cashfree Payment Gateway APIs Authorize Eligibility API](https://apis.io/collections/cashfree/open-cashfree-eligibility-api/)
+- [Cashfree Payment Gateway APIs Authorize Generate KYC Link API](https://apis.io/collections/cashfree/open-cashfree-generate-kyc-link-api/)
+- [Cashfree Payment Gateway APIs Authorize Generate Static KYC Link API](https://apis.io/collections/cashfree/open-cashfree-generate-static-kyc-link-api/)
+- [Cashfree Payment Gateway APIs Authorize Get KYC Link Status API](https://apis.io/collections/cashfree/open-cashfree-get-kyc-link-status-api/)
+- [Cashfree Payment Gateway APIs Authorize GetCashgramStatus API](https://apis.io/collections/cashfree/open-cashfree-getcashgramstatus-api/)
+- [Cashfree Payment Gateway APIs Authorize Name Match API](https://apis.io/collections/cashfree/open-cashfree-name-match-api/)
+- [Cashfree Payment Gateway APIs Authorize Orders API](https://apis.io/collections/cashfree/open-cashfree-orders-api/)
+- [Cashfree Payment Gateway APIs Authorize Payment Links API](https://apis.io/collections/cashfree/open-cashfree-payment-links-api/)
+- [Cashfree Payment Gateway APIs Authorize Payments API](https://apis.io/collections/cashfree/open-cashfree-payments-api/)
+- [Cashfree Payment Gateway APIs Authorize Refunds API](https://apis.io/collections/cashfree/open-cashfree-refunds-api/)
+- [Cashfree Payment Gateway APIs Authorize Settlement Reconciliation API](https://apis.io/collections/cashfree/open-cashfree-settlement-reconciliation-api/)
+- [Cashfree Payment Gateway APIs Authorize Settlements API](https://apis.io/collections/cashfree/open-cashfree-settlements-api/)
+- [Cashfree Payment Gateway APIs Authorize Simulation API](https://apis.io/collections/cashfree/open-cashfree-simulation-api/)
+- [Cashfree Payment Gateway APIs Authorize Transfers v2 API](https://apis.io/collections/cashfree/open-cashfree-transfers-v2-api/)
 
-- **Human URL:** [https://www.cashfree.com/docs](https://www.cashfree.com/docs)
-- **Base URL:** `https://api.cashfree.com`
+#### Governance rules (1)
 
-#### Tags
+Spectral rulesets for the provider's contracts.
 
-- Subscriptions
-- Recurring Payments
-- UPI AutoPay
-- eNACH
+- [Cashfree Payments — jsonschema rules](https://apis.io/rules/cashfree/cashfree-jsonschema-spectral-rules/)
 
-#### Properties
+#### Security (2)
 
-- [Documentation](https://www.cashfree.com/docs)
+Authentication, trust centre, and vulnerability disclosure.
 
-### Cashfree Secure ID (Verification) API
+- [Cashfree Authentication](https://apis.io/security/cashfree/cashfree-authentication/)
+- [Cashfree Domain Security](https://apis.io/security/cashfree/cashfree-domain-security/)
 
-Identity verification and KYC API supporting PAN, Aadhaar, bank account, GST, passport, driving licence verification, face match, and video KYC for onboarding and compliance workflows.
+#### Plans and pricing (1)
 
-- **Human URL:** [https://www.cashfree.com/docs](https://www.cashfree.com/docs)
-- **Base URL:** `https://api.cashfree.com`
+Published plans, tiers and prices.
 
-#### Tags
+- [Cashfree Plans Pricing](https://apis.io/plans/cashfree/cashfree-plans-pricing/)
 
-- Identity Verification
-- KYC
-- Aadhaar
-- PAN
-- Bank Account Verification
+#### Rate limits (1)
 
-#### Properties
+Published request limits.
 
-- [Documentation](https://www.cashfree.com/docs)
-- [OpenAPI](openapi/openapi-verification.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Cashfree Rate Limits](https://apis.io/rate-limits/cashfree/cashfree-rate-limits/)
 
-### Cashfree Platforms API
+#### FinOps (1)
 
-API for marketplace and SaaS platform operators to onboard sub-merchants, split payments, manage settlements to multiple vendors, and operate escrow arrangements.
+What the API costs to run, by operation.
 
-- **Human URL:** [https://www.cashfree.com/docs](https://www.cashfree.com/docs)
-- **Base URL:** `https://api.cashfree.com`
+- [Cashfree Finops](https://apis.io/finops/cashfree/cashfree-finops/)
 
-#### Tags
+## Where to find this API
 
-- Marketplaces
-- Split Payments
-- Merchant Onboarding
-- Escrow
-
-#### Properties
-
-- [Documentation](https://www.cashfree.com/docs)
-
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.cashfree.com/)
 - [Documentation](https://www.cashfree.com/docs)
-- [Git Hub Org](https://github.com/cashfree)
-- [LinkedIn](https://in.linkedin.com/company/cashfree)
-- [Blog](https://www.cashfree.com/blog/)
 - [Pricing](https://www.cashfree.com/payment-gateway-charges/)
-- [Status Page](https://status.cashfree.com/)
-- [X (Twitter)](https://x.com/gocashfree)
-- [Dev Portal](https://www.cashfree.com/devstudio)
 - [Support](https://www.cashfree.com/support/)
-- [Contact](https://www.cashfree.com/contact-us/)
-- [Plans](plans/cashfree-plans-pricing.yml)
-- [Rate Limits](rate-limits/cashfree-rate-limits.yml)
-- [Fin Ops](finops/cashfree-finops.yml)
-- [Vocabulary](vocabulary/cashfree-vocabulary.json)
-- [JSON Schema](json-schema/cashfree-payment-gateway-schemas.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/cashfree-payouts-schemas.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/cashfree-verification-schemas.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON-LD](json-ld/cashfree-provider.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [Blog](https://www.cashfree.com/blog/)
+- [Status](https://status.cashfree.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 34.0** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 57.1 |
+| Contract governance | 23.5 |
+| Operational transparency | 13.2 |
+| Developer ergonomics | 28.6 |
+| Access clarity | 18.4 |
+
+**Agent readiness 38.8** — agent-native
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | verified |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | verified |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 15.2** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/cashfree/](https://apis.io/providers/cashfree/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Cashfree Payments: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/cashfree/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
